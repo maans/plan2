@@ -1,0 +1,1778 @@
+{
+  "format": "plan-library-catalog",
+  "version": 2,
+  "title": "Plan · demoforløb og skabeloner",
+  "description": "Demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
+  "updatedAt": "2026-07-09",
+  "categories": [
+    {
+      "id": "dansk",
+      "title": "Dansk",
+      "description": "Sprog, litteratur, medier og prøveforberedelse."
+    },
+    {
+      "id": "engelsk",
+      "title": "Engelsk",
+      "description": "Sprog, kultur, litteratur og mundtlig/skriftlig kommunikation."
+    },
+    {
+      "id": "matematik",
+      "title": "Matematik",
+      "description": "Tal, algebra, geometri, statistik og problemløsning."
+    },
+    {
+      "id": "science",
+      "title": "Science",
+      "description": "Naturfag, fysik/kemi, biologi og geografi."
+    },
+    {
+      "id": "tysk",
+      "title": "Tysk",
+      "description": "Sprog, kultur, litteratur og kommunikation."
+    },
+    {
+      "id": "musik",
+      "title": "Musik",
+      "description": "Musik, genrer, lytning, rytmer, kultur og sammenspil."
+    },
+    {
+      "id": "historie",
+      "title": "Historie",
+      "description": "Historieforløb, kildearbejde, kronologi og samfundsudvikling."
+    },
+    {
+      "id": "andre-9",
+      "title": "Andre 9.-klassefag",
+      "description": "Historie, samfundsfag, idræt/gymnastik, kristendom, musik m.fl."
+    },
+    {
+      "id": "andre",
+      "title": "Andre",
+      "description": "Tværfaglige forløb, skoleliv, fællessamlinger, kontaktgrupper og øvrige forløb."
+    },
+    {
+      "id": "skabeloner",
+      "title": "Skabeloner",
+      "description": "Tomme, men arbejdsklare tavlesæt til fag, roller, hold og efterskolearbejdsgange."
+    }
+  ],
+  "items": [
+    {
+      "id": "dansk-2025-26",
+      "kind": "demo",
+      "status": "published",
+      "title": "Dansk 9.–10. klasse · årsplan 2025–26",
+      "category": "dansk",
+      "subject": "Dansk",
+      "description": "Et samlet danskforløb uden indlejrede materialer: familie, identitet, litteraturhistorie, frihed, reklamer, prøveforberedelse og afsluttende KaPardy-repetition. Materialer tilføjes manuelt lokalt.",
+      "schoolYear": "2025–26",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "årsplan",
+        "dansk",
+        "litteratur",
+        "medier",
+        "synopse",
+        "prøveforberedelse",
+        "KaPardy",
+        "huskekort",
+        "demo",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "1.0.1-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/dansk-2025-26/forloeb.json",
+      "sizeBytes": 886420,
+      "featured": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "faellessamlinger-2026-27",
+      "kind": "demo",
+      "status": "published",
+      "title": "Fællessamlinger · årsforløb 2026–27",
+      "category": "andre",
+      "subject": "Fællessamlinger",
+      "description": "Et skoleårs fællessamlinger med historie, samfund, kultur, natur, musik, kilder og gennemrettede KaPardy-opsamlinger.",
+      "schoolYear": "2026–27",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "årsplan",
+        "fællessamling",
+        "skoleliv",
+        "historie",
+        "samfund",
+        "kultur",
+        "KaPardy",
+        "huskekort",
+        "demo",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8",
+        "kilder",
+        "kildekontrol",
+        "sourcefields"
+      ],
+      "version": "1.0.0-sourcefields11",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/faellessamlinger-2026-27/forloeb.json",
+      "sizeBytes": 8430187,
+      "featured": true,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "id": "camp-26",
+      "kind": "demo",
+      "status": "published",
+      "title": "Camp 26 · kreativt værksted",
+      "category": "andre",
+      "subject": "Kunst",
+      "description": "Et kreativt kunstforløb med gruppeinddeling, medier, refleksion, huskekort og afsluttende KaPardy.",
+      "schoolYear": "2026",
+      "gradeLevels": [],
+      "tags": [
+        "kunst",
+        "billedkunst",
+        "kreativt værksted",
+        "camp",
+        "børn",
+        "kommende elever",
+        "grupper",
+        "video",
+        "KaPardy",
+        "huskekort",
+        "demo",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "1.0.0-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/camp-26/forloeb.json",
+      "sizeBytes": 2414874,
+      "featured": false,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "id": "20-sporgsmal-dansk-litteratur",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Dansk litteratur",
+      "category": "dansk",
+      "subject": "Dansk",
+      "description": "Et kildebaseret litteraturforløb med huskekort, forfatter- og værkspor samt KaPardy som afslutning.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "dansk",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-dansk-litteratur/forloeb.json",
+      "sizeBytes": 88652,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-engelsk",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Engelsk sprog og kultur",
+      "category": "engelsk",
+      "subject": "Engelsk",
+      "description": "Engelsk ordforråd, grammatik, sproglig verden og kultur arbejdet frem med kilder, øvelser og huskekort.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "engelsk",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/engelsk/20-sporgsmal-engelsk/forloeb.json",
+      "sizeBytes": 87473,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-matematik",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Matematik",
+      "category": "matematik",
+      "subject": "Matematik",
+      "description": "Matematikforløb med begrebsarbejde, forklaringer, interaktive kilder og huskekort før KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "matematik",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/matematik/20-sporgsmal-matematik/forloeb.json",
+      "sizeBytes": 81255,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-kemi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Kemiens grundstoffer",
+      "category": "science",
+      "subject": "Science / fysik-kemi",
+      "description": "Periodesystem, symboler, atomnumre og anvendelser med kilder og huskekort som træning.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-kemi/forloeb.json",
+      "sizeBytes": 82525,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-tysk",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Tysk sprog og kultur",
+      "category": "tysk",
+      "subject": "Tysk",
+      "description": "Tysk sprog, kultur, geografi og ordforråd med kilder, øvelser og huskekort.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "tysk",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/tysk/20-sporgsmal-tysk/forloeb.json",
+      "sizeBytes": 84395,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-balkanmusik",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Balkanmusik",
+      "category": "musik",
+      "subject": "Musik",
+      "description": "Musikfagligt forløb om skæve taktarter, Roma-traditioner, instrumenter og regional musik med lyttende kilder.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "musik",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-balkanmusik/forloeb.json",
+      "sizeBytes": 86289,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-verdenskrigene",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Verdenskrigenes historie",
+      "category": "historie",
+      "subject": "Historie",
+      "description": "Historieforløb med kilder, kronologi, begrebskort og KaPardy om verdenskrigene.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "historie",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-verdenskrigene/forloeb.json",
+      "sizeBytes": 88429,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-efterskoleliv",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Efterskoleliv",
+      "category": "andre",
+      "subject": "Skoleliv",
+      "description": "Kildebaseret skolelivsforløb om efterskolens rammer, fællesskab, prøver og hverdag.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "skoleliv",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/skoleliv/20-sporgsmal-efterskoleliv/forloeb.json",
+      "sizeBytes": 91988,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-mad-fra-hele-verden",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Mad fra hele verden",
+      "category": "andre",
+      "subject": "Mad og kultur",
+      "description": "Madkultur, teknikker, råvarer og kulturarv med kilder og huskekort før spillet.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "mad",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/tvaerfagligt/20-sporgsmal-mad-fra-hele-verden/forloeb.json",
+      "sizeBytes": 89811,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-film-fra-1980erne",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Film fra 1980’erne",
+      "category": "andre",
+      "subject": "Film og kultur",
+      "description": "Filmhistorisk forløb med kilder, trailere/arkiver, værkbegreber og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "film",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/tvaerfagligt/20-sporgsmal-film-fra-1980erne/forloeb.json",
+      "sizeBytes": 87831,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-musikgenrer",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Musikgenrer",
+      "category": "musik",
+      "subject": "Musik",
+      "description": "Generelt musikforløb om genrer, rødder, instrumenter og stilkendetegn med lytning og huskekort.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "musik",
+        "kilder",
+        "huskekort",
+        "KaPardy",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-musikgenrer/forloeb.json",
+      "sizeBytes": 87842,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-astronomi-rum",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Astronomi og rum",
+      "category": "science",
+      "subject": "Science / astronomi",
+      "description": "Astronomi og rum arbejdet frem med kilder, billedressourcer, missionstavler, nedtælling, huskekort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-astronomi-rum/forloeb.json",
+      "sizeBytes": 84860,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-beromte-opfindelser",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Berømte opfindelser",
+      "category": "science",
+      "subject": "Science / teknologi og historie",
+      "description": "Teknologihistorisk forløb med tidslinje, kildekritik, opfinderkort, Ressourcematrix og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-beromte-opfindelser/forloeb.json",
+      "sizeBytes": 94066,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-biologi-natur",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Biologi og natur",
+      "category": "science",
+      "subject": "Science / biologi",
+      "description": "Biologiforløb med celler, arv, planter, økologi, billedkilder, stationsarbejde, huskekort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-biologi-natur/forloeb.json",
+      "sizeBytes": 87267,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-danske-opfindelser",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Danske opfindelser",
+      "category": "science",
+      "subject": "Science / teknologi og dansk forskning",
+      "description": "Danske opfindelser og forskningsspor med tidslinje, virksomheds-/museumskilder, ekspertgrupper og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-danske-opfindelser/forloeb.json",
+      "sizeBytes": 89570,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-klimaforandringer",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Klimaforandringer",
+      "category": "science",
+      "subject": "Science / klima og geografi",
+      "description": "Klimaforløb med data, officielle kilder, ekspertgrupper, begrebskort, afstemning, timer og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-klimaforandringer/forloeb.json",
+      "sizeBytes": 94852,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-rumfart",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Rumfart",
+      "category": "science",
+      "subject": "Science / rumfart",
+      "description": "Rumfartsforløb med missionstavle, nedtælling, historiske kilder, satellitkort, huskekort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-rumfart/forloeb.json",
+      "sizeBytes": 85894,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-danmark-historie-topografi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Danmark · historie og topografi",
+      "category": "historie",
+      "subject": "Historie / geografi",
+      "description": "Danmarkshistorie, landskab, øer, farvande og kulturhistorie med kort, kilder, tidslinje og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "historie",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-danmark-historie-topografi/forloeb.json",
+      "sizeBytes": 89410,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-jydsk-historie-topografi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Jydsk historie og topografi",
+      "category": "historie",
+      "subject": "Historie / geografi",
+      "description": "Jyllands byer, landskaber, arkæologi, kultur og forbindelser med kortarbejde, lokale kilder og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "historie",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-jydsk-historie-topografi/forloeb.json",
+      "sizeBytes": 90541,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-dansk-politik",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Dansk politik",
+      "category": "andre-9",
+      "subject": "Samfundsfag",
+      "description": "Samfundsfagsforløb om grundlov, valg, partier, regeringer, regioner og rigsfællesskab med rollespil og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "samfundsfag",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/samfundsfag/20-sporgsmal-dansk-politik/forloeb.json",
+      "sizeBytes": 87002,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-europaeiske-hovedstaeder",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Europæiske hovedstæder",
+      "category": "andre-9",
+      "subject": "Geografi / kulturfag",
+      "description": "Geografiforløb om europæiske hovedstæder, kort, kendte steder og institutioner med kortværksted og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "geografi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-europaeiske-hovedstaeder/forloeb.json",
+      "sizeBytes": 86716,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-nordiske-lande",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Nordiske lande",
+      "category": "andre-9",
+      "subject": "Geografi / samfundsfag",
+      "description": "Nordisk forløb om lande, valutaer, natur, sprog, EU/NATO og samarbejde med kort, grupper og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "geografi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-nordiske-lande/forloeb.json",
+      "sizeBytes": 84153,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-verdens-geografi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Verdens geografi",
+      "category": "andre-9",
+      "subject": "Geografi",
+      "description": "Geografiforløb om hovedstæder, landskaber, have, øer, grænser og kortbegreber med Ressourcematrix og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "geografi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-verdens-geografi/forloeb.json",
+      "sizeBytes": 85908,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-vikinger",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Vikinger",
+      "category": "historie",
+      "subject": "Historie",
+      "description": "Historieforløb om vikingeskibe, handel, tro, runer, steder og begivenheder med kilder, kort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "historie",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-vikinger/forloeb.json",
+      "sizeBytes": 85630,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-fransk",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Fransk sprog og kultur",
+      "category": "andre-9",
+      "subject": "Fransk",
+      "description": "Franskforløb med ordforråd, grammatik, kultur og frankofon verden med lyd-/webressourcer, mundtlige runder og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "fransk",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/sprog/20-sporgsmal-fransk/forloeb.json",
+      "sizeBytes": 85079,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-spansk",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Spansk sprog og kultur",
+      "category": "andre-9",
+      "subject": "Spansk",
+      "description": "Spanskforløb med ordforråd, grammatik, kunst, kultur og spansktalende verden med mundtlige øvelser og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "spansk",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/sprog/20-sporgsmal-spansk/forloeb.json",
+      "sizeBytes": 84700,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-kropssprog",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Kropssprog",
+      "category": "dansk",
+      "subject": "Dansk / kommunikation",
+      "description": "Kommunikationsforløb om ansigt, blik, rum, berøring, samtalefunktioner og myter med videoanalyse, rollespil og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "dansk",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-kropssprog/forloeb.json",
+      "sizeBytes": 92099,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-mytologi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Mytologi fra verden",
+      "category": "andre-9",
+      "subject": "Kristendomskundskab / kulturfag",
+      "description": "Kulturfagligt forløb om græsk-romersk, egyptisk, mesopotamisk, hinduistisk og japansk mytologi med sammenligningskort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "kristendomskundskab",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/kulturfag/20-sporgsmal-mytologi/forloeb.json",
+      "sizeBytes": 83152,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-nordisk-mytologi",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Nordisk mytologi",
+      "category": "dansk",
+      "subject": "Dansk / historie / kristendomskundskab",
+      "description": "Forløb om nordiske guder, væsner, verdener, kilder og ritualer med kildelæsning, begrebskort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "dansk",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-nordisk-mytologi/forloeb.json",
+      "sizeBytes": 86283,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-musik-komponister",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Musikkens komponister",
+      "category": "musik",
+      "subject": "Musik",
+      "description": "Musikforløb om komponister, værker og perioder med lytning, tidslinje, kildearbejde, huskekort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "musik",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-musik-komponister/forloeb.json",
+      "sizeBytes": 90771,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-heste",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Heste",
+      "category": "andre-9",
+      "subject": "Biologi / idræt",
+      "description": "Forløb om hestens krop, pasning, sundhed, racer og sport med billedressourcer, stationsarbejde og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "biologi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-heste/forloeb.json",
+      "sizeBytes": 87509,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-kaninunger",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Kaninunger",
+      "category": "andre-9",
+      "subject": "Biologi / dyrevelfærd",
+      "description": "Forløb om kaninungers fødsel, rede, pleje, sundhed og adfærd med veterinære kilder, pasningsplan og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "biologi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "9.–10. klasse",
+        "fase 8"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-kaninunger/forloeb.json",
+      "sizeBytes": 92300,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-verdens-maerkelige-dyr",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Verdens mærkelige dyr",
+      "category": "science",
+      "subject": "Biologi / natur",
+      "description": "Biologiforløb om usædvanlige tilpasninger, levesteder, adfærd og slægtskab med billedmatrix, kilder og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "biologi",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-verdens-maerkelige-dyr/forloeb.json",
+      "sizeBytes": 87722,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-sport-olympiske",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Sport og olympiske lege",
+      "category": "andre-9",
+      "subject": "Idræt / historie",
+      "description": "Forløb om olympiske værtsbyer, sportsgrene, organisation og præstationer med tidslinje, hold, timer og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "idræt",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-sport-olympiske/forloeb.json",
+      "sizeBytes": 88183,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "20-sporgsmal-naturvidenskab",
+      "kind": "demo",
+      "status": "published",
+      "title": "20 spørgsmål fra professoren · Naturvidenskab · grundlæggende",
+      "category": "science",
+      "subject": "Science / naturvidenskab",
+      "description": "Grundlæggende naturvidenskab med fysik, kemi, geologi og måling/metode gennem forsøg, begrebskort og KaPardy.",
+      "schoolYear": "",
+      "gradeLevels": [
+        "9",
+        "10"
+      ],
+      "tags": [
+        "20 spørgsmål fra professoren",
+        "science",
+        "kilder",
+        "ressourcematrix",
+        "huskekort",
+        "KaPardy",
+        "Plan-demo",
+        "kildeløft",
+        "fase3",
+        "fase4",
+        "faktatjekket",
+        "KaPardy-kvalitet",
+        "fase 8",
+        "9.–10. klasse"
+      ],
+      "version": "2.4.0-source-quality-github-kapardy-qc8",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-naturvidenskab/forloeb.json",
+      "sizeBytes": 86222,
+      "featured": false,
+      "updatedAt": "2026-07-08",
+      "quality": {
+        "sourceUpgrade": "fase4-faktatjek-danske-elevkilder"
+      }
+    },
+    {
+      "id": "kontaktgruppe",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Kontaktgruppe",
+      "category": "skabeloner",
+      "subject": "Kontaktgruppe",
+      "description": "Kontaktlærerens tomme tavlesæt til elevoversigt, samtaler, aftaler, forældrekontakt og trivsel.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "kontaktgruppe",
+        "elevsamtaler",
+        "trivsel",
+        "forældrekontakt"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/kontaktgruppe/forloeb.json",
+      "sizeBytes": 38586,
+      "featured": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "fagforloeb-4-6-uger",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Fagforløb 4–6 uger",
+      "category": "skabeloner",
+      "subject": "Fagforløb",
+      "description": "Tomt fagforløb med mål, materialebank, lektionstavler, opgavekort, timer, KaPardy og huskekort.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "fagforløb",
+        "lektioner",
+        "materialebank",
+        "KaPardy",
+        "huskekort"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/fagforloeb-4-6-uger/forloeb.json",
+      "sizeBytes": 33678,
+      "featured": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "aarsforloeb",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Årsforløb",
+      "category": "skabeloner",
+      "subject": "Årsforløb",
+      "description": "Tom årsstruktur med kalender, forløbskort, materialebank og evaluering.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "årsforløb",
+        "kalender",
+        "planlægning"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/aarsforloeb/forloeb.json",
+      "sizeBytes": 29893,
+      "featured": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "materialebank",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Materialebank",
+      "category": "skabeloner",
+      "subject": "Materialebank",
+      "description": "Tom materialebank til lærerens egne PDF’er, billeder, links, lyd/video og opgaver.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "materialebank",
+        "PDF",
+        "billeder",
+        "links"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/materialebank/forloeb.json",
+      "sizeBytes": 33310,
+      "featured": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "kapardy-repetition",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · KaPardy og repetition",
+      "category": "skabeloner",
+      "subject": "Repetition",
+      "description": "Tomt KaPardy- og huskekortsetup til repetition, prøveforberedelse og begrebstræning.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "KaPardy",
+        "huskekort",
+        "repetition",
+        "spørgsmålsbank"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/kapardy-repetition/forloeb.json",
+      "sizeBytes": 13289,
+      "featured": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "udtalelser",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Udtalelser",
+      "category": "skabeloner",
+      "subject": "Udtalelser",
+      "description": "Arbejdsgang til elevdata, noter, udtalelseskladder, tjek og færdiggørelse.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "udtalelser",
+        "elevnoter",
+        "kladder"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/udtalelser/forloeb.json",
+      "sizeBytes": 19869,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "praktisk-uge",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Praktisk uge",
+      "category": "skabeloner",
+      "subject": "Praktisk uge",
+      "description": "Tavlesæt til hold, opgaver, dagsplaner og opsamling i en praktisk uge.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "praktisk uge",
+        "hold",
+        "opgaver"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/praktisk-uge/forloeb.json",
+      "sizeBytes": 25958,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "rejsehold",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Rejsehold",
+      "category": "skabeloner",
+      "subject": "Rejsehold",
+      "description": "Planlægningstavler til deltagerliste, program, pakkeliste, aftaler og opsamling før/under/efter en rejse.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "rejsehold",
+        "studietur",
+        "pakkeliste",
+        "program"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/rejsehold/forloeb.json",
+      "sizeBytes": 14530,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "koekkenhold",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Køkkenhold",
+      "category": "skabeloner",
+      "subject": "Køkkenhold",
+      "description": "Overblik til køkkenhold, opgaver, opskrifter, timer, rengøring og evaluering.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "køkkenhold",
+        "køkken",
+        "opskrifter",
+        "rengøring"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/koekkenhold/forloeb.json",
+      "sizeBytes": 14531,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "vikar",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Vikar",
+      "category": "skabeloner",
+      "subject": "Vikar",
+      "description": "Klar vikarskabelon med dagsplan, materialer, holdinfo, besked til lærer og backupopgaver.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "vikar",
+        "dagsplan",
+        "materialer",
+        "backup"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/vikar/forloeb.json",
+      "sizeBytes": 13136,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "gruppeinddeling-gruppetavler",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Gruppeinddeling og gruppetavler",
+      "category": "skabeloner",
+      "subject": "Grupper",
+      "description": "Tavlesæt til deltagerliste, gruppeinddeling, gruppetavleskabelon og opsamling.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "grupper",
+        "gruppetavler",
+        "gruppearbejde"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/gruppeinddeling-gruppetavler/forloeb.json",
+      "sizeBytes": 14526,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "sydvest-linjehold",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · SydVest / linjehold",
+      "category": "skabeloner",
+      "subject": "Linjehold",
+      "description": "Fleksibel skabelon til linjehold eller aktivitetshold med deltagere, kalender, materialer og projekter.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "SydVest",
+        "linjehold",
+        "aktiviteter",
+        "projekter"
+      ],
+      "version": "0.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/sydvest-linjehold/forloeb.json",
+      "sizeBytes": 16428,
+      "featured": false,
+      "updatedAt": "2026-07-07"
+    }
+  ],
+  "quality": {
+    "professorSourceUpgrade": "fase3-9-10-dansk-kildestilladsering",
+    "updatedAt": "2026-07-08T20:35:30Z",
+    "sourceUpgrade": "fase4-faktatjek-danske-elevkilder",
+    "sourcePolicy": "Danske, elevtilgængelige kvalitetskilder til 9.–10. klasse som standard.",
+    "phase4UpdatedAt": "2026-07-08T22:15:00+02:00",
+    "kapardyDidacticReview": {
+      "updatedAt": "2026-07-08",
+      "phase": "fase5",
+      "scope": "Alle KaPardy-spil i plan-library blev strukturelt valideret; svage/for lette distraktorer blev omskrevet i resten af biblioteket og synkroniseret til huskekort-snapshots.",
+      "targetGroup": "9.–10. klasse",
+      "checks": [
+        "facit matcher correctIndex",
+        "fire svarmuligheder hvor der er spørgsmål",
+        "huskekort-snapshots synkroniseret",
+        "for tydeligt absurde forkerte svar reduceret",
+        "tom-skabeloner er fortsat tomme"
+      ]
+    },
+    "kapardyQualityPhase8": {
+      "updatedAt": "2026-07-08T23:58:00Z",
+      "focus": "fagligt niveau, plausible distraktorer, fjernelse af resterende standardsvar og joke-svar",
+      "changedFiles": [
+        "andre/dyr-og-idraet/20-sporgsmal-heste/forloeb.json",
+        "andre/dyr-og-idraet/20-sporgsmal-kaninunger/forloeb.json",
+        "andre/faellessamlinger-2026-27/forloeb.json",
+        "matematik/20-sporgsmal-matematik/forloeb.json",
+        "science/20-sporgsmal-kemi/forloeb.json",
+        "science/20-sporgsmal-klimaforandringer/forloeb.json",
+        "science/20-sporgsmal-rumfart/forloeb.json"
+      ],
+      "changedOptions": 128,
+      "changedQuestions": 72
+    }
+  }
+}

@@ -1,0 +1,2738 @@
+{
+  "format": "tavle-next-course-package",
+  "backupKind": "course-package",
+  "coursePackageVersion": 1,
+  "version": 3,
+  "schemaVersion": 3,
+  "appVersion": "1.0.9",
+  "kind": "course-package",
+  "createdAt": "2026-07-07T00:45:00.000Z",
+  "course": {
+    "id": "course_professor_20-sporgsmal-matematik_v2_showcase",
+    "title": "20 spørgsmål fra professoren · Matematik",
+    "subject": "Matematik",
+    "schoolYear": "",
+    "sessionIds": [
+      "session_professor_20-sporgsmal-matematik_v2_showcase"
+    ],
+    "exportedAt": "2026-07-07T00:45:00.000Z",
+    "sourceAppVersion": "1.0.9",
+    "quality": {
+      "sourceUpgrade": "fase4-faktatjek-danske-elevkilder",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "sourcePolicy": "Danske, elevtilgængelige kvalitetskilder som standard; mål- eller engelsksprogede kilder kun som præcise supplementer, når danske kilder er svage.",
+      "phase4UpdatedAt": "2026-07-08T22:15:00+02:00",
+      "kapardyUpgrade": "fase8-fagligt-niveau-og-plausible-distraktorer"
+    }
+  },
+  "sessions": [
+    {
+      "id": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "schemaVersion": 1,
+      "title": "20 spørgsmål fra professoren · Matematik",
+      "theme": "dark",
+      "activeBoardId": "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+      "boardIds": [
+        "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_8",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+        "board_professor_20-sporgsmal-matematik_v2_showcase_10"
+      ],
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T22:15:00+02:00",
+      "meta": {
+        "courseId": "course_professor_20-sporgsmal-matematik_v2_showcase",
+        "courseTitle": "20 spørgsmål fra professoren · Matematik",
+        "courseSubject": "Matematik",
+        "courseSchoolYear": "",
+        "courseOrder": 1,
+        "planOrder": 1,
+        "courseSessionIds": [
+          "session_professor_20-sporgsmal-matematik_v2_showcase"
+        ],
+        "courseSequenceVersion": 2,
+        "courseSequenceSource": "metadata",
+        "sourceKind": "plan-library-demo",
+        "sourceCsv": "spil/kapardy/20/matematik_basics_20.csv",
+        "estimatedLessons": "2–4",
+        "professorVersion": "v2-kilder-huskekort-showcase",
+        "showcaseTools": [
+          "Ressourcematrix",
+          "Huskekortmatrix",
+          "Timer",
+          "Gruppeværktøj",
+          "Nøgleordssky",
+          "KaPardy"
+        ],
+        "sourceQualityUpgrade": "fase4-faktatjek-danske-elevkilder",
+        "teacherNote": "Kilderne er kvalitetsløftet og faktatjekket med hovedvægt på danske, elevtilgængelige kilder til 9.–10. klasse."
+      }
+    }
+  ],
+  "boards": [
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "Overblik · Matematik",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#10243e 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_intro",
+        "w_20-sporgsmal-matematik_route",
+        "w_20-sporgsmal-matematik_index"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "overview",
+        "order": 1
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "Ressourcematrix og kilder",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#30204f 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_resource_matrix",
+        "w_20-sporgsmal-matematik_source_1",
+        "w_20-sporgsmal-matematik_source_2",
+        "w_20-sporgsmal-matematik_source_3",
+        "w_20-sporgsmal-matematik_source_4",
+        "w_20-sporgsmal-matematik_source_5",
+        "w_20-sporgsmal-matematik_sources_text"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "sources",
+        "order": 2
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "Demo-hold, timer og arbejdsflow",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#4a2a12 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_groups",
+        "w_20-sporgsmal-matematik_tool_text",
+        "w_20-sporgsmal-matematik_timer",
+        "w_20-sporgsmal-matematik_countdown",
+        "w_20-sporgsmal-matematik_wordcloud",
+        "w_20-sporgsmal-matematik_calendar"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "showcase",
+        "order": 3
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "1. Regning",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_cat1_core",
+        "w_20-sporgsmal-matematik_cat1_activity",
+        "w_20-sporgsmal-matematik_cat1_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 4
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "2. Brøker og procent",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_cat2_core",
+        "w_20-sporgsmal-matematik_cat2_activity",
+        "w_20-sporgsmal-matematik_cat2_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 5
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "3. Geometri og måling",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_cat3_core",
+        "w_20-sporgsmal-matematik_cat3_activity",
+        "w_20-sporgsmal-matematik_cat3_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 6
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "4. Tal og algebra",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_cat4_core",
+        "w_20-sporgsmal-matematik_cat4_activity",
+        "w_20-sporgsmal-matematik_cat4_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 7
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_8",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "Huskekortmatrix og aktiv genkaldelse",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#3c1632 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_flashcards"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "flashcards",
+        "order": 8
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "Professorens prøveværksted",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#4a2a12 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_workshop",
+        "w_20-sporgsmal-matematik_workshop_timer",
+        "w_20-sporgsmal-matematik_workshop_sources",
+        "w_20-sporgsmal-matematik_workshop_cards"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "workshop",
+        "order": 9
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-matematik_v2_showcase_10",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-matematik_v2_showcase",
+      "title": "KaPardy · 20 spørgsmål",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#10243e 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-matematik_kapardy"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "kapardy",
+        "order": 10
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w_20-sporgsmal-matematik_intro",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+      "type": "text",
+      "title": "Professorens udfordring",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 560,
+        "height": 405,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "20 SPØRGSMÅL FRA PROFESSOREN · DEMOFORLØB\nMATEMATIK\n\nIDÉ\nEleverne arbejder først med kilder, forklaringer, forvekslinger, huskekort og Plan-værktøjer. KaPardy-spillet kommer til sidst som faglig opsamling.\n\nMÅL\n• finde viden i kilder og medier\n• forklare de rigtige svar med egne ord\n• gennemskue plausible, men forkerte svar\n• bruge Huskekortmatrix til aktiv genkaldelse\n• afprøve flere Plan-værktøjer i én sammenhæng\n\nKilde for spillet: spil/kapardy/20/matematik_basics_20.csv",
+        "fontSize": 17,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "intro"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_route",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+      "type": "text",
+      "title": "Lektionsplan og Plan-værktøjer",
+      "geometry": {
+        "x": 600,
+        "y": 85,
+        "width": 580,
+        "height": 405,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "2–4 LEKTIONER\n\n1. Overblik og professorens udfordring.\n2. Ressourcematrix og kildevalg.\n3. Demo-hold og arbejdsfordeling.\n4. Kategoriarbejde: Regning, Brøker og procent, Geometri og måling, Tal og algebra.\n5. Huskekortmatrix og aktiv genkaldelse.\n6. Prøveværksted og afsluttende KaPardy.\n\nPLAN-VÆRKTØJER I DETTE FORLØB\n• Ressourcematrix\n• Huskekortmatrix\n• Timer\n• Gruppeværktøj\n• Nøgleordssky\n• KaPardy\n\nDEMOIDÉ\nRegnehold forklarer metoder før facit: regning, procent, geometri og algebra.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "lesson-plan"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_index",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+      "type": "board-index",
+      "title": "Tavler i forløbet",
+      "geometry": {
+        "x": 20,
+        "y": 510,
+        "width": 1160,
+        "height": 295,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "boardIds": [
+          "board_professor_20-sporgsmal-matematik_v2_showcase_1",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_8",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+          "board_professor_20-sporgsmal-matematik_v2_showcase_10"
+        ]
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "board-index"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_resource_matrix",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "resource-matrix",
+      "title": "Ressourcematrix",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 520,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "version": 1,
+        "resources": [
+          {
+            "title": "Webmatematik · 7.-9. klasse",
+            "url": "https://www.webmatematik.dk/media/1gvdkrsk/7-9-klasse.pdf",
+            "type": "dansk/undervisning",
+            "category": "Udskolingsmatematik",
+            "note": "Samlet dansk elevrettet materiale til centrale udskolingsemner som geometri, brøker, procent, funktioner og statistik.",
+            "tags": [
+              "matematik",
+              "udskoling",
+              "elevkilde"
+            ]
+          },
+          {
+            "title": "Matematikbanken · grundskole",
+            "url": "https://matematikbanken.dk/",
+            "type": "dansk/undervisning",
+            "category": "Opgaver og forklaringer",
+            "note": "Dansk undervisningsbank med opgaver og forklaringer, som passer bedre til 9.–10. klasse end universitetskilder.",
+            "tags": [
+              "matematik",
+              "opgaver",
+              "grundskole"
+            ]
+          },
+          {
+            "title": "GeoGebra · dansk",
+            "url": "https://www.geogebra.org/?lang=da",
+            "type": "dansk/interaktivt",
+            "category": "Geometri og funktioner",
+            "note": "Interaktiv dansk indgang til geometri, grafer, funktioner og konstruktioner; god til at undersøge svar med visuelle eksempler.",
+            "tags": [
+              "geogebra",
+              "geometri",
+              "funktioner"
+            ]
+          },
+          {
+            "title": "Lex · SI-systemet",
+            "url": "https://lex.dk/SI-systemet",
+            "type": "dansk/leksikon",
+            "category": "Måleenheder",
+            "note": "Præcis dansk fagkilde om SI-systemet og de syv basisenheder, der erstatter en tung engelsksproget NIST-kilde.",
+            "tags": [
+              "SI",
+              "måleenheder",
+              "Lex"
+            ]
+          },
+          {
+            "title": "Lex · enhedssystem",
+            "url": "https://lex.dk/enhedssystem",
+            "type": "dansk/leksikon",
+            "category": "Måleenheder",
+            "note": "Kort dansk supplerende kilde til enhedssystemer og SI-basisenheder.",
+            "tags": [
+              "enheder",
+              "SI",
+              "Lex"
+            ]
+          }
+        ],
+        "teacherNote": "Kvalitetsløftet kildematrix: Kilderne er valgt, så eleverne kan undersøge netop de svar, KaPardy-spillet spørger til. Prioritér danske myndigheds-, museums-, leksikon- og undervisningskilder; brug markerede internationale kilder, når de er mere præcise end en dansk oversigt."
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "resource-matrix"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_source_1",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "link",
+      "title": "Matematikbanken · regnearter og brøker",
+      "geometry": {
+        "x": 560,
+        "y": 85,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "url": "https://www.webmatematik.dk/media/1gvdkrsk/7-9-klasse.pdf",
+        "label": "Webmatematik · 7.-9. klasse",
+        "note": "Samlet dansk elevrettet materiale til centrale udskolingsemner som geometri, brøker, procent, funktioner og statistik.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_source_2",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "link",
+      "title": "MatematikFessor · matematiske emner",
+      "geometry": {
+        "x": 880,
+        "y": 85,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "url": "https://matematikbanken.dk/",
+        "label": "Matematikbanken · grundskole",
+        "note": "Dansk undervisningsbank med opgaver og forklaringer, som passer bedre til 9.–10. klasse end universitetskilder.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_source_3",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "link",
+      "title": "GeoGebra · dansk",
+      "geometry": {
+        "x": 560,
+        "y": 305,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "url": "https://www.geogebra.org/?lang=da",
+        "label": "GeoGebra · dansk",
+        "note": "Interaktiv dansk indgang til geometri, grafer, funktioner og konstruktioner; god til at undersøge svar med visuelle eksempler.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_source_4",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "link",
+      "title": "Webmatematik · grundskole",
+      "geometry": {
+        "x": 880,
+        "y": 305,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 5
+      },
+      "content": {
+        "url": "https://lex.dk/SI-systemet",
+        "label": "Lex · SI-systemet",
+        "note": "Præcis dansk fagkilde om SI-systemet og de syv basisenheder, der erstatter en tung engelsksproget NIST-kilde.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_source_5",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "link",
+      "title": "NIST · SI Units",
+      "geometry": {
+        "x": 560,
+        "y": 525,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 6
+      },
+      "content": {
+        "url": "https://lex.dk/enhedssystem",
+        "label": "Lex · enhedssystem",
+        "note": "Kort dansk supplerende kilde til enhedssystemer og SI-basisenheder.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_sources_text",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_2",
+      "type": "text",
+      "title": "Kildeopgave",
+      "geometry": {
+        "x": 560,
+        "y": 745,
+        "width": 620,
+        "height": 80,
+        "rotation": 0,
+        "z": 8
+      },
+      "content": {
+        "text": "Åbn mindst to ressourcer. Notér ét sikkert svar, én forklaring og én mulig forveksling.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "sources-task"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_groups",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "groups",
+      "title": "Demo-hold",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 360,
+        "height": 330,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "groupSetVersion": 1,
+        "title": "Demo-hold",
+        "groupSize": 4,
+        "groups": [
+          {
+            "name": "Regning",
+            "members": []
+          },
+          {
+            "name": "Brøker og procent",
+            "members": []
+          },
+          {
+            "name": "Geometri og måling",
+            "members": []
+          },
+          {
+            "name": "Tal og algebra",
+            "members": []
+          }
+        ],
+        "note": "Regnehold forklarer metoder før facit: regning, procent, geometri og algebra."
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "groups"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_tool_text",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "text",
+      "title": "Arbejdsfordeling",
+      "geometry": {
+        "x": 400,
+        "y": 85,
+        "width": 360,
+        "height": 330,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "BRUG GRUPPEVÆRKTØJET\n\nFordel klassen i fire ekspertgrupper: \n• Regning\n• Brøker og procent\n• Geometri og måling\n• Tal og algebra\n\nHver gruppe skal finde svar, kilde og forveksling til sin kategori. Derefter bytter grupperne forklaringer.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "groups-instructions"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_timer",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "timer",
+      "title": "Kilderunde · 12 minutter",
+      "geometry": {
+        "x": 790,
+        "y": 85,
+        "width": 390,
+        "height": 150,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "timerVersion": 1,
+        "durationSeconds": 720,
+        "mode": "countdown",
+        "label": "Kilderunde"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "timer"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_countdown",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "countdown",
+      "title": "Professorens nedtælling",
+      "geometry": {
+        "x": 790,
+        "y": 255,
+        "width": 390,
+        "height": 160,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "countdownVersion": 1,
+        "durationSeconds": 180,
+        "label": "Sidste tre minutter før deling"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "countdown"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_wordcloud",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "wordcloud",
+      "title": "Nøgleord før spillet",
+      "geometry": {
+        "x": 20,
+        "y": 445,
+        "width": 560,
+        "height": 260,
+        "rotation": 0,
+        "z": 5
+      },
+      "content": {
+        "items": [
+          {
+            "text": "Regning",
+            "count": 1
+          },
+          {
+            "text": "Brøker og procent",
+            "count": 1
+          },
+          {
+            "text": "Geometri og måling",
+            "count": 1
+          },
+          {
+            "text": "Tal og algebra",
+            "count": 1
+          }
+        ],
+        "caseInsensitive": true,
+        "sourceKind": "manual"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "wordcloud"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_calendar",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_3",
+      "type": "calendar",
+      "title": "Minitidslinje",
+      "geometry": {
+        "x": 600,
+        "y": 445,
+        "width": 580,
+        "height": 260,
+        "rotation": 0,
+        "z": 6
+      },
+      "content": {
+        "calendarVersion": 1,
+        "events": [
+          {
+            "title": "Kilder",
+            "date": "Lektion 1"
+          },
+          {
+            "title": "Kategoriarbejde",
+            "date": "Lektion 2"
+          },
+          {
+            "title": "Huskekort og KaPardy",
+            "date": "Lektion 3"
+          }
+        ],
+        "view": "timeline"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "calendar"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat1_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+      "type": "text",
+      "title": "Kildearbejde · Regning",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Regning\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvad er 7 · (5 + 3)?\n• Hvad er 250 ÷ 5 + 17?\n• Hvad er 3 · 24 - 16?\n• Hvad er 1.000 - 468?\n• Hvad er 32 · 15?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat1_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Regning\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat1_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_4",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvad er 7 · (5 + 3)?\n• Hvad er 250 ÷ 5 + 17?\n• Hvad er 3 · 24 - 16?\n• Hvad er 1.000 - 468?\n• Hvad er 32 · 15?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat2_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+      "type": "text",
+      "title": "Kildearbejde · Brøker og procent",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Brøker og procent\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvad er 12,5 % af 160?\n• Hvad er 7/10 skrevet som procent?\n• Hvad er 30 % af 240?\n• Hvad er 1 1/2 skrevet som decimaltal?\n• Hvad er 4/5 ÷ 2/5?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat2_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Brøker og procent\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat2_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_5",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvad er 12,5 % af 160?\n• Hvad er 7/10 skrevet som procent?\n• Hvad er 30 % af 240?\n• Hvad er 1 1/2 skrevet som decimaltal?\n• Hvad er 4/5 ÷ 2/5?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat3_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+      "type": "text",
+      "title": "Kildearbejde · Geometri og måling",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Geometri og måling\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvad er vinkelsummen i en firkant?\n• Hvad er rumfanget af en kasse på 3 cm × 4 cm × 5 cm?\n• Hvad er omkredsen af en cirkel med diameter 10 cm, når π sættes til 3,14?\n• Hvad er arealet af en cirkel med radius 3 cm, når π sættes til 3,14?\n• En retvinklet trekant har kateter på 6 cm og 8 cm. Hvor lang er hypotenusen?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat3_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Geometri og måling\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat3_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_6",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvad er vinkelsummen i en firkant?\n• Hvad er rumfanget af en kasse på 3 cm × 4 cm × 5 cm?\n• Hvad er omkredsen af en cirkel med diameter 10 cm, når π sættes til 3,14?\n• Hvad er arealet af en cirkel med radius 3 cm, når π sættes til 3,14?\n• En retvinklet trekant har kateter på 6 cm og 8 cm. Hvor lang er hypotenusen?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat4_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+      "type": "text",
+      "title": "Kildearbejde · Tal og algebra",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Tal og algebra\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvilken værdi af x løser 3x = 27?\n• Hvad er næste tal i følgen 1, 4, 9, 16, ...?\n• Hvad er 10⁻²?\n• Hvilken værdi af x løser 2x + 5 = 17?\n• Hvad er faktoriseringen af 36 i primtal?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat4_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Tal og algebra\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_cat4_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_7",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvilken værdi af x løser 3x = 27?\n• Hvad er næste tal i følgen 1, 4, 9, 16, ...?\n• Hvad er 10⁻²?\n• Hvilken værdi af x løser 2x + 5 = 17?\n• Hvad er faktoriseringen af 36 i primtal?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_flashcards",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_8",
+      "type": "flashcard-matrix",
+      "title": "Huskekortmatrix · aktiv genkaldelse",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 1160,
+        "height": 740,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "flashcardMatrixVersion": 2,
+        "sourceWidgetId": "w_20-sporgsmal-matematik_kapardy",
+        "sourceTitle": "KaPardy · Matematik",
+        "shuffle": true,
+        "cards": [],
+        "extraCards": [],
+        "sourceSnapshot": {
+          "title": "KaPardy · Matematik",
+          "questions": [
+            {
+              "id": "kp_matematik-basics_01",
+              "category": "Regning",
+              "question": "Hvad er 7 · (5 + 3)?",
+              "points": 100,
+              "options": [
+                "56",
+                "40",
+                "49",
+                "63"
+              ],
+              "correctIndex": 0,
+              "answer": "56",
+              "sourceTitle": "Khan Academy – Order of operations review",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+            },
+            {
+              "id": "kp_matematik-basics_02",
+              "category": "Regning",
+              "question": "Hvad er 250 ÷ 5 + 17?",
+              "points": 200,
+              "options": [
+                "67",
+                "57",
+                "60",
+                "77"
+              ],
+              "correctIndex": 0,
+              "answer": "67",
+              "sourceTitle": "Khan Academy – Order of operations review",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+            },
+            {
+              "id": "kp_matematik-basics_03",
+              "category": "Regning",
+              "question": "Hvad er 3 · 24 - 16?",
+              "points": 300,
+              "options": [
+                "56",
+                "48",
+                "60",
+                "64"
+              ],
+              "correctIndex": 0,
+              "answer": "56",
+              "sourceTitle": "Khan Academy – Order of operations review",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+            },
+            {
+              "id": "kp_matematik-basics_04",
+              "category": "Regning",
+              "question": "Hvad er 1.000 - 468?",
+              "points": 400,
+              "options": [
+                "532",
+                "522",
+                "542",
+                "568"
+              ],
+              "correctIndex": 0,
+              "answer": "532",
+              "sourceTitle": "Khan Academy – Order of operations review",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+            },
+            {
+              "id": "kp_matematik-basics_05",
+              "category": "Regning",
+              "question": "Hvad er 32 · 15?",
+              "points": 500,
+              "options": [
+                "480",
+                "450",
+                "470",
+                "510"
+              ],
+              "correctIndex": 0,
+              "answer": "480",
+              "sourceTitle": "Khan Academy – Order of operations review",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+            },
+            {
+              "id": "kp_matematik-basics_06",
+              "category": "Brøker og procent",
+              "question": "Hvad er 12,5 % af 160?",
+              "points": 100,
+              "options": [
+                "20",
+                "16",
+                "18",
+                "25"
+              ],
+              "correctIndex": 0,
+              "answer": "20",
+              "sourceTitle": "Khan Academy – Rates and percentages",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-fractions-decimals",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om procent, rabatter, ændringer og procentregning. Underbygger metoden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_07",
+              "category": "Brøker og procent",
+              "question": "Hvad er 7/10 skrevet som procent?",
+              "points": 200,
+              "options": [
+                "70 %",
+                "7 %",
+                "17 %",
+                "0,7 %"
+              ],
+              "correctIndex": 0,
+              "answer": "70 %",
+              "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+              "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_08",
+              "category": "Brøker og procent",
+              "question": "Hvad er 30 % af 240?",
+              "points": 300,
+              "options": [
+                "72",
+                "60",
+                "70",
+                "84"
+              ],
+              "correctIndex": 0,
+              "answer": "72",
+              "sourceTitle": "Khan Academy – Rates and percentages",
+              "sourceUrl": "https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-fractions-decimals",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om procent, rabatter, ændringer og procentregning. Underbygger metoden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_09",
+              "category": "Brøker og procent",
+              "question": "Hvad er 1 1/2 skrevet som decimaltal?",
+              "points": 400,
+              "options": [
+                "1,5",
+                "1,2",
+                "1,25",
+                "2,5"
+              ],
+              "correctIndex": 0,
+              "answer": "1,5",
+              "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+              "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_10",
+              "category": "Brøker og procent",
+              "question": "Hvad er 4/5 ÷ 2/5?",
+              "points": 500,
+              "options": [
+                "2",
+                "1",
+                "4",
+                "8/10"
+              ],
+              "correctIndex": 0,
+              "answer": "2",
+              "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+              "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_11",
+              "category": "Geometri og måling",
+              "question": "Hvad er vinkelsummen i en firkant?",
+              "points": 100,
+              "options": [
+                "360°",
+                "180°",
+                "270°",
+                "540°"
+              ],
+              "correctIndex": 0,
+              "answer": "360°",
+              "sourceTitle": "Math is Fun – Interior Angles of Polygons",
+              "sourceUrl": "https://www.mathsisfun.com/geometry/interior-angles-polygons.html",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben formelside for indvendige vinkler i polygoner: summen er (n−2)·180°. Underbygger trekant, firkant og femkant."
+            },
+            {
+              "id": "kp_matematik-basics_12",
+              "category": "Geometri og måling",
+              "question": "Hvad er rumfanget af en kasse på 3 cm × 4 cm × 5 cm?",
+              "points": 200,
+              "options": [
+                "60 cm³",
+                "12 cm³",
+                "20 cm³",
+                "47 cm³"
+              ],
+              "correctIndex": 0,
+              "answer": "60 cm³",
+              "sourceTitle": "Math is Fun – Volume of a Cuboid",
+              "sourceUrl": "https://www.mathsisfun.com/geometry/cuboids-rectangular-prisms.html",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben formelside for kasser/rektangulære prismer. Underbygger rumfang som længde·bredde·højde; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_13",
+              "category": "Geometri og måling",
+              "question": "Hvad er omkredsen af en cirkel med diameter 10 cm, når π sættes til 3,14?",
+              "points": 300,
+              "options": [
+                "31,4 cm",
+                "15,7 cm",
+                "62,8 cm",
+                "314 cm"
+              ],
+              "correctIndex": 0,
+              "answer": "31,4 cm",
+              "sourceTitle": "Math is Fun – Circle",
+              "sourceUrl": "https://www.mathsisfun.com/geometry/circle.html",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben formelside om radius, diameter, omkreds og areal i cirkler. Underbygger formelvalget; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_14",
+              "category": "Geometri og måling",
+              "question": "Hvad er arealet af en cirkel med radius 3 cm, når π sættes til 3,14?",
+              "points": 400,
+              "options": [
+                "28,26 cm²",
+                "18,84 cm²",
+                "9,42 cm²",
+                "56,52 cm²"
+              ],
+              "correctIndex": 0,
+              "answer": "28,26 cm²",
+              "sourceTitle": "Math is Fun – Circle",
+              "sourceUrl": "https://www.mathsisfun.com/geometry/circle.html",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben formelside om radius, diameter, omkreds og areal i cirkler. Underbygger formelvalget; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_15",
+              "category": "Geometri og måling",
+              "question": "En retvinklet trekant har kateter på 6 cm og 8 cm. Hvor lang er hypotenusen?",
+              "points": 500,
+              "options": [
+                "10 cm",
+                "12 cm",
+                "14 cm",
+                "15 cm"
+              ],
+              "correctIndex": 0,
+              "answer": "10 cm",
+              "sourceTitle": "Khan Academy – Pythagorean theorem",
+              "sourceUrl": "https://www.khanacademy.org/math/geometry-home/geometry-pythagorean-theorem",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om Pythagoras i retvinklede trekanter. Underbygger hypotenuse- og diagonalberegninger; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_16",
+              "category": "Tal og algebra",
+              "question": "Hvilken værdi af x løser 3x = 27?",
+              "points": 100,
+              "options": [
+                "9",
+                "6",
+                "8",
+                "12"
+              ],
+              "correctIndex": 0,
+              "answer": "9",
+              "sourceTitle": "Khan Academy – Solving equations & inequalities",
+              "sourceUrl": "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solving-equations-inequalities",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-enhed om løsning af ligninger. Underbygger ligningsmetoden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_17",
+              "category": "Tal og algebra",
+              "question": "Hvad er næste tal i følgen 1, 4, 9, 16, ...?",
+              "points": 200,
+              "options": [
+                "25",
+                "20",
+                "24",
+                "32"
+              ],
+              "correctIndex": 0,
+              "answer": "25",
+              "sourceTitle": "Math is Fun – Square Numbers",
+              "sourceUrl": "https://www.mathsisfun.com/square-root.html",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben forklaring af kvadrattal og kvadratrod. Underbygger kvadrattalsfølgen; resultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_18",
+              "category": "Tal og algebra",
+              "question": "Hvad er 10⁻²?",
+              "points": 300,
+              "options": [
+                "0,01",
+                "0,1",
+                "0,001",
+                "100"
+              ],
+              "correctIndex": 0,
+              "answer": "0,01",
+              "sourceTitle": "Khan Academy – Exponent properties review",
+              "sourceUrl": "https://www.khanacademy.org/math/algebra-basics/basic-alg-foundations/alg-basics-exponents/a/exponent-properties-review",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben undervisningskilde om potensregler, herunder multiplikation af potenser med samme grundtal. Underbygger metoden; resultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_19",
+              "category": "Tal og algebra",
+              "question": "Hvilken værdi af x løser 2x + 5 = 17?",
+              "points": 400,
+              "options": [
+                "6",
+                "5",
+                "7",
+                "11"
+              ],
+              "correctIndex": 0,
+              "answer": "6",
+              "sourceTitle": "Khan Academy – Solving equations & inequalities",
+              "sourceUrl": "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solving-equations-inequalities",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-enhed om løsning af ligninger. Underbygger ligningsmetoden; talresultatet er kontrolleret."
+            },
+            {
+              "id": "kp_matematik-basics_20",
+              "category": "Tal og algebra",
+              "question": "Hvad er faktoriseringen af 36 i primtal?",
+              "points": 500,
+              "options": [
+                "2² · 3²",
+                "2 · 18",
+                "3 · 12",
+                "6²"
+              ],
+              "correctIndex": 0,
+              "answer": "2² · 3²",
+              "sourceTitle": "Khan Academy – Factors and multiples",
+              "sourceUrl": "https://www.khanacademy.org/math/pre-algebra/pre-algebra-factors-multiples",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben Khan Academy-forløb om faktorer, multipla og primtalsfaktorisering. Underbygger metoden; talresultatet er kontrolleret."
+            }
+          ],
+          "updatedAt": "2026-07-07T00:45:00.000Z"
+        },
+        "sourceType": "kapardy",
+        "view": "overview",
+        "categoryFilter": "Alle",
+        "statusFilter": "Alle",
+        "progress": {},
+        "overrides": {
+          "kp_matematik-basics_01": {
+            "hint": "Find svaret i kilderne til: Regning.",
+            "explanation": "Kort svar: 56. Forklar hvorfor det er mere præcist end: 40 · 49 · 63.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "40",
+              "49",
+              "63"
+            ]
+          },
+          "kp_matematik-basics_02": {
+            "hint": "Find svaret i kilderne til: Regning.",
+            "explanation": "Kort svar: 67. Forklar hvorfor det er mere præcist end: 57 · 60 · 77.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "57",
+              "60",
+              "77"
+            ]
+          },
+          "kp_matematik-basics_03": {
+            "hint": "Find svaret i kilderne til: Regning.",
+            "explanation": "Kort svar: 56. Forklar hvorfor det er mere præcist end: 48 · 60 · 64.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "48",
+              "60",
+              "64"
+            ]
+          },
+          "kp_matematik-basics_04": {
+            "hint": "Find svaret i kilderne til: Regning.",
+            "explanation": "Kort svar: 532. Forklar hvorfor det er mere præcist end: 522 · 542 · 568.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "522",
+              "542",
+              "568"
+            ]
+          },
+          "kp_matematik-basics_05": {
+            "hint": "Find svaret i kilderne til: Regning.",
+            "explanation": "Kort svar: 480. Forklar hvorfor det er mere præcist end: 450 · 470 · 510.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "450",
+              "470",
+              "510"
+            ]
+          },
+          "kp_matematik-basics_06": {
+            "hint": "Find svaret i kilderne til: Brøker og procent.",
+            "explanation": "Kort svar: 20. Forklar hvorfor det er mere præcist end: 16 · 18 · 25.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "16",
+              "18",
+              "25"
+            ]
+          },
+          "kp_matematik-basics_07": {
+            "hint": "Find svaret i kilderne til: Brøker og procent.",
+            "explanation": "Kort svar: 70 %. Forklar hvorfor det er mere præcist end: 7 % · 17 % · 0,7 %.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "7 %",
+              "17 %",
+              "0,7 %"
+            ]
+          },
+          "kp_matematik-basics_08": {
+            "hint": "Find svaret i kilderne til: Brøker og procent.",
+            "explanation": "Kort svar: 72. Forklar hvorfor det er mere præcist end: 60 · 70 · 84.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "60",
+              "70",
+              "84"
+            ]
+          },
+          "kp_matematik-basics_09": {
+            "hint": "Find svaret i kilderne til: Brøker og procent.",
+            "explanation": "Kort svar: 1,5. Forklar hvorfor det er mere præcist end: 1,2 · 1,25 · 2,5.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "1,2",
+              "1,25",
+              "2,5"
+            ]
+          },
+          "kp_matematik-basics_10": {
+            "hint": "Find svaret i kilderne til: Brøker og procent.",
+            "explanation": "Kort svar: 2. Forklar hvorfor det er mere præcist end: 1 · 4 · 8/10.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "1",
+              "4",
+              "8/10"
+            ]
+          },
+          "kp_matematik-basics_11": {
+            "hint": "Find svaret i kilderne til: Geometri og måling.",
+            "explanation": "Kort svar: 360°. Forklar hvorfor det er mere præcist end: 180° · 270° · 540°.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "180°",
+              "270°",
+              "540°"
+            ]
+          },
+          "kp_matematik-basics_12": {
+            "hint": "Find svaret i kilderne til: Geometri og måling.",
+            "explanation": "Kort svar: 60 cm³. Forklar hvorfor det er mere præcist end: 12 cm³ · 20 cm³ · 47 cm³.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "12 cm³",
+              "20 cm³",
+              "47 cm³"
+            ]
+          },
+          "kp_matematik-basics_13": {
+            "hint": "Find svaret i kilderne til: Geometri og måling.",
+            "explanation": "Kort svar: 31,4 cm. Forklar hvorfor det er mere præcist end: 15,7 cm · 62,8 cm · 314 cm.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "15,7 cm",
+              "62,8 cm",
+              "314 cm"
+            ]
+          },
+          "kp_matematik-basics_14": {
+            "hint": "Find svaret i kilderne til: Geometri og måling.",
+            "explanation": "Kort svar: 28,26 cm². Forklar hvorfor det er mere præcist end: 18,84 cm² · 9,42 cm² · 56,52 cm².",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "18,84 cm²",
+              "9,42 cm²",
+              "56,52 cm²"
+            ]
+          },
+          "kp_matematik-basics_15": {
+            "hint": "Find svaret i kilderne til: Geometri og måling.",
+            "explanation": "Kort svar: 10 cm. Forklar hvorfor det er mere præcist end: 12 cm · 14 cm · 15 cm.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "12 cm",
+              "14 cm",
+              "15 cm"
+            ]
+          },
+          "kp_matematik-basics_16": {
+            "hint": "Find svaret i kilderne til: Tal og algebra.",
+            "explanation": "Kort svar: 9. Forklar hvorfor det er mere præcist end: 6 · 8 · 12.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "6",
+              "8",
+              "12"
+            ]
+          },
+          "kp_matematik-basics_17": {
+            "hint": "Find svaret i kilderne til: Tal og algebra.",
+            "explanation": "Kort svar: 25. Forklar hvorfor det er mere præcist end: 20 · 24 · 32.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "20",
+              "24",
+              "32"
+            ]
+          },
+          "kp_matematik-basics_18": {
+            "hint": "Find svaret i kilderne til: Tal og algebra.",
+            "explanation": "Kort svar: 0,01. Forklar hvorfor det er mere præcist end: 0,1 · 0,001 · 100.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "0,1",
+              "0,001",
+              "100"
+            ]
+          },
+          "kp_matematik-basics_19": {
+            "hint": "Find svaret i kilderne til: Tal og algebra.",
+            "explanation": "Kort svar: 6. Forklar hvorfor det er mere præcist end: 5 · 7 · 11.",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "5",
+              "7",
+              "11"
+            ]
+          },
+          "kp_matematik-basics_20": {
+            "hint": "Find svaret i kilderne til: Tal og algebra.",
+            "explanation": "Kort svar: 2² · 3². Forklar hvorfor det er mere præcist end: 2 · 18 · 3 · 12 · 6².",
+            "sourceTitle": "Khan Academy · Math",
+            "sourceUrl": "https://www.khanacademy.org/math",
+            "confusions": [
+              "2 · 18",
+              "3 · 12",
+              "6²"
+            ]
+          }
+        },
+        "activeIndex": 0,
+        "flipped": false
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "flashcard-training"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_workshop",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+      "type": "text",
+      "title": "Professorens prøveværksted",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 560,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "PROFESSORENS PRØVEVÆRKSTED\n\nFør KaPardy skal hvert hold kunne forklare mindst fem kort uden at se bagsiden.\n\nARBEJDSFORM\n• Vælg en kategori.\n• Træk 3–5 kort fra Huskekortmatrixen.\n• Forklar hvert kort højt.\n• Brug en kilde, hvis gruppen er uenig.\n• Notér én forveksling, som de andre hold let kan falde i.\n\nKVALITETSKRAV\nEt godt svar er kort, korrekt og begrundet.",
+        "fontSize": 17,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "workshop"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_workshop_timer",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+      "type": "timer",
+      "title": "Forklaringsrunde · 8 minutter",
+      "geometry": {
+        "x": 600,
+        "y": 85,
+        "width": 580,
+        "height": 180,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "timerVersion": 1,
+        "durationSeconds": 480,
+        "mode": "countdown",
+        "label": "Forklaringsrunde"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "timer"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_workshop_sources",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+      "type": "text",
+      "title": "Kildekrav før spillet",
+      "geometry": {
+        "x": 600,
+        "y": 285,
+        "width": 580,
+        "height": 230,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "KILDEKRAV\n\nHvert hold skal kunne pege på mindst én kilde eller ét medie, der støtter deres forklaring.\n\nNår et kort stadig står som “Kan ikke endnu”, skal gruppen tilbage til kilden før KaPardy.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-requirement"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_workshop_cards",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_9",
+      "type": "text",
+      "title": "Huskekortrunde",
+      "geometry": {
+        "x": 600,
+        "y": 535,
+        "width": 580,
+        "height": 250,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "text": "HUSKEKORTRUNDE\n\n1. Åbn Huskekortmatrixen.\n2. Filtrér én kategori ad gangen.\n3. Bland kortene.\n4. Lad grupperne svare, før bagsiden vendes.\n5. Markér status.\n6. Spil først KaPardy, når de fleste kort er “Næsten” eller “Kan”.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "flashcard-routine"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-matematik_kapardy",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-matematik_v2_showcase_10",
+      "type": "kapardy",
+      "title": "KaPardy · Matematik",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 1160,
+        "height": 740,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "kapardyVersion": 2,
+        "questionBankContract": "first-answer-correct",
+        "gameId": "kapardy_20-sporgsmal-matematik_20",
+        "gameStartedAt": "2026-07-07T00:45:00.000Z",
+        "gameMode": "jeopardy",
+        "mode": "jeopardy",
+        "kapardyScreen": "setup",
+        "jeopardyStage": "board",
+        "teams": [
+          {
+            "name": "Hold 1",
+            "score": 0,
+            "correct": 0
+          },
+          {
+            "name": "Hold 2",
+            "score": 0,
+            "correct": 0
+          }
+        ],
+        "questions": [
+          {
+            "id": "kp_matematik-basics_01",
+            "category": "Regning",
+            "question": "Hvad er 7 · (5 + 3)?",
+            "points": 100,
+            "options": [
+              "56",
+              "40",
+              "49",
+              "63"
+            ],
+            "correctIndex": 0,
+            "answer": "56",
+            "sourceTitle": "Khan Academy – Order of operations review",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+          },
+          {
+            "id": "kp_matematik-basics_02",
+            "category": "Regning",
+            "question": "Hvad er 250 ÷ 5 + 17?",
+            "points": 200,
+            "options": [
+              "67",
+              "57",
+              "60",
+              "77"
+            ],
+            "correctIndex": 0,
+            "answer": "67",
+            "sourceTitle": "Khan Academy – Order of operations review",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+          },
+          {
+            "id": "kp_matematik-basics_03",
+            "category": "Regning",
+            "question": "Hvad er 3 · 24 - 16?",
+            "points": 300,
+            "options": [
+              "56",
+              "48",
+              "60",
+              "64"
+            ],
+            "correctIndex": 0,
+            "answer": "56",
+            "sourceTitle": "Khan Academy – Order of operations review",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+          },
+          {
+            "id": "kp_matematik-basics_04",
+            "category": "Regning",
+            "question": "Hvad er 1.000 - 468?",
+            "points": 400,
+            "options": [
+              "532",
+              "522",
+              "542",
+              "568"
+            ],
+            "correctIndex": 0,
+            "answer": "532",
+            "sourceTitle": "Khan Academy – Order of operations review",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+          },
+          {
+            "id": "kp_matematik-basics_05",
+            "category": "Regning",
+            "question": "Hvad er 32 · 15?",
+            "points": 500,
+            "options": [
+              "480",
+              "450",
+              "470",
+              "510"
+            ],
+            "correctIndex": 0,
+            "answer": "480",
+            "sourceTitle": "Khan Academy – Order of operations review",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-sixth-grade-math/x0267d782%3Acc-6th-exponents-and-order-of-operations/x0267d782%3Amore-on-order-of-operations/a/order-of-operations-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om regnehierarki, parenteser, eksponenter og aritmetisk evaluering. Talresultatet i spørgsmålet er kontrolleret med regnereglen."
+          },
+          {
+            "id": "kp_matematik-basics_06",
+            "category": "Brøker og procent",
+            "question": "Hvad er 12,5 % af 160?",
+            "points": 100,
+            "options": [
+              "20",
+              "16",
+              "18",
+              "25"
+            ],
+            "correctIndex": 0,
+            "answer": "20",
+            "sourceTitle": "Khan Academy – Rates and percentages",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-fractions-decimals",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om procent, rabatter, ændringer og procentregning. Underbygger metoden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_07",
+            "category": "Brøker og procent",
+            "question": "Hvad er 7/10 skrevet som procent?",
+            "points": 200,
+            "options": [
+              "70 %",
+              "7 %",
+              "17 %",
+              "0,7 %"
+            ],
+            "correctIndex": 0,
+            "answer": "70 %",
+            "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+            "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_08",
+            "category": "Brøker og procent",
+            "question": "Hvad er 30 % af 240?",
+            "points": 300,
+            "options": [
+              "72",
+              "60",
+              "70",
+              "84"
+            ],
+            "correctIndex": 0,
+            "answer": "72",
+            "sourceTitle": "Khan Academy – Rates and percentages",
+            "sourceUrl": "https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-fractions-decimals",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om procent, rabatter, ændringer og procentregning. Underbygger metoden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_09",
+            "category": "Brøker og procent",
+            "question": "Hvad er 1 1/2 skrevet som decimaltal?",
+            "points": 400,
+            "options": [
+              "1,5",
+              "1,2",
+              "1,25",
+              "2,5"
+            ],
+            "correctIndex": 0,
+            "answer": "1,5",
+            "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+            "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_10",
+            "category": "Brøker og procent",
+            "question": "Hvad er 4/5 ÷ 2/5?",
+            "points": 500,
+            "options": [
+              "2",
+              "1",
+              "4",
+              "8/10"
+            ],
+            "correctIndex": 0,
+            "answer": "2",
+            "sourceTitle": "Khan Academy – Fractions, decimals, & percentages",
+            "sourceUrl": "https://www.khanacademy.org/kmap/numbers-and-operations-h/no224-fractions-decimals-percentages",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-enhed om brøker, decimaltal, procent og regning med tal i forskellige former. Underbygger fremgangsmåden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_11",
+            "category": "Geometri og måling",
+            "question": "Hvad er vinkelsummen i en firkant?",
+            "points": 100,
+            "options": [
+              "360°",
+              "180°",
+              "270°",
+              "540°"
+            ],
+            "correctIndex": 0,
+            "answer": "360°",
+            "sourceTitle": "Math is Fun – Interior Angles of Polygons",
+            "sourceUrl": "https://www.mathsisfun.com/geometry/interior-angles-polygons.html",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben formelside for indvendige vinkler i polygoner: summen er (n−2)·180°. Underbygger trekant, firkant og femkant."
+          },
+          {
+            "id": "kp_matematik-basics_12",
+            "category": "Geometri og måling",
+            "question": "Hvad er rumfanget af en kasse på 3 cm × 4 cm × 5 cm?",
+            "points": 200,
+            "options": [
+              "60 cm³",
+              "12 cm³",
+              "20 cm³",
+              "47 cm³"
+            ],
+            "correctIndex": 0,
+            "answer": "60 cm³",
+            "sourceTitle": "Math is Fun – Volume of a Cuboid",
+            "sourceUrl": "https://www.mathsisfun.com/geometry/cuboids-rectangular-prisms.html",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben formelside for kasser/rektangulære prismer. Underbygger rumfang som længde·bredde·højde; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_13",
+            "category": "Geometri og måling",
+            "question": "Hvad er omkredsen af en cirkel med diameter 10 cm, når π sættes til 3,14?",
+            "points": 300,
+            "options": [
+              "31,4 cm",
+              "15,7 cm",
+              "62,8 cm",
+              "314 cm"
+            ],
+            "correctIndex": 0,
+            "answer": "31,4 cm",
+            "sourceTitle": "Math is Fun – Circle",
+            "sourceUrl": "https://www.mathsisfun.com/geometry/circle.html",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben formelside om radius, diameter, omkreds og areal i cirkler. Underbygger formelvalget; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_14",
+            "category": "Geometri og måling",
+            "question": "Hvad er arealet af en cirkel med radius 3 cm, når π sættes til 3,14?",
+            "points": 400,
+            "options": [
+              "28,26 cm²",
+              "18,84 cm²",
+              "9,42 cm²",
+              "56,52 cm²"
+            ],
+            "correctIndex": 0,
+            "answer": "28,26 cm²",
+            "sourceTitle": "Math is Fun – Circle",
+            "sourceUrl": "https://www.mathsisfun.com/geometry/circle.html",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben formelside om radius, diameter, omkreds og areal i cirkler. Underbygger formelvalget; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_15",
+            "category": "Geometri og måling",
+            "question": "En retvinklet trekant har kateter på 6 cm og 8 cm. Hvor lang er hypotenusen?",
+            "points": 500,
+            "options": [
+              "10 cm",
+              "12 cm",
+              "14 cm",
+              "15 cm"
+            ],
+            "correctIndex": 0,
+            "answer": "10 cm",
+            "sourceTitle": "Khan Academy – Pythagorean theorem",
+            "sourceUrl": "https://www.khanacademy.org/math/geometry-home/geometry-pythagorean-theorem",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om Pythagoras i retvinklede trekanter. Underbygger hypotenuse- og diagonalberegninger; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_16",
+            "category": "Tal og algebra",
+            "question": "Hvilken værdi af x løser 3x = 27?",
+            "points": 100,
+            "options": [
+              "9",
+              "6",
+              "8",
+              "12"
+            ],
+            "correctIndex": 0,
+            "answer": "9",
+            "sourceTitle": "Khan Academy – Solving equations & inequalities",
+            "sourceUrl": "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solving-equations-inequalities",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-enhed om løsning af ligninger. Underbygger ligningsmetoden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_17",
+            "category": "Tal og algebra",
+            "question": "Hvad er næste tal i følgen 1, 4, 9, 16, ...?",
+            "points": 200,
+            "options": [
+              "25",
+              "20",
+              "24",
+              "32"
+            ],
+            "correctIndex": 0,
+            "answer": "25",
+            "sourceTitle": "Math is Fun – Square Numbers",
+            "sourceUrl": "https://www.mathsisfun.com/square-root.html",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben forklaring af kvadrattal og kvadratrod. Underbygger kvadrattalsfølgen; resultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_18",
+            "category": "Tal og algebra",
+            "question": "Hvad er 10⁻²?",
+            "points": 300,
+            "options": [
+              "0,01",
+              "0,1",
+              "0,001",
+              "100"
+            ],
+            "correctIndex": 0,
+            "answer": "0,01",
+            "sourceTitle": "Khan Academy – Exponent properties review",
+            "sourceUrl": "https://www.khanacademy.org/math/algebra-basics/basic-alg-foundations/alg-basics-exponents/a/exponent-properties-review",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben undervisningskilde om potensregler, herunder multiplikation af potenser med samme grundtal. Underbygger metoden; resultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_19",
+            "category": "Tal og algebra",
+            "question": "Hvilken værdi af x løser 2x + 5 = 17?",
+            "points": 400,
+            "options": [
+              "6",
+              "5",
+              "7",
+              "11"
+            ],
+            "correctIndex": 0,
+            "answer": "6",
+            "sourceTitle": "Khan Academy – Solving equations & inequalities",
+            "sourceUrl": "https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:solving-equations-inequalities",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-enhed om løsning af ligninger. Underbygger ligningsmetoden; talresultatet er kontrolleret."
+          },
+          {
+            "id": "kp_matematik-basics_20",
+            "category": "Tal og algebra",
+            "question": "Hvad er faktoriseringen af 36 i primtal?",
+            "points": 500,
+            "options": [
+              "2² · 3²",
+              "2 · 18",
+              "3 · 12",
+              "6²"
+            ],
+            "correctIndex": 0,
+            "answer": "2² · 3²",
+            "sourceTitle": "Khan Academy – Factors and multiples",
+            "sourceUrl": "https://www.khanacademy.org/math/pre-algebra/pre-algebra-factors-multiples",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben Khan Academy-forløb om faktorer, multipla og primtalsfaktorisering. Underbygger metoden; talresultatet er kontrolleret."
+          }
+        ],
+        "current": 0,
+        "currentTeam": 0,
+        "reveal": false,
+        "selections": {},
+        "awarded": {},
+        "revealed": {},
+        "optionOrders": {},
+        "usedQuestions": {},
+        "scoreEvents": [],
+        "sourceCsv": "spil/kapardy/20/matematik_basics_20.csv"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "kapardy"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    }
+  ],
+  "datasets": [],
+  "media": [],
+  "manifest": {
+    "selectedSessionIds": [
+      "session_professor_20-sporgsmal-matematik_v2_showcase"
+    ],
+    "counts": {
+      "sessions": 1,
+      "boards": 10,
+      "widgets": 34,
+      "datasets": 0,
+      "media": 0
+    },
+    "referencedDatasetIds": [],
+    "referencedMediaIds": [],
+    "mediaBytes": 0,
+    "courseId": "course_professor_20-sporgsmal-matematik_v2_showcase",
+    "courseTitle": "20 spørgsmål fra professoren · Matematik",
+    "courseSessionIds": [
+      "session_professor_20-sporgsmal-matematik_v2_showcase"
+    ],
+    "contentHash": "fcafd8054474219078f8b6a283a8ff87264363cb7f04e19b0bc926ab7f12fce8",
+    "packageHash": "a528ba104c486f5cdc91f5744eeb35e7b7701572d58d971ef397c929d37e7756",
+    "quality": {
+      "sourceUpgrade": "fase4-faktatjek-danske-elevkilder",
+      "updatedAt": "2026-07-08T20:10:11Z",
+      "phase4UpdatedAt": "2026-07-08T22:15:00+02:00",
+      "resourcesChanged": true,
+      "kapardyCorrectionsPhase4": [],
+      "kapardyDidacticUpgrade": "fase8-fagligt-niveau-og-plausible-distraktorer"
+    }
+  },
+  "warnings": []
+}
