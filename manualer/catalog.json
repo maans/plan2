@@ -5,11 +5,11 @@
     {
       "id": "plan-2-0-laererens-haandbog",
       "title": "Plan – Lærerhåndbog",
-      "path": "Plan – Lærerhåndbog.pdf",
+      "path": "plan-2-laererhaandbog.pdf",
       "fallbackUrls": [
-        "https://cdn.jsdelivr.net/gh/maans/Plan2@main/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf",
-        "https://raw.githubusercontent.com/maans/Plan2/main/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf",
-        "https://plan2.måns.dk/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf"
+        "https://cdn.jsdelivr.net/gh/maans/plan2@main/manualer/plan-2-laererhaandbog.pdf",
+        "https://raw.githubusercontent.com/maans/plan2/main/manualer/plan-2-laererhaandbog.pdf",
+        "https://plan2.måns.dk/manualer/plan-2-laererhaandbog.pdf"
       ]
     }
   ]
