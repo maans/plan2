@@ -1,0 +1,2772 @@
+{
+  "format": "tavle-next-course-package",
+  "backupKind": "course-package",
+  "coursePackageVersion": 1,
+  "version": 3,
+  "schemaVersion": 3,
+  "appVersion": "1.0.9",
+  "kind": "course-package",
+  "createdAt": "2026-07-07T00:45:00.000Z",
+  "course": {
+    "id": "course_professor_20-sporgsmal-musikgenrer_v2_showcase",
+    "title": "20 spørgsmål fra professoren · Musikgenrer",
+    "subject": "Musik",
+    "schoolYear": "",
+    "sessionIds": [
+      "session_professor_20-sporgsmal-musikgenrer_v2_showcase"
+    ],
+    "exportedAt": "2026-07-07T00:45:00.000Z",
+    "sourceAppVersion": "1.0.9",
+    "quality": {
+      "sourceUpgrade": "fase4-faktatjek-danske-elevkilder",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "sourcePolicy": "Danske, elevtilgængelige kvalitetskilder som standard; mål- eller engelsksprogede kilder kun som præcise supplementer, når danske kilder er svage.",
+      "phase4UpdatedAt": "2026-07-08T22:15:00+02:00"
+    }
+  },
+  "sessions": [
+    {
+      "id": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "schemaVersion": 1,
+      "title": "20 spørgsmål fra professoren · Musikgenrer",
+      "theme": "dark",
+      "activeBoardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+      "boardIds": [
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_8",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+        "board_professor_20-sporgsmal-musikgenrer_v2_showcase_10"
+      ],
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T22:15:00+02:00",
+      "meta": {
+        "courseId": "course_professor_20-sporgsmal-musikgenrer_v2_showcase",
+        "courseTitle": "20 spørgsmål fra professoren · Musikgenrer",
+        "courseSubject": "Musik",
+        "courseSchoolYear": "",
+        "courseOrder": 1,
+        "planOrder": 1,
+        "courseSessionIds": [
+          "session_professor_20-sporgsmal-musikgenrer_v2_showcase"
+        ],
+        "courseSequenceVersion": 2,
+        "courseSequenceSource": "metadata",
+        "sourceKind": "plan-library-demo",
+        "sourceCsv": "spil/kapardy/20/musikgenrer_20.csv",
+        "estimatedLessons": "2–4",
+        "professorVersion": "v2-kilder-huskekort-showcase",
+        "showcaseTools": [
+          "Ressourcematrix",
+          "Lyd-/videokilder",
+          "Huskekortmatrix",
+          "Gruppeværktøj",
+          "Timer",
+          "KaPardy"
+        ],
+        "sourceQualityUpgrade": "fase4-faktatjek-danske-elevkilder",
+        "teacherNote": "Kilderne er kvalitetsløftet og faktatjekket med hovedvægt på danske, elevtilgængelige kilder til 9.–10. klasse."
+      }
+    }
+  ],
+  "boards": [
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "Overblik · Musikgenrer",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#10243e 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_intro",
+        "w_20-sporgsmal-musikgenrer_route",
+        "w_20-sporgsmal-musikgenrer_index"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "overview",
+        "order": 1
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "Ressourcematrix og kilder",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#30204f 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_resource_matrix",
+        "w_20-sporgsmal-musikgenrer_source_1",
+        "w_20-sporgsmal-musikgenrer_source_2",
+        "w_20-sporgsmal-musikgenrer_source_3",
+        "w_20-sporgsmal-musikgenrer_source_4",
+        "w_20-sporgsmal-musikgenrer_source_5",
+        "w_20-sporgsmal-musikgenrer_sources_text"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "sources",
+        "order": 2
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "Demo-hold, timer og arbejdsflow",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#4a2a12 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_groups",
+        "w_20-sporgsmal-musikgenrer_tool_text",
+        "w_20-sporgsmal-musikgenrer_timer",
+        "w_20-sporgsmal-musikgenrer_countdown",
+        "w_20-sporgsmal-musikgenrer_wordcloud",
+        "w_20-sporgsmal-musikgenrer_calendar"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "showcase",
+        "order": 3
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "1. Rødder og hjemsteder",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_cat1_core",
+        "w_20-sporgsmal-musikgenrer_cat1_activity",
+        "w_20-sporgsmal-musikgenrer_cat1_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 4
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "2. Rytmer og instrumenter",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_cat2_core",
+        "w_20-sporgsmal-musikgenrer_cat2_activity",
+        "w_20-sporgsmal-musikgenrer_cat2_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 5
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "3. Kunstnere og gennembrud",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_cat3_core",
+        "w_20-sporgsmal-musikgenrer_cat3_activity",
+        "w_20-sporgsmal-musikgenrer_cat3_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 6
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "4. Stilarter og undergenrer",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#15234d 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_cat4_core",
+        "w_20-sporgsmal-musikgenrer_cat4_activity",
+        "w_20-sporgsmal-musikgenrer_cat4_check"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "category",
+        "order": 7
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_8",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "Huskekortmatrix og aktiv genkaldelse",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#3c1632 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_flashcards"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "flashcards",
+        "order": 8
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "Professorens prøveværksted",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#4a2a12 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_workshop",
+        "w_20-sporgsmal-musikgenrer_workshop_timer",
+        "w_20-sporgsmal-musikgenrer_workshop_sources",
+        "w_20-sporgsmal-musikgenrer_workshop_cards"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "workshop",
+        "order": 9
+      }
+    },
+    {
+      "id": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_10",
+      "schemaVersion": 1,
+      "sessionId": "session_professor_20-sporgsmal-musikgenrer_v2_showcase",
+      "title": "KaPardy · 20 spørgsmål",
+      "background": {
+        "kind": "image",
+        "value": "linear-gradient(145deg,#10243e 0%,#173b5e 55%,#28536f 100%)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": 10,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "w_20-sporgsmal-musikgenrer_kapardy"
+      ],
+      "layoutFamilyId": "professor-v2-showcase",
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "meta": {
+        "lessonPart": "kapardy",
+        "order": 10
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w_20-sporgsmal-musikgenrer_intro",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+      "type": "text",
+      "title": "Professorens udfordring",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 560,
+        "height": 405,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "20 SPØRGSMÅL FRA PROFESSOREN · DEMOFORLØB\nMUSIKGENRER\n\nIDÉ\nEleverne arbejder først med kilder, forklaringer, forvekslinger, huskekort og Plan-værktøjer. KaPardy-spillet kommer til sidst som faglig opsamling.\n\nMÅL\n• finde viden i kilder og medier\n• forklare de rigtige svar med egne ord\n• gennemskue plausible, men forkerte svar\n• bruge Huskekortmatrix til aktiv genkaldelse\n• afprøve flere Plan-værktøjer i én sammenhæng\n\nKilde for spillet: spil/kapardy/20/musikgenrer_20.csv",
+        "fontSize": 17,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "intro"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_route",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+      "type": "text",
+      "title": "Lektionsplan og Plan-værktøjer",
+      "geometry": {
+        "x": 600,
+        "y": 85,
+        "width": 580,
+        "height": 405,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "2–4 LEKTIONER\n\n1. Overblik og professorens udfordring.\n2. Ressourcematrix og kildevalg.\n3. Demo-hold og arbejdsfordeling.\n4. Kategoriarbejde: Rødder og hjemsteder, Rytmer og instrumenter, Kunstnere og gennembrud, Stilarter og undergenrer.\n5. Huskekortmatrix og aktiv genkaldelse.\n6. Prøveværksted og afsluttende KaPardy.\n\nPLAN-VÆRKTØJER I DETTE FORLØB\n• Ressourcematrix\n• Lyd-/videokilder\n• Huskekortmatrix\n• Gruppeværktøj\n• Timer\n• KaPardy\n\nDEMOIDÉ\nLyttehold undersøger rødder, rytmer, kunstnere og undergenrer.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "lesson-plan"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_index",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+      "type": "board-index",
+      "title": "Tavler i forløbet",
+      "geometry": {
+        "x": 20,
+        "y": 510,
+        "width": 1160,
+        "height": 295,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "boardIds": [
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_1",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_8",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+          "board_professor_20-sporgsmal-musikgenrer_v2_showcase_10"
+        ]
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "board-index"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_resource_matrix",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "resource-matrix",
+      "title": "Ressourcematrix",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 520,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "version": 1,
+        "resources": [
+          {
+            "title": "Lex · hiphop",
+            "url": "https://lex.dk/hiphop",
+            "type": "dansk/leksikon",
+            "category": "Hiphopkultur",
+            "note": "Dansk fagkilde til hiphopkulturens elementer, South Bronx og pionerer.",
+            "tags": [
+              "hiphop",
+              "South Bronx",
+              "DJ"
+            ]
+          },
+          {
+            "title": "Lex · rap",
+            "url": "https://lex.dk/rap",
+            "type": "dansk/leksikon",
+            "category": "Rap og MC",
+            "note": "Dansk kilde til rap, block parties, DJ Kool Herc og Grandmaster Flash.",
+            "tags": [
+              "rap",
+              "block parties",
+              "MC"
+            ]
+          },
+          {
+            "title": "Lex · reggae",
+            "url": "https://lex.dk/reggae",
+            "type": "dansk/leksikon",
+            "category": "Jamaicansk musik",
+            "note": "Dansk fagkilde til reggae, ska, rocksteady, dub, Bob Marley og Lee “Scratch” Perry.",
+            "tags": [
+              "reggae",
+              "dub",
+              "Bob Marley"
+            ]
+          },
+          {
+            "title": "Lex · techno",
+            "url": "https://lex.dk/techno",
+            "type": "dansk/leksikon",
+            "category": "Elektronisk musik",
+            "note": "Dansk kilde til techno, synthesizere, trommemaskiner og elektroniske dansegenrer.",
+            "tags": [
+              "techno",
+              "synthesizer",
+              "trommemaskine"
+            ]
+          },
+          {
+            "title": "Lex · Storbritannien (populærmusik)",
+            "url": "https://lex.dk/Storbritannien_%28popul%C3%A6rmusik%29",
+            "type": "dansk/leksikon",
+            "category": "Rock og britiske genrer",
+            "note": "Dansk kilde til britisk populærmusik, progressiv rock, heavy metal og senere elektroniske genrer.",
+            "tags": [
+              "Storbritannien",
+              "heavy metal",
+              "progressiv rock"
+            ]
+          },
+          {
+            "title": "Lex · tango",
+            "url": "https://lex.dk/tango",
+            "type": "dansk/leksikon",
+            "category": "Tango",
+            "note": "Dansk kilde til tangoens oprindelse, instrumenter og bandoneonens rolle.",
+            "tags": [
+              "tango",
+              "Buenos Aires",
+              "bandoneon"
+            ]
+          },
+          {
+            "title": "Lex · bandoneón",
+            "url": "https://lex.dk/bandone%C3%B3n",
+            "type": "dansk/leksikon",
+            "category": "Instrumenter",
+            "note": "Kort dansk kilde til bandoneón som instrument i argentinsk tangomusik.",
+            "tags": [
+              "bandoneón",
+              "instrument",
+              "tango"
+            ]
+          },
+          {
+            "title": "Berklee · Electronic music genres",
+            "url": "https://www.berklee.edu/berklee-now/news/electronic-music-genres-a-guide-to-the-most-influential-styles",
+            "type": "fagformidling/international",
+            "category": "House og elektroniske subgenrer",
+            "note": "Beholdes kun som præcis støtte til house, Chicago house og drum and bass, hvor danske elevkilder er svagere.",
+            "tags": [
+              "house",
+              "Chicago",
+              "drum-and-bass"
+            ]
+          }
+        ],
+        "teacherNote": "Kvalitetsløftet kildematrix fase 3: Kilderne er valgt til 9.–10. klasse. Standard er danske, elevtilgængelige kvalitetskilder. Autentiske eller internationale kilder bruges kun, når de er tydeligt bedre som facitkontrol eller giver reel faglig værdi, og bør da bruges lærerstøttet."
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "resource-matrix"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_source_1",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "link",
+      "title": "Musikipedia · Techno",
+      "geometry": {
+        "x": 560,
+        "y": 85,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "url": "https://lex.dk/hiphop",
+        "label": "Lex · hiphop",
+        "note": "Dansk fagkilde til hiphopkulturens elementer, South Bronx og pionerer.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_source_2",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "link",
+      "title": "Berklee · Electronic music genres",
+      "geometry": {
+        "x": 880,
+        "y": 85,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "url": "https://lex.dk/rap",
+        "label": "Lex · rap",
+        "note": "Dansk kilde til rap, block parties, DJ Kool Herc og Grandmaster Flash.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_source_3",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "link",
+      "title": "Rock & Roll Hall of Fame · Hip Hop",
+      "geometry": {
+        "x": 560,
+        "y": 305,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "url": "https://lex.dk/reggae",
+        "label": "Lex · reggae",
+        "note": "Dansk fagkilde til reggae, ska, rocksteady, dub, Bob Marley og Lee “Scratch” Perry.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_source_4",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "link",
+      "title": "Smithsonian Folkways · Reggae and ska",
+      "geometry": {
+        "x": 880,
+        "y": 305,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 5
+      },
+      "content": {
+        "url": "https://lex.dk/techno",
+        "label": "Lex · techno",
+        "note": "Dansk kilde til techno, synthesizere, trommemaskiner og elektroniske dansegenrer.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_source_5",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "link",
+      "title": "Britannica · heavy metal",
+      "geometry": {
+        "x": 560,
+        "y": 525,
+        "width": 300,
+        "height": 190,
+        "rotation": 0,
+        "z": 6
+      },
+      "content": {
+        "url": "https://lex.dk/Storbritannien_%28popul%C3%A6rmusik%29",
+        "label": "Lex · Storbritannien (populærmusik)",
+        "note": "Dansk kilde til britisk populærmusik, progressiv rock, heavy metal og senere elektroniske genrer.",
+        "view": "link"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-link"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_sources_text",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_2",
+      "type": "text",
+      "title": "Kildeopgave",
+      "geometry": {
+        "x": 560,
+        "y": 745,
+        "width": 620,
+        "height": 80,
+        "rotation": 0,
+        "z": 8
+      },
+      "content": {
+        "text": "Åbn mindst to ressourcer. Notér ét sikkert svar, én forklaring og én mulig forveksling.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "sources-task"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_groups",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "groups",
+      "title": "Demo-hold",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 360,
+        "height": 330,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "groupSetVersion": 1,
+        "title": "Demo-hold",
+        "groupSize": 4,
+        "groups": [
+          {
+            "name": "Rødder og hjemsteder",
+            "members": []
+          },
+          {
+            "name": "Rytmer og instrumenter",
+            "members": []
+          },
+          {
+            "name": "Kunstnere og gennembrud",
+            "members": []
+          },
+          {
+            "name": "Stilarter og undergenrer",
+            "members": []
+          }
+        ],
+        "note": "Lyttehold undersøger rødder, rytmer, kunstnere og undergenrer."
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "groups"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_tool_text",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "text",
+      "title": "Arbejdsfordeling",
+      "geometry": {
+        "x": 400,
+        "y": 85,
+        "width": 360,
+        "height": 330,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "BRUG GRUPPEVÆRKTØJET\n\nFordel klassen i fire ekspertgrupper: \n• Rødder og hjemsteder\n• Rytmer og instrumenter\n• Kunstnere og gennembrud\n• Stilarter og undergenrer\n\nHver gruppe skal finde svar, kilde og forveksling til sin kategori. Derefter bytter grupperne forklaringer.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "groups-instructions"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_timer",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "timer",
+      "title": "Kilderunde · 12 minutter",
+      "geometry": {
+        "x": 790,
+        "y": 85,
+        "width": 390,
+        "height": 150,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "timerVersion": 1,
+        "durationSeconds": 720,
+        "mode": "countdown",
+        "label": "Kilderunde"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "timer"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_countdown",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "countdown",
+      "title": "Professorens nedtælling",
+      "geometry": {
+        "x": 790,
+        "y": 255,
+        "width": 390,
+        "height": 160,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "countdownVersion": 1,
+        "durationSeconds": 180,
+        "label": "Sidste tre minutter før deling"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "countdown"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_wordcloud",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "wordcloud",
+      "title": "Nøgleord før spillet",
+      "geometry": {
+        "x": 20,
+        "y": 445,
+        "width": 560,
+        "height": 260,
+        "rotation": 0,
+        "z": 5
+      },
+      "content": {
+        "items": [
+          {
+            "text": "Rødder og hjemsteder",
+            "count": 1
+          },
+          {
+            "text": "Rytmer og instrumenter",
+            "count": 1
+          },
+          {
+            "text": "Kunstnere og gennembrud",
+            "count": 1
+          },
+          {
+            "text": "Stilarter og undergenrer",
+            "count": 1
+          }
+        ],
+        "caseInsensitive": true,
+        "sourceKind": "manual"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "wordcloud"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_calendar",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_3",
+      "type": "calendar",
+      "title": "Minitidslinje",
+      "geometry": {
+        "x": 600,
+        "y": 445,
+        "width": 580,
+        "height": 260,
+        "rotation": 0,
+        "z": 6
+      },
+      "content": {
+        "calendarVersion": 1,
+        "events": [
+          {
+            "title": "Kilder",
+            "date": "Lektion 1"
+          },
+          {
+            "title": "Kategoriarbejde",
+            "date": "Lektion 2"
+          },
+          {
+            "title": "Huskekort og KaPardy",
+            "date": "Lektion 3"
+          }
+        ],
+        "view": "timeline"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "calendar"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat1_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+      "type": "text",
+      "title": "Kildearbejde · Rødder og hjemsteder",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Rødder og hjemsteder\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• I hvilken bydel i New York forbindes hiphoppens fremkomst i 1970'erne især med blokfester?\n• Hvilken caribisk østat er reggae opstået i?\n• Hvilken hurtig jamaicansk genre gik forud for rocksteady og reggae?\n• Hvilken jamaicansk studiestil bygger på remix, ekko og fremhævet bas?\n• Hvilken genre fra Trinidad og Tobago er kendt for fortællende sange og karnevalstradition?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat1_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Rødder og hjemsteder\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat1_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_4",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• I hvilken bydel i New York forbindes hiphoppens fremkomst i 1970'erne især med blokfester?\n• Hvilken caribisk østat er reggae opstået i?\n• Hvilken hurtig jamaicansk genre gik forud for rocksteady og reggae?\n• Hvilken jamaicansk studiestil bygger på remix, ekko og fremhævet bas?\n• Hvilken genre fra Trinidad og Tobago er kendt for fortællende sange og karnevalstradition?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat2_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+      "type": "text",
+      "title": "Kildearbejde · Rytmer og instrumenter",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Rytmer og instrumenter\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvilke to roller var centrale ved hiphoppens tidlige blokfester?\n• I hvilken amerikansk by opstod housemusikken i klubmiljøet i begyndelsen af 1980'erne?\n• I hvilken amerikansk by opstod techno som betegnelse for en elektronisk dansemusikscene i 1980'erne?\n• Hvilken britisk elektronisk genre bruger hurtige breakbeats og markant bas?\n• Hvilket håndholdt bælginstrument er centralt i mange tangoensembler?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat2_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Rytmer og instrumenter\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat2_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_5",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvilke to roller var centrale ved hiphoppens tidlige blokfester?\n• I hvilken amerikansk by opstod housemusikken i klubmiljøet i begyndelsen af 1980'erne?\n• I hvilken amerikansk by opstod techno som betegnelse for en elektronisk dansemusikscene i 1980'erne?\n• Hvilken britisk elektronisk genre bruger hurtige breakbeats og markant bas?\n• Hvilket håndholdt bælginstrument er centralt i mange tangoensembler?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat3_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+      "type": "text",
+      "title": "Kildearbejde · Kunstnere og gennembrud",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Kunstnere og gennembrud\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvilken sangerinde blev kendt som “Queen of Disco”?\n• Hvilken DJ-pioner forbindes med gruppen Grandmaster Flash and the Furious Five?\n• Hvilken jamaicansk kunstner gjorde reggae internationalt kendt med The Wailers?\n• Hvilken jamaicansk producer forbindes stærkt med dub og studiet Black Ark?\n• Hvilken cubanskfødt sangerinde blev kendt som “Queen of Salsa”?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat3_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Kunstnere og gennembrud\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat3_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_6",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvilken sangerinde blev kendt som “Queen of Disco”?\n• Hvilken DJ-pioner forbindes med gruppen Grandmaster Flash and the Furious Five?\n• Hvilken jamaicansk kunstner gjorde reggae internationalt kendt med The Wailers?\n• Hvilken jamaicansk producer forbindes stærkt med dub og studiet Black Ark?\n• Hvilken cubanskfødt sangerinde blev kendt som “Queen of Salsa”?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat4_core",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+      "type": "text",
+      "title": "Kildearbejde · Stilarter og undergenrer",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "KATEGORI: Stilarter og undergenrer\n\nARBEJD MED KILDERNE\nBrug Ressourcematrixen og find mindst én kilde, der kan understøtte hvert svar.\n\nUNDERSØGELSESSPØRGSMÅL\n• Hvilken bluesstil blev elektrificeret i efterkrigstidens Chicago?\n• Hvilken genre kombinerer country med tidlig rock'n'roll og forbindes med 1950'erne?\n• Hvilken rockretning fra 1960'erne forbindes med psykedeliske lyde og udvidede studieeksperimenter?\n• Hvilken rockretning er kendt for lange kompositioner, skiftende taktarter og konceptalbum?\n• Hvilken genre udviklede sig omkring tungt forvrængede guitarer og bands som Black Sabbath?\n\nVIGTIGT\nSvarene skal ikke bare findes. De skal forklares: Hvorfor er svaret korrekt? Hvorfor kan de tre andre muligheder lyde plausible, men være forkerte?",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "core"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat4_activity",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+      "type": "text",
+      "title": "Arbejd aktivt",
+      "geometry": {
+        "x": 750,
+        "y": 85,
+        "width": 430,
+        "height": 315,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "text": "AKTIV OPGAVE · Stilarter og undergenrer\n\n1. Arbejd i ekspertgruppe eller makkerpar.\n2. Vælg to spørgsmål fra kategorien.\n3. Åbn en relevant kilde.\n4. Formulér et kort svar og en forklaring på 2–3 sætninger.\n5. Skriv én typisk forveksling.\n\nPRODUKT\nEt mini-huskekort pr. spørgsmål: forside = spørgsmål, bagside = svar, note = forklaring.",
+        "fontSize": 15,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "activity"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_cat4_check",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_7",
+      "type": "text",
+      "title": "Kontrol uden valgmuligheder",
+      "geometry": {
+        "x": 750,
+        "y": 420,
+        "width": 430,
+        "height": 365,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "AKTIV GENKALDELSE\n\nLuk kilden. Svar mundtligt uden valgmuligheder:\n• Hvilken bluesstil blev elektrificeret i efterkrigstidens Chicago?\n• Hvilken genre kombinerer country med tidlig rock'n'roll og forbindes med 1950'erne?\n• Hvilken rockretning fra 1960'erne forbindes med psykedeliske lyde og udvidede studieeksperimenter?\n• Hvilken rockretning er kendt for lange kompositioner, skiftende taktarter og konceptalbum?\n• Hvilken genre udviklede sig omkring tungt forvrængede guitarer og bands som Black Sabbath?\n\nMarker derefter kortene i Huskekortmatrixen: Kan ikke endnu / Næsten / Kan.",
+        "fontSize": 14,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "retrieval"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_flashcards",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_8",
+      "type": "flashcard-matrix",
+      "title": "Huskekortmatrix · aktiv genkaldelse",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 1160,
+        "height": 740,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "flashcardMatrixVersion": 2,
+        "sourceWidgetId": "w_20-sporgsmal-musikgenrer_kapardy",
+        "sourceTitle": "KaPardy · Musikgenrer",
+        "shuffle": true,
+        "cards": [],
+        "extraCards": [],
+        "sourceSnapshot": {
+          "title": "KaPardy · Musikgenrer",
+          "questions": [
+            {
+              "id": "kp_musikgenrer_01",
+              "category": "Rødder og hjemsteder",
+              "question": "I hvilken bydel i New York forbindes hiphoppens fremkomst i 1970'erne især med blokfester?",
+              "points": 100,
+              "options": [
+                "Bronx",
+                "Queens",
+                "Manhattan",
+                "Staten Island"
+              ],
+              "correctIndex": 0,
+              "answer": "Bronx",
+              "sourceTitle": "Wikipedia – Hip hop music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hip_hop_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om hiphoppens fremkomst ved blokfester i Bronx i 1970’erne."
+            },
+            {
+              "id": "kp_musikgenrer_02",
+              "category": "Rødder og hjemsteder",
+              "question": "Hvilken caribisk østat er reggae opstået i?",
+              "points": 200,
+              "options": [
+                "Jamaica",
+                "Cuba",
+                "Barbados",
+                "Haiti"
+              ],
+              "correctIndex": 0,
+              "answer": "Jamaica",
+              "sourceTitle": "Wikipedia – Reggae",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Reggae",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om reggae som jamaicansk musikgenre."
+            },
+            {
+              "id": "kp_musikgenrer_03",
+              "category": "Rødder og hjemsteder",
+              "question": "Hvilken hurtig jamaicansk genre gik forud for rocksteady og reggae?",
+              "points": 300,
+              "options": [
+                "ska",
+                "samba",
+                "salsa",
+                "soca"
+              ],
+              "correctIndex": 0,
+              "answer": "ska",
+              "sourceTitle": "Wikipedia – Ska",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Ska",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om ska som jamaicansk genre før rocksteady og reggae."
+            },
+            {
+              "id": "kp_musikgenrer_04",
+              "category": "Rødder og hjemsteder",
+              "question": "Hvilken jamaicansk studiestil bygger på remix, ekko og fremhævet bas?",
+              "points": 400,
+              "options": [
+                "dub",
+                "bossa nova",
+                "zydeco",
+                "operette"
+              ],
+              "correctIndex": 0,
+              "answer": "dub",
+              "sourceTitle": "Wikipedia – Dub music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Dub_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om dub som jamaicansk studiestil med remix, ekko og fremhævet bas."
+            },
+            {
+              "id": "kp_musikgenrer_05",
+              "category": "Rødder og hjemsteder",
+              "question": "Hvilken genre fra Trinidad og Tobago er kendt for fortællende sange og karnevalstradition?",
+              "points": 500,
+              "options": [
+                "calypso",
+                "fado",
+                "raï",
+                "klezmer"
+              ],
+              "correctIndex": 0,
+              "answer": "calypso",
+              "sourceTitle": "Wikipedia – Calypso music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Calypso_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om calypso fra Trinidad og Tobago, karneval og fortællende sange."
+            },
+            {
+              "id": "kp_musikgenrer_06",
+              "category": "Rytmer og instrumenter",
+              "question": "Hvilke to roller var centrale ved hiphoppens tidlige blokfester?",
+              "points": 100,
+              "options": [
+                "DJ og MC",
+                "dirigent og koncertmester",
+                "kantor og organist",
+                "komponist og librettist"
+              ],
+              "correctIndex": 0,
+              "answer": "DJ og MC",
+              "sourceTitle": "Wikipedia – Hip hop music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Hip_hop_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om hiphoppens fremkomst ved blokfester i Bronx i 1970’erne."
+            },
+            {
+              "id": "kp_musikgenrer_07",
+              "category": "Rytmer og instrumenter",
+              "question": "I hvilken amerikansk by opstod housemusikken i klubmiljøet i begyndelsen af 1980'erne?",
+              "points": 200,
+              "options": [
+                "Chicago",
+                "Seattle",
+                "Memphis",
+                "Boston"
+              ],
+              "correctIndex": 0,
+              "answer": "Chicago",
+              "sourceTitle": "Wikipedia – House music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/House_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om housemusikkens opståen i Chicago-klubmiljøet."
+            },
+            {
+              "id": "kp_musikgenrer_08",
+              "category": "Rytmer og instrumenter",
+              "question": "I hvilken amerikansk by opstod techno som betegnelse for en elektronisk dansemusikscene i 1980'erne?",
+              "points": 300,
+              "options": [
+                "Detroit",
+                "Austin",
+                "Miami",
+                "New Orleans"
+              ],
+              "correctIndex": 0,
+              "answer": "Detroit",
+              "sourceTitle": "Wikipedia – Detroit techno",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Detroit_techno",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om Detroit-techno og scenen omkring 1980’ernes elektroniske dansemusik."
+            },
+            {
+              "id": "kp_musikgenrer_09",
+              "category": "Rytmer og instrumenter",
+              "question": "Hvilken britisk elektronisk genre bruger hurtige breakbeats og markant bas?",
+              "points": 400,
+              "options": [
+                "drum and bass",
+                "ambient",
+                "country pop",
+                "bolero"
+              ],
+              "correctIndex": 0,
+              "answer": "drum and bass",
+              "sourceTitle": "Wikipedia – Drum and bass",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Drum_and_bass",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om drum and bass med hurtige breakbeats og markant bas."
+            },
+            {
+              "id": "kp_musikgenrer_10",
+              "category": "Rytmer og instrumenter",
+              "question": "Hvilket håndholdt bælginstrument er centralt i mange tangoensembler?",
+              "points": 500,
+              "options": [
+                "bandoneon",
+                "melodica",
+                "mundharpe",
+                "concertina"
+              ],
+              "correctIndex": 0,
+              "answer": "bandoneon",
+              "sourceTitle": "Wikipedia – Bandoneon",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bandoneon",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Fallback-kilde valgt ud fra korrekt svar: Åben oversigtsartikel om genren, kunstneren, instrumentet eller begrebet. Underbygger spørgsmålet og det korrekte svar."
+            },
+            {
+              "id": "kp_musikgenrer_11",
+              "category": "Kunstnere og gennembrud",
+              "question": "Hvilken sangerinde blev kendt som “Queen of Disco”?",
+              "points": 100,
+              "options": [
+                "Donna Summer",
+                "Janis Joplin",
+                "Carole King",
+                "Tina Turner"
+              ],
+              "correctIndex": 0,
+              "answer": "Donna Summer",
+              "sourceTitle": "Wikipedia – Donna Summer",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Donna_Summer",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben biografisk artikel om Donna Summer og tilnavnet Queen of Disco."
+            },
+            {
+              "id": "kp_musikgenrer_12",
+              "category": "Kunstnere og gennembrud",
+              "question": "Hvilken DJ-pioner forbindes med gruppen Grandmaster Flash and the Furious Five?",
+              "points": 200,
+              "options": [
+                "Grandmaster Flash",
+                "Brian Eno",
+                "Giorgio Moroder",
+                "Nile Rodgers"
+              ],
+              "correctIndex": 0,
+              "answer": "Grandmaster Flash",
+              "sourceTitle": "Wikipedia – Grandmaster Flash",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Grandmaster_Flash",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben biografisk artikel om DJ-pioneren Grandmaster Flash og gruppen Grandmaster Flash and the Furious Five."
+            },
+            {
+              "id": "kp_musikgenrer_13",
+              "category": "Kunstnere og gennembrud",
+              "question": "Hvilken jamaicansk kunstner gjorde reggae internationalt kendt med The Wailers?",
+              "points": 300,
+              "options": [
+                "Bob Marley",
+                "Harry Belafonte",
+                "Fela Kuti",
+                "Carlos Santana"
+              ],
+              "correctIndex": 0,
+              "answer": "Bob Marley",
+              "sourceTitle": "Wikipedia – Bob Marley",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Bob_Marley",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben biografisk artikel om Bob Marley, The Wailers og reggaens internationale gennembrud."
+            },
+            {
+              "id": "kp_musikgenrer_14",
+              "category": "Kunstnere og gennembrud",
+              "question": "Hvilken jamaicansk producer forbindes stærkt med dub og studiet Black Ark?",
+              "points": 400,
+              "options": [
+                "Lee “Scratch” Perry",
+                "Quincy Jones",
+                "Phil Spector",
+                "Rick Rubin"
+              ],
+              "correctIndex": 0,
+              "answer": "Lee “Scratch” Perry",
+              "sourceTitle": "Wikipedia – Lee \"Scratch\" Perry",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Lee_%22Scratch%22_Perry",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben biografisk artikel om Lee “Scratch” Perry, dub og Black Ark-studiet."
+            },
+            {
+              "id": "kp_musikgenrer_15",
+              "category": "Kunstnere og gennembrud",
+              "question": "Hvilken cubanskfødt sangerinde blev kendt som “Queen of Salsa”?",
+              "points": 500,
+              "options": [
+                "Celia Cruz",
+                "Mercedes Sosa",
+                "Amália Rodrigues",
+                "Astrud Gilberto"
+              ],
+              "correctIndex": 0,
+              "answer": "Celia Cruz",
+              "sourceTitle": "Wikipedia – Celia Cruz",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Celia_Cruz",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben biografisk artikel om Celia Cruz og tilnavnet Queen of Salsa."
+            },
+            {
+              "id": "kp_musikgenrer_16",
+              "category": "Stilarter og undergenrer",
+              "question": "Hvilken bluesstil blev elektrificeret i efterkrigstidens Chicago?",
+              "points": 100,
+              "options": [
+                "Chicago blues",
+                "Piedmont blues",
+                "country blues",
+                "gospel blues"
+              ],
+              "correctIndex": 0,
+              "answer": "Chicago blues",
+              "sourceTitle": "Wikipedia – Chicago blues",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Chicago_blues",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Fallback-kilde valgt ud fra korrekt svar: Åben oversigtsartikel om genren, kunstneren, instrumentet eller begrebet. Underbygger spørgsmålet og det korrekte svar."
+            },
+            {
+              "id": "kp_musikgenrer_17",
+              "category": "Stilarter og undergenrer",
+              "question": "Hvilken genre kombinerer country med tidlig rock'n'roll og forbindes med 1950'erne?",
+              "points": 200,
+              "options": [
+                "rockabilly",
+                "shoegaze",
+                "trip-hop",
+                "post-rock"
+              ],
+              "correctIndex": 0,
+              "answer": "rockabilly",
+              "sourceTitle": "Wikipedia – Rockabilly",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Rockabilly",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om rockabilly som blanding af country/hillbilly og tidlig rock’n’roll."
+            },
+            {
+              "id": "kp_musikgenrer_18",
+              "category": "Stilarter og undergenrer",
+              "question": "Hvilken rockretning fra 1960'erne forbindes med psykedeliske lyde og udvidede studieeksperimenter?",
+              "points": 300,
+              "options": [
+                "psykedelisk rock",
+                "new wave",
+                "grunge",
+                "rocksteady"
+              ],
+              "correctIndex": 0,
+              "answer": "psykedelisk rock",
+              "sourceTitle": "Wikipedia – Psychedelic rock",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Psychedelic_rock",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om psykedelisk rock, studieeksperimenter og 1960’ernes rockkultur."
+            },
+            {
+              "id": "kp_musikgenrer_19",
+              "category": "Stilarter og undergenrer",
+              "question": "Hvilken rockretning er kendt for lange kompositioner, skiftende taktarter og konceptalbum?",
+              "points": 400,
+              "options": [
+                "progressiv rock",
+                "punkrock",
+                "garage rock",
+                "rockabilly"
+              ],
+              "correctIndex": 0,
+              "answer": "progressiv rock",
+              "sourceTitle": "Wikipedia – Progressive rock",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Progressive_rock",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om progressiv rock med længere former, skiftende taktarter og konceptalbum."
+            },
+            {
+              "id": "kp_musikgenrer_20",
+              "category": "Stilarter og undergenrer",
+              "question": "Hvilken genre udviklede sig omkring tungt forvrængede guitarer og bands som Black Sabbath?",
+              "points": 500,
+              "options": [
+                "heavy metal",
+                "bluegrass",
+                "acid house",
+                "fado"
+              ],
+              "correctIndex": 0,
+              "answer": "heavy metal",
+              "sourceTitle": "Wikipedia – Heavy metal music",
+              "sourceUrl": "https://en.wikipedia.org/wiki/Heavy_metal_music",
+              "sourceStatus": "OK",
+              "sourceCheckedAt": "2026-07-09",
+              "sourceNote": "Åben artikel om heavy metal, forvrængede guitarer og tidlige bands som Black Sabbath."
+            }
+          ],
+          "updatedAt": "2026-07-07T00:45:00.000Z"
+        },
+        "sourceType": "kapardy",
+        "view": "overview",
+        "categoryFilter": "Alle",
+        "statusFilter": "Alle",
+        "progress": {},
+        "overrides": {
+          "kp_musikgenrer_01": {
+            "hint": "Find svaret i kilderne til: Rødder og hjemsteder.",
+            "explanation": "Kort svar: Bronx. Forklar hvorfor det er mere præcist end: Queens · Manhattan · Staten Island.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Queens",
+              "Manhattan",
+              "Staten Island"
+            ]
+          },
+          "kp_musikgenrer_02": {
+            "hint": "Find svaret i kilderne til: Rødder og hjemsteder.",
+            "explanation": "Kort svar: Jamaica. Forklar hvorfor det er mere præcist end: Cuba · Barbados · Haiti.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Cuba",
+              "Barbados",
+              "Haiti"
+            ]
+          },
+          "kp_musikgenrer_03": {
+            "hint": "Find svaret i kilderne til: Rødder og hjemsteder.",
+            "explanation": "Kort svar: ska. Forklar hvorfor det er mere præcist end: samba · salsa · soca.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "samba",
+              "salsa",
+              "soca"
+            ]
+          },
+          "kp_musikgenrer_04": {
+            "hint": "Find svaret i kilderne til: Rødder og hjemsteder.",
+            "explanation": "Kort svar: dub. Forklar hvorfor det er mere præcist end: bossa nova · zydeco · operette.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "bossa nova",
+              "zydeco",
+              "operette"
+            ]
+          },
+          "kp_musikgenrer_05": {
+            "hint": "Find svaret i kilderne til: Rødder og hjemsteder.",
+            "explanation": "Kort svar: calypso. Forklar hvorfor det er mere præcist end: fado · raï · klezmer.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "fado",
+              "raï",
+              "klezmer"
+            ]
+          },
+          "kp_musikgenrer_06": {
+            "hint": "Find svaret i kilderne til: Rytmer og instrumenter.",
+            "explanation": "Kort svar: DJ og MC. Forklar hvorfor det er mere præcist end: dirigent og koncertmester · kantor og organist · komponist og librettist.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "dirigent og koncertmester",
+              "kantor og organist",
+              "komponist og librettist"
+            ]
+          },
+          "kp_musikgenrer_07": {
+            "hint": "Find svaret i kilderne til: Rytmer og instrumenter.",
+            "explanation": "Kort svar: Chicago. Forklar hvorfor det er mere præcist end: Seattle · Memphis · Boston.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Seattle",
+              "Memphis",
+              "Boston"
+            ]
+          },
+          "kp_musikgenrer_08": {
+            "hint": "Find svaret i kilderne til: Rytmer og instrumenter.",
+            "explanation": "Kort svar: Detroit. Forklar hvorfor det er mere præcist end: Austin · Miami · New Orleans.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Austin",
+              "Miami",
+              "New Orleans"
+            ]
+          },
+          "kp_musikgenrer_09": {
+            "hint": "Find svaret i kilderne til: Rytmer og instrumenter.",
+            "explanation": "Kort svar: drum and bass. Forklar hvorfor det er mere præcist end: ambient · country pop · bolero.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "ambient",
+              "country pop",
+              "bolero"
+            ]
+          },
+          "kp_musikgenrer_10": {
+            "hint": "Find svaret i kilderne til: Rytmer og instrumenter.",
+            "explanation": "Kort svar: bandoneon. Forklar hvorfor det er mere præcist end: melodica · mundharpe · concertina.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "melodica",
+              "mundharpe",
+              "concertina"
+            ]
+          },
+          "kp_musikgenrer_11": {
+            "hint": "Find svaret i kilderne til: Kunstnere og gennembrud.",
+            "explanation": "Kort svar: Donna Summer. Forklar hvorfor det er mere præcist end: Janis Joplin · Carole King · Tina Turner.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Janis Joplin",
+              "Carole King",
+              "Tina Turner"
+            ]
+          },
+          "kp_musikgenrer_12": {
+            "hint": "Find svaret i kilderne til: Kunstnere og gennembrud.",
+            "explanation": "Kort svar: Grandmaster Flash. Forklar hvorfor det er mere præcist end: Brian Eno · Giorgio Moroder · Nile Rodgers.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Brian Eno",
+              "Giorgio Moroder",
+              "Nile Rodgers"
+            ]
+          },
+          "kp_musikgenrer_13": {
+            "hint": "Find svaret i kilderne til: Kunstnere og gennembrud.",
+            "explanation": "Kort svar: Bob Marley. Forklar hvorfor det er mere præcist end: Harry Belafonte · Fela Kuti · Carlos Santana.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Harry Belafonte",
+              "Fela Kuti",
+              "Carlos Santana"
+            ]
+          },
+          "kp_musikgenrer_14": {
+            "hint": "Find svaret i kilderne til: Kunstnere og gennembrud.",
+            "explanation": "Kort svar: Lee “Scratch” Perry. Forklar hvorfor det er mere præcist end: Quincy Jones · Phil Spector · Rick Rubin.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Quincy Jones",
+              "Phil Spector",
+              "Rick Rubin"
+            ]
+          },
+          "kp_musikgenrer_15": {
+            "hint": "Find svaret i kilderne til: Kunstnere og gennembrud.",
+            "explanation": "Kort svar: Celia Cruz. Forklar hvorfor det er mere præcist end: Mercedes Sosa · Amália Rodrigues · Astrud Gilberto.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Mercedes Sosa",
+              "Amália Rodrigues",
+              "Astrud Gilberto"
+            ]
+          },
+          "kp_musikgenrer_16": {
+            "hint": "Find svaret i kilderne til: Stilarter og undergenrer.",
+            "explanation": "Kort svar: Chicago blues. Forklar hvorfor det er mere præcist end: Piedmont blues · country blues · gospel blues.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "Piedmont blues",
+              "country blues",
+              "gospel blues"
+            ]
+          },
+          "kp_musikgenrer_17": {
+            "hint": "Find svaret i kilderne til: Stilarter og undergenrer.",
+            "explanation": "Kort svar: rockabilly. Forklar hvorfor det er mere præcist end: shoegaze · trip-hop · post-rock.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "shoegaze",
+              "trip-hop",
+              "post-rock"
+            ]
+          },
+          "kp_musikgenrer_18": {
+            "hint": "Find svaret i kilderne til: Stilarter og undergenrer.",
+            "explanation": "Kort svar: psykedelisk rock. Forklar hvorfor det er mere præcist end: new wave · grunge · rocksteady.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "new wave",
+              "grunge",
+              "rocksteady"
+            ]
+          },
+          "kp_musikgenrer_19": {
+            "hint": "Find svaret i kilderne til: Stilarter og undergenrer.",
+            "explanation": "Kort svar: progressiv rock. Forklar hvorfor det er mere præcist end: punkrock · garage rock · rockabilly.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "punkrock",
+              "garage rock",
+              "rockabilly"
+            ]
+          },
+          "kp_musikgenrer_20": {
+            "hint": "Find svaret i kilderne til: Stilarter og undergenrer.",
+            "explanation": "Kort svar: heavy metal. Forklar hvorfor det er mere præcist end: bluegrass · acid house · fado.",
+            "sourceTitle": "AllMusic",
+            "sourceUrl": "https://www.allmusic.com/",
+            "confusions": [
+              "bluegrass",
+              "acid house",
+              "fado"
+            ]
+          }
+        },
+        "activeIndex": 0,
+        "flipped": false
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "flashcard-training"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_workshop",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+      "type": "text",
+      "title": "Professorens prøveværksted",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 560,
+        "height": 700,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "text": "PROFESSORENS PRØVEVÆRKSTED\n\nFør KaPardy skal hvert hold kunne forklare mindst fem kort uden at se bagsiden.\n\nARBEJDSFORM\n• Vælg en kategori.\n• Træk 3–5 kort fra Huskekortmatrixen.\n• Forklar hvert kort højt.\n• Brug en kilde, hvis gruppen er uenig.\n• Notér én forveksling, som de andre hold let kan falde i.\n\nKVALITETSKRAV\nEt godt svar er kort, korrekt og begrundet.",
+        "fontSize": 17,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "workshop"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_workshop_timer",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+      "type": "timer",
+      "title": "Forklaringsrunde · 8 minutter",
+      "geometry": {
+        "x": 600,
+        "y": 85,
+        "width": 580,
+        "height": 180,
+        "rotation": 0,
+        "z": 2
+      },
+      "content": {
+        "timerVersion": 1,
+        "durationSeconds": 480,
+        "mode": "countdown",
+        "label": "Forklaringsrunde"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "timer"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_workshop_sources",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+      "type": "text",
+      "title": "Kildekrav før spillet",
+      "geometry": {
+        "x": 600,
+        "y": 285,
+        "width": 580,
+        "height": 230,
+        "rotation": 0,
+        "z": 3
+      },
+      "content": {
+        "text": "KILDEKRAV\n\nHvert hold skal kunne pege på mindst én kilde eller ét medie, der støtter deres forklaring.\n\nNår et kort stadig står som “Kan ikke endnu”, skal gruppen tilbage til kilden før KaPardy.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "source-requirement"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_workshop_cards",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_9",
+      "type": "text",
+      "title": "Huskekortrunde",
+      "geometry": {
+        "x": 600,
+        "y": 535,
+        "width": 580,
+        "height": 250,
+        "rotation": 0,
+        "z": 4
+      },
+      "content": {
+        "text": "HUSKEKORTRUNDE\n\n1. Åbn Huskekortmatrixen.\n2. Filtrér én kategori ad gangen.\n3. Bland kortene.\n4. Lad grupperne svare, før bagsiden vendes.\n5. Markér status.\n6. Spil først KaPardy, når de fleste kort er “Næsten” eller “Kan”.",
+        "fontSize": 16,
+        "align": "left"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "flashcard-routine"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    },
+    {
+      "id": "w_20-sporgsmal-musikgenrer_kapardy",
+      "schemaVersion": 3,
+      "widgetVersion": 1,
+      "boardId": "board_professor_20-sporgsmal-musikgenrer_v2_showcase_10",
+      "type": "kapardy",
+      "title": "KaPardy · Musikgenrer",
+      "geometry": {
+        "x": 20,
+        "y": 85,
+        "width": 1160,
+        "height": 740,
+        "rotation": 0,
+        "z": 1
+      },
+      "content": {
+        "kapardyVersion": 2,
+        "questionBankContract": "first-answer-correct",
+        "gameId": "kapardy_20-sporgsmal-musikgenrer_20",
+        "gameStartedAt": "2026-07-07T00:45:00.000Z",
+        "gameMode": "jeopardy",
+        "mode": "jeopardy",
+        "kapardyScreen": "setup",
+        "jeopardyStage": "board",
+        "teams": [
+          {
+            "name": "Hold 1",
+            "score": 0,
+            "correct": 0
+          },
+          {
+            "name": "Hold 2",
+            "score": 0,
+            "correct": 0
+          }
+        ],
+        "questions": [
+          {
+            "id": "kp_musikgenrer_01",
+            "category": "Rødder og hjemsteder",
+            "question": "I hvilken bydel i New York forbindes hiphoppens fremkomst i 1970'erne især med blokfester?",
+            "points": 100,
+            "options": [
+              "Bronx",
+              "Queens",
+              "Manhattan",
+              "Staten Island"
+            ],
+            "correctIndex": 0,
+            "answer": "Bronx",
+            "sourceTitle": "Wikipedia – Hip hop music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hip_hop_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om hiphoppens fremkomst ved blokfester i Bronx i 1970’erne."
+          },
+          {
+            "id": "kp_musikgenrer_02",
+            "category": "Rødder og hjemsteder",
+            "question": "Hvilken caribisk østat er reggae opstået i?",
+            "points": 200,
+            "options": [
+              "Jamaica",
+              "Cuba",
+              "Barbados",
+              "Haiti"
+            ],
+            "correctIndex": 0,
+            "answer": "Jamaica",
+            "sourceTitle": "Wikipedia – Reggae",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Reggae",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om reggae som jamaicansk musikgenre."
+          },
+          {
+            "id": "kp_musikgenrer_03",
+            "category": "Rødder og hjemsteder",
+            "question": "Hvilken hurtig jamaicansk genre gik forud for rocksteady og reggae?",
+            "points": 300,
+            "options": [
+              "ska",
+              "samba",
+              "salsa",
+              "soca"
+            ],
+            "correctIndex": 0,
+            "answer": "ska",
+            "sourceTitle": "Wikipedia – Ska",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Ska",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om ska som jamaicansk genre før rocksteady og reggae."
+          },
+          {
+            "id": "kp_musikgenrer_04",
+            "category": "Rødder og hjemsteder",
+            "question": "Hvilken jamaicansk studiestil bygger på remix, ekko og fremhævet bas?",
+            "points": 400,
+            "options": [
+              "dub",
+              "bossa nova",
+              "zydeco",
+              "operette"
+            ],
+            "correctIndex": 0,
+            "answer": "dub",
+            "sourceTitle": "Wikipedia – Dub music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Dub_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om dub som jamaicansk studiestil med remix, ekko og fremhævet bas."
+          },
+          {
+            "id": "kp_musikgenrer_05",
+            "category": "Rødder og hjemsteder",
+            "question": "Hvilken genre fra Trinidad og Tobago er kendt for fortællende sange og karnevalstradition?",
+            "points": 500,
+            "options": [
+              "calypso",
+              "fado",
+              "raï",
+              "klezmer"
+            ],
+            "correctIndex": 0,
+            "answer": "calypso",
+            "sourceTitle": "Wikipedia – Calypso music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Calypso_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om calypso fra Trinidad og Tobago, karneval og fortællende sange."
+          },
+          {
+            "id": "kp_musikgenrer_06",
+            "category": "Rytmer og instrumenter",
+            "question": "Hvilke to roller var centrale ved hiphoppens tidlige blokfester?",
+            "points": 100,
+            "options": [
+              "DJ og MC",
+              "dirigent og koncertmester",
+              "kantor og organist",
+              "komponist og librettist"
+            ],
+            "correctIndex": 0,
+            "answer": "DJ og MC",
+            "sourceTitle": "Wikipedia – Hip hop music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hip_hop_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om hiphoppens fremkomst ved blokfester i Bronx i 1970’erne."
+          },
+          {
+            "id": "kp_musikgenrer_07",
+            "category": "Rytmer og instrumenter",
+            "question": "I hvilken amerikansk by opstod housemusikken i klubmiljøet i begyndelsen af 1980'erne?",
+            "points": 200,
+            "options": [
+              "Chicago",
+              "Seattle",
+              "Memphis",
+              "Boston"
+            ],
+            "correctIndex": 0,
+            "answer": "Chicago",
+            "sourceTitle": "Wikipedia – House music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/House_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om housemusikkens opståen i Chicago-klubmiljøet."
+          },
+          {
+            "id": "kp_musikgenrer_08",
+            "category": "Rytmer og instrumenter",
+            "question": "I hvilken amerikansk by opstod techno som betegnelse for en elektronisk dansemusikscene i 1980'erne?",
+            "points": 300,
+            "options": [
+              "Detroit",
+              "Austin",
+              "Miami",
+              "New Orleans"
+            ],
+            "correctIndex": 0,
+            "answer": "Detroit",
+            "sourceTitle": "Wikipedia – Detroit techno",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Detroit_techno",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om Detroit-techno og scenen omkring 1980’ernes elektroniske dansemusik."
+          },
+          {
+            "id": "kp_musikgenrer_09",
+            "category": "Rytmer og instrumenter",
+            "question": "Hvilken britisk elektronisk genre bruger hurtige breakbeats og markant bas?",
+            "points": 400,
+            "options": [
+              "drum and bass",
+              "ambient",
+              "country pop",
+              "bolero"
+            ],
+            "correctIndex": 0,
+            "answer": "drum and bass",
+            "sourceTitle": "Wikipedia – Drum and bass",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Drum_and_bass",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om drum and bass med hurtige breakbeats og markant bas."
+          },
+          {
+            "id": "kp_musikgenrer_10",
+            "category": "Rytmer og instrumenter",
+            "question": "Hvilket håndholdt bælginstrument er centralt i mange tangoensembler?",
+            "points": 500,
+            "options": [
+              "bandoneon",
+              "melodica",
+              "mundharpe",
+              "concertina"
+            ],
+            "correctIndex": 0,
+            "answer": "bandoneon",
+            "sourceTitle": "Wikipedia – Bandoneon",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bandoneon",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Fallback-kilde valgt ud fra korrekt svar: Åben oversigtsartikel om genren, kunstneren, instrumentet eller begrebet. Underbygger spørgsmålet og det korrekte svar."
+          },
+          {
+            "id": "kp_musikgenrer_11",
+            "category": "Kunstnere og gennembrud",
+            "question": "Hvilken sangerinde blev kendt som “Queen of Disco”?",
+            "points": 100,
+            "options": [
+              "Donna Summer",
+              "Janis Joplin",
+              "Carole King",
+              "Tina Turner"
+            ],
+            "correctIndex": 0,
+            "answer": "Donna Summer",
+            "sourceTitle": "Wikipedia – Donna Summer",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Donna_Summer",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben biografisk artikel om Donna Summer og tilnavnet Queen of Disco."
+          },
+          {
+            "id": "kp_musikgenrer_12",
+            "category": "Kunstnere og gennembrud",
+            "question": "Hvilken DJ-pioner forbindes med gruppen Grandmaster Flash and the Furious Five?",
+            "points": 200,
+            "options": [
+              "Grandmaster Flash",
+              "Brian Eno",
+              "Giorgio Moroder",
+              "Nile Rodgers"
+            ],
+            "correctIndex": 0,
+            "answer": "Grandmaster Flash",
+            "sourceTitle": "Wikipedia – Grandmaster Flash",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Grandmaster_Flash",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben biografisk artikel om DJ-pioneren Grandmaster Flash og gruppen Grandmaster Flash and the Furious Five."
+          },
+          {
+            "id": "kp_musikgenrer_13",
+            "category": "Kunstnere og gennembrud",
+            "question": "Hvilken jamaicansk kunstner gjorde reggae internationalt kendt med The Wailers?",
+            "points": 300,
+            "options": [
+              "Bob Marley",
+              "Harry Belafonte",
+              "Fela Kuti",
+              "Carlos Santana"
+            ],
+            "correctIndex": 0,
+            "answer": "Bob Marley",
+            "sourceTitle": "Wikipedia – Bob Marley",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Bob_Marley",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben biografisk artikel om Bob Marley, The Wailers og reggaens internationale gennembrud."
+          },
+          {
+            "id": "kp_musikgenrer_14",
+            "category": "Kunstnere og gennembrud",
+            "question": "Hvilken jamaicansk producer forbindes stærkt med dub og studiet Black Ark?",
+            "points": 400,
+            "options": [
+              "Lee “Scratch” Perry",
+              "Quincy Jones",
+              "Phil Spector",
+              "Rick Rubin"
+            ],
+            "correctIndex": 0,
+            "answer": "Lee “Scratch” Perry",
+            "sourceTitle": "Wikipedia – Lee \"Scratch\" Perry",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Lee_%22Scratch%22_Perry",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben biografisk artikel om Lee “Scratch” Perry, dub og Black Ark-studiet."
+          },
+          {
+            "id": "kp_musikgenrer_15",
+            "category": "Kunstnere og gennembrud",
+            "question": "Hvilken cubanskfødt sangerinde blev kendt som “Queen of Salsa”?",
+            "points": 500,
+            "options": [
+              "Celia Cruz",
+              "Mercedes Sosa",
+              "Amália Rodrigues",
+              "Astrud Gilberto"
+            ],
+            "correctIndex": 0,
+            "answer": "Celia Cruz",
+            "sourceTitle": "Wikipedia – Celia Cruz",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Celia_Cruz",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben biografisk artikel om Celia Cruz og tilnavnet Queen of Salsa."
+          },
+          {
+            "id": "kp_musikgenrer_16",
+            "category": "Stilarter og undergenrer",
+            "question": "Hvilken bluesstil blev elektrificeret i efterkrigstidens Chicago?",
+            "points": 100,
+            "options": [
+              "Chicago blues",
+              "Piedmont blues",
+              "country blues",
+              "gospel blues"
+            ],
+            "correctIndex": 0,
+            "answer": "Chicago blues",
+            "sourceTitle": "Wikipedia – Chicago blues",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Chicago_blues",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Fallback-kilde valgt ud fra korrekt svar: Åben oversigtsartikel om genren, kunstneren, instrumentet eller begrebet. Underbygger spørgsmålet og det korrekte svar."
+          },
+          {
+            "id": "kp_musikgenrer_17",
+            "category": "Stilarter og undergenrer",
+            "question": "Hvilken genre kombinerer country med tidlig rock'n'roll og forbindes med 1950'erne?",
+            "points": 200,
+            "options": [
+              "rockabilly",
+              "shoegaze",
+              "trip-hop",
+              "post-rock"
+            ],
+            "correctIndex": 0,
+            "answer": "rockabilly",
+            "sourceTitle": "Wikipedia – Rockabilly",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rockabilly",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om rockabilly som blanding af country/hillbilly og tidlig rock’n’roll."
+          },
+          {
+            "id": "kp_musikgenrer_18",
+            "category": "Stilarter og undergenrer",
+            "question": "Hvilken rockretning fra 1960'erne forbindes med psykedeliske lyde og udvidede studieeksperimenter?",
+            "points": 300,
+            "options": [
+              "psykedelisk rock",
+              "new wave",
+              "grunge",
+              "rocksteady"
+            ],
+            "correctIndex": 0,
+            "answer": "psykedelisk rock",
+            "sourceTitle": "Wikipedia – Psychedelic rock",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Psychedelic_rock",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om psykedelisk rock, studieeksperimenter og 1960’ernes rockkultur."
+          },
+          {
+            "id": "kp_musikgenrer_19",
+            "category": "Stilarter og undergenrer",
+            "question": "Hvilken rockretning er kendt for lange kompositioner, skiftende taktarter og konceptalbum?",
+            "points": 400,
+            "options": [
+              "progressiv rock",
+              "punkrock",
+              "garage rock",
+              "rockabilly"
+            ],
+            "correctIndex": 0,
+            "answer": "progressiv rock",
+            "sourceTitle": "Wikipedia – Progressive rock",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Progressive_rock",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om progressiv rock med længere former, skiftende taktarter og konceptalbum."
+          },
+          {
+            "id": "kp_musikgenrer_20",
+            "category": "Stilarter og undergenrer",
+            "question": "Hvilken genre udviklede sig omkring tungt forvrængede guitarer og bands som Black Sabbath?",
+            "points": 500,
+            "options": [
+              "heavy metal",
+              "bluegrass",
+              "acid house",
+              "fado"
+            ],
+            "correctIndex": 0,
+            "answer": "heavy metal",
+            "sourceTitle": "Wikipedia – Heavy metal music",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Heavy_metal_music",
+            "sourceStatus": "OK",
+            "sourceCheckedAt": "2026-07-09",
+            "sourceNote": "Åben artikel om heavy metal, forvrængede guitarer og tidlige bands som Black Sabbath."
+          }
+        ],
+        "current": 0,
+        "currentTeam": 0,
+        "reveal": false,
+        "selections": {},
+        "awarded": {},
+        "revealed": {},
+        "optionOrders": {},
+        "usedQuestions": {},
+        "scoreEvents": [],
+        "sourceCsv": "spil/kapardy/20/musikgenrer_20.csv"
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false,
+        "maximized": false,
+        "restoreGeometry": null
+      },
+      "relations": {
+        "layoutRole": "kapardy"
+      },
+      "createdAt": "2026-07-07T00:45:00.000Z",
+      "updatedAt": "2026-07-07T00:45:00.000Z",
+      "legacy": null
+    }
+  ],
+  "datasets": [],
+  "media": [],
+  "manifest": {
+    "selectedSessionIds": [
+      "session_professor_20-sporgsmal-musikgenrer_v2_showcase"
+    ],
+    "counts": {
+      "sessions": 1,
+      "boards": 10,
+      "widgets": 34,
+      "datasets": 0,
+      "media": 0
+    },
+    "referencedDatasetIds": [],
+    "referencedMediaIds": [],
+    "mediaBytes": 0,
+    "courseId": "course_professor_20-sporgsmal-musikgenrer_v2_showcase",
+    "courseTitle": "20 spørgsmål fra professoren · Musikgenrer",
+    "courseSessionIds": [
+      "session_professor_20-sporgsmal-musikgenrer_v2_showcase"
+    ],
+    "contentHash": "2ff82eede8aa4f59572c54d0e6217cdd0724996a84e8b712db63e1dc28677e52",
+    "packageHash": "4f1693794965c87da0206bf85c9e88455b68f2214bc2e3f6ba193755d8ef1d3e",
+    "quality": {
+      "sourceUpgrade": "fase4-faktatjek-danske-elevkilder",
+      "updatedAt": "2026-07-08T20:35:30Z",
+      "phase4UpdatedAt": "2026-07-08T22:15:00+02:00",
+      "resourcesChanged": true,
+      "kapardyCorrectionsPhase4": []
+    }
+  },
+  "warnings": []
+}
