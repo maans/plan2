@@ -85,7 +85,7 @@
         "fase 8"
       ],
       "version": "1.0.1-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/dansk-2025-26/forloeb.json",
+      "packageUrl": "dansk/dansk-2025-26/forloeb.json",
       "sizeBytes": 886420,
       "featured": true,
       "updatedAt": "2026-07-08"
@@ -121,7 +121,7 @@
         "sourcefields"
       ],
       "version": "1.0.0-sourcefields11",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/faellessamlinger-2026-27/forloeb.json",
+      "packageUrl": "andre/faellessamlinger-2026-27/forloeb.json",
       "sizeBytes": 8430187,
       "featured": true,
       "updatedAt": "2026-07-09"
@@ -153,7 +153,7 @@
         "fase 8"
       ],
       "version": "1.0.0-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/camp-26/forloeb.json",
+      "packageUrl": "andre/camp-26/forloeb.json",
       "sizeBytes": 2414874,
       "featured": false,
       "updatedAt": "2026-07-08"
@@ -186,7 +186,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-dansk-litteratur/forloeb.json",
+      "packageUrl": "dansk/20-sporgsmal-dansk-litteratur/forloeb.json",
       "sizeBytes": 88652,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -222,7 +222,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/engelsk/20-sporgsmal-engelsk/forloeb.json",
+      "packageUrl": "engelsk/20-sporgsmal-engelsk/forloeb.json",
       "sizeBytes": 87473,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -258,7 +258,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/matematik/20-sporgsmal-matematik/forloeb.json",
+      "packageUrl": "matematik/20-sporgsmal-matematik/forloeb.json",
       "sizeBytes": 81255,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -294,7 +294,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-kemi/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-kemi/forloeb.json",
       "sizeBytes": 82525,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -330,7 +330,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/tysk/20-sporgsmal-tysk/forloeb.json",
+      "packageUrl": "tysk/20-sporgsmal-tysk/forloeb.json",
       "sizeBytes": 84395,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -366,7 +366,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-balkanmusik/forloeb.json",
+      "packageUrl": "musik/20-sporgsmal-balkanmusik/forloeb.json",
       "sizeBytes": 86289,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -402,7 +402,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-verdenskrigene/forloeb.json",
+      "packageUrl": "historie/20-sporgsmal-verdenskrigene/forloeb.json",
       "sizeBytes": 88429,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -438,7 +438,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/skoleliv/20-sporgsmal-efterskoleliv/forloeb.json",
+      "packageUrl": "andre/skoleliv/20-sporgsmal-efterskoleliv/forloeb.json",
       "sizeBytes": 91988,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -474,7 +474,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/tvaerfagligt/20-sporgsmal-mad-fra-hele-verden/forloeb.json",
+      "packageUrl": "andre/tvaerfagligt/20-sporgsmal-mad-fra-hele-verden/forloeb.json",
       "sizeBytes": 89811,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -510,7 +510,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/tvaerfagligt/20-sporgsmal-film-fra-1980erne/forloeb.json",
+      "packageUrl": "andre/tvaerfagligt/20-sporgsmal-film-fra-1980erne/forloeb.json",
       "sizeBytes": 87831,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -546,7 +546,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-musikgenrer/forloeb.json",
+      "packageUrl": "musik/20-sporgsmal-musikgenrer/forloeb.json",
       "sizeBytes": 87842,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -584,7 +584,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-astronomi-rum/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-astronomi-rum/forloeb.json",
       "sizeBytes": 84860,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -622,7 +622,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-beromte-opfindelser/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-beromte-opfindelser/forloeb.json",
       "sizeBytes": 94066,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -660,7 +660,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-biologi-natur/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-biologi-natur/forloeb.json",
       "sizeBytes": 87267,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -698,7 +698,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-danske-opfindelser/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-danske-opfindelser/forloeb.json",
       "sizeBytes": 89570,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -736,7 +736,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-klimaforandringer/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-klimaforandringer/forloeb.json",
       "sizeBytes": 94852,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -774,7 +774,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-rumfart/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-rumfart/forloeb.json",
       "sizeBytes": 85894,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -812,7 +812,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-danmark-historie-topografi/forloeb.json",
+      "packageUrl": "historie/20-sporgsmal-danmark-historie-topografi/forloeb.json",
       "sizeBytes": 89410,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -850,7 +850,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-jydsk-historie-topografi/forloeb.json",
+      "packageUrl": "historie/20-sporgsmal-jydsk-historie-topografi/forloeb.json",
       "sizeBytes": 90541,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -888,7 +888,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/samfundsfag/20-sporgsmal-dansk-politik/forloeb.json",
+      "packageUrl": "andre/samfundsfag/20-sporgsmal-dansk-politik/forloeb.json",
       "sizeBytes": 87002,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -926,7 +926,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-europaeiske-hovedstaeder/forloeb.json",
+      "packageUrl": "andre/geografi/20-sporgsmal-europaeiske-hovedstaeder/forloeb.json",
       "sizeBytes": 86716,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -964,7 +964,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-nordiske-lande/forloeb.json",
+      "packageUrl": "andre/geografi/20-sporgsmal-nordiske-lande/forloeb.json",
       "sizeBytes": 84153,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1002,7 +1002,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/geografi/20-sporgsmal-verdens-geografi/forloeb.json",
+      "packageUrl": "andre/geografi/20-sporgsmal-verdens-geografi/forloeb.json",
       "sizeBytes": 85908,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1040,7 +1040,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/historie/20-sporgsmal-vikinger/forloeb.json",
+      "packageUrl": "historie/20-sporgsmal-vikinger/forloeb.json",
       "sizeBytes": 85630,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1078,7 +1078,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/sprog/20-sporgsmal-fransk/forloeb.json",
+      "packageUrl": "andre/sprog/20-sporgsmal-fransk/forloeb.json",
       "sizeBytes": 85079,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1116,7 +1116,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/sprog/20-sporgsmal-spansk/forloeb.json",
+      "packageUrl": "andre/sprog/20-sporgsmal-spansk/forloeb.json",
       "sizeBytes": 84700,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1154,7 +1154,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-kropssprog/forloeb.json",
+      "packageUrl": "dansk/20-sporgsmal-kropssprog/forloeb.json",
       "sizeBytes": 92099,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1192,7 +1192,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/kulturfag/20-sporgsmal-mytologi/forloeb.json",
+      "packageUrl": "andre/kulturfag/20-sporgsmal-mytologi/forloeb.json",
       "sizeBytes": 83152,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1230,7 +1230,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/20-sporgsmal-nordisk-mytologi/forloeb.json",
+      "packageUrl": "dansk/20-sporgsmal-nordisk-mytologi/forloeb.json",
       "sizeBytes": 86283,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1268,7 +1268,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/musik/20-sporgsmal-musik-komponister/forloeb.json",
+      "packageUrl": "musik/20-sporgsmal-musik-komponister/forloeb.json",
       "sizeBytes": 90771,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1306,7 +1306,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-heste/forloeb.json",
+      "packageUrl": "andre/dyr-og-idraet/20-sporgsmal-heste/forloeb.json",
       "sizeBytes": 87509,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1344,7 +1344,7 @@
         "fase 8"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-kaninunger/forloeb.json",
+      "packageUrl": "andre/dyr-og-idraet/20-sporgsmal-kaninunger/forloeb.json",
       "sizeBytes": 92300,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1382,7 +1382,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-verdens-maerkelige-dyr/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-verdens-maerkelige-dyr/forloeb.json",
       "sizeBytes": 87722,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1420,7 +1420,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/andre/dyr-og-idraet/20-sporgsmal-sport-olympiske/forloeb.json",
+      "packageUrl": "andre/dyr-og-idraet/20-sporgsmal-sport-olympiske/forloeb.json",
       "sizeBytes": 88183,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1458,7 +1458,7 @@
         "9.–10. klasse"
       ],
       "version": "2.4.0-source-quality-github-kapardy-qc8",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/science/20-sporgsmal-naturvidenskab/forloeb.json",
+      "packageUrl": "science/20-sporgsmal-naturvidenskab/forloeb.json",
       "sizeBytes": 86222,
       "featured": false,
       "updatedAt": "2026-07-08",
@@ -1484,7 +1484,7 @@
         "forældrekontakt"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/kontaktgruppe/forloeb.json",
+      "packageUrl": "skabeloner/kontaktgruppe/forloeb.json",
       "sizeBytes": 38586,
       "featured": true,
       "updatedAt": "2026-07-07"
@@ -1508,7 +1508,7 @@
         "huskekort"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/fagforloeb-4-6-uger/forloeb.json",
+      "packageUrl": "skabeloner/fagforloeb-4-6-uger/forloeb.json",
       "sizeBytes": 33678,
       "featured": true,
       "updatedAt": "2026-07-07"
@@ -1530,7 +1530,7 @@
         "planlægning"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/aarsforloeb/forloeb.json",
+      "packageUrl": "skabeloner/aarsforloeb/forloeb.json",
       "sizeBytes": 29893,
       "featured": true,
       "updatedAt": "2026-07-07"
@@ -1553,7 +1553,7 @@
         "links"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/materialebank/forloeb.json",
+      "packageUrl": "skabeloner/materialebank/forloeb.json",
       "sizeBytes": 33310,
       "featured": true,
       "updatedAt": "2026-07-07"
@@ -1576,7 +1576,7 @@
         "spørgsmålsbank"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/kapardy-repetition/forloeb.json",
+      "packageUrl": "skabeloner/kapardy-repetition/forloeb.json",
       "sizeBytes": 13289,
       "featured": true,
       "updatedAt": "2026-07-07"
@@ -1598,7 +1598,7 @@
         "kladder"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/udtalelser/forloeb.json",
+      "packageUrl": "skabeloner/udtalelser/forloeb.json",
       "sizeBytes": 19869,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1620,7 +1620,7 @@
         "opgaver"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/praktisk-uge/forloeb.json",
+      "packageUrl": "skabeloner/praktisk-uge/forloeb.json",
       "sizeBytes": 25958,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1643,7 +1643,7 @@
         "program"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/rejsehold/forloeb.json",
+      "packageUrl": "skabeloner/rejsehold/forloeb.json",
       "sizeBytes": 14530,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1666,7 +1666,7 @@
         "rengøring"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/koekkenhold/forloeb.json",
+      "packageUrl": "skabeloner/koekkenhold/forloeb.json",
       "sizeBytes": 14531,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1689,7 +1689,7 @@
         "backup"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/vikar/forloeb.json",
+      "packageUrl": "skabeloner/vikar/forloeb.json",
       "sizeBytes": 13136,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1711,7 +1711,7 @@
         "gruppearbejde"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/gruppeinddeling-gruppetavler/forloeb.json",
+      "packageUrl": "skabeloner/gruppeinddeling-gruppetavler/forloeb.json",
       "sizeBytes": 14526,
       "featured": false,
       "updatedAt": "2026-07-07"
@@ -1734,7 +1734,7 @@
         "projekter"
       ],
       "version": "0.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/sydvest-linjehold/forloeb.json",
+      "packageUrl": "skabeloner/sydvest-linjehold/forloeb.json",
       "sizeBytes": 16428,
       "featured": false,
       "updatedAt": "2026-07-07"
