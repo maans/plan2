@@ -1,0 +1,16 @@
+{
+  "type": "plan-manual-catalog",
+  "version": 1,
+  "manuals": [
+    {
+      "id": "plan-2-0-laererens-haandbog",
+      "title": "Plan – Lærerhåndbog",
+      "path": "Plan – Lærerhåndbog.pdf",
+      "fallbackUrls": [
+        "https://cdn.jsdelivr.net/gh/maans/Plan2@main/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf",
+        "https://raw.githubusercontent.com/maans/Plan2/main/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf",
+        "https://plan2.måns.dk/manualer/Plan%20%E2%80%93%20L%C3%A6rerh%C3%A5ndbog.pdf"
+      ]
+    }
+  ]
+}
