@@ -26,4 +26,4 @@ Denne struktur gør undervisningen lettere at planlægge, gennemføre og genbrug
 
 ## Hjælp
 
-Den indbyggede hjælp giver korte svar under arbejdet. **Plan – Lærerhåndbog** er den samlede visuelle vejledning.
+Den indbyggede hjælp giver korte svar under arbejdet. [**Plan – Lærerhåndbog**](manualer/plan-2-laererhaandbog.pdf) er den samlede visuelle vejledning.
