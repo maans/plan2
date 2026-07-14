@@ -9,3 +9,13 @@ Plan læser:
 
 Ingen elevdata, billeder eller øvrige ressourcer er indlejret i appens HTML.
 Alle personer og oplysninger er fiktive.
+
+## Dataafledte kontaktgrupper
+
+Plan har ingen hardcodet viden om “Team”, lærerinitialer eller skolens navngivning.
+Kolonneoverskrifterne identificerer gruppe- og lærerfelter, og relationerne udledes
+af værdier, der optræder sammen i de importerede rækker.
+
+Hvis én lærer kun optræder i én gruppe, kan lærerens initialer entydigt pege på gruppen.
+Hvis samme lærer optræder i flere grupper, markeres værdien som tvetydig i stedet for,
+at Plan gætter.
