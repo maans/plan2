@@ -1,16 +1,11 @@
-# Plan 2.0 – demodata
+# Demodata til Plan 2.0
 
-Denne pakke indeholder den opdaterede `index.html` og mappen `demo-data/`.
+Upload mappen `demo-data` direkte i roden af GitHub-repositoriet ved siden af `index.html`.
 
-Placering i repository:
+Plan henter kataloget automatisk fra:
 
-```text
-index.html
-demo-data/
-  catalog.json
-  plan2-demo-elevstamdata-25-fiktive-elever.xlsx
-```
+1. `https://plan2.måns.dk/demo-data/catalog.json`
+2. jsDelivr
+3. GitHub raw
 
-Demodata findes i appen under **Planoversigt → Fælles data → Hent demodata**. Datasættet importeres som en selvstændig lokal kopi.
-
-`catalog.json` indeholder også selve tabeldataene. Derfor virker importen lokalt i Quine, selv hvis Quine ikke tillader `fetch()` fra en lokal `file://`-adresse. Excel-filen følger med som den synlige og genanvendelige kildefil.
+Det virker derfor også, når `index.html` åbnes lokalt i Quine. Den lokale app behøver ikke have en kopi af `demo-data`-mappen.
