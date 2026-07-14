@@ -1,3 +1,5 @@
-Elevportrætter lægges her som separate filer.
-Plan skal kunne forbinde billeder via Unilogin eller forskellige varianter af elevens fulde navn.
-Ingen billeder må indlejres i index.html eller i catalog.json.
+150 fiktive elevportrætter til Haubro Efterskole.
+Filnavn: elevens fulde navn.webp
+Størrelse: 320 x 400 px
+Ingen tekst er indlejret i billederne.
+Billederne ligger som separate ressourcer og må ikke indlejres i index.html.
