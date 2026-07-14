@@ -1,0 +1,15 @@
+{
+  "id": "haubro-efterskole",
+  "name": "Haubro Efterskole",
+  "type": "demonstration-school",
+  "schoolYear": "2026/27",
+  "description": "En fuldt fiktiv demonstrationsskole til Plan 2.0.",
+  "students": 150,
+  "teachers": 23,
+  "contactGroups": 12,
+  "principles": {
+    "externalResourcesOnly": true,
+    "primaryStudentKey": "Unilogin",
+    "studentMailPattern": "<Unilogin>@skolemail.kom"
+  }
+}

@@ -1,341 +1,89 @@
 {
-  "version": 1,
-  "title": "Plan 2.0 · Demodata",
-  "description": "Demodata hentes som selvstændige lokale kopier. Alle personer og oplysninger er opdigtede.",
+  "id": "haubro-efterskole-demo-data",
+  "title": "Haubro Efterskole",
+  "description": "Hent hele demonstrationsskolen eller enkelte fiktive datasæt som lokale kopier i Plan.",
+  "version": "1.0.0",
+  "school": "skole.json",
   "items": [
     {
-      "id": "demo-elevstamdata-25-fiktive",
-      "type": "dataset",
-      "title": "Demo · Elevstamdata – 25 fiktive elever",
-      "description": "Et tydeligt opdigtet elevgrundlag til demonstration, screenshots og afprøvning af elevkort, grupper og niveaudeling.",
-      "scope": "common",
-      "format": "xlsx",
-      "file": "plan2-demo-elevstamdata-25-fiktive-elever.xlsx",
-      "sheet": "Elevstamdata",
-      "dataset": {
-        "type": "table",
-        "columns": [
-          "ElevID",
-          "UniLogin",
-          "Fornavn",
-          "Efternavn",
-          "Klasse",
-          "Fødselsdato",
-          "Email",
-          "Kontaktlærer",
-          "Hold",
-          "Noter"
-        ],
-        "rows": [
-          [
-            "E001",
-            "demo001",
-            "Alma",
-            "Birkedal",
-            "9A",
-            "01-01-2011",
-            "demo001@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E002",
-            "demo002",
-            "Noah",
-            "Lindholm",
-            "9B",
-            "02-02-2011",
-            "demo002@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E003",
-            "demo003",
-            "Clara",
-            "Storm",
-            "10A",
-            "03-03-2010",
-            "demo003@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E004",
-            "demo004",
-            "Elias",
-            "Dalby",
-            "10B",
-            "04-04-2010",
-            "demo004@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E005",
-            "demo005",
-            "Freja",
-            "Nordvang",
-            "9A",
-            "05-05-2011",
-            "demo005@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E006",
-            "demo006",
-            "William",
-            "Skovlund",
-            "9B",
-            "06-06-2011",
-            "demo006@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E007",
-            "demo007",
-            "Ida",
-            "Vinter",
-            "10A",
-            "07-07-2010",
-            "demo007@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E008",
-            "demo008",
-            "Malte",
-            "Enghave",
-            "10B",
-            "08-08-2010",
-            "demo008@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E009",
-            "demo009",
-            "Sofie",
-            "Bøgeskov",
-            "9A",
-            "09-09-2011",
-            "demo009@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E010",
-            "demo010",
-            "Lucas",
-            "Falk",
-            "9B",
-            "10-10-2011",
-            "demo010@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E011",
-            "demo011",
-            "Emma",
-            "Lyng",
-            "10A",
-            "11-11-2010",
-            "demo011@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E012",
-            "demo012",
-            "August",
-            "Mosegaard",
-            "10B",
-            "12-12-2010",
-            "demo012@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E013",
-            "demo013",
-            "Olivia",
-            "Holm",
-            "9A",
-            "13-01-2011",
-            "demo013@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E014",
-            "demo014",
-            "Mikkel",
-            "Klint",
-            "9B",
-            "14-02-2011",
-            "demo014@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E015",
-            "demo015",
-            "Laura",
-            "Ågård",
-            "10A",
-            "15-03-2010",
-            "demo015@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E016",
-            "demo016",
-            "Viggo",
-            "Hedegaard",
-            "10B",
-            "16-04-2010",
-            "demo016@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E017",
-            "demo017",
-            "Anna",
-            "Rosen",
-            "9A",
-            "17-05-2011",
-            "demo017@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E018",
-            "demo018",
-            "Karl",
-            "Broby",
-            "9B",
-            "18-06-2011",
-            "demo018@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E019",
-            "demo019",
-            "Ella",
-            "Tofte",
-            "10A",
-            "19-07-2010",
-            "demo019@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E020",
-            "demo020",
-            "Victor",
-            "Møller",
-            "10B",
-            "20-08-2010",
-            "demo020@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E021",
-            "demo021",
-            "Josefine",
-            "Elm",
-            "9A",
-            "21-09-2011",
-            "demo021@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E022",
-            "demo022",
-            "Magnus",
-            "Kær",
-            "9B",
-            "22-10-2011",
-            "demo022@plan-demo.invalid",
-            "L. Hansen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E023",
-            "demo023",
-            "Liva",
-            "Sønderby",
-            "10A",
-            "23-11-2010",
-            "demo023@plan-demo.invalid",
-            "S. Madsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E024",
-            "demo024",
-            "Anton",
-            "Havlund",
-            "10B",
-            "24-12-2010",
-            "demo024@plan-demo.invalid",
-            "K. Larsen",
-            "",
-            "Opdigtet demoelev"
-          ],
-          [
-            "E025",
-            "demo025",
-            "Nora",
-            "Bakke",
-            "9A",
-            "25-01-2011",
-            "demo025@plan-demo.invalid",
-            "M. Jensen",
-            "",
-            "Opdigtet demoelev"
-          ]
-        ],
-        "meta": {
-          "demo": true,
-          "demoDataId": "demo-elevstamdata-25-fiktive",
-          "fictional": true,
-          "sourceFile": "plan2-demo-elevstamdata-25-fiktive-elever.xlsx",
-          "sheet": "Elevstamdata"
-        }
-      }
+      "id": "haubro-elever",
+      "title": "Haubro · Elever",
+      "description": "150 fiktive elever med Unilogin, klasse, kontaktgruppe, kontaktlærere og kontaktoplysninger.",
+      "file": "datasets/haubro-elever.json",
+      "rows": 150,
+      "columns": 27
+    },
+    {
+      "id": "haubro-laerere",
+      "title": "Haubro · Lærere",
+      "description": "Fiktivt lærerkatalog med initialer, navne og skolemail.",
+      "file": "datasets/haubro-laerere.json",
+      "rows": 23,
+      "columns": 7
+    },
+    {
+      "id": "haubro-foraeldre",
+      "title": "Haubro · Forældre og kontakter",
+      "description": "Fiktive forældre- og kontaktoplysninger til elevkort og stamdata.",
+      "file": "datasets/haubro-foraeldre.json",
+      "rows": 300,
+      "columns": 10
+    },
+    {
+      "id": "haubro-kontaktgrupper",
+      "title": "Haubro · Kontaktgrupper",
+      "description": "Kontaktgrupper samlet omkring elevernes to kontaktlærere.",
+      "file": "datasets/haubro-kontaktgrupper.json",
+      "rows": 12,
+      "columns": 16
+    },
+    {
+      "id": "haubro-stamdata",
+      "title": "Haubro · Fuld stamdata",
+      "description": "ViGGO-lignende stamdatafil med alle fiktive relationer.",
+      "file": "datasets/haubro-stamdata.json",
+      "rows": 150,
+      "columns": 61
+    },
+    {
+      "id": "haubro-dansk-niveaudeling",
+      "title": "Haubro · Dansk niveaudeling",
+      "description": "Elevsvar og lærervurderinger med forslag til niveau 1, 2 eller 3.",
+      "file": "datasets/haubro-dansk-niveaudeling.json",
+      "rows": 150,
+      "columns": 32
+    },
+    {
+      "id": "haubro-fagsamtaler-9-elev",
+      "title": "Haubro · Fagsamtaler 9. klasse · elevsvar",
+      "description": "Fiktive Google Forms-lignende elevsvar fra 9. klasse.",
+      "file": "datasets/haubro-fagsamtaler-9-elev.json",
+      "rows": 75,
+      "columns": 54
+    },
+    {
+      "id": "haubro-fagsamtaler-9-laerer",
+      "title": "Haubro · Fagsamtaler 9. klasse · lærerark",
+      "description": "Sammenstillede elevsvar, lærerkarakterer og lærerkommentarer.",
+      "file": "datasets/haubro-fagsamtaler-9-laerer.json",
+      "rows": 75,
+      "columns": 79
+    },
+    {
+      "id": "haubro-fagsamtaler-10-elev",
+      "title": "Haubro · Fagsamtaler 10. klasse · elevsvar",
+      "description": "Fiktive Google Forms-lignende elevsvar fra 10. klasse.",
+      "file": "datasets/haubro-fagsamtaler-10-elev.json",
+      "rows": 75,
+      "columns": 41
+    },
+    {
+      "id": "haubro-fagsamtaler-10-laerer",
+      "title": "Haubro · Fagsamtaler 10. klasse · lærerark",
+      "description": "Sammenstillede elevsvar, lærerkarakterer og lærerkommentarer.",
+      "file": "datasets/haubro-fagsamtaler-10-laerer.json",
+      "rows": 75,
+      "columns": 58
     }
   ]
 }
