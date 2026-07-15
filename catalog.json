@@ -3,7 +3,7 @@
   "version": 2,
   "title": "Plan · demoforløb og skabeloner",
   "description": "Demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
-  "updatedAt": "2026-07-09",
+  "updatedAt": "2026-07-15T23:58:00+02:00",
   "categories": [
     {
       "id": "dansk",
@@ -61,10 +61,10 @@
       "id": "dansk-2026-27",
       "kind": "demo",
       "status": "published",
-      "title": "Dansk 9.–10. klasse · årsplan 2026–27 · Haubro demo",
+      "title": "Dansk 9.–10. klasse · årsplan 2026–27 · Haubro",
       "category": "dansk",
       "subject": "Dansk",
-      "description": "Selvkørende danskdemoforløb 2026–27 med færdig kalender, 150 elever og portrætter, seks klasser, tolv kontaktgrupper, seks danskhold, tre billedvendespil, niveaudeling, fagsamtaler og vurderede standpunktskarakterer.",
+      "description": "Komplet dansk årsplan med kalender, elevadministration, portrætter, opgavegrupper og faglige værktøjer.",
       "schoolYear": "2026–27",
       "gradeLevels": [
         "9",
@@ -82,16 +82,19 @@
         "demo",
         "KaPardy-kvalitet",
         "9.–10. klasse",
-        "fase 8"
+        "fase 8",
+        "portrætter",
+        "opgavegrupper",
+        "4:5"
       ],
-      "version": "5.5.0",
+      "version": "5.8.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/dansk-2026-27/forloeb.json",
-      "sizeBytes": 3914824,
+      "sizeBytes": 4033161,
       "featured": true,
-      "updatedAt": "2026-07-15T22:45:00+02:00",
-      "boardCount": 112,
-      "widgetCount": 486,
-      "datasetCount": 32
+      "updatedAt": "2026-07-15T23:58:00+02:00",
+      "boardCount": 122,
+      "widgetCount": 515,
+      "datasetCount": 41
     },
     {
       "id": "dansk-2025-26",
@@ -1524,6 +1527,34 @@
       "sizeBytes": 38587,
       "featured": true,
       "updatedAt": "2026-07-07"
+    },
+    {
+      "id": "elevadministration",
+      "kind": "template",
+      "status": "published",
+      "title": "Skabelon · Elevadministration",
+      "category": "skabeloner",
+      "subject": "Skoleadministration",
+      "description": "Elevkort, niveaudeling, faghold, fagsamtaler og karakterer med egne data.",
+      "schoolYear": "Skabelon",
+      "gradeLevels": [],
+      "tags": [
+        "skabelon",
+        "elevadministration",
+        "elevkort",
+        "niveaudeling",
+        "faghold",
+        "fagsamtaler",
+        "karakterer"
+      ],
+      "version": "1.0.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/skabeloner/elevadministration/forloeb.json",
+      "sizeBytes": 13600,
+      "featured": true,
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "boardCount": 6,
+      "widgetCount": 7,
+      "datasetCount": 0
     },
     {
       "id": "fagforloeb-4-6-uger",
