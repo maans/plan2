@@ -102893,7 +102893,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -102951,7 +102954,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -103009,7 +103015,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -103067,7 +103076,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -103125,7 +103137,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -103183,7 +103198,10 @@
         ],
         "conversationSourceCount": 1,
         "sortingStatus": "completed",
-        "memberCount": 25
+        "memberCount": 25,
+        "conversationCanonicalSourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+        "conversationAutoLinked": true,
+        "conversationManualMatching": false
       },
       "scope": "common",
       "sessionId": null,
@@ -110274,7 +110292,8 @@
           "id:mat437"
         ],
         "live": true,
-        "demoCompleted": true
+        "demoCompleted": true,
+        "excludeFromConversationSourcePicker": true
       }
     },
     {
@@ -117962,7 +117981,8 @@
         ],
         "live": true,
         "subject": "Dansk",
-        "demoCompleted": true
+        "demoCompleted": true,
+        "excludeFromConversationSourcePicker": true
       }
     },
     {
@@ -125344,8 +125364,8 @@
       "mediaRemovedForGithub": 0,
       "portraitsDownloadedThenStoredLocally": true
     },
-    "contentHash": "e161ada42b87ff2307afdf62d094df2836bcb7db17aae6a7ae99c9cce5068f08",
-    "packageHash": "934a4717794b6dad1e6f8ff7bded8588fa9f295e939529f3b28ac92882459653",
+    "contentHash": "229cd35c503d2f3b664965f73481369888c3e9d7262890eb9227a4d16bf0d0ec",
+    "packageHash": "939e940f94ffd35350e2cd44556280929c871a566898f65eb11f2e1458893b69",
     "materialsMode": "catalog-files-download-once",
     "quality": {
       "kapardyDidacticUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
@@ -125394,10 +125414,10 @@
       "kapardyUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
       "updatedAt": "2026-07-08T23:45:00Z"
     },
-    "version": "5.8.0",
-    "description": "Komplet dansk årsplan med kalender, elevadministration, portrætter, opgavegrupper og faglige værktøjer."
+    "version": "5.10.0",
+    "description": "Dansk årsplan 2026–27 med kalender, danskhold, elevkort, niveaudeling, fagsamtaler og standpunktskarakterer."
   },
-  "updatedAt": "2026-07-15T23:58:00+02:00",
+  "updatedAt": "2026-07-16T01:05:00+02:00",
   "meta": {
     "materialPatches": [
       {
@@ -125484,6 +125504,20 @@
       "separateFromPermanentGroups": true,
       "groupKind": "task",
       "examples": 6
+    },
+    "studentPortraits": {
+      "source": "catalog-media",
+      "fallbackLookup": "media-name",
+      "aspectRatio": "4:5",
+      "matrixOpenAction": "whole-card",
+      "placeholder": "theme-neutral-silhouette"
+    },
+    "conversationDemoBinding": {
+      "mode": "automatic",
+      "sourceDatasetId": "haubro-dansk-arbejdsgrundlag",
+      "sourceCount": 1,
+      "manualPicker": false,
+      "identity": "Unilogin"
     }
   }
 }
