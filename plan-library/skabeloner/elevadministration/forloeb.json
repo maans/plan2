@@ -1,0 +1,479 @@
+{
+  "format": "tavle-next-course-package",
+  "backupKind": "course-package",
+  "coursePackageVersion": 1,
+  "version": 3,
+  "schemaVersion": 5,
+  "appVersion": "0.9.3r",
+  "kind": "course-package",
+  "createdAt": "2026-07-15T23:20:00+02:00",
+  "sessions": [
+    {
+      "id": "template-elevadministration",
+      "schemaVersion": 1,
+      "title": "Elevadministration",
+      "theme": "dark",
+      "activeBoardId": "board_template_elevadmin_start",
+      "boardIds": [
+        "board_template_elevadmin_start",
+        "board_template_elevadmin_stamdata",
+        "board_template_elevadmin_klasser",
+        "board_template_elevadmin_niveau",
+        "board_template_elevadmin_samtaler",
+        "board_template_elevadmin_karakterer"
+      ],
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "courseId": "template_elevadministration",
+        "courseTitle": "Skabelon · Elevadministration",
+        "courseSubject": "Skoleadministration",
+        "courseSchoolYear": "Skabelon",
+        "courseOrder": 1,
+        "planOrder": 1,
+        "template": true,
+        "studentAdministration": true
+      }
+    }
+  ],
+  "boards": [
+    {
+      "id": "board_template_elevadmin_start",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Start · vælg skolens data",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_01",
+        "widget_template_elevadmin_indeks"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 1
+      }
+    },
+    {
+      "id": "board_template_elevadmin_stamdata",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Elevstamdata og elevkort",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_02"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 2
+      }
+    },
+    {
+      "id": "board_template_elevadmin_klasser",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Klasser og kontaktgrupper",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_03"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 3
+      }
+    },
+    {
+      "id": "board_template_elevadmin_niveau",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Niveaudeling og faghold",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_04"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 4
+      }
+    },
+    {
+      "id": "board_template_elevadmin_samtaler",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Fagsamtaler",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_05"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 5
+      }
+    },
+    {
+      "id": "board_template_elevadmin_karakterer",
+      "schemaVersion": 5,
+      "sessionId": "template-elevadministration",
+      "title": "Karakterer",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_template_elevadmin_06"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00",
+      "meta": {
+        "template": true,
+        "studentAdministration": true,
+        "order": 6
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "id": "widget_template_elevadmin_01",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_start",
+      "type": "text",
+      "title": "Sådan bruger du skabelonen",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 360,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "1. Importér kun de elev- og skoledata, du har brug for som Fælles data.\n2. Opret Elevkort eller Elevkortmatrix fra elevstamdata.\n3. Opret Niveaudeling fra elevernes spørgeskemasvar.\n4. Brug de levende faghold i Fagsamtaler og Karakterer.\n\nSkabelonen indeholder ingen personer eller skoledata. Har du allerede hentet Haubro-demodata, kan de vælges som øvelsesgrundlag.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_02",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_stamdata",
+      "type": "text",
+      "title": "Elevstamdata",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 300,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Importér skolens elevliste som Fælles data. Opret derefter Elevkortmatrix fra datakildens Kort/tavler-menu. Brug en stabil elevidentitet som UniLogin eller ElevID, så billeder, hold, samtaler og karakterer følger samme elev.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_03",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_klasser",
+      "type": "text",
+      "title": "Kontaktteam, huse/gange og årgang",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 300,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Brug årgang som elevoplysning – ikke som en stamklasse. Opret levende oversigter for kontaktteam, huse/gange og faghold fra det samme fælles elevgrundlag.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_04",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_niveau",
+      "type": "text",
+      "title": "Niveaudeling",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 300,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Importér elevernes faglige spørgeskemasvar og vælg Niveaudeling. Plan viser lærerens forslag, men i denne skabelon godkender brugeren selv match og endelig holdplacering.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_05",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_samtaler",
+      "type": "text",
+      "title": "Fagsamtaler",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 300,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Åbn Fagsamtaler fra et levende faghold. Plan foreslår match fra det importerede samtaleark; brugeren kontrollerer og godkender selv matchene.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_06",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_karakterer",
+      "type": "text",
+      "title": "Karakterer",
+      "geometry": {
+        "x": 35,
+        "y": 45,
+        "width": 1200,
+        "height": 300,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Åbn Karakterer fra det levende faghold. Efterår, forår og afsluttende standpunkt gemmes særskilt. FP9 viser læsning og retskrivning; FP10 bruger skriftlig og mundtlig dansk.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    },
+    {
+      "id": "widget_template_elevadmin_indeks",
+      "schemaVersion": 5,
+      "boardId": "board_template_elevadmin_start",
+      "type": "board-index",
+      "title": "Elevadministration",
+      "geometry": {
+        "x": 35,
+        "y": 440,
+        "width": 1200,
+        "height": 370,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "boardIds": [
+          "board_template_elevadmin_start",
+          "board_template_elevadmin_stamdata",
+          "board_template_elevadmin_klasser",
+          "board_template_elevadmin_niveau",
+          "board_template_elevadmin_samtaler",
+          "board_template_elevadmin_karakterer"
+        ]
+      },
+      "relations": {
+        "layoutRole": "board-index"
+      },
+      "createdAt": "2026-07-15T23:20:00+02:00",
+      "updatedAt": "2026-07-15T23:20:00+02:00"
+    }
+  ],
+  "datasets": [],
+  "media": [],
+  "manifest": {
+    "selectedSessionIds": [
+      "template-elevadministration"
+    ],
+    "counts": {
+      "sessions": 1,
+      "boards": 6,
+      "widgets": 7,
+      "datasets": 0,
+      "media": 0
+    },
+    "referencedDatasetIds": [],
+    "referencedMediaIds": [],
+    "mediaBytes": 0,
+    "courseId": "template_elevadministration",
+    "courseTitle": "Skabelon · Elevadministration",
+    "courseSessionIds": [
+      "template-elevadministration"
+    ],
+    "template": true,
+    "templateId": "elevadministration",
+    "templateTitle": "Skabelon · Elevadministration",
+    "contentHash": "9d5c544fdd2db78a695ba36ca3fbb88527e99c6ac172788547b540eed36c9c67",
+    "packageHash": "072bc1008e98aa0c74662e2e5b87e23ff7ea469d1f1424204f68c98a4e06b319"
+  },
+  "warnings": [],
+  "course": {
+    "id": "template_elevadministration",
+    "title": "Skabelon · Elevadministration",
+    "subject": "Skoleadministration",
+    "schoolYear": "Skabelon",
+    "sessionIds": [
+      "template-elevadministration"
+    ],
+    "exportedAt": "2026-07-15T23:20:00+02:00",
+    "sourceAppVersion": "0.9.3r",
+    "version": "1.0.0",
+    "description": "Tomme arbejdsgange til elevkort, niveaudeling, faghold, fagsamtaler og karakterer.",
+    "workflowPolicy": {
+      "conversationMatching": "manual-confirmation",
+      "levelPlacement": "manual-confirmation",
+      "studentData": "user-imported"
+    }
+  },
+  "updatedAt": "2026-07-15T23:20:00+02:00",
+  "meta": {
+    "template": true,
+    "studentAdministration": true,
+    "optionalPracticeData": "Haubro-demodata"
+  }
+}
