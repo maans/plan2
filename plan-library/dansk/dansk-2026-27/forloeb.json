@@ -9,17 +9,20 @@
   "createdAt": "2027-06-29T12:45:00.000Z",
   "sessions": [
     {
-      "id": "dansk-26-27-01-aarsplan",
+      "id": "dansk-26-27-00-elevadministration",
       "schemaVersion": 1,
-      "title": "Årsplan og alle sessioner",
+      "title": "Elevadministration · Haubro demo",
       "theme": "dark",
-      "activeBoardId": "board_dansk-26-27-01-aarsplan_1",
+      "activeBoardId": "board_dansk-26-27-admin-overblik",
       "boardIds": [
-        "board_dansk-26-27-01-aarsplan_1",
-        "board_dansk-26-27-01-aarsplan_2",
-        "board_dansk-26-27-01-aarsplan_3",
-        "board_dansk-26-27-01-aarsplan_4",
-        "board_dansk-26-27-01-aarsplan_materialer",
+        "board_dansk-26-27-admin-overblik",
+        "board_dansk-26-27-admin-klasse-9a",
+        "board_dansk-26-27-admin-klasse-9b",
+        "board_dansk-26-27-admin-klasse-9c",
+        "board_dansk-26-27-admin-klasse-10a",
+        "board_dansk-26-27-admin-klasse-10b",
+        "board_dansk-26-27-admin-klasse-10c",
+        "board_dansk-26-27-admin-kontaktgrupper",
         "board_dansk-26-27-demo-elevkort",
         "board_dansk-26-27-demo-niveaudeling",
         "board_dansk-26-27-demo-danskhold",
@@ -33,8 +36,8 @@
         "board_dansk-26-27-billedvendespil-hold-2",
         "board_dansk-26-27-billedvendespil-hold-3"
       ],
-      "createdAt": "2027-06-29T12:45:00.000Z",
-      "updatedAt": "2026-07-08T23:45:00Z",
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
       "meta": {
         "courseId": "course_dansk_2026_27",
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
@@ -42,11 +45,60 @@
         "courseSchoolYear": "2026–27",
         "courseOrder": 1,
         "planOrder": 1,
+        "source": "Haubro demodata",
+        "sourceKind": "included-demo-data",
+        "studentAdministration": true,
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
+      }
+    },
+    {
+      "id": "dansk-26-27-01-aarsplan",
+      "schemaVersion": 1,
+      "title": "Årsplan og alle sessioner",
+      "theme": "dark",
+      "activeBoardId": "board_dansk-26-27-01-aarsplan_1",
+      "boardIds": [
+        "board_dansk-26-27-01-aarsplan_1",
+        "board_dansk-26-27-01-aarsplan_2",
+        "board_dansk-26-27-01-aarsplan_3",
+        "board_dansk-26-27-01-aarsplan_4",
+        "board_dansk-26-27-01-aarsplan_materialer"
+      ],
+      "createdAt": "2027-06-29T12:45:00.000Z",
+      "updatedAt": "2026-07-08T23:45:00Z",
+      "meta": {
+        "courseId": "course_dansk_2026_27",
+        "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
+        "courseSubject": "Dansk",
+        "courseSchoolYear": "2026–27",
+        "courseOrder": 2,
+        "planOrder": 2,
         "plannedDate": "2026-08-12",
         "endDate": "2027-05-27",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     },
     {
@@ -86,13 +138,24 @@
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
         "courseSubject": "Dansk",
         "courseSchoolYear": "2026–27",
-        "courseOrder": 2,
-        "planOrder": 2,
+        "courseOrder": 3,
+        "planOrder": 3,
         "plannedDate": "2026-08-12",
         "endDate": "2026-10-01",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     },
     {
@@ -132,13 +195,24 @@
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
         "courseSubject": "Dansk",
         "courseSchoolYear": "2026–27",
-        "courseOrder": 3,
-        "planOrder": 3,
+        "courseOrder": 4,
+        "planOrder": 4,
         "plannedDate": "2026-10-22",
         "endDate": "2026-12-17",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     },
     {
@@ -172,13 +246,24 @@
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
         "courseSubject": "Dansk",
         "courseSchoolYear": "2026–27",
-        "courseOrder": 4,
-        "planOrder": 4,
+        "courseOrder": 5,
+        "planOrder": 5,
         "plannedDate": "2027-01-06",
         "endDate": "2027-02-10",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     },
     {
@@ -210,13 +295,24 @@
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
         "courseSubject": "Dansk",
         "courseSchoolYear": "2026–27",
-        "courseOrder": 5,
-        "planOrder": 5,
+        "courseOrder": 6,
+        "planOrder": 6,
         "plannedDate": "2027-02-24",
         "endDate": "2027-03-18",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     },
     {
@@ -255,13 +351,24 @@
         "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
         "courseSubject": "Dansk",
         "courseSchoolYear": "2026–27",
-        "courseOrder": 6,
-        "planOrder": 6,
+        "courseOrder": 7,
+        "planOrder": 7,
         "plannedDate": "2027-03-24",
         "endDate": "2027-05-27",
         "source": "Dansk årsplan 26/27",
         "sourceKind": "user-plan",
-        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
+        "kapardyQualityUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
+        "courseSessionIds": [
+          "dansk-26-27-00-elevadministration",
+          "dansk-26-27-01-aarsplan",
+          "dansk-26-27-02-familien",
+          "dansk-26-27-03-ungdom-identitet",
+          "dansk-26-27-04-romantik-gennembrud",
+          "dansk-26-27-05-frihed-flugt",
+          "dansk-26-27-06-reklamer-proeve"
+        ],
+        "courseSequenceSource": "package",
+        "courseSequenceVersion": 55
       }
     }
   ],
@@ -3517,7 +3624,7 @@
     {
       "id": "board_dansk-26-27-demo-elevkort",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Demoflow · Elevkort og stamdata",
       "background": {
         "kind": "gradient",
@@ -3547,7 +3654,7 @@
     {
       "id": "board_dansk-26-27-demo-niveaudeling",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Demoflow · Elevsvar og niveaudeling",
       "background": {
         "kind": "gradient",
@@ -3577,7 +3684,7 @@
     {
       "id": "board_dansk-26-27-demo-danskhold",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Demoflow · Seks danskhold",
       "background": {
         "kind": "gradient",
@@ -3607,7 +3714,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-dana1",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanA1 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3639,7 +3746,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-danb1",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanB1 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3671,7 +3778,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-dana2",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanA2 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3703,7 +3810,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-danb2",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanB2 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3735,7 +3842,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-dana3",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanA3 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3767,7 +3874,7 @@
     {
       "id": "board_dansk-26-27-demo-hold-danb3",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Danskhold · DanB3 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
@@ -3799,7 +3906,7 @@
     {
       "id": "board_dansk-26-27-billedvendespil-hold-1",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Billedvendespil · Hold 1 · DanA1 og DanB1",
       "background": {
         "kind": "gradient",
@@ -3829,7 +3936,7 @@
     {
       "id": "board_dansk-26-27-billedvendespil-hold-2",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Billedvendespil · Hold 2 · DanA2 og DanB2",
       "background": {
         "kind": "gradient",
@@ -3859,7 +3966,7 @@
     {
       "id": "board_dansk-26-27-billedvendespil-hold-3",
       "schemaVersion": 5,
-      "sessionId": "dansk-26-27-01-aarsplan",
+      "sessionId": "dansk-26-27-00-elevadministration",
       "title": "Billedvendespil · Hold 3 · DanA3 og DanB3",
       "background": {
         "kind": "gradient",
@@ -3884,6 +3991,254 @@
       "meta": {
         "demoWorkflow": true,
         "order": 113
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-overblik",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Elevadministration · overblik",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-overblik_intro",
+        "widget_dansk-26-27-admin-overblik_status"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 1
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-9a",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 9A",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-9a_intro",
+        "widget_dansk-26-27-admin-klasse-9a_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 2
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-9b",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 9B",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-9b_intro",
+        "widget_dansk-26-27-admin-klasse-9b_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 3
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-9c",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 9C",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-9c_intro",
+        "widget_dansk-26-27-admin-klasse-9c_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 4
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-10a",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 10A",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-10a_intro",
+        "widget_dansk-26-27-admin-klasse-10a_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 5
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-10b",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 10B",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-10b_intro",
+        "widget_dansk-26-27-admin-klasse-10b_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 6
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-klasse-10c",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Klasseoversigt · 10C",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-klasse-10c_intro",
+        "widget_dansk-26-27-admin-klasse-10c_kort"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 7
+      }
+    },
+    {
+      "id": "board_dansk-26-27-admin-kontaktgrupper",
+      "schemaVersion": 5,
+      "sessionId": "dansk-26-27-00-elevadministration",
+      "title": "Kontaktgrupper · Team 1–12",
+      "background": {
+        "kind": "gradient",
+        "value": "linear-gradient(145deg,#10243b,#173b58)",
+        "imageRef": null,
+        "fit": "cover"
+      },
+      "grid": false,
+      "snap": true,
+      "zoom": 1,
+      "pan": {
+        "x": 0,
+        "y": 0
+      },
+      "widgetIds": [
+        "widget_dansk-26-27-admin-kontaktgrupper_intro",
+        "widget_dansk-26-27-admin-kontaktgrupper_data"
+      ],
+      "layoutFamilyId": null,
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00",
+      "meta": {
+        "demoWorkflow": true,
+        "studentAdministration": true,
+        "order": 8
       }
     }
   ],
@@ -28162,6 +28517,630 @@
       "relations": {},
       "createdAt": "2026-07-15T20:45:00+02:00",
       "updatedAt": "2026-07-15T20:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-overblik_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-overblik",
+      "type": "text",
+      "title": "Demodata er klar",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 155,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Elevgrundlaget følger med forløbet: 150 elever, portrætter, seks klasser, tolv kontaktgrupper og seks danskhold. Brug tavlerne i denne session til at kontrollere elevkort, hold, niveaudeling, fagsamtaler og karakterer.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-overblik_status",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-overblik",
+      "type": "data",
+      "title": "Stamdata · 150 elever",
+      "geometry": {
+        "x": 30,
+        "y": 225,
+        "width": 1210,
+        "height": 555,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "datasetId": "haubro-elever",
+        "view": "table",
+        "search": "",
+        "columnWidths": {}
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9a_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9a",
+      "type": "text",
+      "title": "9A · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 9A. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9a_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9a",
+      "type": "card-matrix",
+      "title": "Elevkort · 9A",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Sof024",
+          "id:Car846",
+          "id:Sal668",
+          "id:Vic490",
+          "id:Ros312",
+          "id:Mar134",
+          "id:Ver956",
+          "id:Aya778",
+          "id:Ebb600",
+          "id:Ast422",
+          "id:And244",
+          "id:Ell066",
+          "id:Ell888",
+          "id:Lil710",
+          "id:And532",
+          "id:Joh354",
+          "id:Mar176",
+          "id:Kar998",
+          "id:Alm820",
+          "id:Kat642",
+          "id:Lau464",
+          "id:Ing286",
+          "id:Ast108",
+          "id:The930",
+          "id:Kri752"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9b_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9b",
+      "type": "text",
+      "title": "9B · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 9B. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9b_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9b",
+      "type": "card-matrix",
+      "title": "Elevkort · 9B",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Mik161",
+          "id:Tob983",
+          "id:Ben805",
+          "id:Mil627",
+          "id:Luc449",
+          "id:Mar271",
+          "id:Sil093",
+          "id:Fel915",
+          "id:Jos737",
+          "id:Vig559",
+          "id:Pel381",
+          "id:Emi203",
+          "id:Val025",
+          "id:Han847",
+          "id:Aug669",
+          "id:Mar491",
+          "id:Las313",
+          "id:Joh135",
+          "id:Jon957",
+          "id:Vil779",
+          "id:Tho601",
+          "id:Sve423",
+          "id:Hug245",
+          "id:Ras067",
+          "id:Ann889"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9c_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9c",
+      "type": "text",
+      "title": "9C · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 9C. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-9c_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-9c",
+      "type": "card-matrix",
+      "title": "Elevkort · 9C",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Ida298",
+          "id:Alm120",
+          "id:Sol942",
+          "id:Emi764",
+          "id:Aya586",
+          "id:Fil408",
+          "id:Dic230",
+          "id:Ell052",
+          "id:Han874",
+          "id:Car696",
+          "id:Elv518",
+          "id:Lun340",
+          "id:Ron162",
+          "id:Fre984",
+          "id:Ast806",
+          "id:Car628",
+          "id:Seb450",
+          "id:Oli272",
+          "id:Sig094",
+          "id:Nan916",
+          "id:Agn738",
+          "id:Mil560",
+          "id:Fel382",
+          "id:Zar204",
+          "id:Ben026"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10a_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10a",
+      "type": "text",
+      "title": "10A · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 10A. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10a_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10a",
+      "type": "card-matrix",
+      "title": "Elevkort · 10A",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Dan435",
+          "id:Vic257",
+          "id:Lea079",
+          "id:Ant901",
+          "id:Eli723",
+          "id:Mal545",
+          "id:Ott367",
+          "id:Fri189",
+          "id:Jac011",
+          "id:Gus833",
+          "id:Sim655",
+          "id:Fre477",
+          "id:Noa299",
+          "id:Joh121",
+          "id:Fre943",
+          "id:Mat765",
+          "id:Liv587",
+          "id:Ant409",
+          "id:Lia231",
+          "id:Sig053",
+          "id:Nik875",
+          "id:Emi697",
+          "id:Isa519",
+          "id:Alb341",
+          "id:Isa163"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10b_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10b",
+      "type": "text",
+      "title": "10B · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 10B. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10b_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10b",
+      "type": "card-matrix",
+      "title": "Elevkort · 10B",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Maj572",
+          "id:Emm394",
+          "id:Emm216",
+          "id:Cec038",
+          "id:Cla860",
+          "id:Kar682",
+          "id:Mer504",
+          "id:Jon326",
+          "id:Jos148",
+          "id:Lou970",
+          "id:Gry792",
+          "id:Liv614",
+          "id:Leo436",
+          "id:Est258",
+          "id:Oli080",
+          "id:Chr902",
+          "id:Isa724",
+          "id:Sel546",
+          "id:Sig368",
+          "id:Lau190",
+          "id:Nor012",
+          "id:Cla834",
+          "id:Jul656",
+          "id:Ida478",
+          "id:Car300"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10c_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10c",
+      "type": "text",
+      "title": "10C · 25 elever",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Klasseoversigten viser alle 25 elevkort i 10C. Portrættet følger elevens stamdata og bruges også i danskhold og billedvendespil.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-klasse-10c_kort",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-klasse-10c",
+      "type": "card-matrix",
+      "title": "Elevkort · 10C",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 700,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "kind": "student",
+        "datasetId": "haubro-elever",
+        "rowKeys": [
+          "id:Eli709",
+          "id:Asg531",
+          "id:Kar353",
+          "id:Oli175",
+          "id:Eri997",
+          "id:Hol819",
+          "id:Sof641",
+          "id:Sto463",
+          "id:Jon285",
+          "id:Ada107",
+          "id:Fri929",
+          "id:Lau751",
+          "id:Mag573",
+          "id:Lau395",
+          "id:Wil217",
+          "id:Ell039",
+          "id:Kas861",
+          "id:Car683",
+          "id:Art505",
+          "id:Alf327",
+          "id:Aug149",
+          "id:Sar971",
+          "id:Alb793",
+          "id:Osc615",
+          "id:Mat437"
+        ],
+        "boardIds": [],
+        "groups": [],
+        "sort": "name"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-kontaktgrupper_intro",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-kontaktgrupper",
+      "type": "text",
+      "title": "Kontaktgrupper",
+      "geometry": {
+        "x": 30,
+        "y": 45,
+        "width": 1210,
+        "height": 125,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "text": "Tolv kontaktgrupper er synkroniseret med elevlisten. Hver række viser kontaktlærere og gruppens elever.",
+        "fontSize": 22,
+        "align": "left"
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
+    },
+    {
+      "id": "widget_dansk-26-27-admin-kontaktgrupper_data",
+      "schemaVersion": 5,
+      "boardId": "board_dansk-26-27-admin-kontaktgrupper",
+      "type": "data",
+      "title": "Team 1–12",
+      "geometry": {
+        "x": 30,
+        "y": 195,
+        "width": 1210,
+        "height": 680,
+        "rotation": 0,
+        "z": 2
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "datasetId": "haubro-kontaktgrupper",
+        "view": "table",
+        "search": "",
+        "columnWidths": {}
+      },
+      "relations": {},
+      "createdAt": "2026-07-15T22:45:00+02:00",
+      "updatedAt": "2026-07-15T22:45:00+02:00"
     }
   ],
   "datasets": [
@@ -119522,6 +120501,7 @@
   ],
   "manifest": {
     "selectedSessionIds": [
+      "dansk-26-27-00-elevadministration",
       "dansk-26-27-01-aarsplan",
       "dansk-26-27-02-familien",
       "dansk-26-27-03-ungdom-identitet",
@@ -119530,9 +120510,9 @@
       "dansk-26-27-06-reklamer-proeve"
     ],
     "counts": {
-      "sessions": 6,
-      "boards": 112,
-      "widgets": 486,
+      "sessions": 7,
+      "boards": 120,
+      "widgets": 502,
       "datasets": 32,
       "media": 150
     },
@@ -119726,6 +120706,7 @@
     "courseId": "course_dansk_2026_27",
     "courseTitle": "Dansk 9.–10. klasse · årsplan 2026–27",
     "courseSessionIds": [
+      "dansk-26-27-00-elevadministration",
       "dansk-26-27-01-aarsplan",
       "dansk-26-27-02-familien",
       "dansk-26-27-03-ungdom-identitet",
@@ -119750,18 +120731,17 @@
       "duplicateMediaRemoved": 13,
       "materialSourceReferencesRemoved": true,
       "mediaRemovedForGithub": 0,
-      "portraitsEmbeddedForQuine": false,
       "portraitsDownloadedThenStoredLocally": true
     },
-    "contentHash": "999b1728cfefa9ce0bdcd51417fa189a516476dc2d6dc995c92b10c1ce74c1cd",
-    "packageHash": "e7ce5351dd3e72ceff324c5df71e9543339e6481c3feb4374f82f427f4e7c976",
+    "contentHash": "64865ed409f01787db003568968f0a29da05c3bf29f8a7268efb408b5775e71a",
+    "packageHash": "d36f4bc773ce8794ad51802c6786df4a173632a865894f8dbf4b1d7a247c6e73",
     "materialsMode": "catalog-files-download-once",
     "quality": {
       "kapardyDidacticUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
     },
-    "sessionCount": 6,
-    "boardCount": 112,
-    "widgetCount": 486,
+    "sessionCount": 7,
+    "boardCount": 120,
+    "widgetCount": 502,
     "datasetCount": 32,
     "remoteMedia": {
       "count": 150,
@@ -119771,8 +120751,10 @@
       "verifiedBy": [
         "size",
         "sha256"
-      ]
-    }
+      ],
+      "requiredBeforePreview": true
+    },
+    "studentAdministrationSession": "dansk-26-27-00-elevadministration"
   },
   "warnings": [
     "Denne GitHub-version indeholder ikke indlejrede PDF’er eller billeder.",
@@ -119785,6 +120767,7 @@
     "subject": "Dansk",
     "schoolYear": "2026–27",
     "sessionIds": [
+      "dansk-26-27-00-elevadministration",
       "dansk-26-27-01-aarsplan",
       "dansk-26-27-02-familien",
       "dansk-26-27-03-ungdom-identitet",
@@ -119798,10 +120781,10 @@
       "kapardyUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft",
       "updatedAt": "2026-07-08T23:45:00Z"
     },
-    "version": "5.4.0",
-    "description": "Selvkørende danskdemoforløb 2026–27 med prælinket kalender, 150 elevportrætter hentet som katalogmedier og gemt lokalt i Quine, seks danskhold, tre billedvendespil, færdig niveaudeling, fagsamtaler og vurderede standpunktskarakterer."
+    "version": "5.5.0",
+    "description": "Selvkørende danskdemoforløb 2026–27 med færdig kalender, 150 elever og portrætter, seks klasser, tolv kontaktgrupper, seks danskhold, tre billedvendespil, niveaudeling, fagsamtaler og vurderede standpunktskarakterer."
   },
-  "updatedAt": "2026-07-15T22:10:00+02:00",
+  "updatedAt": "2026-07-15T22:45:00+02:00",
   "meta": {
     "materialPatches": [
       {
@@ -119853,7 +120836,7 @@
     "materialsRemovedAt": "2026-07-07T12:50:00.000Z",
     "demoSchool": "Haubro Efterskole",
     "integration": "Synkroniseret med Haubro-demodata V5",
-    "demoVersion": "5.4.0",
+    "demoVersion": "5.5.0",
     "selfContainedDemoData": true,
     "calendarLinks": 56,
     "datedBoards": 56,
@@ -119867,10 +120850,10 @@
       "subject-conversation-matrix",
       "grade-matrix"
     ],
-    "quineOfflineReady": true,
     "embeddedPortraits": 0,
-    "quineOfflineReadyAfterFirstDownload": true,
     "remotePortraitAssets": 150,
-    "mediaArchitecture": "catalog-files-download-once"
+    "mediaArchitecture": "catalog-files-download-once",
+    "studentAdministrationSession": "dansk-26-27-00-elevadministration",
+    "classOverviewBoards": 6
   }
 }
