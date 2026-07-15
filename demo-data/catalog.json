@@ -1,8 +1,8 @@
 {
-  "id": "haubro-efterskole-demo-data",
-  "title": "Haubro Efterskole",
-  "description": "Hent hele demonstrationsskolen eller enkelte fiktive datasæt som lokale kopier i Plan.",
-  "version": "1.1.0",
+  "id": "haubro-efterskole-demo-2026-27",
+  "title": "Haubro Efterskole · komplet demodata 2026/27",
+  "description": "Sammenhængende fiktive demodata med elever, portrætter, hold, kalender, niveaudeling, fagsamtaler og karakterudvikling.",
+  "version": "5.1.0",
   "school": "skole.json",
   "items": [
     {
@@ -11,7 +11,7 @@
       "description": "150 fiktive elever med Unilogin, klasse, kontaktgruppe, kontaktlærere og kontaktoplysninger.",
       "file": "datasets/haubro-elever.json",
       "rows": 150,
-      "columns": 27
+      "columns": 28
     },
     {
       "id": "haubro-laerere",
@@ -24,7 +24,7 @@
     {
       "id": "haubro-foraeldre",
       "title": "Haubro · Forældre og kontakter",
-      "description": "Fiktive forældre- og kontaktoplysninger til elevkort og stamdata.",
+      "description": "Fiktive forældre- og kontaktoplysninger synkroniseret med V5-elevlisten.",
       "file": "datasets/haubro-foraeldre.json",
       "rows": 300,
       "columns": 10
@@ -32,10 +32,18 @@
     {
       "id": "haubro-kontaktgrupper",
       "title": "Haubro · Kontaktgrupper",
-      "description": "Team 1–12 med lærerpar og initialer som data. Plan udleder relationer fra kolonneoverskrifter og rækkeværdier.",
+      "description": "Kontaktgrupper navngivet Team 1–12. Lærerpar og initialer ligger som data, så Plan kan udlede relationer uden hardcodning.",
       "file": "datasets/haubro-kontaktgrupper.json",
       "rows": 12,
       "columns": 18
+    },
+    {
+      "id": "haubro-danskhold-2026-27",
+      "title": "Haubro danskhold",
+      "description": "Fiktive demodata.",
+      "file": "datasets/haubro-danskhold.json",
+      "rows": 6,
+      "columns": 28
     },
     {
       "id": "haubro-stamdata",
@@ -43,12 +51,20 @@
       "description": "ViGGO-lignende stamdatafil med alle fiktive relationer.",
       "file": "datasets/haubro-stamdata.json",
       "rows": 150,
-      "columns": 61
+      "columns": 62
+    },
+    {
+      "id": "haubro-skolekalender-2026-27",
+      "title": "Haubro · Skolekalender 2026/27",
+      "description": "Fiktiv helårskalender, omskrevet fra eksempelarket og renset for lokale personhenvisninger.",
+      "file": "datasets/haubro-skolekalender-2026-27.json",
+      "rows": 223,
+      "columns": 8
     },
     {
       "id": "haubro-dansk-niveaudeling",
-      "title": "Haubro · Dansk niveaudeling",
-      "description": "Elevsvar og lærervurderinger med forslag til niveau 1, 2 eller 3.",
+      "title": "Haubro · Dansk niveaudeling 2026/27",
+      "description": "Komplette elevbesvarelser og lærervurderinger, hvor endeligt niveau svarer til elevens danskhold.",
       "file": "datasets/haubro-dansk-niveaudeling.json",
       "rows": 150,
       "columns": 32
@@ -56,7 +72,7 @@
     {
       "id": "haubro-fagsamtaler-9-elev",
       "title": "Haubro · Fagsamtaler 9. klasse · elevsvar",
-      "description": "Fiktive Google Forms-lignende elevsvar fra 9. klasse.",
+      "description": "Fuldt udfyldte fiktive elevsvar med elevvurderinger, lærerkarakterer og kommentarer.",
       "file": "datasets/haubro-fagsamtaler-9-elev.json",
       "rows": 75,
       "columns": 54
@@ -64,15 +80,15 @@
     {
       "id": "haubro-fagsamtaler-9-laerer",
       "title": "Haubro · Fagsamtaler 9. klasse · lærerark",
-      "description": "Sammenstillede elevsvar, lærerkarakterer og lærerkommentarer.",
+      "description": "Fuldt udfyldte fiktive lærerark med elevvurderinger, lærerkarakterer og kommentarer.",
       "file": "datasets/haubro-fagsamtaler-9-laerer.json",
       "rows": 75,
-      "columns": 79
+      "columns": 74
     },
     {
       "id": "haubro-fagsamtaler-10-elev",
       "title": "Haubro · Fagsamtaler 10. klasse · elevsvar",
-      "description": "Fiktive Google Forms-lignende elevsvar fra 10. klasse.",
+      "description": "Fuldt udfyldte fiktive elevsvar med elevvurderinger, lærerkarakterer og kommentarer.",
       "file": "datasets/haubro-fagsamtaler-10-elev.json",
       "rows": 75,
       "columns": 41
@@ -80,10 +96,34 @@
     {
       "id": "haubro-fagsamtaler-10-laerer",
       "title": "Haubro · Fagsamtaler 10. klasse · lærerark",
-      "description": "Sammenstillede elevsvar, lærerkarakterer og lærerkommentarer.",
+      "description": "Fuldt udfyldte fiktive lærerark med elevvurderinger, lærerkarakterer og kommentarer.",
       "file": "datasets/haubro-fagsamtaler-10-laerer.json",
       "rows": 75,
-      "columns": 58
+      "columns": 53
+    },
+    {
+      "id": "haubro-fagsamtaler-aarsforloeb",
+      "title": "Haubro · Fagsamtaler · årsforløb 2026/27",
+      "description": "Tre fagsamtaler pr. elev med elev- og lærerkarakterer, mål, aftaler og opfølgning.",
+      "file": "datasets/haubro-fagsamtaler-aarsforloeb.json",
+      "rows": 450,
+      "columns": 16
+    },
+    {
+      "id": "haubro-dansk-karakterudvikling",
+      "title": "Haubro · Dansk karakterudvikling 2026/27",
+      "description": "Tre terminsmålinger pr. elev med danskfaglige delkarakterer og lærervurdering.",
+      "file": "datasets/haubro-dansk-karakterudvikling.json",
+      "rows": 450,
+      "columns": 11
+    },
+    {
+      "id": "haubro-navnemapping",
+      "title": "Haubro · Portræt- og navnemapping",
+      "description": "Sporbar mapping mellem DemoID, elev, Unilogin, portrætfil og danskhold.",
+      "file": "datasets/haubro-navnemapping.json",
+      "rows": 150,
+      "columns": 6
     }
   ]
 }

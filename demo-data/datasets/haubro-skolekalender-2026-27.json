@@ -1,0 +1,4042 @@
+{
+  "id": "haubro-skolekalender-2026-27",
+  "name": "Haubro · Skolekalender 2026/27",
+  "type": "calendar-events",
+  "columns": [
+    "Dato",
+    "Slutdato",
+    "Titel",
+    "Kategori",
+    "Hele dagen",
+    "Sted",
+    "Beskrivelse",
+    "Kilde"
+  ],
+  "rows": [
+    [
+      "2026-07-11",
+      "2026-07-11",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-07-12",
+      "2026-07-12",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-03",
+      "2026-08-03",
+      "Opstartsdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-03",
+      "2026-08-03",
+      "På Mors",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: På Mors.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-04",
+      "2026-08-04",
+      "Opstartsdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-05",
+      "2026-08-05",
+      "Lærerkursus",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Lærerkursus.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-06",
+      "2026-08-06",
+      "Opstartsdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-07",
+      "2026-08-07",
+      "Opstartsdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-09",
+      "2026-08-09",
+      "Åbningsdag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Åbningsdag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-10",
+      "2026-08-10",
+      "Intro",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-11",
+      "2026-08-11",
+      "Intro",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-12",
+      "2026-08-12",
+      "Intro",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-13",
+      "2026-08-13",
+      "Intro",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-14",
+      "2026-08-14",
+      "Intro",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-15",
+      "2026-08-15",
+      "Obligatorisk weekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Obligatorisk weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-16",
+      "2026-08-16",
+      "Obligatorisk weekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Obligatorisk weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-16",
+      "2026-08-16",
+      "Forældrekaffe",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældrekaffe.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-21",
+      "2026-08-21",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-26",
+      "2026-08-26",
+      "Introtur",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-27",
+      "2026-08-27",
+      "Introtur",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-08-28",
+      "2026-08-28",
+      "Introtur",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-02",
+      "2026-09-02",
+      "Lokalløbet",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Lokalløbet.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-03",
+      "2026-09-03",
+      "Gymnastiklærerkursus",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastiklærerkursus.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-04",
+      "2026-09-04",
+      "Verdens bedste nyheder",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Verdens bedste nyheder.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-04",
+      "2026-09-04",
+      "Gymnastiklærerkursus",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastiklærerkursus.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-05",
+      "2026-09-05",
+      "Skolens motionsdag?",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolens motionsdag?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-07",
+      "2026-09-07",
+      "Bestyrelsesmøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Bestyrelsesmøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-09",
+      "2026-09-09",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-14",
+      "2026-09-14",
+      "Æblerov",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Æblerov.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-15",
+      "2026-09-15",
+      "Mobil mosteri",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Mobil mosteri.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-16",
+      "2026-09-16",
+      "Pædagogisk eftermiddag AI",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Pædagogisk eftermiddag AI.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-18",
+      "2026-09-18",
+      "DGI fra 17.00 (hjælper)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI fra 17.00 (hjælper).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-19",
+      "2026-09-19",
+      "DGI til 16.30 (hjælper)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI til 16.30 (hjælper).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-19",
+      "2026-09-19",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-21",
+      "2026-09-21",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-23",
+      "2026-09-23",
+      "Koncert for hele skolen",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Koncert for hele skolen.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-24",
+      "2026-09-24",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-25",
+      "2026-09-25",
+      "NM Fodbold???",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: NM Fodbold???.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-26",
+      "2026-09-26",
+      "Forældredag 9.45-15.00",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredag 9.45-15.00.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-09-27",
+      "2026-09-27",
+      "Efterskolernes Dag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Efterskolernes Dag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-01",
+      "2026-10-01",
+      "Ny i efterskolen-dag for ansatte",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Ny i efterskolen-dag for ansatte.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-02",
+      "2026-10-02",
+      "Åbning af Grønne Uger",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Åbning af Grønne Uger.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-03",
+      "2026-10-03",
+      "Afrejse Krakow 16.00",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Afrejse Krakow 16.00.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-03",
+      "2026-10-03",
+      "DGI fra 9.00 (instruktør)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI fra 9.00 (instruktør).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-04",
+      "2026-10-04",
+      "Krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-04",
+      "2026-10-04",
+      "DGI til 17.00 (instruktør)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI til 17.00 (instruktør).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-05",
+      "2026-10-05",
+      "Krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-06",
+      "2026-10-06",
+      "Krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-07",
+      "2026-10-07",
+      "Krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-08",
+      "2026-10-08",
+      "Krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-09",
+      "2026-10-09",
+      "Hjemkomst krakow",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Hjemkomst krakow.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-10",
+      "2026-10-10",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-11",
+      "2026-10-11",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-16",
+      "2026-10-16",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-17",
+      "2026-10-17",
+      "Efterårsferie slut",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Efterårsferie slut.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-17",
+      "2026-10-17",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-18",
+      "2026-10-18",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-19",
+      "2026-10-19",
+      "Kontaktlærersamtale",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-19",
+      "2026-10-19",
+      "Teater i Alfa hele skolen kl 13-15",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teater i Alfa hele skolen kl 13-15.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-21",
+      "2026-10-21",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-23",
+      "2026-10-23",
+      "Forældredøgn",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-24",
+      "2026-10-24",
+      "Forældredøgn",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-25",
+      "2026-10-25",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-10-31",
+      "2026-10-31",
+      "DGI 9.00-16.30 (instruktør)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI 9.00-16.30 (instruktør).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-02",
+      "2026-11-02",
+      "Brobygning",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-03",
+      "2026-11-03",
+      "Brobygning",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-04",
+      "2026-11-04",
+      "Brobygning rBestyrelsesmøde",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning rBestyrelsesmøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-05",
+      "2026-11-05",
+      "Brobygning",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-06",
+      "2026-11-06",
+      "Brobygning",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-08",
+      "2026-11-08",
+      "Gensynsdag",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gensynsdag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-13",
+      "2026-11-13",
+      "(Mulig elevfest)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-14",
+      "2026-11-14",
+      "Konfirmand-camp",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Konfirmand-camp.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-15",
+      "2026-11-15",
+      "Konfirmand-camp",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Konfirmand-camp.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-16",
+      "2026-11-16",
+      "Periode 2 starter",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Periode 2 starter.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-16",
+      "2026-11-16",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-18",
+      "2026-11-18",
+      "SletDet-foredrag eftermiddag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: SletDet-foredrag eftermiddag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-20",
+      "2026-11-20",
+      "Seksualundervisning 8.30-12.00",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Seksualundervisning 8.30-12.00.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-21",
+      "2026-11-21",
+      "Juleweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-22",
+      "2026-11-22",
+      "Juleweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-26",
+      "2026-11-26",
+      "Forældresamtaler fra kl. 15",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældresamtaler fra kl. 15.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-27",
+      "2026-11-27",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-27",
+      "2026-11-27",
+      "julefrokost",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: julefrokost.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-28",
+      "2026-11-28",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-28",
+      "2026-11-28",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-11-29",
+      "2026-11-29",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-04",
+      "2026-12-04",
+      "24-timers løb",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: 24-timers løb.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-05",
+      "2026-12-05",
+      "24-timers-løb",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: 24-timers-løb.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-06",
+      "2026-12-06",
+      "Besøgsdag for kommende årgang",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsdag for kommende årgang.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-06",
+      "2026-12-06",
+      "kl 14-17",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: kl 14-17.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-11",
+      "2026-12-11",
+      "(Mulig elevfest)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-16",
+      "2026-12-16",
+      "Juledage",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-17",
+      "2026-12-17",
+      "Juledage",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-18",
+      "2026-12-18",
+      "Julemøde kl 16",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Julemøde kl 16.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-20",
+      "2026-12-20",
+      "Juleferie start",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleferie start.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-25",
+      "2026-12-25",
+      "Juledag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-26",
+      "2026-12-26",
+      "2. juledag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. juledag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-27",
+      "2026-12-27",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-28",
+      "2026-12-28",
+      "Hallen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Hallen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2026-12-31",
+      "2026-12-31",
+      "Hallen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Hallen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-03",
+      "2027-01-03",
+      "Juleferie slut",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleferie slut.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-04",
+      "2027-01-04",
+      "Kontaktlærersamtale",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-09",
+      "2027-01-09",
+      "Bryllupsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Bryllupsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-10",
+      "2027-01-10",
+      "Bryllupsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Bryllupsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-13",
+      "2027-01-13",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-15",
+      "2027-01-15",
+      "(mulig elevfest)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (mulig elevfest).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-18",
+      "2027-01-18",
+      "Teateruge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-19",
+      "2027-01-19",
+      "Teateruge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-19",
+      "2027-01-19",
+      "bestyrelsesmøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: bestyrelsesmøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-20",
+      "2027-01-20",
+      "Teateruge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-21",
+      "2027-01-21",
+      "Teateruge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-22",
+      "2027-01-22",
+      "Teateruge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-22",
+      "2027-01-22",
+      "forestilling",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: forestilling.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-23",
+      "2027-01-23",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-23",
+      "2027-01-23",
+      "skolen booket til samarbejdspartner",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: skolen booket til samarbejdspartner.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-24",
+      "2027-01-24",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-24",
+      "2027-01-24",
+      "skolen booket til samarbejdspartner",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: skolen booket til samarbejdspartner.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-25",
+      "2027-01-25",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-26",
+      "2027-01-26",
+      "Terminsprøver",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-27",
+      "2027-01-27",
+      "Terminsprøver",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-28",
+      "2027-01-28",
+      "Terminsprøver",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-29",
+      "2027-01-29",
+      "Søskendedøgn",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Søskendedøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-30",
+      "2027-01-30",
+      "Søskendedøgn",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Søskendedøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-01-31",
+      "2027-01-31",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-08",
+      "2027-02-08",
+      "Vinterfjeld",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-08",
+      "2027-02-08",
+      "Vintertur",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vintertur.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-09",
+      "2027-02-09",
+      "Vinterfjeld",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-10",
+      "2027-02-10",
+      "Vinterfjeld",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-11",
+      "2027-02-11",
+      "Vinterfjeld",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-12",
+      "2027-02-12",
+      "Vinterfjeld",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-15",
+      "2027-02-15",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-17",
+      "2027-02-17",
+      "Gymnastikdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-18",
+      "2027-02-18",
+      "Gymnastikdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-19",
+      "2027-02-19",
+      "Gymnastikdage",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-19",
+      "2027-02-19",
+      "Generalprøve på opvisning",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Generalprøve på opvisning.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-20",
+      "2027-02-20",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-21",
+      "2027-02-21",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-22",
+      "2027-02-22",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-23",
+      "2027-02-23",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-24",
+      "2027-02-24",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-25",
+      "2027-02-25",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-26",
+      "2027-02-26",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-02-27",
+      "2027-02-27",
+      "Vinterferie",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-01",
+      "2027-03-01",
+      "Periode 3 starter",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Periode 3 starter.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-01",
+      "2027-03-01",
+      "Kontaktlærersamtale",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-01",
+      "2027-03-01",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-01",
+      "2027-03-01",
+      "Fælles opvisning med naboskoler",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Fælles opvisning med naboskoler.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-02",
+      "2027-03-02",
+      "NM Håndbold",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: NM Håndbold.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-03",
+      "2027-03-03",
+      "Opvisning i Demoby",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisning i Demoby.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-06",
+      "2027-03-06",
+      "Opvisningsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-07",
+      "2027-03-07",
+      "Opvisningsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-08",
+      "2027-03-08",
+      "Søndag på en mandag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Søndag på en mandag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-09",
+      "2027-03-09",
+      "Værelsesflyttedag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Værelsesflyttedag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-10",
+      "2027-03-10",
+      "Censorfordelingsmøde på samarbejdspartner",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Censorfordelingsmøde på samarbejdspartner.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-10",
+      "2027-03-10",
+      "bestyrelsesmøde med revisor",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: bestyrelsesmøde med revisor.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-17",
+      "2027-03-17",
+      "Regionshallen?",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Regionshallen?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-20",
+      "2027-03-20",
+      "Opvisningsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-21",
+      "2027-03-21",
+      "Opvisningsweekend",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-22",
+      "2027-03-22",
+      "Regionshallen?",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Regionshallen?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-25",
+      "2027-03-25",
+      "Skærtorsdag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skærtorsdag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-26",
+      "2027-03-26",
+      "Langfredag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Langfredag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-28",
+      "2027-03-28",
+      "Påskedag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Påskedag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-29",
+      "2027-03-29",
+      "2. påskedag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. påskedag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-31",
+      "2027-03-31",
+      "Forårskursus",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forårskursus.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-31",
+      "2027-03-31",
+      "Afgang til aften på",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Afgang til aften på.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-03-31",
+      "2027-03-31",
+      "stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-01",
+      "2027-04-01",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-02",
+      "2027-04-02",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-03",
+      "2027-04-03",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-04",
+      "2027-04-04",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-05",
+      "2027-04-05",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-06",
+      "2027-04-06",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-07",
+      "2027-04-07",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-08",
+      "2027-04-08",
+      "Stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-09",
+      "2027-04-09",
+      "Hjemkomst stor rejse",
+      "Rejse og brobygning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Hjemkomst stor rejse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-10",
+      "2027-04-10",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-10",
+      "2027-04-10",
+      "Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-11",
+      "2027-04-11",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-12",
+      "2027-04-12",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-13",
+      "2027-04-13",
+      "NM i floorball",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: NM i floorball.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-16",
+      "2027-04-16",
+      "Skoleovertagelse Haubro Friskole",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skoleovertagelse Haubro Friskole.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-17",
+      "2027-04-17",
+      "Jubilardag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Jubilardag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-18",
+      "2027-04-18",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-21",
+      "2027-04-21",
+      "Lederdøgn",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Lederdøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-22",
+      "2027-04-22",
+      "Lederdøgn",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Lederdøgn.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-23",
+      "2027-04-23",
+      "(Mulig elevfest)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-24",
+      "2027-04-24",
+      "(Skolen udlånt til lokalt arrangement",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (Skolen udlånt til lokalt arrangement.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-26",
+      "2027-04-26",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-04-29",
+      "2027-04-29",
+      "DM i dans",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DM i dans.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-02",
+      "2027-05-02",
+      "Byens halvmaraton",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Byens halvmaraton.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-03",
+      "2027-05-03",
+      "Skriftlig mat 9. klasse",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skriftlig mat 9. klasse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-04",
+      "2027-05-04",
+      "Skriftlig fremstilling 9. klasse",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Skriftlig fremstilling 9. klasse.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-05",
+      "2027-05-05",
+      "Læse- og retskrivningsprøve",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Læse- og retskrivningsprøve.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-06",
+      "2027-05-06",
+      "Kr. Himmelfart",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Kr. Himmelfart.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-07",
+      "2027-05-07",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-08",
+      "2027-05-08",
+      "Sognefest",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sognefest.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-10",
+      "2027-05-10",
+      "Prøver?",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Prøver?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-11",
+      "2027-05-11",
+      "Prøver?",
+      "Prøver og evaluering",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Prøver?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-12",
+      "2027-05-12",
+      "DM i golf?",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: DM i golf?.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-13",
+      "2027-05-13",
+      "Generalforsamling",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Generalforsamling.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-16",
+      "2027-05-16",
+      "Pinsedag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Pinsedag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-17",
+      "2027-05-17",
+      "2. pinsedag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. pinsedag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-19",
+      "2027-05-19",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-20",
+      "2027-05-20",
+      "Gallafest",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Gallafest.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-26",
+      "2027-05-26",
+      "Nye elevers aften",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Nye elevers aften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-28",
+      "2027-05-28",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-29",
+      "2027-05-29",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-05-30",
+      "2027-05-30",
+      "Forlænget weekend",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-02",
+      "2027-06-02",
+      "Besøgsaften",
+      "Samtaler og arrangementer",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-05",
+      "2027-06-05",
+      "Grundlovsdag",
+      "Ferie og fridag",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Grundlovsdag.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-11",
+      "2027-06-11",
+      "(Mulig elevfest?)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest?).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-12",
+      "2027-06-12",
+      "Stafet for livet",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Stafet for livet.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-16",
+      "2027-06-16",
+      "Folkemøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-17",
+      "2027-06-17",
+      "Folkemøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-18",
+      "2027-06-18",
+      "Sidste weekend (obligatorisk)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-18",
+      "2027-06-18",
+      "Folkemøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-19",
+      "2027-06-19",
+      "Sidste weekend (obligatorisk)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-19",
+      "2027-06-19",
+      "Folkemøde",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-20",
+      "2027-06-20",
+      "Sidste weekend (obligatorisk)",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-22",
+      "2027-06-22",
+      "Sidste uge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-23",
+      "2027-06-23",
+      "Sidste uge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-24",
+      "2027-06-24",
+      "Sidste uge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-25",
+      "2027-06-25",
+      "Sidste uge",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+      "Demokalender 2026/27"
+    ],
+    [
+      "2027-06-26",
+      "2027-06-26",
+      "Sidste dag",
+      "Undervisning",
+      true,
+      "Haubro Efterskole",
+      "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste dag.",
+      "Demokalender 2026/27"
+    ]
+  ],
+  "meta": {
+    "demoDataId": "haubro-skolekalender-2026-27",
+    "school": "Haubro Efterskole",
+    "schoolYear": "2026/27",
+    "fictional": true,
+    "description": "Fiktiv helårskalender, omskrevet fra eksempelarket og renset for lokale personhenvisninger.",
+    "events": [
+      {
+        "start": "2026-07-11",
+        "end": "2026-07-11",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-001@plan.demo"
+      },
+      {
+        "start": "2026-07-12",
+        "end": "2026-07-12",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-002@plan.demo"
+      },
+      {
+        "start": "2026-08-03",
+        "end": "2026-08-03",
+        "summary": "Opstartsdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+        "uid": "haubro-2026-27-003@plan.demo"
+      },
+      {
+        "start": "2026-08-03",
+        "end": "2026-08-03",
+        "summary": "På Mors",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: På Mors.",
+        "uid": "haubro-2026-27-004@plan.demo"
+      },
+      {
+        "start": "2026-08-04",
+        "end": "2026-08-04",
+        "summary": "Opstartsdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+        "uid": "haubro-2026-27-005@plan.demo"
+      },
+      {
+        "start": "2026-08-05",
+        "end": "2026-08-05",
+        "summary": "Lærerkursus",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Lærerkursus.",
+        "uid": "haubro-2026-27-006@plan.demo"
+      },
+      {
+        "start": "2026-08-06",
+        "end": "2026-08-06",
+        "summary": "Opstartsdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+        "uid": "haubro-2026-27-007@plan.demo"
+      },
+      {
+        "start": "2026-08-07",
+        "end": "2026-08-07",
+        "summary": "Opstartsdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opstartsdage.",
+        "uid": "haubro-2026-27-008@plan.demo"
+      },
+      {
+        "start": "2026-08-09",
+        "end": "2026-08-09",
+        "summary": "Åbningsdag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Åbningsdag.",
+        "uid": "haubro-2026-27-009@plan.demo"
+      },
+      {
+        "start": "2026-08-10",
+        "end": "2026-08-10",
+        "summary": "Intro",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+        "uid": "haubro-2026-27-010@plan.demo"
+      },
+      {
+        "start": "2026-08-11",
+        "end": "2026-08-11",
+        "summary": "Intro",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+        "uid": "haubro-2026-27-011@plan.demo"
+      },
+      {
+        "start": "2026-08-12",
+        "end": "2026-08-12",
+        "summary": "Intro",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+        "uid": "haubro-2026-27-012@plan.demo"
+      },
+      {
+        "start": "2026-08-13",
+        "end": "2026-08-13",
+        "summary": "Intro",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+        "uid": "haubro-2026-27-013@plan.demo"
+      },
+      {
+        "start": "2026-08-14",
+        "end": "2026-08-14",
+        "summary": "Intro",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Intro.",
+        "uid": "haubro-2026-27-014@plan.demo"
+      },
+      {
+        "start": "2026-08-15",
+        "end": "2026-08-15",
+        "summary": "Obligatorisk weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Obligatorisk weekend.",
+        "uid": "haubro-2026-27-015@plan.demo"
+      },
+      {
+        "start": "2026-08-16",
+        "end": "2026-08-16",
+        "summary": "Obligatorisk weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Obligatorisk weekend.",
+        "uid": "haubro-2026-27-016@plan.demo"
+      },
+      {
+        "start": "2026-08-16",
+        "end": "2026-08-16",
+        "summary": "Forældrekaffe",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældrekaffe.",
+        "uid": "haubro-2026-27-017@plan.demo"
+      },
+      {
+        "start": "2026-08-21",
+        "end": "2026-08-21",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-018@plan.demo"
+      },
+      {
+        "start": "2026-08-26",
+        "end": "2026-08-26",
+        "summary": "Introtur",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+        "uid": "haubro-2026-27-019@plan.demo"
+      },
+      {
+        "start": "2026-08-27",
+        "end": "2026-08-27",
+        "summary": "Introtur",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+        "uid": "haubro-2026-27-020@plan.demo"
+      },
+      {
+        "start": "2026-08-28",
+        "end": "2026-08-28",
+        "summary": "Introtur",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Introtur.",
+        "uid": "haubro-2026-27-021@plan.demo"
+      },
+      {
+        "start": "2026-09-02",
+        "end": "2026-09-02",
+        "summary": "Lokalløbet",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Lokalløbet.",
+        "uid": "haubro-2026-27-022@plan.demo"
+      },
+      {
+        "start": "2026-09-03",
+        "end": "2026-09-03",
+        "summary": "Gymnastiklærerkursus",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastiklærerkursus.",
+        "uid": "haubro-2026-27-023@plan.demo"
+      },
+      {
+        "start": "2026-09-04",
+        "end": "2026-09-04",
+        "summary": "Verdens bedste nyheder",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Verdens bedste nyheder.",
+        "uid": "haubro-2026-27-024@plan.demo"
+      },
+      {
+        "start": "2026-09-04",
+        "end": "2026-09-04",
+        "summary": "Gymnastiklærerkursus",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastiklærerkursus.",
+        "uid": "haubro-2026-27-025@plan.demo"
+      },
+      {
+        "start": "2026-09-05",
+        "end": "2026-09-05",
+        "summary": "Skolens motionsdag?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolens motionsdag?.",
+        "uid": "haubro-2026-27-026@plan.demo"
+      },
+      {
+        "start": "2026-09-07",
+        "end": "2026-09-07",
+        "summary": "Bestyrelsesmøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Bestyrelsesmøde.",
+        "uid": "haubro-2026-27-027@plan.demo"
+      },
+      {
+        "start": "2026-09-09",
+        "end": "2026-09-09",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-028@plan.demo"
+      },
+      {
+        "start": "2026-09-14",
+        "end": "2026-09-14",
+        "summary": "Æblerov",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Æblerov.",
+        "uid": "haubro-2026-27-029@plan.demo"
+      },
+      {
+        "start": "2026-09-15",
+        "end": "2026-09-15",
+        "summary": "Mobil mosteri",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Mobil mosteri.",
+        "uid": "haubro-2026-27-030@plan.demo"
+      },
+      {
+        "start": "2026-09-16",
+        "end": "2026-09-16",
+        "summary": "Pædagogisk eftermiddag AI",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Pædagogisk eftermiddag AI.",
+        "uid": "haubro-2026-27-031@plan.demo"
+      },
+      {
+        "start": "2026-09-18",
+        "end": "2026-09-18",
+        "summary": "DGI fra 17.00 (hjælper)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI fra 17.00 (hjælper).",
+        "uid": "haubro-2026-27-032@plan.demo"
+      },
+      {
+        "start": "2026-09-19",
+        "end": "2026-09-19",
+        "summary": "DGI til 16.30 (hjælper)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI til 16.30 (hjælper).",
+        "uid": "haubro-2026-27-033@plan.demo"
+      },
+      {
+        "start": "2026-09-19",
+        "end": "2026-09-19",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-034@plan.demo"
+      },
+      {
+        "start": "2026-09-21",
+        "end": "2026-09-21",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-035@plan.demo"
+      },
+      {
+        "start": "2026-09-23",
+        "end": "2026-09-23",
+        "summary": "Koncert for hele skolen",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Koncert for hele skolen.",
+        "uid": "haubro-2026-27-036@plan.demo"
+      },
+      {
+        "start": "2026-09-24",
+        "end": "2026-09-24",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-037@plan.demo"
+      },
+      {
+        "start": "2026-09-25",
+        "end": "2026-09-25",
+        "summary": "NM Fodbold???",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: NM Fodbold???.",
+        "uid": "haubro-2026-27-038@plan.demo"
+      },
+      {
+        "start": "2026-09-26",
+        "end": "2026-09-26",
+        "summary": "Forældredag 9.45-15.00",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredag 9.45-15.00.",
+        "uid": "haubro-2026-27-039@plan.demo"
+      },
+      {
+        "start": "2026-09-27",
+        "end": "2026-09-27",
+        "summary": "Efterskolernes Dag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Efterskolernes Dag.",
+        "uid": "haubro-2026-27-040@plan.demo"
+      },
+      {
+        "start": "2026-10-01",
+        "end": "2026-10-01",
+        "summary": "Ny i efterskolen-dag for ansatte",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Ny i efterskolen-dag for ansatte.",
+        "uid": "haubro-2026-27-041@plan.demo"
+      },
+      {
+        "start": "2026-10-02",
+        "end": "2026-10-02",
+        "summary": "Åbning af Grønne Uger",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Åbning af Grønne Uger.",
+        "uid": "haubro-2026-27-042@plan.demo"
+      },
+      {
+        "start": "2026-10-03",
+        "end": "2026-10-03",
+        "summary": "Afrejse Krakow 16.00",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Afrejse Krakow 16.00.",
+        "uid": "haubro-2026-27-043@plan.demo"
+      },
+      {
+        "start": "2026-10-03",
+        "end": "2026-10-03",
+        "summary": "DGI fra 9.00 (instruktør)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI fra 9.00 (instruktør).",
+        "uid": "haubro-2026-27-044@plan.demo"
+      },
+      {
+        "start": "2026-10-04",
+        "end": "2026-10-04",
+        "summary": "Krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+        "uid": "haubro-2026-27-045@plan.demo"
+      },
+      {
+        "start": "2026-10-04",
+        "end": "2026-10-04",
+        "summary": "DGI til 17.00 (instruktør)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI til 17.00 (instruktør).",
+        "uid": "haubro-2026-27-046@plan.demo"
+      },
+      {
+        "start": "2026-10-05",
+        "end": "2026-10-05",
+        "summary": "Krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+        "uid": "haubro-2026-27-047@plan.demo"
+      },
+      {
+        "start": "2026-10-06",
+        "end": "2026-10-06",
+        "summary": "Krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+        "uid": "haubro-2026-27-048@plan.demo"
+      },
+      {
+        "start": "2026-10-07",
+        "end": "2026-10-07",
+        "summary": "Krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+        "uid": "haubro-2026-27-049@plan.demo"
+      },
+      {
+        "start": "2026-10-08",
+        "end": "2026-10-08",
+        "summary": "Krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Krakow.",
+        "uid": "haubro-2026-27-050@plan.demo"
+      },
+      {
+        "start": "2026-10-09",
+        "end": "2026-10-09",
+        "summary": "Hjemkomst krakow",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Hjemkomst krakow.",
+        "uid": "haubro-2026-27-051@plan.demo"
+      },
+      {
+        "start": "2026-10-10",
+        "end": "2026-10-10",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-052@plan.demo"
+      },
+      {
+        "start": "2026-10-11",
+        "end": "2026-10-11",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-053@plan.demo"
+      },
+      {
+        "start": "2026-10-16",
+        "end": "2026-10-16",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-054@plan.demo"
+      },
+      {
+        "start": "2026-10-17",
+        "end": "2026-10-17",
+        "summary": "Efterårsferie slut",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Efterårsferie slut.",
+        "uid": "haubro-2026-27-055@plan.demo"
+      },
+      {
+        "start": "2026-10-17",
+        "end": "2026-10-17",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-056@plan.demo"
+      },
+      {
+        "start": "2026-10-18",
+        "end": "2026-10-18",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-057@plan.demo"
+      },
+      {
+        "start": "2026-10-19",
+        "end": "2026-10-19",
+        "summary": "Kontaktlærersamtale",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+        "uid": "haubro-2026-27-058@plan.demo"
+      },
+      {
+        "start": "2026-10-19",
+        "end": "2026-10-19",
+        "summary": "Teater i Alfa hele skolen kl 13-15",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teater i Alfa hele skolen kl 13-15.",
+        "uid": "haubro-2026-27-059@plan.demo"
+      },
+      {
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-060@plan.demo"
+      },
+      {
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "summary": "Forældredøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredøgn.",
+        "uid": "haubro-2026-27-061@plan.demo"
+      },
+      {
+        "start": "2026-10-24",
+        "end": "2026-10-24",
+        "summary": "Forældredøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældredøgn.",
+        "uid": "haubro-2026-27-062@plan.demo"
+      },
+      {
+        "start": "2026-10-25",
+        "end": "2026-10-25",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-063@plan.demo"
+      },
+      {
+        "start": "2026-10-31",
+        "end": "2026-10-31",
+        "summary": "DGI 9.00-16.30 (instruktør)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DGI 9.00-16.30 (instruktør).",
+        "uid": "haubro-2026-27-064@plan.demo"
+      },
+      {
+        "start": "2026-11-02",
+        "end": "2026-11-02",
+        "summary": "Brobygning",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+        "uid": "haubro-2026-27-065@plan.demo"
+      },
+      {
+        "start": "2026-11-03",
+        "end": "2026-11-03",
+        "summary": "Brobygning",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+        "uid": "haubro-2026-27-066@plan.demo"
+      },
+      {
+        "start": "2026-11-04",
+        "end": "2026-11-04",
+        "summary": "Brobygning rBestyrelsesmøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning rBestyrelsesmøde.",
+        "uid": "haubro-2026-27-067@plan.demo"
+      },
+      {
+        "start": "2026-11-05",
+        "end": "2026-11-05",
+        "summary": "Brobygning",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+        "uid": "haubro-2026-27-068@plan.demo"
+      },
+      {
+        "start": "2026-11-06",
+        "end": "2026-11-06",
+        "summary": "Brobygning",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Brobygning.",
+        "uid": "haubro-2026-27-069@plan.demo"
+      },
+      {
+        "start": "2026-11-08",
+        "end": "2026-11-08",
+        "summary": "Gensynsdag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gensynsdag.",
+        "uid": "haubro-2026-27-070@plan.demo"
+      },
+      {
+        "start": "2026-11-13",
+        "end": "2026-11-13",
+        "summary": "(Mulig elevfest)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+        "uid": "haubro-2026-27-071@plan.demo"
+      },
+      {
+        "start": "2026-11-14",
+        "end": "2026-11-14",
+        "summary": "Konfirmand-camp",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Konfirmand-camp.",
+        "uid": "haubro-2026-27-072@plan.demo"
+      },
+      {
+        "start": "2026-11-15",
+        "end": "2026-11-15",
+        "summary": "Konfirmand-camp",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Konfirmand-camp.",
+        "uid": "haubro-2026-27-073@plan.demo"
+      },
+      {
+        "start": "2026-11-16",
+        "end": "2026-11-16",
+        "summary": "Periode 2 starter",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Periode 2 starter.",
+        "uid": "haubro-2026-27-074@plan.demo"
+      },
+      {
+        "start": "2026-11-16",
+        "end": "2026-11-16",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-075@plan.demo"
+      },
+      {
+        "start": "2026-11-18",
+        "end": "2026-11-18",
+        "summary": "SletDet-foredrag eftermiddag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: SletDet-foredrag eftermiddag.",
+        "uid": "haubro-2026-27-076@plan.demo"
+      },
+      {
+        "start": "2026-11-20",
+        "end": "2026-11-20",
+        "summary": "Seksualundervisning 8.30-12.00",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Seksualundervisning 8.30-12.00.",
+        "uid": "haubro-2026-27-077@plan.demo"
+      },
+      {
+        "start": "2026-11-21",
+        "end": "2026-11-21",
+        "summary": "Juleweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleweekend.",
+        "uid": "haubro-2026-27-078@plan.demo"
+      },
+      {
+        "start": "2026-11-22",
+        "end": "2026-11-22",
+        "summary": "Juleweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleweekend.",
+        "uid": "haubro-2026-27-079@plan.demo"
+      },
+      {
+        "start": "2026-11-26",
+        "end": "2026-11-26",
+        "summary": "Forældresamtaler fra kl. 15",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forældresamtaler fra kl. 15.",
+        "uid": "haubro-2026-27-080@plan.demo"
+      },
+      {
+        "start": "2026-11-27",
+        "end": "2026-11-27",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-081@plan.demo"
+      },
+      {
+        "start": "2026-11-27",
+        "end": "2026-11-27",
+        "summary": "julefrokost",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: julefrokost.",
+        "uid": "haubro-2026-27-082@plan.demo"
+      },
+      {
+        "start": "2026-11-28",
+        "end": "2026-11-28",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-083@plan.demo"
+      },
+      {
+        "start": "2026-11-28",
+        "end": "2026-11-28",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-084@plan.demo"
+      },
+      {
+        "start": "2026-11-29",
+        "end": "2026-11-29",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-085@plan.demo"
+      },
+      {
+        "start": "2026-12-04",
+        "end": "2026-12-04",
+        "summary": "24-timers løb",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: 24-timers løb.",
+        "uid": "haubro-2026-27-086@plan.demo"
+      },
+      {
+        "start": "2026-12-05",
+        "end": "2026-12-05",
+        "summary": "24-timers-løb",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: 24-timers-løb.",
+        "uid": "haubro-2026-27-087@plan.demo"
+      },
+      {
+        "start": "2026-12-06",
+        "end": "2026-12-06",
+        "summary": "Besøgsdag for kommende årgang",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsdag for kommende årgang.",
+        "uid": "haubro-2026-27-088@plan.demo"
+      },
+      {
+        "start": "2026-12-06",
+        "end": "2026-12-06",
+        "summary": "kl 14-17",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: kl 14-17.",
+        "uid": "haubro-2026-27-089@plan.demo"
+      },
+      {
+        "start": "2026-12-11",
+        "end": "2026-12-11",
+        "summary": "(Mulig elevfest)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+        "uid": "haubro-2026-27-090@plan.demo"
+      },
+      {
+        "start": "2026-12-16",
+        "end": "2026-12-16",
+        "summary": "Juledage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledage.",
+        "uid": "haubro-2026-27-091@plan.demo"
+      },
+      {
+        "start": "2026-12-17",
+        "end": "2026-12-17",
+        "summary": "Juledage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledage.",
+        "uid": "haubro-2026-27-092@plan.demo"
+      },
+      {
+        "start": "2026-12-18",
+        "end": "2026-12-18",
+        "summary": "Julemøde kl 16",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Julemøde kl 16.",
+        "uid": "haubro-2026-27-093@plan.demo"
+      },
+      {
+        "start": "2026-12-20",
+        "end": "2026-12-20",
+        "summary": "Juleferie start",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleferie start.",
+        "uid": "haubro-2026-27-094@plan.demo"
+      },
+      {
+        "start": "2026-12-25",
+        "end": "2026-12-25",
+        "summary": "Juledag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juledag.",
+        "uid": "haubro-2026-27-095@plan.demo"
+      },
+      {
+        "start": "2026-12-26",
+        "end": "2026-12-26",
+        "summary": "2. juledag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. juledag.",
+        "uid": "haubro-2026-27-096@plan.demo"
+      },
+      {
+        "start": "2026-12-27",
+        "end": "2026-12-27",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-097@plan.demo"
+      },
+      {
+        "start": "2026-12-28",
+        "end": "2026-12-28",
+        "summary": "Hallen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Hallen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-098@plan.demo"
+      },
+      {
+        "start": "2026-12-31",
+        "end": "2026-12-31",
+        "summary": "Hallen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Hallen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-099@plan.demo"
+      },
+      {
+        "start": "2027-01-03",
+        "end": "2027-01-03",
+        "summary": "Juleferie slut",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Juleferie slut.",
+        "uid": "haubro-2026-27-100@plan.demo"
+      },
+      {
+        "start": "2027-01-04",
+        "end": "2027-01-04",
+        "summary": "Kontaktlærersamtale",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+        "uid": "haubro-2026-27-101@plan.demo"
+      },
+      {
+        "start": "2027-01-09",
+        "end": "2027-01-09",
+        "summary": "Bryllupsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Bryllupsweekend.",
+        "uid": "haubro-2026-27-102@plan.demo"
+      },
+      {
+        "start": "2027-01-10",
+        "end": "2027-01-10",
+        "summary": "Bryllupsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Bryllupsweekend.",
+        "uid": "haubro-2026-27-103@plan.demo"
+      },
+      {
+        "start": "2027-01-13",
+        "end": "2027-01-13",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-104@plan.demo"
+      },
+      {
+        "start": "2027-01-15",
+        "end": "2027-01-15",
+        "summary": "(mulig elevfest)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (mulig elevfest).",
+        "uid": "haubro-2026-27-105@plan.demo"
+      },
+      {
+        "start": "2027-01-18",
+        "end": "2027-01-18",
+        "summary": "Teateruge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+        "uid": "haubro-2026-27-106@plan.demo"
+      },
+      {
+        "start": "2027-01-19",
+        "end": "2027-01-19",
+        "summary": "Teateruge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+        "uid": "haubro-2026-27-107@plan.demo"
+      },
+      {
+        "start": "2027-01-19",
+        "end": "2027-01-19",
+        "summary": "bestyrelsesmøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: bestyrelsesmøde.",
+        "uid": "haubro-2026-27-108@plan.demo"
+      },
+      {
+        "start": "2027-01-20",
+        "end": "2027-01-20",
+        "summary": "Teateruge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+        "uid": "haubro-2026-27-109@plan.demo"
+      },
+      {
+        "start": "2027-01-21",
+        "end": "2027-01-21",
+        "summary": "Teateruge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+        "uid": "haubro-2026-27-110@plan.demo"
+      },
+      {
+        "start": "2027-01-22",
+        "end": "2027-01-22",
+        "summary": "Teateruge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Teateruge.",
+        "uid": "haubro-2026-27-111@plan.demo"
+      },
+      {
+        "start": "2027-01-22",
+        "end": "2027-01-22",
+        "summary": "forestilling",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: forestilling.",
+        "uid": "haubro-2026-27-112@plan.demo"
+      },
+      {
+        "start": "2027-01-23",
+        "end": "2027-01-23",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-113@plan.demo"
+      },
+      {
+        "start": "2027-01-23",
+        "end": "2027-01-23",
+        "summary": "skolen booket til samarbejdspartner",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: skolen booket til samarbejdspartner.",
+        "uid": "haubro-2026-27-114@plan.demo"
+      },
+      {
+        "start": "2027-01-24",
+        "end": "2027-01-24",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-115@plan.demo"
+      },
+      {
+        "start": "2027-01-24",
+        "end": "2027-01-24",
+        "summary": "skolen booket til samarbejdspartner",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: skolen booket til samarbejdspartner.",
+        "uid": "haubro-2026-27-116@plan.demo"
+      },
+      {
+        "start": "2027-01-25",
+        "end": "2027-01-25",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-117@plan.demo"
+      },
+      {
+        "start": "2027-01-26",
+        "end": "2027-01-26",
+        "summary": "Terminsprøver",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+        "uid": "haubro-2026-27-118@plan.demo"
+      },
+      {
+        "start": "2027-01-27",
+        "end": "2027-01-27",
+        "summary": "Terminsprøver",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+        "uid": "haubro-2026-27-119@plan.demo"
+      },
+      {
+        "start": "2027-01-28",
+        "end": "2027-01-28",
+        "summary": "Terminsprøver",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Terminsprøver.",
+        "uid": "haubro-2026-27-120@plan.demo"
+      },
+      {
+        "start": "2027-01-29",
+        "end": "2027-01-29",
+        "summary": "Søskendedøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Søskendedøgn.",
+        "uid": "haubro-2026-27-121@plan.demo"
+      },
+      {
+        "start": "2027-01-30",
+        "end": "2027-01-30",
+        "summary": "Søskendedøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Søskendedøgn.",
+        "uid": "haubro-2026-27-122@plan.demo"
+      },
+      {
+        "start": "2027-01-31",
+        "end": "2027-01-31",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-123@plan.demo"
+      },
+      {
+        "start": "2027-02-08",
+        "end": "2027-02-08",
+        "summary": "Vinterfjeld",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+        "uid": "haubro-2026-27-124@plan.demo"
+      },
+      {
+        "start": "2027-02-08",
+        "end": "2027-02-08",
+        "summary": "Vintertur",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vintertur.",
+        "uid": "haubro-2026-27-125@plan.demo"
+      },
+      {
+        "start": "2027-02-09",
+        "end": "2027-02-09",
+        "summary": "Vinterfjeld",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+        "uid": "haubro-2026-27-126@plan.demo"
+      },
+      {
+        "start": "2027-02-10",
+        "end": "2027-02-10",
+        "summary": "Vinterfjeld",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+        "uid": "haubro-2026-27-127@plan.demo"
+      },
+      {
+        "start": "2027-02-11",
+        "end": "2027-02-11",
+        "summary": "Vinterfjeld",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+        "uid": "haubro-2026-27-128@plan.demo"
+      },
+      {
+        "start": "2027-02-12",
+        "end": "2027-02-12",
+        "summary": "Vinterfjeld",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterfjeld.",
+        "uid": "haubro-2026-27-129@plan.demo"
+      },
+      {
+        "start": "2027-02-15",
+        "end": "2027-02-15",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-130@plan.demo"
+      },
+      {
+        "start": "2027-02-17",
+        "end": "2027-02-17",
+        "summary": "Gymnastikdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+        "uid": "haubro-2026-27-131@plan.demo"
+      },
+      {
+        "start": "2027-02-18",
+        "end": "2027-02-18",
+        "summary": "Gymnastikdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+        "uid": "haubro-2026-27-132@plan.demo"
+      },
+      {
+        "start": "2027-02-19",
+        "end": "2027-02-19",
+        "summary": "Gymnastikdage",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gymnastikdage.",
+        "uid": "haubro-2026-27-133@plan.demo"
+      },
+      {
+        "start": "2027-02-19",
+        "end": "2027-02-19",
+        "summary": "Generalprøve på opvisning",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Generalprøve på opvisning.",
+        "uid": "haubro-2026-27-134@plan.demo"
+      },
+      {
+        "start": "2027-02-20",
+        "end": "2027-02-20",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-135@plan.demo"
+      },
+      {
+        "start": "2027-02-21",
+        "end": "2027-02-21",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-136@plan.demo"
+      },
+      {
+        "start": "2027-02-22",
+        "end": "2027-02-22",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-137@plan.demo"
+      },
+      {
+        "start": "2027-02-23",
+        "end": "2027-02-23",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-138@plan.demo"
+      },
+      {
+        "start": "2027-02-24",
+        "end": "2027-02-24",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-139@plan.demo"
+      },
+      {
+        "start": "2027-02-25",
+        "end": "2027-02-25",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-140@plan.demo"
+      },
+      {
+        "start": "2027-02-26",
+        "end": "2027-02-26",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-141@plan.demo"
+      },
+      {
+        "start": "2027-02-27",
+        "end": "2027-02-27",
+        "summary": "Vinterferie",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Vinterferie.",
+        "uid": "haubro-2026-27-142@plan.demo"
+      },
+      {
+        "start": "2027-03-01",
+        "end": "2027-03-01",
+        "summary": "Periode 3 starter",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Periode 3 starter.",
+        "uid": "haubro-2026-27-143@plan.demo"
+      },
+      {
+        "start": "2027-03-01",
+        "end": "2027-03-01",
+        "summary": "Kontaktlærersamtale",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Kontaktlærersamtale.",
+        "uid": "haubro-2026-27-144@plan.demo"
+      },
+      {
+        "start": "2027-03-01",
+        "end": "2027-03-01",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-145@plan.demo"
+      },
+      {
+        "start": "2027-03-01",
+        "end": "2027-03-01",
+        "summary": "Fælles opvisning med naboskoler",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Fælles opvisning med naboskoler.",
+        "uid": "haubro-2026-27-146@plan.demo"
+      },
+      {
+        "start": "2027-03-02",
+        "end": "2027-03-02",
+        "summary": "NM Håndbold",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: NM Håndbold.",
+        "uid": "haubro-2026-27-147@plan.demo"
+      },
+      {
+        "start": "2027-03-03",
+        "end": "2027-03-03",
+        "summary": "Opvisning i Demoby",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisning i Demoby.",
+        "uid": "haubro-2026-27-148@plan.demo"
+      },
+      {
+        "start": "2027-03-06",
+        "end": "2027-03-06",
+        "summary": "Opvisningsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+        "uid": "haubro-2026-27-149@plan.demo"
+      },
+      {
+        "start": "2027-03-07",
+        "end": "2027-03-07",
+        "summary": "Opvisningsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+        "uid": "haubro-2026-27-150@plan.demo"
+      },
+      {
+        "start": "2027-03-08",
+        "end": "2027-03-08",
+        "summary": "Søndag på en mandag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Søndag på en mandag.",
+        "uid": "haubro-2026-27-151@plan.demo"
+      },
+      {
+        "start": "2027-03-09",
+        "end": "2027-03-09",
+        "summary": "Værelsesflyttedag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Værelsesflyttedag.",
+        "uid": "haubro-2026-27-152@plan.demo"
+      },
+      {
+        "start": "2027-03-10",
+        "end": "2027-03-10",
+        "summary": "Censorfordelingsmøde på samarbejdspartner",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Censorfordelingsmøde på samarbejdspartner.",
+        "uid": "haubro-2026-27-153@plan.demo"
+      },
+      {
+        "start": "2027-03-10",
+        "end": "2027-03-10",
+        "summary": "bestyrelsesmøde med revisor",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: bestyrelsesmøde med revisor.",
+        "uid": "haubro-2026-27-154@plan.demo"
+      },
+      {
+        "start": "2027-03-17",
+        "end": "2027-03-17",
+        "summary": "Regionshallen?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Regionshallen?.",
+        "uid": "haubro-2026-27-155@plan.demo"
+      },
+      {
+        "start": "2027-03-20",
+        "end": "2027-03-20",
+        "summary": "Opvisningsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+        "uid": "haubro-2026-27-156@plan.demo"
+      },
+      {
+        "start": "2027-03-21",
+        "end": "2027-03-21",
+        "summary": "Opvisningsweekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Opvisningsweekend.",
+        "uid": "haubro-2026-27-157@plan.demo"
+      },
+      {
+        "start": "2027-03-22",
+        "end": "2027-03-22",
+        "summary": "Regionshallen?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Regionshallen?.",
+        "uid": "haubro-2026-27-158@plan.demo"
+      },
+      {
+        "start": "2027-03-25",
+        "end": "2027-03-25",
+        "summary": "Skærtorsdag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skærtorsdag.",
+        "uid": "haubro-2026-27-159@plan.demo"
+      },
+      {
+        "start": "2027-03-26",
+        "end": "2027-03-26",
+        "summary": "Langfredag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Langfredag.",
+        "uid": "haubro-2026-27-160@plan.demo"
+      },
+      {
+        "start": "2027-03-28",
+        "end": "2027-03-28",
+        "summary": "Påskedag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Påskedag.",
+        "uid": "haubro-2026-27-161@plan.demo"
+      },
+      {
+        "start": "2027-03-29",
+        "end": "2027-03-29",
+        "summary": "2. påskedag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. påskedag.",
+        "uid": "haubro-2026-27-162@plan.demo"
+      },
+      {
+        "start": "2027-03-31",
+        "end": "2027-03-31",
+        "summary": "Forårskursus",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forårskursus.",
+        "uid": "haubro-2026-27-163@plan.demo"
+      },
+      {
+        "start": "2027-03-31",
+        "end": "2027-03-31",
+        "summary": "Afgang til aften på",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Afgang til aften på.",
+        "uid": "haubro-2026-27-164@plan.demo"
+      },
+      {
+        "start": "2027-03-31",
+        "end": "2027-03-31",
+        "summary": "stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: stor rejse.",
+        "uid": "haubro-2026-27-165@plan.demo"
+      },
+      {
+        "start": "2027-04-01",
+        "end": "2027-04-01",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-166@plan.demo"
+      },
+      {
+        "start": "2027-04-02",
+        "end": "2027-04-02",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-167@plan.demo"
+      },
+      {
+        "start": "2027-04-03",
+        "end": "2027-04-03",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-168@plan.demo"
+      },
+      {
+        "start": "2027-04-04",
+        "end": "2027-04-04",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-169@plan.demo"
+      },
+      {
+        "start": "2027-04-05",
+        "end": "2027-04-05",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-170@plan.demo"
+      },
+      {
+        "start": "2027-04-06",
+        "end": "2027-04-06",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-171@plan.demo"
+      },
+      {
+        "start": "2027-04-07",
+        "end": "2027-04-07",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-172@plan.demo"
+      },
+      {
+        "start": "2027-04-08",
+        "end": "2027-04-08",
+        "summary": "Stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stor rejse.",
+        "uid": "haubro-2026-27-173@plan.demo"
+      },
+      {
+        "start": "2027-04-09",
+        "end": "2027-04-09",
+        "summary": "Hjemkomst stor rejse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Hjemkomst stor rejse.",
+        "uid": "haubro-2026-27-174@plan.demo"
+      },
+      {
+        "start": "2027-04-10",
+        "end": "2027-04-10",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-175@plan.demo"
+      },
+      {
+        "start": "2027-04-10",
+        "end": "2027-04-10",
+        "summary": "Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-176@plan.demo"
+      },
+      {
+        "start": "2027-04-11",
+        "end": "2027-04-11",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-177@plan.demo"
+      },
+      {
+        "start": "2027-04-12",
+        "end": "2027-04-12",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-178@plan.demo"
+      },
+      {
+        "start": "2027-04-13",
+        "end": "2027-04-13",
+        "summary": "NM i floorball",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: NM i floorball.",
+        "uid": "haubro-2026-27-179@plan.demo"
+      },
+      {
+        "start": "2027-04-16",
+        "end": "2027-04-16",
+        "summary": "Skoleovertagelse Haubro Friskole",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skoleovertagelse Haubro Friskole.",
+        "uid": "haubro-2026-27-180@plan.demo"
+      },
+      {
+        "start": "2027-04-17",
+        "end": "2027-04-17",
+        "summary": "Jubilardag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Jubilardag.",
+        "uid": "haubro-2026-27-181@plan.demo"
+      },
+      {
+        "start": "2027-04-18",
+        "end": "2027-04-18",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-182@plan.demo"
+      },
+      {
+        "start": "2027-04-21",
+        "end": "2027-04-21",
+        "summary": "Lederdøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Lederdøgn.",
+        "uid": "haubro-2026-27-183@plan.demo"
+      },
+      {
+        "start": "2027-04-22",
+        "end": "2027-04-22",
+        "summary": "Lederdøgn",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Lederdøgn.",
+        "uid": "haubro-2026-27-184@plan.demo"
+      },
+      {
+        "start": "2027-04-23",
+        "end": "2027-04-23",
+        "summary": "(Mulig elevfest)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest).",
+        "uid": "haubro-2026-27-185@plan.demo"
+      },
+      {
+        "start": "2027-04-24",
+        "end": "2027-04-24",
+        "summary": "(Skolen udlånt til lokalt arrangement",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (Skolen udlånt til lokalt arrangement.",
+        "uid": "haubro-2026-27-186@plan.demo"
+      },
+      {
+        "start": "2027-04-26",
+        "end": "2027-04-26",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-187@plan.demo"
+      },
+      {
+        "start": "2027-04-29",
+        "end": "2027-04-29",
+        "summary": "DM i dans",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DM i dans.",
+        "uid": "haubro-2026-27-188@plan.demo"
+      },
+      {
+        "start": "2027-05-02",
+        "end": "2027-05-02",
+        "summary": "Byens halvmaraton",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Byens halvmaraton.",
+        "uid": "haubro-2026-27-189@plan.demo"
+      },
+      {
+        "start": "2027-05-03",
+        "end": "2027-05-03",
+        "summary": "Skriftlig mat 9. klasse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skriftlig mat 9. klasse.",
+        "uid": "haubro-2026-27-190@plan.demo"
+      },
+      {
+        "start": "2027-05-04",
+        "end": "2027-05-04",
+        "summary": "Skriftlig fremstilling 9. klasse",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Skriftlig fremstilling 9. klasse.",
+        "uid": "haubro-2026-27-191@plan.demo"
+      },
+      {
+        "start": "2027-05-05",
+        "end": "2027-05-05",
+        "summary": "Læse- og retskrivningsprøve",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Læse- og retskrivningsprøve.",
+        "uid": "haubro-2026-27-192@plan.demo"
+      },
+      {
+        "start": "2027-05-06",
+        "end": "2027-05-06",
+        "summary": "Kr. Himmelfart",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Kr. Himmelfart.",
+        "uid": "haubro-2026-27-193@plan.demo"
+      },
+      {
+        "start": "2027-05-07",
+        "end": "2027-05-07",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-194@plan.demo"
+      },
+      {
+        "start": "2027-05-08",
+        "end": "2027-05-08",
+        "summary": "Sognefest",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sognefest.",
+        "uid": "haubro-2026-27-195@plan.demo"
+      },
+      {
+        "start": "2027-05-10",
+        "end": "2027-05-10",
+        "summary": "Prøver?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Prøver?.",
+        "uid": "haubro-2026-27-196@plan.demo"
+      },
+      {
+        "start": "2027-05-11",
+        "end": "2027-05-11",
+        "summary": "Prøver?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Prøver?.",
+        "uid": "haubro-2026-27-197@plan.demo"
+      },
+      {
+        "start": "2027-05-12",
+        "end": "2027-05-12",
+        "summary": "DM i golf?",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: DM i golf?.",
+        "uid": "haubro-2026-27-198@plan.demo"
+      },
+      {
+        "start": "2027-05-13",
+        "end": "2027-05-13",
+        "summary": "Generalforsamling",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Generalforsamling.",
+        "uid": "haubro-2026-27-199@plan.demo"
+      },
+      {
+        "start": "2027-05-16",
+        "end": "2027-05-16",
+        "summary": "Pinsedag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Pinsedag.",
+        "uid": "haubro-2026-27-200@plan.demo"
+      },
+      {
+        "start": "2027-05-17",
+        "end": "2027-05-17",
+        "summary": "2. pinsedag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: 2. pinsedag.",
+        "uid": "haubro-2026-27-201@plan.demo"
+      },
+      {
+        "start": "2027-05-19",
+        "end": "2027-05-19",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-202@plan.demo"
+      },
+      {
+        "start": "2027-05-20",
+        "end": "2027-05-20",
+        "summary": "Gallafest",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Gallafest.",
+        "uid": "haubro-2026-27-203@plan.demo"
+      },
+      {
+        "start": "2027-05-26",
+        "end": "2027-05-26",
+        "summary": "Nye elevers aften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Nye elevers aften.",
+        "uid": "haubro-2026-27-204@plan.demo"
+      },
+      {
+        "start": "2027-05-28",
+        "end": "2027-05-28",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-205@plan.demo"
+      },
+      {
+        "start": "2027-05-29",
+        "end": "2027-05-29",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-206@plan.demo"
+      },
+      {
+        "start": "2027-05-30",
+        "end": "2027-05-30",
+        "summary": "Forlænget weekend",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Forlænget weekend.",
+        "uid": "haubro-2026-27-207@plan.demo"
+      },
+      {
+        "start": "2027-06-02",
+        "end": "2027-06-02",
+        "summary": "Besøgsaften",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Besøgsaften.",
+        "uid": "haubro-2026-27-208@plan.demo"
+      },
+      {
+        "start": "2027-06-05",
+        "end": "2027-06-05",
+        "summary": "Grundlovsdag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Grundlovsdag.",
+        "uid": "haubro-2026-27-209@plan.demo"
+      },
+      {
+        "start": "2027-06-11",
+        "end": "2027-06-11",
+        "summary": "(Mulig elevfest?)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: (Mulig elevfest?).",
+        "uid": "haubro-2026-27-210@plan.demo"
+      },
+      {
+        "start": "2027-06-12",
+        "end": "2027-06-12",
+        "summary": "Stafet for livet",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Stafet for livet.",
+        "uid": "haubro-2026-27-211@plan.demo"
+      },
+      {
+        "start": "2027-06-16",
+        "end": "2027-06-16",
+        "summary": "Folkemøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+        "uid": "haubro-2026-27-212@plan.demo"
+      },
+      {
+        "start": "2027-06-17",
+        "end": "2027-06-17",
+        "summary": "Folkemøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+        "uid": "haubro-2026-27-213@plan.demo"
+      },
+      {
+        "start": "2027-06-18",
+        "end": "2027-06-18",
+        "summary": "Sidste weekend (obligatorisk)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+        "uid": "haubro-2026-27-214@plan.demo"
+      },
+      {
+        "start": "2027-06-18",
+        "end": "2027-06-18",
+        "summary": "Folkemøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+        "uid": "haubro-2026-27-215@plan.demo"
+      },
+      {
+        "start": "2027-06-19",
+        "end": "2027-06-19",
+        "summary": "Sidste weekend (obligatorisk)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+        "uid": "haubro-2026-27-216@plan.demo"
+      },
+      {
+        "start": "2027-06-19",
+        "end": "2027-06-19",
+        "summary": "Folkemøde",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Folkemøde.",
+        "uid": "haubro-2026-27-217@plan.demo"
+      },
+      {
+        "start": "2027-06-20",
+        "end": "2027-06-20",
+        "summary": "Sidste weekend (obligatorisk)",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste weekend (obligatorisk).",
+        "uid": "haubro-2026-27-218@plan.demo"
+      },
+      {
+        "start": "2027-06-22",
+        "end": "2027-06-22",
+        "summary": "Sidste uge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+        "uid": "haubro-2026-27-219@plan.demo"
+      },
+      {
+        "start": "2027-06-23",
+        "end": "2027-06-23",
+        "summary": "Sidste uge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+        "uid": "haubro-2026-27-220@plan.demo"
+      },
+      {
+        "start": "2027-06-24",
+        "end": "2027-06-24",
+        "summary": "Sidste uge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+        "uid": "haubro-2026-27-221@plan.demo"
+      },
+      {
+        "start": "2027-06-25",
+        "end": "2027-06-25",
+        "summary": "Sidste uge",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste uge.",
+        "uid": "haubro-2026-27-222@plan.demo"
+      },
+      {
+        "start": "2027-06-26",
+        "end": "2027-06-26",
+        "summary": "Sidste dag",
+        "location": "Haubro Efterskole",
+        "description": "Fiktiv kalenderaktivitet for Haubro Efterskole: Sidste dag.",
+        "uid": "haubro-2026-27-223@plan.demo"
+      }
+    ],
+    "type": "calendar-events",
+    "source": "Demoårsplan"
+  }
+}

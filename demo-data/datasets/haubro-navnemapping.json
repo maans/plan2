@@ -1,0 +1,1222 @@
+{
+  "id": "haubro-navnemapping",
+  "name": "Haubro · Portræt- og navnemapping",
+  "type": "table",
+  "columns": [
+    "DemoID",
+    "Elev",
+    "Køn",
+    "Unilogin",
+    "Billedfil",
+    "Danskhold"
+  ],
+  "rows": [
+    [
+      "DEM-001",
+      "Sofia Birkedal",
+      "Pige",
+      "Sof024",
+      "Sofia Birkedal.png",
+      "DanA1"
+    ],
+    [
+      "DEM-002",
+      "Mikkel Granlund",
+      "Dreng",
+      "Mik161",
+      "Mikkel Granlund.png",
+      "DanA2"
+    ],
+    [
+      "DEM-003",
+      "Ida Lundtoft",
+      "Pige",
+      "Ida298",
+      "Ida Lundtoft.png",
+      "DanA1"
+    ],
+    [
+      "DEM-004",
+      "Daniel Sundby",
+      "Dreng",
+      "Dan435",
+      "Daniel Sundby.png",
+      "DanB1"
+    ],
+    [
+      "DEM-005",
+      "Maja Egebæk",
+      "Pige",
+      "Maj572",
+      "Maja Egebæk.png",
+      "DanB2"
+    ],
+    [
+      "DEM-006",
+      "Elias Højmark",
+      "Dreng",
+      "Eli709",
+      "Elias Højmark.png",
+      "DanB1"
+    ],
+    [
+      "DEM-007",
+      "Caroline Rosen",
+      "Pige",
+      "Car846",
+      "Caroline Rosen.png",
+      "DanA2"
+    ],
+    [
+      "DEM-008",
+      "Tobias Østergaard",
+      "Dreng",
+      "Tob983",
+      "Tobias Østergaard.png",
+      "DanB1"
+    ],
+    [
+      "DEM-009",
+      "Alma Frost",
+      "Pige",
+      "Alm120",
+      "Alma Frost.png",
+      "DanA2"
+    ],
+    [
+      "DEM-010",
+      "Victor Lindberg",
+      "Dreng",
+      "Vic257",
+      "Victor Lindberg.png",
+      "DanB1"
+    ],
+    [
+      "DEM-011",
+      "Emma Storm",
+      "Pige",
+      "Emm394",
+      "Emma Storm.png",
+      "DanA3"
+    ],
+    [
+      "DEM-012",
+      "Asger Dalby",
+      "Dreng",
+      "Asg531",
+      "Asger Dalby.png",
+      "DanB2"
+    ],
+    [
+      "DEM-013",
+      "Sally Hedegaard",
+      "Pige",
+      "Sal668",
+      "Sally Hedegaard.png",
+      "DanA3"
+    ],
+    [
+      "DEM-014",
+      "Benjamin Nordvang",
+      "Dreng",
+      "Ben805",
+      "Benjamin Nordvang.png",
+      "DanA3"
+    ],
+    [
+      "DEM-015",
+      "Sol Vinter",
+      "Pige",
+      "Sol942",
+      "Sol Vinter.png",
+      "DanB1"
+    ],
+    [
+      "DEM-016",
+      "Lea Fjordvang",
+      "Pige",
+      "Lea079",
+      "Lea Fjordvang.png",
+      "DanB3"
+    ],
+    [
+      "DEM-017",
+      "Emma Klint",
+      "Pige",
+      "Emm216",
+      "Emma Klint.png",
+      "DanB1"
+    ],
+    [
+      "DEM-018",
+      "Karl Solberg",
+      "Dreng",
+      "Kar353",
+      "Karl Solberg.png",
+      "DanA3"
+    ],
+    [
+      "DEM-019",
+      "Victoria Broby",
+      "Pige",
+      "Vic490",
+      "Victoria Broby.png",
+      "DanA3"
+    ],
+    [
+      "DEM-020",
+      "Milas Havlund",
+      "Dreng",
+      "Mil627",
+      "Milas Havlund.png",
+      "DanB3"
+    ],
+    [
+      "DEM-021",
+      "Emilie Mosegaard",
+      "Pige",
+      "Emi764",
+      "Emilie Mosegaard.png",
+      "DanB3"
+    ],
+    [
+      "DEM-022",
+      "Anton Tofte",
+      "Dreng",
+      "Ant901",
+      "Anton Tofte.png",
+      "DanB3"
+    ],
+    [
+      "DEM-023",
+      "Cecilie Engholm",
+      "Pige",
+      "Cec038",
+      "Cecilie Engholm.png",
+      "DanB2"
+    ],
+    [
+      "DEM-024",
+      "Oliver Kirkely",
+      "Dreng",
+      "Oli175",
+      "Oliver Kirkely.png",
+      "DanB1"
+    ],
+    [
+      "DEM-025",
+      "Rosa Skovlund",
+      "Pige",
+      "Ros312",
+      "Rosa Skovlund.png",
+      "DanB2"
+    ],
+    [
+      "DEM-026",
+      "Lucas Birkedal",
+      "Dreng",
+      "Luc449",
+      "Lucas Birkedal.png",
+      "DanA2"
+    ],
+    [
+      "DEM-027",
+      "Aya Granlund",
+      "Pige",
+      "Aya586",
+      "Aya Granlund.png",
+      "DanA3"
+    ],
+    [
+      "DEM-028",
+      "Elias Lundtoft",
+      "Dreng",
+      "Eli723",
+      "Elias Lundtoft.png",
+      "DanB2"
+    ],
+    [
+      "DEM-029",
+      "Clara Sundby",
+      "Pige",
+      "Cla860",
+      "Clara Sundby.png",
+      "DanB1"
+    ],
+    [
+      "DEM-030",
+      "Erik Egebæk",
+      "Dreng",
+      "Eri997",
+      "Erik Egebæk.png",
+      "DanA3"
+    ],
+    [
+      "DEM-031",
+      "Marie Højmark",
+      "Pige",
+      "Mar134",
+      "Marie Højmark.png",
+      "DanA3"
+    ],
+    [
+      "DEM-032",
+      "Maria Rosen",
+      "Pige",
+      "Mar271",
+      "Maria Rosen.png",
+      "DanB1"
+    ],
+    [
+      "DEM-033",
+      "Filippa Østergaard",
+      "Pige",
+      "Fil408",
+      "Filippa Østergaard.png",
+      "DanB2"
+    ],
+    [
+      "DEM-034",
+      "Malthe Frost",
+      "Dreng",
+      "Mal545",
+      "Malthe Frost.png",
+      "DanA3"
+    ],
+    [
+      "DEM-035",
+      "Karl Lindberg",
+      "Dreng",
+      "Kar682",
+      "Karl Lindberg.png",
+      "DanA1"
+    ],
+    [
+      "DEM-036",
+      "Holger Storm",
+      "Dreng",
+      "Hol819",
+      "Holger Storm.png",
+      "DanB3"
+    ],
+    [
+      "DEM-037",
+      "Vera Dalby",
+      "Pige",
+      "Ver956",
+      "Vera Dalby.png",
+      "DanB2"
+    ],
+    [
+      "DEM-038",
+      "Silje Hedegaard",
+      "Pige",
+      "Sil093",
+      "Silje Hedegaard.png",
+      "DanA1"
+    ],
+    [
+      "DEM-039",
+      "Dicte Nordvang",
+      "Pige",
+      "Dic230",
+      "Dicte Nordvang.png",
+      "DanA1"
+    ],
+    [
+      "DEM-040",
+      "Otto Vinter",
+      "Dreng",
+      "Ott367",
+      "Otto Vinter.png",
+      "DanA2"
+    ],
+    [
+      "DEM-041",
+      "Merle Fjordvang",
+      "Pige",
+      "Mer504",
+      "Merle Fjordvang.png",
+      "DanA3"
+    ],
+    [
+      "DEM-042",
+      "Sofus Klint",
+      "Dreng",
+      "Sof641",
+      "Sofus Klint.png",
+      "DanA2"
+    ],
+    [
+      "DEM-043",
+      "Aya Solberg",
+      "Pige",
+      "Aya778",
+      "Aya Solberg.png",
+      "DanA2"
+    ],
+    [
+      "DEM-044",
+      "Felix Broby",
+      "Dreng",
+      "Fel915",
+      "Felix Broby.png",
+      "DanA3"
+    ],
+    [
+      "DEM-045",
+      "Elliot Havlund",
+      "Dreng",
+      "Ell052",
+      "Elliot Havlund.png",
+      "DanA2"
+    ],
+    [
+      "DEM-046",
+      "Frida Mosegaard",
+      "Pige",
+      "Fri189",
+      "Frida Mosegaard.png",
+      "DanB1"
+    ],
+    [
+      "DEM-047",
+      "Jonathan Tofte",
+      "Dreng",
+      "Jon326",
+      "Jonathan Tofte.png",
+      "DanB1"
+    ],
+    [
+      "DEM-048",
+      "Storm Engholm",
+      "Dreng",
+      "Sto463",
+      "Storm Engholm.png",
+      "DanB1"
+    ],
+    [
+      "DEM-049",
+      "Ebbe Kirkely",
+      "Dreng",
+      "Ebb600",
+      "Ebbe Kirkely.png",
+      "DanB2"
+    ],
+    [
+      "DEM-050",
+      "Josefine Skovlund",
+      "Pige",
+      "Jos737",
+      "Josefine Skovlund.png",
+      "DanB2"
+    ],
+    [
+      "DEM-051",
+      "Hannah Egebæk",
+      "Pige",
+      "Han874",
+      "Hannah Egebæk.png",
+      "DanA1"
+    ],
+    [
+      "DEM-052",
+      "Jacob Højmark",
+      "Dreng",
+      "Jac011",
+      "Jacob Højmark.png",
+      "DanA3"
+    ],
+    [
+      "DEM-053",
+      "Josefine Rosen",
+      "Pige",
+      "Jos148",
+      "Josefine Rosen.png",
+      "DanA3"
+    ],
+    [
+      "DEM-054",
+      "Jonas Østergaard",
+      "Dreng",
+      "Jon285",
+      "Jonas Østergaard.png",
+      "DanA3"
+    ],
+    [
+      "DEM-055",
+      "Asta Frost",
+      "Pige",
+      "Ast422",
+      "Asta Frost.png",
+      "DanB2"
+    ],
+    [
+      "DEM-056",
+      "Viggo Lindberg",
+      "Dreng",
+      "Vig559",
+      "Viggo Lindberg.png",
+      "DanB2"
+    ],
+    [
+      "DEM-057",
+      "Carla Storm",
+      "Pige",
+      "Car696",
+      "Carla Storm.png",
+      "DanB3"
+    ],
+    [
+      "DEM-058",
+      "Gustav Dalby",
+      "Dreng",
+      "Gus833",
+      "Gustav Dalby.png",
+      "DanA2"
+    ],
+    [
+      "DEM-059",
+      "Louise Hedegaard",
+      "Pige",
+      "Lou970",
+      "Louise Hedegaard.png",
+      "DanB1"
+    ],
+    [
+      "DEM-060",
+      "Adam Nordvang",
+      "Dreng",
+      "Ada107",
+      "Adam Nordvang.png",
+      "DanA2"
+    ],
+    [
+      "DEM-061",
+      "Andrea Vinter",
+      "Pige",
+      "And244",
+      "Andrea Vinter.png",
+      "DanA1"
+    ],
+    [
+      "DEM-062",
+      "Pelle Fjordvang",
+      "Dreng",
+      "Pel381",
+      "Pelle Fjordvang.png",
+      "DanB3"
+    ],
+    [
+      "DEM-063",
+      "Elvira Klint",
+      "Pige",
+      "Elv518",
+      "Elvira Klint.png",
+      "DanB3"
+    ],
+    [
+      "DEM-064",
+      "Simon Solberg",
+      "Dreng",
+      "Sim655",
+      "Simon Solberg.png",
+      "DanA1"
+    ],
+    [
+      "DEM-065",
+      "Gry Broby",
+      "Pige",
+      "Gry792",
+      "Gry Broby.png",
+      "DanA2"
+    ],
+    [
+      "DEM-066",
+      "Frida Havlund",
+      "Pige",
+      "Fri929",
+      "Frida Havlund.png",
+      "DanB2"
+    ],
+    [
+      "DEM-067",
+      "Ella Mosegaard",
+      "Pige",
+      "Ell066",
+      "Ella Mosegaard.png",
+      "DanA1"
+    ],
+    [
+      "DEM-068",
+      "Emil Tofte",
+      "Dreng",
+      "Emi203",
+      "Emil Tofte.png",
+      "DanA1"
+    ],
+    [
+      "DEM-069",
+      "Luna Engholm",
+      "Pige",
+      "Lun340",
+      "Luna Engholm.png",
+      "DanB2"
+    ],
+    [
+      "DEM-070",
+      "Frederik Kirkely",
+      "Dreng",
+      "Fre477",
+      "Frederik Kirkely.png",
+      "DanA3"
+    ],
+    [
+      "DEM-071",
+      "Liv Skovlund",
+      "Pige",
+      "Liv614",
+      "Liv Skovlund.png",
+      "DanA2"
+    ],
+    [
+      "DEM-072",
+      "Laurits Birkedal",
+      "Dreng",
+      "Lau751",
+      "Laurits Birkedal.png",
+      "DanA1"
+    ],
+    [
+      "DEM-073",
+      "Ella Granlund",
+      "Pige",
+      "Ell888",
+      "Ella Granlund.png",
+      "DanA3"
+    ],
+    [
+      "DEM-074",
+      "Valdemar Lundtoft",
+      "Dreng",
+      "Val025",
+      "Valdemar Lundtoft.png",
+      "DanB2"
+    ],
+    [
+      "DEM-075",
+      "Ronja Sundby",
+      "Pige",
+      "Ron162",
+      "Ronja Sundby.png",
+      "DanB1"
+    ],
+    [
+      "DEM-076",
+      "Noah Egebæk",
+      "Dreng",
+      "Noa299",
+      "Noah Egebæk.png",
+      "DanA1"
+    ],
+    [
+      "DEM-077",
+      "Leonora Højmark",
+      "Pige",
+      "Leo436",
+      "Leonora Højmark.png",
+      "DanB2"
+    ],
+    [
+      "DEM-078",
+      "Magnus Rosen",
+      "Dreng",
+      "Mag573",
+      "Magnus Rosen.png",
+      "DanB3"
+    ],
+    [
+      "DEM-079",
+      "Lily Østergaard",
+      "Pige",
+      "Lil710",
+      "Lily Østergaard.png",
+      "DanB1"
+    ],
+    [
+      "DEM-080",
+      "Hans Frost",
+      "Dreng",
+      "Han847",
+      "Hans Frost.png",
+      "DanB2"
+    ],
+    [
+      "DEM-081",
+      "Freja Lindberg",
+      "Pige",
+      "Fre984",
+      "Freja Lindberg.png",
+      "DanA1"
+    ],
+    [
+      "DEM-082",
+      "Johanne Storm",
+      "Pige",
+      "Joh121",
+      "Johanne Storm.png",
+      "DanA2"
+    ],
+    [
+      "DEM-083",
+      "Esther Dalby",
+      "Pige",
+      "Est258",
+      "Esther Dalby.png",
+      "DanB3"
+    ],
+    [
+      "DEM-084",
+      "Lauge Hedegaard",
+      "Dreng",
+      "Lau395",
+      "Lauge Hedegaard.png",
+      "DanA1"
+    ],
+    [
+      "DEM-085",
+      "Anders Nordvang",
+      "Dreng",
+      "And532",
+      "Anders Nordvang.png",
+      "DanA1"
+    ],
+    [
+      "DEM-086",
+      "August Vinter",
+      "Dreng",
+      "Aug669",
+      "August Vinter.png",
+      "DanB1"
+    ],
+    [
+      "DEM-087",
+      "Asta Fjordvang",
+      "Pige",
+      "Ast806",
+      "Asta Fjordvang.png",
+      "DanA2"
+    ],
+    [
+      "DEM-088",
+      "Freja Klint",
+      "Pige",
+      "Fre943",
+      "Freja Klint.png",
+      "DanB3"
+    ],
+    [
+      "DEM-089",
+      "Oline Solberg",
+      "Pige",
+      "Oli080",
+      "Oline Solberg.png",
+      "DanA1"
+    ],
+    [
+      "DEM-090",
+      "William Broby",
+      "Dreng",
+      "Wil217",
+      "William Broby.png",
+      "DanB1"
+    ],
+    [
+      "DEM-091",
+      "Johanne Havlund",
+      "Pige",
+      "Joh354",
+      "Johanne Havlund.png",
+      "DanA2"
+    ],
+    [
+      "DEM-092",
+      "Marius Mosegaard",
+      "Dreng",
+      "Mar491",
+      "Marius Mosegaard.png",
+      "DanB3"
+    ],
+    [
+      "DEM-093",
+      "Carla Tofte",
+      "Pige",
+      "Car628",
+      "Carla Tofte.png",
+      "DanA2"
+    ],
+    [
+      "DEM-094",
+      "Mathias Engholm",
+      "Dreng",
+      "Mat765",
+      "Mathias Engholm.png",
+      "DanA2"
+    ],
+    [
+      "DEM-095",
+      "Christian Kirkely",
+      "Dreng",
+      "Chr902",
+      "Christian Kirkely.png",
+      "DanA1"
+    ],
+    [
+      "DEM-096",
+      "Ellen Skovlund",
+      "Pige",
+      "Ell039",
+      "Ellen Skovlund.png",
+      "DanB3"
+    ],
+    [
+      "DEM-097",
+      "Martin Birkedal",
+      "Dreng",
+      "Mar176",
+      "Martin Birkedal.png",
+      "DanB2"
+    ],
+    [
+      "DEM-098",
+      "Lasse Granlund",
+      "Dreng",
+      "Las313",
+      "Lasse Granlund.png",
+      "DanA3"
+    ],
+    [
+      "DEM-099",
+      "Sebastian Lundtoft",
+      "Dreng",
+      "Seb450",
+      "Sebastian Lundtoft.png",
+      "DanB2"
+    ],
+    [
+      "DEM-100",
+      "Liva Sundby",
+      "Pige",
+      "Liv587",
+      "Liva Sundby.png",
+      "DanA1"
+    ],
+    [
+      "DEM-101",
+      "Isabella Frost",
+      "Pige",
+      "Isa724",
+      "Isabella Frost.png",
+      "DanA3"
+    ],
+    [
+      "DEM-102",
+      "Kaspar Lindberg",
+      "Dreng",
+      "Kas861",
+      "Kaspar Lindberg.png",
+      "DanA2"
+    ],
+    [
+      "DEM-103",
+      "Karla Storm",
+      "Pige",
+      "Kar998",
+      "Karla Storm.png",
+      "DanB1"
+    ],
+    [
+      "DEM-104",
+      "Johan Dalby",
+      "Dreng",
+      "Joh135",
+      "Johan Dalby.png",
+      "DanA2"
+    ],
+    [
+      "DEM-105",
+      "Olivia Hedegaard",
+      "Pige",
+      "Oli272",
+      "Olivia Hedegaard.png",
+      "DanB1"
+    ],
+    [
+      "DEM-106",
+      "Anton Nordvang",
+      "Dreng",
+      "Ant409",
+      "Anton Nordvang.png",
+      "DanA1"
+    ],
+    [
+      "DEM-107",
+      "Selma Vinter",
+      "Pige",
+      "Sel546",
+      "Selma Vinter.png",
+      "DanB3"
+    ],
+    [
+      "DEM-108",
+      "Carl Fjordvang",
+      "Dreng",
+      "Car683",
+      "Carl Fjordvang.png",
+      "DanB2"
+    ],
+    [
+      "DEM-109",
+      "Alma Klint",
+      "Pige",
+      "Alm820",
+      "Alma Klint.png",
+      "DanB1"
+    ],
+    [
+      "DEM-110",
+      "Jonas Solberg",
+      "Dreng",
+      "Jon957",
+      "Jonas Solberg.png",
+      "DanA3"
+    ],
+    [
+      "DEM-111",
+      "Sigrid Broby",
+      "Pige",
+      "Sig094",
+      "Sigrid Broby.png",
+      "DanB1"
+    ],
+    [
+      "DEM-112",
+      "Liam Havlund",
+      "Dreng",
+      "Lia231",
+      "Liam Havlund.png",
+      "DanB3"
+    ],
+    [
+      "DEM-113",
+      "Signe Mosegaard",
+      "Pige",
+      "Sig368",
+      "Signe Mosegaard.png",
+      "DanA2"
+    ],
+    [
+      "DEM-114",
+      "Arthur Tofte",
+      "Dreng",
+      "Art505",
+      "Arthur Tofte.png",
+      "DanA1"
+    ],
+    [
+      "DEM-115",
+      "Katrine Engholm",
+      "Pige",
+      "Kat642",
+      "Katrine Engholm.png",
+      "DanB1"
+    ],
+    [
+      "DEM-116",
+      "Vilma Kirkely",
+      "Pige",
+      "Vil779",
+      "Vilma Kirkely.png",
+      "DanA1"
+    ],
+    [
+      "DEM-117",
+      "Nanna Skovlund",
+      "Pige",
+      "Nan916",
+      "Nanna Skovlund.png",
+      "DanA3"
+    ],
+    [
+      "DEM-118",
+      "Sigurd Birkedal",
+      "Dreng",
+      "Sig053",
+      "Sigurd Birkedal.png",
+      "DanB2"
+    ],
+    [
+      "DEM-119",
+      "Laura Granlund",
+      "Pige",
+      "Lau190",
+      "Laura Granlund.png",
+      "DanA1"
+    ],
+    [
+      "DEM-120",
+      "Alfred Lundtoft",
+      "Dreng",
+      "Alf327",
+      "Alfred Lundtoft.png",
+      "DanA2"
+    ],
+    [
+      "DEM-121",
+      "Laura Sundby",
+      "Pige",
+      "Lau464",
+      "Laura Sundby.png",
+      "DanB3"
+    ],
+    [
+      "DEM-122",
+      "Thor Egebæk",
+      "Dreng",
+      "Tho601",
+      "Thor Egebæk.png",
+      "DanA1"
+    ],
+    [
+      "DEM-123",
+      "Agnes Højmark",
+      "Pige",
+      "Agn738",
+      "Agnes Højmark.png",
+      "DanB2"
+    ],
+    [
+      "DEM-124",
+      "Nikolaj Rosen",
+      "Dreng",
+      "Nik875",
+      "Nikolaj Rosen.png",
+      "DanA2"
+    ],
+    [
+      "DEM-125",
+      "Nora Østergaard",
+      "Pige",
+      "Nor012",
+      "Nora Østergaard.png",
+      "DanB2"
+    ],
+    [
+      "DEM-126",
+      "August Frost",
+      "Dreng",
+      "Aug149",
+      "August Frost.png",
+      "DanB3"
+    ],
+    [
+      "DEM-127",
+      "Ingrid Lindberg",
+      "Pige",
+      "Ing286",
+      "Ingrid Lindberg.png",
+      "DanB3"
+    ],
+    [
+      "DEM-128",
+      "Svend Storm",
+      "Dreng",
+      "Sve423",
+      "Svend Storm.png",
+      "DanB1"
+    ],
+    [
+      "DEM-129",
+      "Mille Dalby",
+      "Pige",
+      "Mil560",
+      "Mille Dalby.png",
+      "DanA3"
+    ],
+    [
+      "DEM-130",
+      "Emil Hedegaard",
+      "Dreng",
+      "Emi697",
+      "Emil Hedegaard.png",
+      "DanB2"
+    ],
+    [
+      "DEM-131",
+      "Clara Nordvang",
+      "Pige",
+      "Cla834",
+      "Clara Nordvang.png",
+      "DanA3"
+    ],
+    [
+      "DEM-132",
+      "Sara Vinter",
+      "Pige",
+      "Sar971",
+      "Sara Vinter.png",
+      "DanB2"
+    ],
+    [
+      "DEM-133",
+      "Astrid Fjordvang",
+      "Pige",
+      "Ast108",
+      "Astrid Fjordvang.png",
+      "DanA2"
+    ],
+    [
+      "DEM-134",
+      "Hugo Klint",
+      "Dreng",
+      "Hug245",
+      "Hugo Klint.png",
+      "DanB3"
+    ],
+    [
+      "DEM-135",
+      "Felix Solberg",
+      "Dreng",
+      "Fel382",
+      "Felix Solberg.png",
+      "DanB3"
+    ],
+    [
+      "DEM-136",
+      "Isak Broby",
+      "Dreng",
+      "Isa519",
+      "Isak Broby.png",
+      "DanB2"
+    ],
+    [
+      "DEM-137",
+      "Julie Havlund",
+      "Pige",
+      "Jul656",
+      "Julie Havlund.png",
+      "DanA2"
+    ],
+    [
+      "DEM-138",
+      "Alberte Mosegaard",
+      "Pige",
+      "Alb793",
+      "Alberte Mosegaard.png",
+      "DanA3"
+    ],
+    [
+      "DEM-139",
+      "Thea Tofte",
+      "Pige",
+      "The930",
+      "Thea Tofte.png",
+      "DanB3"
+    ],
+    [
+      "DEM-140",
+      "Rasmus Engholm",
+      "Dreng",
+      "Ras067",
+      "Rasmus Engholm.png",
+      "DanA1"
+    ],
+    [
+      "DEM-141",
+      "Zara Kirkely",
+      "Pige",
+      "Zar204",
+      "Zara Kirkely.png",
+      "DanB3"
+    ],
+    [
+      "DEM-142",
+      "Albert Skovlund",
+      "Dreng",
+      "Alb341",
+      "Albert Skovlund.png",
+      "DanA3"
+    ],
+    [
+      "DEM-143",
+      "Ida Birkedal",
+      "Pige",
+      "Ida478",
+      "Ida Birkedal.png",
+      "DanB3"
+    ],
+    [
+      "DEM-144",
+      "Oscar Granlund",
+      "Dreng",
+      "Osc615",
+      "Oscar Granlund.png",
+      "DanB1"
+    ],
+    [
+      "DEM-145",
+      "Kristian Lundtoft",
+      "Dreng",
+      "Kri752",
+      "Kristian Lundtoft.png",
+      "DanB3"
+    ],
+    [
+      "DEM-146",
+      "Anna Sundby",
+      "Pige",
+      "Ann889",
+      "Anna Sundby.png",
+      "DanA2"
+    ],
+    [
+      "DEM-147",
+      "Benjamin Egebæk",
+      "Dreng",
+      "Ben026",
+      "Benjamin Egebæk.png",
+      "DanA3"
+    ],
+    [
+      "DEM-148",
+      "Isak Højmark",
+      "Dreng",
+      "Isa163",
+      "Isak Højmark.png",
+      "DanB1"
+    ],
+    [
+      "DEM-149",
+      "Carl Rosen",
+      "Dreng",
+      "Car300",
+      "Carl Rosen.png",
+      "DanB3"
+    ],
+    [
+      "DEM-150",
+      "Mathilde Østergaard",
+      "Pige",
+      "Mat437",
+      "Mathilde Østergaard.png",
+      "DanA1"
+    ]
+  ],
+  "meta": {
+    "demoDataId": "haubro-navnemapping",
+    "school": "Haubro Efterskole",
+    "schoolYear": "2026/27",
+    "fictional": true,
+    "description": "Sporbar mapping mellem DemoID, elev, Unilogin, portrætfil og danskhold."
+  }
+}
