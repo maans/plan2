@@ -1,0 +1,469 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Plan//Haubro demo 2026-27//DA
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:dansk-26-27-001@plan.maans.dk
+DTSTART;VALUE=DATE:20260812
+DTEND;VALUE=DATE:20260813
+SUMMARY:Spørgeskema
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Spørgeskema (1 time).
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-002@plan.maans.dk
+DTSTART;VALUE=DATE:20260814
+DTEND;VALUE=DATE:20260815
+SUMMARY:Sat ud · noter og aflevering
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Eleverne skal skrive noter og aflevere.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-003@plan.maans.dk
+DTSTART;VALUE=DATE:20260819
+DTEND;VALUE=DATE:20260820
+SUMMARY:Intro til dansk · klassekultur · Tøser
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Walk and talk, mindmap om familie og novellearbejde med Tøser af Kim Fupz Aakeson.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-004@plan.maans.dk
+DTSTART;VALUE=DATE:20260820
+DTEND;VALUE=DATE:20260821
+SUMMARY:Tøser · gennemgang · Trekanter af lykke
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Gennemgang af Tøser og arbejde med Trekanter af lykke.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-005@plan.maans.dk
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+SUMMARY:Planlægningsmøde
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Planlægningsmøde.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-006@plan.maans.dk
+DTSTART;VALUE=DATE:20260902
+DTEND;VALUE=DATE:20260903
+SUMMARY:Erindring · Far · skriveopgave
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Hvad er en erindring? Far af Kim Fupz Aakeson. Skrive erindring til aflevering.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-007@plan.maans.dk
+DTSTART;VALUE=DATE:20260903
+DTEND;VALUE=DATE:20260904
+SUMMARY:Skrive erindring færdig
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Eleverne skriver erindringen færdig under trivselssamtaler.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-008@plan.maans.dk
+DTSTART;VALUE=DATE:20260909
+DTEND;VALUE=DATE:20260910
+SUMMARY:Sukkermusen
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Læsning og arbejde med Sukkermusen af Jesper Wung-Sung.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-009@plan.maans.dk
+DTSTART;VALUE=DATE:20260910
+DTEND;VALUE=DATE:20260911
+SUMMARY:Sukkermusen · fortsat
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Fortsat læsning og analyse. Ekstra: grammatikøvelser.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-010@plan.maans.dk
+DTSTART;VALUE=DATE:20260916
+DTEND;VALUE=DATE:20260917
+SUMMARY:Sådan overlever du en lortebarndom
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Biografen. Se dokumentaren og begynd gruppearbejde.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-011@plan.maans.dk
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:Lyrik om familie
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Når mænd græder, Til mine forældre og gruppearbejde.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-012@plan.maans.dk
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+SUMMARY:Planlægningsmøde
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Planlægningsmøde.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-013@plan.maans.dk
+DTSTART;VALUE=DATE:20260923
+DTEND;VALUE=DATE:20260924
+SUMMARY:Lyrikopsamling · If Anything Happens I Love You
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Opsamling på lyrik og kortfilm.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-014@plan.maans.dk
+DTSTART;VALUE=DATE:20260924
+DTEND;VALUE=DATE:20260925
+SUMMARY:Retstavning og A-del
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. 9. klasse: retstavning. 10. klasse: A-delen. Opsamling på forløbet.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-015@plan.maans.dk
+DTSTART;VALUE=DATE:20260930
+DTEND;VALUE=DATE:20261001
+SUMMARY:Pressefoto · moderne familier · Byttedyr
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Årets Pressefoto 2021, analyse og debat om moderne familiemønstre. Start Byttedyr.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-016@plan.maans.dk
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
+SUMMARY:Film om Prag
+LOCATION:Haubro Efterskole
+DESCRIPTION:Familien. Film om Prag og eventuel perspektivering.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-017@plan.maans.dk
+DTSTART;VALUE=DATE:20261022
+DTEND;VALUE=DATE:20261023
+SUMMARY:Byttedyr
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Arbejde med Byttedyr.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-018@plan.maans.dk
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:Byttedyr · fortsat
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Fortsat arbejde med Byttedyr.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-019@plan.maans.dk
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Omlagt skriftlighed
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. 9. klasse: læseprøve og Næste stop. 10. klasse: A-del og modtagerrettet kommunikation. Fælles ansøgning.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-020@plan.maans.dk
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+SUMMARY:Ingen dansk · værelsesflyttedag
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Ingen dansk på grund af værelsesflyttedag.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-021@plan.maans.dk
+DTSTART;VALUE=DATE:20261112
+DTEND;VALUE=DATE:20261113
+SUMMARY:Der kommer en dag · film og fagsamtaler
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Se Der kommer en dag. Fagsamtaler undervejs.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-022@plan.maans.dk
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:Der kommer en dag · analyse
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Arbejde med hovedværket.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-023@plan.maans.dk
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+SUMMARY:Der kommer en dag · analyse fortsat
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Fortsat arbejde med hovedværket.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-024@plan.maans.dk
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:#parisjetaime
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Læsning og opgaver.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-025@plan.maans.dk
+DTSTART;VALUE=DATE:20261202
+DTEND;VALUE=DATE:20261203
+SUMMARY:Hvor længe kan du holde vejret?
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Se kampagnefilm, opgaver og filmteknisk arbejde. Start egne kampagnefilm.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-026@plan.maans.dk
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
+SUMMARY:Egne kampagnefilm
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Færdiggør filmene og vis dem i klassen.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-027@plan.maans.dk
+DTSTART;VALUE=DATE:20261209
+DTEND;VALUE=DATE:20261210
+SUMMARY:Facebook-tonen
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Webdok om tone på sociale medier og kreativ videoopgave.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-028@plan.maans.dk
+DTSTART;VALUE=DATE:20261210
+DTEND;VALUE=DATE:20261211
+SUMMARY:Det perfekte er det nye normale
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Læsning og arbejde med teksten fra 2014. Perspektiv: diagnoser og TikTok.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-029@plan.maans.dk
+DTSTART;VALUE=DATE:20261216
+DTEND;VALUE=DATE:20261217
+SUMMARY:Poetry slam
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Eventuelt arbejde med poetry slam.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-030@plan.maans.dk
+DTSTART;VALUE=DATE:20261217
+DTEND;VALUE=DATE:20261218
+SUMMARY:Den lille pige med svovlstikkerne
+LOCATION:Haubro Efterskole
+DESCRIPTION:Ungdom og identitet. Oplæsning, eventyrtræk, romantik, animationsfilm og kampagneperspektiv.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-031@plan.maans.dk
+DTSTART;VALUE=DATE:20270106
+DTEND;VALUE=DATE:20270107
+SUMMARY:Textanalyzer og terminsprøveforberedelse
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Kursus i Textanalyzer, samtalerunde, opgaver, aflevering og PDF-gemning.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-032@plan.maans.dk
+DTSTART;VALUE=DATE:20270107
+DTEND;VALUE=DATE:20270108
+SUMMARY:Det Waagepetersenske familiebillede
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Billedanalyse og periodeintroduktion.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-033@plan.maans.dk
+DTSTART;VALUE=DATE:20270112
+DTEND;VALUE=DATE:20270113
+SUMMARY:Terminsprøver · uge 3
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Terminsprøveuge.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-034@plan.maans.dk
+DTSTART;VALUE=DATE:20270119
+DTEND;VALUE=DATE:20270120
+SUMMARY:Dramauge · uge 4
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Dramauge.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-035@plan.maans.dk
+DTSTART;VALUE=DATE:20270127
+DTEND;VALUE=DATE:20270128
+SUMMARY:Fædrelandssange og romantik
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Der er et yndigt land, I Danmark er jeg født og Frit land.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-036@plan.maans.dk
+DTSTART;VALUE=DATE:20270128
+DTEND;VALUE=DATE:20270129
+SUMMARY:Lønningsdag
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Læsning og opgaver.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-037@plan.maans.dk
+DTSTART;VALUE=DATE:20270203
+DTEND;VALUE=DATE:20270204
+SUMMARY:Boganmeldelse · Lønningsdag · Det moderne gennembrud
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Differentieret arbejde på 9. og 10. klasse samt periodeintroduktion.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-038@plan.maans.dk
+DTSTART;VALUE=DATE:20270204
+DTEND;VALUE=DATE:20270205
+SUMMARY:Den grimme ælling og Ørneflugt
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Tidslinje med eventyrstrips, oplæsning og opgaver.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-039@plan.maans.dk
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Opsamling og kunstbilleder
+LOCATION:Haubro Efterskole
+DESCRIPTION:Fra romantik til gennembrud. Opsamling på romantikken og det moderne gennembrud. Arbejde med kunstbilleder.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-040@plan.maans.dk
+DTSTART;VALUE=DATE:20270224
+DTEND;VALUE=DATE:20270225
+SUMMARY:Reportager om krig og frihed
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Bæstet og reportage fra Ukraine. Analyse og opgaver.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-041@plan.maans.dk
+DTSTART;VALUE=DATE:20270225
+DTEND;VALUE=DATE:20270226
+SUMMARY:Reportager · fortsat
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Fortsat arbejde og perspektiverende kilder.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-042@plan.maans.dk
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Pressefotos
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Analyse af to pressefotos.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-043@plan.maans.dk
+DTSTART;VALUE=DATE:20270304
+DTEND;VALUE=DATE:20270305
+SUMMARY:Webdok · 3, 2, 1 – lift off
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Arbejde med webdok og opgaver.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-044@plan.maans.dk
+DTSTART;VALUE=DATE:20270310
+DTEND;VALUE=DATE:20270311
+SUMMARY:Noveller om frihed og tab
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Raftehegn, Duften af safran og Det vi har mistet.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-045@plan.maans.dk
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:Debatindlæg
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Genrearbejde og opgaver til debatindlæg.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-046@plan.maans.dk
+DTSTART;VALUE=DATE:20270318
+DTEND;VALUE=DATE:20270319
+SUMMARY:Hvis der var krig i Norden
+LOCATION:Haubro Efterskole
+DESCRIPTION:Frihed og flugt. Essay og afslutning af emnet.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-047@plan.maans.dk
+DTSTART;VALUE=DATE:20270324
+DTEND;VALUE=DATE:20270325
+SUMMARY:Reklamer og fordybelsesområder
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Afslut essay. Opgaver til Sikker online, Cocio-reklamen og Nederen forældre. Introduktion til fordybelsesområder.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-048@plan.maans.dk
+DTSTART;VALUE=DATE:20270325
+DTEND;VALUE=DATE:20270326
+SUMMARY:Reklame- og kampagnefilm
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Analyse af levende og faste reklamer.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-049@plan.maans.dk
+DTSTART;VALUE=DATE:20270331
+DTEND;VALUE=DATE:20270401
+SUMMARY:Ingen dansk · galla
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Ingen dansk på grund af galla.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-050@plan.maans.dk
+DTSTART;VALUE=DATE:20270401
+DTEND;VALUE=DATE:20270402
+SUMMARY:Ingen dansk · oprydning efter galla
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Ingen dansk på grund af oprydning.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-051@plan.maans.dk
+DTSTART;VALUE=DATE:20270407
+DTEND;VALUE=DATE:20270408
+SUMMARY:Reklamer · pensum · synopse
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Fordybelsesområder, repetition og synopsearbejde. Husk fordybelsesområder til censor.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-052@plan.maans.dk
+DTSTART;VALUE=DATE:20270408
+DTEND;VALUE=DATE:20270409
+SUMMARY:Reklamer og repetition
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Fortsat synopsearbejde og repetition.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-053@plan.maans.dk
+DTSTART;VALUE=DATE:20270413
+DTEND;VALUE=DATE:20270414
+SUMMARY:Stor rejse · uge 16
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Ingen almindelig dansk.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-054@plan.maans.dk
+DTSTART;VALUE=DATE:20270420
+DTEND;VALUE=DATE:20270421
+SUMMARY:Stor rejse · uge 17
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Ingen almindelig dansk.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-055@plan.maans.dk
+DTSTART;VALUE=DATE:20270428
+DTEND;VALUE=DATE:20270429
+SUMMARY:Årskarakterer, synopser og prøveforberedelse
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Feedback på synopser, mundtlig og skriftlig prøve, sidehoved, print, startkomma og vejledning.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-056@plan.maans.dk
+DTSTART;VALUE=DATE:20270429
+DTEND;VALUE=DATE:20270430
+SUMMARY:Vejledning
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Vejledning og prøveforberedelse.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-057@plan.maans.dk
+DTSTART;VALUE=DATE:20270520
+DTEND;VALUE=DATE:20270521
+SUMMARY:Frist · aflevering af synopser
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Elevernes synopser afleveres.
+END:VEVENT
+BEGIN:VEVENT
+UID:dansk-26-27-058@plan.maans.dk
+DTSTART;VALUE=DATE:20270527
+DTEND;VALUE=DATE:20270528
+SUMMARY:Frist · synopser til censor
+LOCATION:Haubro Efterskole
+DESCRIPTION:Reklamer, synopse og prøve. Censor skal have synopserne senest denne dato.
+END:VEVENT
+END:VCALENDAR
