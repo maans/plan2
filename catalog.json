@@ -64,7 +64,7 @@
       "title": "Dansk 9.–10. klasse · årsplan 2026–27 · Haubro demo",
       "category": "dansk",
       "subject": "Dansk",
-      "description": "Komplet danskårsplan koblet til Haubro Efterskoles fiktive skoleår, danskhold, elevdata, niveaudeling og fagsamtaler.",
+      "description": "Selvkørende danskdemoforløb 2026–27 med prælinket kalender, 150 elevportrætter hentet som katalogmedier og gemt lokalt i Quine, seks danskhold, tre billedvendespil, færdig niveaudeling, fagsamtaler og vurderede standpunktskarakterer.",
       "schoolYear": "2026–27",
       "gradeLevels": [
         "9",
@@ -84,11 +84,14 @@
         "9.–10. klasse",
         "fase 8"
       ],
-      "version": "2.0.0-haubro-demodata-v5",
+      "version": "5.4.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/Plan/main/plan-library/dansk/dansk-2026-27/forloeb.json",
-      "sizeBytes": 885934,
+      "sizeBytes": 3887693,
       "featured": true,
-      "updatedAt": "2026-07-15"
+      "updatedAt": "2026-07-15T22:10:00+02:00",
+      "boardCount": 112,
+      "widgetCount": 486,
+      "datasetCount": 32
     },
     {
       "id": "dansk-2025-26",
