@@ -6,7 +6,7 @@
   "schemaVersion": 1,
   "appVersion": "0.9.3r",
   "kind": "course-package",
-  "createdAt": "2027-06-29T12:45:00.000Z",
+  "createdAt": "2026-07-16T02:30:00+02:00",
   "sessions": [
     {
       "id": "dansk-26-27-00-elevadministration",
@@ -16,12 +16,14 @@
       "activeBoardId": "board_dansk-26-27-admin-overblik",
       "boardIds": [
         "board_dansk-26-27-admin-overblik",
-        "board_dansk-26-27-admin-klasse-9a",
-        "board_dansk-26-27-admin-klasse-9b",
-        "board_dansk-26-27-admin-klasse-9c",
-        "board_dansk-26-27-admin-klasse-10a",
-        "board_dansk-26-27-admin-klasse-10b",
-        "board_dansk-26-27-admin-klasse-10c",
+        "board_dansk-26-27-admin-house-1",
+        "board_dansk-26-27-admin-house-2",
+        "board_dansk-26-27-admin-house-3",
+        "board_dansk-26-27-admin-house-4",
+        "board_dansk-26-27-admin-house-5",
+        "board_dansk-26-27-admin-house-6",
+        "board_dansk-26-27-admin-house-7",
+        "board_dansk-26-27-admin-house-8",
         "board_dansk-26-27-admin-kontaktgrupper",
         "board_dansk-26-27-demo-elevkort",
         "board_dansk-26-27-demo-niveaudeling",
@@ -3715,7 +3717,7 @@
       "id": "board_dansk-26-27-demo-hold-dana1",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanA1 · elevkort, fagsamtaler og karakterer",
+      "title": "DanA1 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -3747,7 +3749,7 @@
       "id": "board_dansk-26-27-demo-hold-danb1",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanB1 · elevkort, fagsamtaler og karakterer",
+      "title": "DanB1 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -3779,7 +3781,7 @@
       "id": "board_dansk-26-27-demo-hold-dana2",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanA2 · elevkort, fagsamtaler og karakterer",
+      "title": "DanA2 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -3811,7 +3813,7 @@
       "id": "board_dansk-26-27-demo-hold-danb2",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanB2 · elevkort, fagsamtaler og karakterer",
+      "title": "DanB2 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -3843,7 +3845,7 @@
       "id": "board_dansk-26-27-demo-hold-dana3",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanA3 · elevkort, fagsamtaler og karakterer",
+      "title": "DanA3 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -3875,7 +3877,7 @@
       "id": "board_dansk-26-27-demo-hold-danb3",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Danskhold · DanB3 · elevkort, fagsamtaler og karakterer",
+      "title": "DanB3 · elevkort, fagsamtaler og karakterer",
       "background": {
         "kind": "gradient",
         "value": "linear-gradient(145deg,#10243b,#173b58)",
@@ -4059,7 +4061,7 @@
       "id": "board_dansk-26-27-admin-house-1",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Bøgen",
+      "title": "Bøgen · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4071,7 +4073,7 @@
       "id": "board_dansk-26-27-admin-house-2",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Egen",
+      "title": "Egen · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4083,7 +4085,7 @@
       "id": "board_dansk-26-27-admin-house-3",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Fyrren",
+      "title": "Fyrren · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4095,7 +4097,7 @@
       "id": "board_dansk-26-27-admin-house-4",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Linden",
+      "title": "Linden · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4107,7 +4109,7 @@
       "id": "board_dansk-26-27-admin-house-5",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Ahorn",
+      "title": "Ahorn · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4119,7 +4121,7 @@
       "id": "board_dansk-26-27-admin-house-6",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Birken",
+      "title": "Birken · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4131,7 +4133,7 @@
       "id": "board_dansk-26-27-admin-house-7",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Elmen",
+      "title": "Elmen · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -4143,7 +4145,7 @@
       "id": "board_dansk-26-27-admin-house-8",
       "schemaVersion": 5,
       "sessionId": "dansk-26-27-00-elevadministration",
-      "title": "Hus/gang · Rønnen",
+      "title": "Rønnen · elevkort",
       "background": {
         "type": "solid",
         "value": "#0f172a"
@@ -24273,10 +24275,10 @@
       "type": "text",
       "title": "Arbejd med DanA1",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24301,10 +24303,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanA1",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24333,9 +24335,9 @@
       "title": "Fagsamtaler · DanA1",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24360,10 +24362,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanA1",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -24388,10 +24390,10 @@
       "type": "text",
       "title": "Arbejd med DanB1",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24416,10 +24418,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanB1",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24448,9 +24450,9 @@
       "title": "Fagsamtaler · DanB1",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24475,10 +24477,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanB1",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -24503,10 +24505,10 @@
       "type": "text",
       "title": "Arbejd med DanA2",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24531,10 +24533,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanA2",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24563,9 +24565,9 @@
       "title": "Fagsamtaler · DanA2",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24590,10 +24592,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanA2",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -24618,10 +24620,10 @@
       "type": "text",
       "title": "Arbejd med DanB2",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24646,10 +24648,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanB2",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24678,9 +24680,9 @@
       "title": "Fagsamtaler · DanB2",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24705,10 +24707,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanB2",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -24733,10 +24735,10 @@
       "type": "text",
       "title": "Arbejd med DanA3",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24761,10 +24763,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanA3",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24793,9 +24795,9 @@
       "title": "Fagsamtaler · DanA3",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24820,10 +24822,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanA3",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -24848,10 +24850,10 @@
       "type": "text",
       "title": "Arbejd med DanB3",
       "geometry": {
-        "x": 30,
+        "x": 810,
         "y": 45,
-        "width": 1210,
-        "height": 125,
+        "width": 430,
+        "height": 210,
         "rotation": 0,
         "z": 1
       },
@@ -24876,10 +24878,10 @@
       "type": "card-matrix",
       "title": "Elevkort · DanB3",
       "geometry": {
-        "x": 30,
-        "y": 195,
-        "width": 1210,
-        "height": 650,
+        "x": 810,
+        "y": 275,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 2
       },
@@ -24908,9 +24910,9 @@
       "title": "Fagsamtaler · DanB3",
       "geometry": {
         "x": 30,
-        "y": 880,
-        "width": 1210,
-        "height": 700,
+        "y": 45,
+        "width": 760,
+        "height": 810,
         "rotation": 0,
         "z": 3
       },
@@ -24935,10 +24937,10 @@
       "type": "grade-matrix",
       "title": "Karakterer · DanB3",
       "geometry": {
-        "x": 30,
-        "y": 1615,
-        "width": 1180,
-        "height": 680,
+        "x": 810,
+        "y": 575,
+        "width": 430,
+        "height": 280,
         "rotation": 0,
         "z": 4
       },
@@ -49693,7 +49695,8 @@
           }
         ],
         "portraitFileColumn": "Billedfil",
-        "portraitsEmbedded": true
+        "portraitsEmbedded": false,
+        "portraitStorage": "catalog-media"
       },
       "scope": "common",
       "sessionId": null,
@@ -102835,7 +102838,8 @@
           }
         ],
         "portraitFileColumn": "Billedfil",
-        "portraitsEmbedded": true
+        "portraitsEmbedded": false,
+        "portraitStorage": "catalog-media"
       },
       "scope": "common",
       "sessionId": null,
@@ -125364,16 +125368,16 @@
       "mediaRemovedForGithub": 0,
       "portraitsDownloadedThenStoredLocally": true
     },
-    "contentHash": "229cd35c503d2f3b664965f73481369888c3e9d7262890eb9227a4d16bf0d0ec",
-    "packageHash": "939e940f94ffd35350e2cd44556280929c871a566898f65eb11f2e1458893b69",
+  "contentHash": "a1e6c506918b2b0f5749107e954a3b9dd1ccbd8634b27d07624178388d0a5f61",
+  "packageHash": "824496e64164d23b9138229bd6f2252d1ec8fdc3e83c585c00245e97d2285794",
     "materialsMode": "catalog-files-download-once",
     "quality": {
       "kapardyDidacticUpgrade": "fase7-kvalitativ-faellessamling-og-distraktorloeft"
     },
     "sessionCount": 7,
-    "boardCount": 120,
-    "widgetCount": 502,
-    "datasetCount": 32,
+  "boardCount": 122,
+  "widgetCount": 515,
+  "datasetCount": 41,
     "remoteMedia": {
       "count": 150,
       "base": "../../../demo-data/elevbilleder/",
