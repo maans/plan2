@@ -89,11 +89,11 @@
         "elevkort",
         "automatisk fagsamtalekobling"
       ],
-      "version": "5.10.0",
+      "version": "5.12.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/plan2/main/plan-library/dansk/dansk-2026-27/forloeb.json",
-      "sizeBytes": 4034688,
+      "sizeBytes": 4034744,
       "featured": true,
-      "updatedAt": "2026-07-16T01:05:00+02:00",
+      "updatedAt": "2026-07-16T02:30:00+02:00",
       "boardCount": 122,
       "widgetCount": 515,
       "datasetCount": 41
