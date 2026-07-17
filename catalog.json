@@ -3,7 +3,7 @@
   "version": 2,
   "title": "Plan · demoforløb og skabeloner",
   "description": "Demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
-  "updatedAt": "2026-07-16T02:55:00+02:00",
+  "updatedAt": "2026-07-17T15:30:00+02:00",
   "categories": [
     {
       "id": "dansk",
@@ -89,13 +89,13 @@
         "elevkort",
         "automatisk fagsamtalekobling"
       ],
-      "version": "5.13.0",
+      "version": "5.14.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/plan2/main/plan-library/dansk/dansk-2026-27/forloeb.json",
-      "sizeBytes": 4043706,
+      "sizeBytes": 2703805,
       "featured": true,
-      "updatedAt": "2026-07-16T02:55:00+02:00",
-      "boardCount": 125,
-      "widgetCount": 521,
+      "updatedAt": "2026-07-17T15:30:00+02:00",
+      "boardCount": 126,
+      "widgetCount": 527,
       "datasetCount": 41
     },
     {
