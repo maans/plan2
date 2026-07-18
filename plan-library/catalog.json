@@ -3,7 +3,7 @@
   "version": 2,
   "title": "Plan · guides, demoer og skabeloner",
   "description": "Interaktive guides, færdige demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
-  "updatedAt": "2026-07-18T18:20:00+02:00",
+  "updatedAt": "2026-07-18T19:20:00+02:00",
   "categories": [
     {
       "id": "guides",
@@ -80,11 +80,11 @@
         "elevbilleder",
         "faghold"
       ],
-      "version": "1.1.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/kom-godt-i-gang/forloeb.json",
+      "version": "1.2.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/kom-godt-i-gang/forloeb.json?v=76",
       "sizeBytes": 17218,
       "featured": true,
-      "updatedAt": "2026-07-18T18:45:00+02:00",
+      "updatedAt": "2026-07-18T19:20:00+02:00",
       "boardCount": 8,
       "widgetCount": 8,
       "datasetCount": 0
@@ -107,11 +107,11 @@
         "udskift data",
         "lokal kopi"
       ],
-      "version": "1.0.0",
-      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/haubro-migration/forloeb.json",
+      "version": "1.1.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/haubro-migration/forloeb.json?v=76",
       "sizeBytes": 13845,
       "featured": true,
-      "updatedAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T19:20:00+02:00",
       "boardCount": 8,
       "widgetCount": 8,
       "datasetCount": 0
