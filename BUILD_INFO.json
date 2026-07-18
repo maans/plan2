@@ -1,7 +1,7 @@
 {
   "product": "Plan 2.0",
-  "release": "Guides v76",
-  "createdAt": "2026-07-18T17:09:02.058821+00:00",
+  "release": "Guides v78",
+  "createdAt": "2026-07-18T17:46:32.536776+00:00",
   "purpose": "Selvstændig onboarding og Haubro-migration i biblioteket",
   "overwriteOrAdd": [
     "index.html",
@@ -33,9 +33,8 @@
     }
   },
   "changes": [
-    "Guide-renderer flyttet til absolut sidste position i index.html.",
-    "Automatisk genrendering efter registrering.",
-    "Cache-busting på guidepakker.",
-    "Synligt v76-buildmærke."
+    "Præsentationstilstand aktiveres ved loadSession for guides.",
+    "Direkte og fungerende sletning af aktuelt guideforløb.",
+    "Synlig v78-markering i guidefooter."
   ]
 }

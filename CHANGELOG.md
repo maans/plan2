@@ -1,13 +1,12 @@
-# Plan 2.0 · Guides v76
+# Plan 2.0 · Guides v78
 
-Denne version retter selve leverings- og aktiveringsfejlen:
+## Rettelser
 
-- Guide-rendereren ligger nu som den sidste kode i `index.html`.
-- Ingen senere widgetregistrering kan overskrive den.
-- Den aktive tavle genrenderes automatisk, når den nye renderer installeres.
-- Guidepakkerne hentes med cache-busting (`?v=76`).
-- Den aktive guide viser `v76` nederst, så det kan verificeres på skærmen.
-- Der er ikke lavet nye billeder eller skitser.
-
-Efter upload til GitHub skal den allerede åbne Plan-fane genindlæses én gang,
-fordi JavaScript i en åben browserfane ikke kan udskiftes af en filupload.
+- Guides skifter nu direkte til præsentationstilstand, når guidesessionen indlæses.
+- Præsentation aktiveres ikke længere kun fra widgettens `mount`.
+- **Slet guiden** bruger nu en direkte slettearbejdsgang:
+  1. Plan finder det aktuelle forløb.
+  2. Plan skifter til et andet forløb eller opretter et tomt forløb.
+  3. Alle guidens sessioner, tavler, widgets og lokale datasæt slettes.
+- Sletningen afhænger ikke længere af Lager og oprydnings beskyttelse mod sletning af det aktive forløb.
+- Guidens footer viser `v78`, så den aktive kode kan kontrolleres.
