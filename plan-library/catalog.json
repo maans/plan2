@@ -80,11 +80,11 @@
         "elevbilleder",
         "faghold"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/kom-godt-i-gang/forloeb.json",
-      "sizeBytes": 13368,
+      "sizeBytes": 17218,
       "featured": true,
-      "updatedAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:45:00+02:00",
       "boardCount": 8,
       "widgetCount": 8,
       "datasetCount": 0

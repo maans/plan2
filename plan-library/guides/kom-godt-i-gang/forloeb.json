@@ -175,20 +175,21 @@
       "content": {
         "mode": "setup-guide",
         "step": "start",
-        "headline": "Kom godt i gang med Plan 2.0",
-        "description": "En selvstændig arbejdsguide til at klargøre Plan med dine egne elever og data. Guiden kan slettes igen uden at slette det arbejde, du har oprettet.",
+        "headline": "Klargør Plan med dine egne elever og data",
+        "description": "Start med elevgrundlaget. Derefter kan du koble billeder, svar, hold og kalender på.",
         "action": "overview",
         "stepNumber": 1,
         "stepCount": 8,
         "kicker": "Kom godt i gang med Plan 2.0",
         "items": [
-          "Følg tavlerne fra venstre mod højre.",
-          "Arbejd direkte i Plan via knapperne.",
-          "Status læses fra de data, der allerede findes.",
-          "Slet guiden, når du ikke længere har brug for den."
+          "Hav elevlisten klar som CSV eller Excel.",
+          "Saml elevbillederne i én mappe.",
+          "Find de svarark og den kalender, du vil bruge.",
+          "Opret en backup, når grundlaget er på plads."
         ],
         "primaryLabel": "Åbn Planoversigten",
-        "secondaryLabel": "Åbn Hjælp"
+        "secondaryLabel": "Åbn Hjælp",
+        "listTitle": "Før du begynder"
       },
       "relations": {
         "layoutRole": "guide",
@@ -220,19 +221,20 @@
         "mode": "setup-guide",
         "step": "stamdata",
         "headline": "1 · Importér stamdata",
-        "description": "Start med elevlisten. Én elev pr. række og en stabil nøgle som UniLogin eller elevnummer gør senere opdateringer sikre.",
+        "description": "Importér elevernes stamdata, så du får et fælles grundlag i hele Plan.",
         "action": "stamdata",
         "stepNumber": 2,
         "stepCount": 8,
         "kicker": "Kom godt i gang med Plan 2.0",
         "items": [
-          "Eksportér elevlisten fra skolens system.",
-          "Bevar UniLogin eller elevnummer.",
-          "Importér filen som fælles data.",
+          "Åbn Planoversigten og vælg Elever og fælles grundlag.",
+          "Vælg Stamdata.",
+          "Importér elevlisten som CSV eller Excel.",
           "Kontrollér kolonner og tvetydige match."
         ],
         "primaryLabel": "Importér stamdata…",
-        "secondaryLabel": "Åbn Hjælp"
+        "secondaryLabel": "Åbn Hjælp",
+        "listTitle": "Det skal du gøre"
       },
       "relations": {
         "layoutRole": "guide",
@@ -264,19 +266,20 @@
         "mode": "setup-guide",
         "step": "billeder",
         "headline": "2 · Importér elevbilleder",
-        "description": "Vælg alle elevbilleder samlet. Plan matcher filnavne med elevnavne og viser de match, som kræver kontrol.",
+        "description": "Vælg elevbillederne samlet, og kontrollér kun de match, Plan er usikker på.",
         "action": "images",
         "stepNumber": 3,
         "stepCount": 8,
         "kicker": "Kom godt i gang med Plan 2.0",
         "items": [
-          "Saml billederne i én mappe.",
           "Brug elevens navn som filnavn.",
-          "Importér billederne samlet.",
-          "Kontrollér manglende og usikre match."
+          "Vælg alle billeder samlet.",
+          "Kontrollér usikre eller manglende match.",
+          "Åbn elevkortmatrixen og se resultatet."
         ],
         "primaryLabel": "Vælg elevbilleder…",
-        "secondaryLabel": "Åbn Hjælp"
+        "secondaryLabel": "Åbn Hjælp",
+        "listTitle": "Det skal du gøre"
       },
       "relations": {
         "layoutRole": "guide",
