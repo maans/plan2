@@ -160,17 +160,18 @@
       "type": "setup-guide",
       "title": "Kom godt i gang med Plan 2.0",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -205,17 +206,18 @@
       "type": "setup-guide",
       "title": "1 · Importér stamdata",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -250,17 +252,18 @@
       "type": "setup-guide",
       "title": "2 · Importér elevbilleder",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -295,17 +298,18 @@
       "type": "setup-guide",
       "title": "3 · Importér spørgeskemasvar",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -339,17 +343,18 @@
       "type": "setup-guide",
       "title": "4 · Opret faghold og niveaudeling",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -383,17 +388,18 @@
       "type": "setup-guide",
       "title": "5 · Kontrollér elevgrundlaget",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -427,17 +433,18 @@
       "type": "setup-guide",
       "title": "6 · Opdatér data senere",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
@@ -471,35 +478,37 @@
       "type": "setup-guide",
       "title": "7 · Klar til undervisning",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "setup-guide",
         "step": "klar",
-        "headline": "7 · Klar til undervisning",
-        "description": "Dine data bliver i Plan, selv om du sletter denne guidesession.",
-        "action": "finish",
+        "headline": "Afslut og fjern guiden",
+        "description": "Når du er færdig, kan du slette hele guideforløbet. Dine importerede data i andre forløb påvirkes ikke.",
+        "action": "delete-course",
         "stepNumber": 8,
         "stepCount": 8,
         "kicker": "Kom godt i gang med Plan 2.0",
         "items": [
-          "Kontrollér den samlede status.",
-          "Opret en backup.",
-          "Slet guidesessionen fra sessionoversigten.",
-          "Hent den igen fra biblioteket ved behov."
+          "Kontrollér at dine egne data ligger i det rigtige undervisningsforløb.",
+          "Lav en backup, hvis du vil kunne gendanne guideforløbet.",
+          "Tryk Slet guiden.",
+          "Guiden kan altid hentes igen fra Biblioteket."
         ],
-        "primaryLabel": "Sådan afslutter du guiden",
-        "secondaryLabel": "Åbn Hjælp"
+        "primaryLabel": "Slet guiden",
+        "secondaryLabel": "Åbn Hjælp",
+        "listTitle": "Før du sletter"
       },
       "relations": {
         "layoutRole": "guide",

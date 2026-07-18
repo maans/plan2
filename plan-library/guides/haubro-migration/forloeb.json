@@ -160,17 +160,18 @@
       "type": "setup-guide",
       "title": "Gør Haubro-demoen til dit eget forløb",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -204,17 +205,18 @@
       "type": "setup-guide",
       "title": "1 · Omdøb forløbet og lav sikkerhedskopi",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -248,17 +250,18 @@
       "type": "setup-guide",
       "title": "2 · Erstat stamdata",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -292,17 +295,18 @@
       "type": "setup-guide",
       "title": "3 · Erstat elevbilleder",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -336,17 +340,18 @@
       "type": "setup-guide",
       "title": "4 · Erstat spørgeskemaer, vurderinger og karakterer",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -380,17 +385,18 @@
       "type": "setup-guide",
       "title": "5 · Erstat faghold, teams og grupper",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -424,17 +430,18 @@
       "type": "setup-guide",
       "title": "6 · Erstat kalender og øvrige fælles data",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
@@ -468,35 +475,37 @@
       "type": "setup-guide",
       "title": "7 · Find rester af Haubro-data",
       "geometry": {
-        "x": 35,
-        "y": 40,
-        "width": 1200,
-        "height": 720,
+        "x": 18,
+        "y": 18,
+        "width": 1320,
+        "height": 820,
         "rotation": 0,
         "z": 1
       },
       "settings": {
         "locked": false,
         "hidden": false,
-        "minimized": false
+        "minimized": false,
+        "maximized": false
       },
       "content": {
         "mode": "migration-guide",
         "step": "migration-control",
-        "headline": "7 · Find rester af Haubro-data",
-        "description": "Brug Sammenhænge og søgning til at finde elever, hold, lærere, kalenderposter og billeder, der stadig stammer fra demoen.",
-        "action": "control",
+        "headline": "Afslut og fjern guiden",
+        "description": "Når du er færdig, kan du slette hele guideforløbet. Dine importerede data i andre forløb påvirkes ikke.",
+        "action": "delete-course",
         "stepNumber": 8,
         "stepCount": 8,
         "kicker": "Gør Haubro-demoen til dit eget forløb",
         "items": [
-          "Søg efter “Haubro”.",
-          "Kontrollér alle elevrelaterede datasæt.",
-          "Kontrollér billeder og medier.",
-          "Lav en ny Backup+, når kontrollen er færdig."
+          "Kontrollér at dine egne data ligger i det rigtige undervisningsforløb.",
+          "Lav en backup, hvis du vil kunne gendanne guideforløbet.",
+          "Tryk Slet guiden.",
+          "Guiden kan altid hentes igen fra Biblioteket."
         ],
-        "primaryLabel": "Åbn Sammenhænge",
-        "secondaryLabel": "Åbn Hjælp"
+        "primaryLabel": "Slet guiden",
+        "secondaryLabel": "Åbn Hjælp",
+        "listTitle": "Før du sletter"
       },
       "relations": {
         "layoutRole": "guide",
