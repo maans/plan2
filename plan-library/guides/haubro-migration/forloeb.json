@@ -1,0 +1,557 @@
+{
+  "format": "tavle-next-course-package",
+  "backupKind": "course-package",
+  "coursePackageVersion": 1,
+  "version": 3,
+  "schemaVersion": 5,
+  "appVersion": "Plan 2.0",
+  "kind": "course-package",
+  "createdAt": "2026-07-18T18:20:00+02:00",
+  "sessions": [
+    {
+      "id": "plan-guide-haubro-migration-session",
+      "schemaVersion": 1,
+      "title": "Gør Haubro-demoen til dit eget forløb",
+      "theme": "dark",
+      "activeBoardId": "plan-guide-haubro-migration-board-01",
+      "boardIds": [
+        "plan-guide-haubro-migration-board-01",
+        "plan-guide-haubro-migration-board-02",
+        "plan-guide-haubro-migration-board-03",
+        "plan-guide-haubro-migration-board-04",
+        "plan-guide-haubro-migration-board-05",
+        "plan-guide-haubro-migration-board-06",
+        "plan-guide-haubro-migration-board-07",
+        "plan-guide-haubro-migration-board-08"
+      ],
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00",
+      "meta": {
+        "courseId": "course_plan_guide_haubro_migration",
+        "courseTitle": "Gør Haubro-demoen til dit eget forløb",
+        "courseSubject": "Plan 2.0",
+        "courseSchoolYear": "Guide",
+        "courseOrder": 1,
+        "planOrder": 1,
+        "source": "Plan 2.0",
+        "sourceKind": "migration-guide",
+        "sessionType": "migration-guide",
+        "setupGuide": false,
+        "migrationGuide": true,
+        "deletable": true,
+        "recreatable": true,
+        "courseSessionIds": [
+          "plan-guide-haubro-migration-session"
+        ]
+      }
+    }
+  ],
+  "boards": [
+    {
+      "id": "plan-guide-haubro-migration-board-01",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "Gør Haubro-demoen til dit eget forløb",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 1,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-02",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "1 · Omdøb forløbet og lav sikkerhedskopi",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 2,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-03",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "2 · Erstat stamdata",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 3,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-04",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "3 · Erstat elevbilleder",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 4,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-05",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "4 · Erstat spørgeskemaer, vurderinger og karakterer",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 5,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-06",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "5 · Erstat faghold, teams og grupper",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 6,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-07",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "6 · Erstat kalender og øvrige fælles data",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 7,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-board-08",
+      "schemaVersion": 2,
+      "sessionId": "plan-guide-haubro-migration-session",
+      "title": "7 · Find rester af Haubro-data",
+      "background": {
+        "type": "color",
+        "value": "#173b55"
+      },
+      "order": 8,
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    }
+  ],
+  "widgets": [
+    {
+      "id": "plan-guide-haubro-migration-widget-01",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-01",
+      "type": "setup-guide",
+      "title": "Gør Haubro-demoen til dit eget forløb",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-start",
+        "headline": "Gør Haubro-demoen til dit eget forløb",
+        "description": "Denne guide hjælper dig med at erstatte de fiktive Haubro-data med dine egne data uden at miste demoens tavler og undervisningsstruktur.",
+        "action": "overview",
+        "stepNumber": 1,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Arbejd på en lokal kopi af Haubro-demoen.",
+          "Lav først en Backup+ af hele forløbet.",
+          "Udskift én datatype ad gangen.",
+          "Kontrollér rester af demodata til sidst."
+        ],
+        "primaryLabel": "Åbn Planoversigten",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-02",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-02",
+      "type": "setup-guide",
+      "title": "1 · Omdøb forløbet og lav sikkerhedskopi",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-name",
+        "headline": "1 · Omdøb forløbet og lav sikkerhedskopi",
+        "description": "Giv kopien dit eget fag- og skoleårsnavn, og gem en Backup+ før demodata ændres.",
+        "action": "course",
+        "stepNumber": 2,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Behold originaldemoen urørt.",
+          "Omdøb den lokale kopi.",
+          "Kontrollér hvilke sessioner der hører til forløbet.",
+          "Gem en Backup+ før næste trin."
+        ],
+        "primaryLabel": "Åbn Forløb",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-03",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-03",
+      "type": "setup-guide",
+      "title": "2 · Erstat stamdata",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-stamdata",
+        "headline": "2 · Erstat stamdata",
+        "description": "Importér skolens elevliste og sammenlign med Haubro-eleverne. Bekræft nye, ændrede og udgåede elever.",
+        "action": "stamdata",
+        "stepNumber": 3,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Brug stabile elevnøgler.",
+          "Gennemgå matchforslag.",
+          "Fjern ikke demodata blindt.",
+          "Kontrollér elevkort efter import."
+        ],
+        "primaryLabel": "Importér nye stamdata…",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-04",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-04",
+      "type": "setup-guide",
+      "title": "3 · Erstat elevbilleder",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-images",
+        "headline": "3 · Erstat elevbilleder",
+        "description": "Importér dine egne elevbilleder og kontrollér, at ingen Haubro-portrætter fortsat er koblet til aktive elever.",
+        "action": "images",
+        "stepNumber": 4,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Importér samlet.",
+          "Kontrollér navnematch.",
+          "Find manglende billeder.",
+          "Ryd ubrugte demobilleder op til sidst."
+        ],
+        "primaryLabel": "Vælg nye elevbilleder…",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-05",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-05",
+      "type": "setup-guide",
+      "title": "4 · Erstat spørgeskemaer, vurderinger og karakterer",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-data",
+        "headline": "4 · Erstat spørgeskemaer, vurderinger og karakterer",
+        "description": "Udskift elevsvar, lærersvar, fagsamtaler, niveaudeling og karakterdata med dine egne kilder.",
+        "action": "sources",
+        "stepNumber": 5,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Importér originalfilerne.",
+          "Bevar rådata og arbejdskopier adskilt.",
+          "Kontrollér kolonnemapping.",
+          "Kontrollér statusberegninger."
+        ],
+        "primaryLabel": "Åbn Datakilder",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-06",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-06",
+      "type": "setup-guide",
+      "title": "5 · Erstat faghold, teams og grupper",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-groups",
+        "headline": "5 · Erstat faghold, teams og grupper",
+        "description": "Opret dine egne faghold, kontaktgrupper, huse eller teams. Faghold behøver ikke udspringe af niveaudeling.",
+        "action": "leveling",
+        "stepNumber": 6,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Opret hold fra elevliste eller datasæt.",
+          "Kontrollér hvert medlemskab.",
+          "Ret k-lærere og teamaliaser.",
+          "Kontrollér holdvalget i topbaren."
+        ],
+        "primaryLabel": "Åbn faghold og data",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-07",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-07",
+      "type": "setup-guide",
+      "title": "6 · Erstat kalender og øvrige fælles data",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-calendar",
+        "headline": "6 · Erstat kalender og øvrige fælles data",
+        "description": "Udskift Haubro-kalenderen og andre skolebestemte datasæt med dit eget skoleårs grundlag.",
+        "action": "sources",
+        "stepNumber": 7,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Importér skolens kalender.",
+          "Kontrollér dato- og tavlekoblinger.",
+          "Udskift lærer- og skoledata.",
+          "Bevar kun relevante materialedatasæt."
+        ],
+        "primaryLabel": "Åbn Datakilder",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    },
+    {
+      "id": "plan-guide-haubro-migration-widget-08",
+      "schemaVersion": 5,
+      "boardId": "plan-guide-haubro-migration-board-08",
+      "type": "setup-guide",
+      "title": "7 · Find rester af Haubro-data",
+      "geometry": {
+        "x": 35,
+        "y": 40,
+        "width": 1200,
+        "height": 720,
+        "rotation": 0,
+        "z": 1
+      },
+      "settings": {
+        "locked": false,
+        "hidden": false,
+        "minimized": false
+      },
+      "content": {
+        "mode": "migration-guide",
+        "step": "migration-control",
+        "headline": "7 · Find rester af Haubro-data",
+        "description": "Brug Sammenhænge og søgning til at finde elever, hold, lærere, kalenderposter og billeder, der stadig stammer fra demoen.",
+        "action": "control",
+        "stepNumber": 8,
+        "stepCount": 8,
+        "kicker": "Gør Haubro-demoen til dit eget forløb",
+        "items": [
+          "Søg efter “Haubro”.",
+          "Kontrollér alle elevrelaterede datasæt.",
+          "Kontrollér billeder og medier.",
+          "Lav en ny Backup+, når kontrollen er færdig."
+        ],
+        "primaryLabel": "Åbn Sammenhænge",
+        "secondaryLabel": "Åbn Hjælp"
+      },
+      "relations": {
+        "layoutRole": "guide",
+        "specialSessionType": "migration-guide"
+      },
+      "createdAt": "2026-07-18T18:20:00+02:00",
+      "updatedAt": "2026-07-18T18:20:00+02:00"
+    }
+  ],
+  "datasets": [],
+  "media": [],
+  "manifest": {
+    "courseId": "course_plan_guide_haubro_migration",
+    "courseTitle": "Gør Haubro-demoen til dit eget forløb",
+    "guide": true,
+    "guideKind": "migration-guide",
+    "selectedSessionIds": [
+      "plan-guide-haubro-migration-session"
+    ],
+    "courseSessionIds": [
+      "plan-guide-haubro-migration-session"
+    ],
+    "counts": {
+      "sessions": 1,
+      "boards": 8,
+      "widgets": 8,
+      "datasets": 0,
+      "media": 0
+    },
+    "sessionCount": 1,
+    "boardCount": 8,
+    "widgetCount": 8,
+    "datasetCount": 0,
+    "referencedDatasetIds": [],
+    "referencedMediaIds": [],
+    "mediaBytes": 0,
+    "contentHash": "2bd2e53ffe009da39ae32dc42505385edbb22fc441bf27cb440a5337dec840de",
+    "packageHash": "2030a35af2df9f84c7ab542f7588c3d6126af228f9b6bb158663d736a691768a"
+  },
+  "warnings": [],
+  "course": {
+    "id": "course_plan_guide_haubro_migration",
+    "title": "Gør Haubro-demoen til dit eget forløb",
+    "subject": "Plan 2.0",
+    "schoolYear": "Guide",
+    "sessionIds": [
+      "plan-guide-haubro-migration-session"
+    ],
+    "exportedAt": "2026-07-18T18:20:00+02:00",
+    "sourceAppVersion": "Plan 2.0",
+    "version": "1.0.0",
+    "description": "Denne guide hjælper dig med at erstatte de fiktive Haubro-data med dine egne data uden at miste demoens tavler og undervisningsstruktur."
+  },
+  "updatedAt": "2026-07-18T18:20:00+02:00",
+  "meta": {
+    "libraryKind": "migration"
+  }
+}

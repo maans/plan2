@@ -1,10 +1,15 @@
 {
   "format": "plan-library-catalog",
   "version": 2,
-  "title": "Plan · demoforløb og skabeloner",
-  "description": "Demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
-  "updatedAt": "2026-07-17T16:35:00+02:00",
+  "title": "Plan · guides, demoer og skabeloner",
+  "description": "Interaktive guides, færdige demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
+  "updatedAt": "2026-07-18T18:20:00+02:00",
   "categories": [
+    {
+      "id": "guides",
+      "title": "Guides",
+      "description": "Trinvise arbejdsgange i Plan."
+    },
     {
       "id": "dansk",
       "title": "Dansk",
@@ -57,6 +62,60 @@
     }
   ],
   "items": [
+    {
+      "id": "plan-guide-kom-godt-i-gang",
+      "kind": "guide",
+      "status": "published",
+      "title": "Kom godt i gang med Plan 2.0",
+      "category": "guides",
+      "subject": "Plan 2.0",
+      "description": "En selvstændig, interaktiv arbejdsguide til stamdata, elevbilleder, spørgeskemaer, faghold, niveaudeling og kontrol.",
+      "schoolYear": "",
+      "gradeLevels": [],
+      "tags": [
+        "guide",
+        "onboarding",
+        "elevdata",
+        "stamdata",
+        "elevbilleder",
+        "faghold"
+      ],
+      "version": "1.0.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/kom-godt-i-gang/forloeb.json",
+      "sizeBytes": 13368,
+      "featured": true,
+      "updatedAt": "2026-07-18T18:20:00+02:00",
+      "boardCount": 8,
+      "widgetCount": 8,
+      "datasetCount": 0
+    },
+    {
+      "id": "plan-guide-haubro-migration",
+      "kind": "migration",
+      "status": "published",
+      "title": "Gør Haubro-demoen til dit eget forløb",
+      "category": "guides",
+      "subject": "Plan 2.0",
+      "description": "En migrationsguide til at udskifte Haubro-demoens stamdata, billeder, spørgeskemaer, hold, kalender og øvrige demodata.",
+      "schoolYear": "",
+      "gradeLevels": [],
+      "tags": [
+        "guide",
+        "migration",
+        "Haubro",
+        "elevdata",
+        "udskift data",
+        "lokal kopi"
+      ],
+      "version": "1.0.0",
+      "packageUrl": "https://raw.githubusercontent.com/maans/Plan2/main/plan-library/guides/haubro-migration/forloeb.json",
+      "sizeBytes": 13845,
+      "featured": true,
+      "updatedAt": "2026-07-18T18:20:00+02:00",
+      "boardCount": 8,
+      "widgetCount": 8,
+      "datasetCount": 0
+    },
     {
       "id": "dansk-2026-27",
       "kind": "demo",

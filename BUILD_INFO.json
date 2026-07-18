@@ -1,34 +1,35 @@
 {
-  "builtAt": "2026-07-10",
-  "libraryFormat": "plan-library-catalog",
-  "catalogVersion": 2,
-  "publishedItems": 3,
-  "categories": [
-    "dansk",
-    "engelsk",
-    "matematik",
-    "science",
-    "tysk",
-    "andre-9",
-    "andre"
+  "product": "Plan 2.0",
+  "release": "Guides v73",
+  "createdAt": "2026-07-18T16:08:08.649176+00:00",
+  "purpose": "Selvstændig onboarding og Haubro-migration i biblioteket",
+  "overwriteOrAdd": [
+    "index.html",
+    "catalog.json",
+    "plan-library/catalog.json",
+    "plan-library/dansk/dansk-2026-27/forloeb.json",
+    "plan-library/guides/kom-godt-i-gang/forloeb.json",
+    "plan-library/guides/kom-godt-i-gang/README.md",
+    "plan-library/guides/haubro-migration/forloeb.json",
+    "plan-library/guides/haubro-migration/README.md",
+    "BUILD_INFO.json",
+    "CHANGELOG.md"
   ],
   "validation": {
-    "dansk-2025-26": "ok-absolute-package-url",
-    "faellessamlinger-2026-27": "ok-absolute-package-url",
-    "camp-26": "ok-plan-library-andre-no-grade",
-    "library-card-primary-action": "ok-visible-below-description",
-    "ipad-file-import-idb-reconnect": "preserved-from-tested-0.9.3es",
-    "library-root-cleanup": "ok-demo-subjects-under-plan-library",
-    "kapardy-library": "ok-210-csv-games-and-manifest",
-    "kapardy-import": "ok-csv-xlsx-direct",
-    "calendar-filter-download-position": "ok-swapped",
-    "calendar-source-tracking": "ok-uid-recurrence-id",
-    "calendar-single-file-import-choice": "ok-merge-replace-new",
-    "calendar-multi-file-import-choice": "preserved",
-    "library-packages": "ok-all-packages-validated",
-    "library-orphan-links": "cleaned"
-  },
-  "appVersion": "1.2.0",
-  "releaseChannel": "stable",
-  "buildLabel": "Plan v1.2.0 · Kalenderkilder, sikker ICS-opdatering og opryddet bibliotek"
+    "haubroSessions": 7,
+    "onboarding": {
+      "sessions": 1,
+      "boards": 8,
+      "widgets": 8,
+      "datasets": 0,
+      "media": 0
+    },
+    "migration": {
+      "sessions": 1,
+      "boards": 8,
+      "widgets": 8,
+      "datasets": 0,
+      "media": 0
+    }
+  }
 }
