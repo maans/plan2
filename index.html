@@ -228,11 +228,40 @@
     node.prepend(image);image.src=sources[0];
   }
   function secondary(object){const year=clean(object?.Klassetrin||object?.Årgang||object?.Aargang),team=clean(object?.Kontaktgruppe||object?.Team),room=clean(object?.Værelse||object?.Vaerelse||object?.['Hus/gang']);return[year?`${year}.`:'',team,room].filter(Boolean).join(' · ');}
+  async function scopedStudentItems(app,widget,all,sourceId){
+    const mode=clean(widget.content?.studentScopeMode||widget.content?.groupSelectionKind||'inherit').toLowerCase();
+    if(mode==='all')return all;
+    if(mode==='fixed'||mode==='rows'||mode==='selection'){
+      const selected=new Set((widget.content?.rowKeys||[]).map(String));
+      return selected.size?all.filter(item=>selected.has(String(item.rowKey))):all;
+    }
+    let scope=null;
+    if(mode==='group'&&widget.content?.studentScopeGroupId){
+      const groups=await app.studentScope?.groups?.().catch(()=>[])||[];
+      const group=groups.find(item=>String(item?.id||'')===String(widget.content.studentScopeGroupId));
+      if(group)scope={kind:'group',id:String(group.id),label:app.studentScope.shortName?.(group)||group.name||'Valgt hold',group,origin:'widget'};
+    }
+    if(!scope)scope=await app.studentScope?.effective?.();
+    if(scope?.kind!=='group')return all;
+    const allowed=await app.studentScope.allowed(scope);
+    if(!allowed)return all;
+    return all.filter(item=>{
+      const key=clean(item?.rowKey),label=norm(item?.title),object=item?.object||{};
+      if(key&&(allowed.ids.has(key)||allowed.ids.has(key.replace(/^id:/i,''))||allowed.ids.has(`id:${key.replace(/^id:/i,'')}`)))return true;
+      if(label&&allowed.names.has(label))return true;
+      for(const [field,value] of Object.entries(object)){
+        if(!/rowkey|elev.?id|student.?id|unilogin|demo.?id/i.test(norm(field)))continue;
+        const id=clean(value),bare=id.replace(/^id:/i,'');
+        if(id&&(allowed.ids.has(id)||allowed.ids.has(bare)||allowed.ids.has(`id:${bare}`)))return true;
+      }
+      return false;
+    });
+  }
   function removeNonDanishTools(app){const shell=app.studentFocus?.current?.shell;shell?.querySelectorAll('[data-open-conversation],[data-open-grades]').forEach(button=>button.remove());}
   async function mountStudent(context){
     const{widget,body,app}=context,base=await app.dataManager.get(widget.content?.datasetId);if(!base){body.innerHTML='<div class="tn-empty">Datakilden findes ikke.</div>';return;}
     enableTouchActivation(body);
-    const allowed=new Set((widget.content?.rowKeys||[]).map(String));const all=app.relationManager.studentRows(base),items=all.filter(item=>!allowed.size||allowed.has(String(item.rowKey))),rowKeys=items.map(item=>item.rowKey),danish=isDanishGroup(base),revokes=[];
+    const all=app.relationManager.studentRows(base),items=await scopedStudentItems(app,widget,all,base.id),rowKeys=items.map(item=>item.rowKey),danish=isDanishGroup(base),revokes=[];
     body.classList.add('tn-v512-student-matrix-body');body.replaceChildren();
     const toolbar=document.createElement('section');toolbar.className='tn-v512-student-toolbar';toolbar.innerHTML=`<div class="tn-v512-student-summary"><strong>${items.length} elev${items.length===1?'':'er'}</strong><small>Vælg et kort for at åbne elevens oplysninger og noter</small></div><div class="tn-v512-student-tools"></div>`;body.append(toolbar);
     const tools=toolbar.querySelector('.tn-v512-student-tools');
@@ -7518,14 +7547,35 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       for(const widget of widgets)if(!boardIds.has(String(widget.boardId)))warnings.push(`Widgetten ${widget.title||widget.id} mangler sin tavle`);
       for(const session of sessions)for(const id of session.boardIds||[])if(!boardIds.has(String(id)))warnings.push(`Sessionen ${session.title||session.id} henviser til en manglende tavle`);
       for(const board of boards)for(const id of board.widgetIds||[])if(!widgetIds.has(String(id)))warnings.push(`Tavlen ${board.title||board.id} henviser til en manglende widget`);
-      const referencedDatasets=this.collectDatasetIds(widgets);for(const id of referencedDatasets)if(!datasetIds.has(id))warnings.push(`Et refereret datasæt (${id}) er ikke med i backupfilen`);
+      const referencedDatasets=this.collectDatasetIds({boards,widgets});
+      const addScopeId=scope=>{if(scope?.kind==='group'&&scope.id)referencedDatasets.add(String(scope.id));};
+      boards.forEach(board=>addScopeId(board?.meta?.studentScope));
+      widgets.forEach(widget=>{
+        addScopeId(widget?.content?.studentScope);
+        if(widget?.content?.studentScopeGroupId)referencedDatasets.add(String(widget.content.studentScopeGroupId));
+      });
+      for(const course of payload?.workState?.courses||[]){
+        for(const id of course?.favouriteGroupIds||[])referencedDatasets.add(String(id));
+        addScopeId(course?.courseDefault);
+      }
+      for(const item of payload?.workState?.sessionScopes||[])addScopeId(item?.scope);
+      for(const id of referencedDatasets)if(!datasetIds.has(id))warnings.push(`Et refereret datasæt (${id}) er ikke med i backupfilen`);
       if(payload?.kind!=='restore-point'){
         const mediaIds=new Set((payload?.media||[]).map(x=>String(x.id))),referencedMedia=this.collectMediaIds({boards,widgets,datasets});
         for(const id of referencedMedia)if(!mediaIds.has(id))warnings.push(`Et refereret medie (${id}) er ikke med i backupfilen`);
       }
       return {valid:errors.length===0,warnings:[...new Set(warnings)].slice(0,100),errors};
     }
-    collectDatasetIds(value){return TN.collectIds(value,['datasetId','sourceDatasetId','linkListDatasetId','resultDatasetId','notesDatasetId','groupSetId']);}
+    collectDatasetIds(value){
+      return TN.collectIds(value,[
+        'datasetId','datasetIds','sourceDatasetId','sourceDatasetIds','linkListDatasetId',
+        'resultDatasetId','resultsDatasetId','notesDatasetId','groupSetId',
+        'assessmentDatasetId','levelingAssessmentDatasetId',
+        'conversationSourceDatasetId','conversationSourceDatasetIds',
+        'calendarDatasetId','logDatasetId','timerLogDatasetId','questionBankDatasetId',
+        'studentScopeGroupId','defaultStudentScopeGroupId','activeSubjectGroupId','sourceGroupId','galaxyGroupSetId'
+      ]);
+    }
     collectMediaIds(value){return TN.collectIds(value,['mediaId','previewMediaRef','backgroundMediaId','fileMediaRef','thumbnailMediaId']);}
     async estimateExport(sessionIds=null){
       const records=await this.gatherRecords(sessionIds,{includeMedia:false});let logicalBytes=0;for(const key of ['sessions','boards','widgets','datasets'])logicalBytes+=new TextEncoder().encode(TN.stableStringify(records[key])).byteLength;let mediaBytes=0;for(const id of records.referencedMediaIds){const media=await this.app.storage.get('media',id);mediaBytes+=media?.blob?.size||media?.size||0;}
@@ -7627,7 +7677,64 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       manifest.contentHash=await TN.hashText(TN.stableStringify({sessions:payload.sessions,boards:payload.boards,widgets:payload.widgets,datasets:payload.datasets,media:payload.media.map(m=>({id:m.id,hash:m.hash,size:m.size,mime:m.mime}))}));return payload;
     }
     selectNextPayload(payload,selectedSessionIds=null){
-      if(!selectedSessionIds?.length)return payload;const selected=new Set(selectedSessionIds.map(String)),sessions=(payload.sessions||[]).filter(s=>selected.has(String(s.id))),sessionSet=new Set(sessions.map(s=>String(s.id))),boards=(payload.boards||[]).filter(b=>sessionSet.has(String(b.sessionId))),boardSet=new Set(boards.map(b=>String(b.id))),widgets=(payload.widgets||[]).filter(w=>boardSet.has(String(w.boardId))),datasetRefs=this.collectDatasetIds(widgets),localDatasets=(payload.datasets||[]).filter(d=>d.scope!=='common'&&sessionSet.has(String(d.sessionId)));for(const dataset of localDatasets)for(const id of this.collectDatasetIds(dataset))datasetRefs.add(String(id));const datasets=(payload.datasets||[]).filter(d=>d.scope==='common'?datasetRefs.has(String(d.id)):sessionSet.has(String(d.sessionId))),mediaRefs=this.collectMediaIds({boards,widgets,datasets}),media=(payload.media||[]).filter(m=>mediaRefs.has(String(m.id)));return {...payload,sessions,boards,widgets,datasets,media};
+      if(!selectedSessionIds?.length)return payload;
+      const selected=new Set(selectedSessionIds.map(String));
+      const sessions=(payload.sessions||[]).filter(session=>selected.has(String(session.id)));
+      const sessionSet=new Set(sessions.map(session=>String(session.id)));
+      const boards=(payload.boards||[]).filter(board=>sessionSet.has(String(board.sessionId)));
+      const boardSet=new Set(boards.map(board=>String(board.id)));
+      const widgets=(payload.widgets||[]).filter(widget=>boardSet.has(String(widget.boardId)));
+      const courseKeys=new Set(sessions.map(session=>this.courseKeyForSession(session)).filter(Boolean));
+      const sourceWorkState=payload?.workState||null;
+      const workState=sourceWorkState?{
+        ...TN.deepClone(sourceWorkState),
+        courses:(sourceWorkState.courses||[]).filter(course=>courseKeys.has(String(course.courseKey||''))),
+        sessionScopes:(sourceWorkState.sessionScopes||[]).filter(item=>sessionSet.has(String(item.sessionId)))
+      }:null;
+
+      const datasetRefs=this.collectDatasetIds({boards,widgets});
+      const addScopeId=scope=>{if(scope?.kind==='group'&&scope.id)datasetRefs.add(String(scope.id));};
+      boards.forEach(board=>addScopeId(board?.meta?.studentScope));
+      widgets.forEach(widget=>{
+        addScopeId(widget?.content?.studentScope);
+        if(widget?.content?.studentScopeGroupId)datasetRefs.add(String(widget.content.studentScopeGroupId));
+      });
+      for(const course of workState?.courses||[]){
+        for(const id of course?.favouriteGroupIds||[])datasetRefs.add(String(id));
+        addScopeId(course?.courseDefault);
+      }
+      for(const item of workState?.sessionScopes||[])addScopeId(item?.scope);
+
+      const allDatasets=payload.datasets||[];
+      const datasetById=new Map(allDatasets.map(dataset=>[String(dataset.id),dataset]));
+      const localDatasets=allDatasets.filter(dataset=>dataset.scope!=='common'&&sessionSet.has(String(dataset.sessionId)));
+      for(const dataset of localDatasets)datasetRefs.add(String(dataset.id));
+
+      /* Følg relationerne rekursivt, så et valgt hold også medtager dets
+         stamdata, vurderingsgrundlag og genererede faghold. */
+      const queue=[...datasetRefs],visited=new Set();
+      while(queue.length){
+        const id=String(queue.shift());
+        if(!id||visited.has(id))continue;
+        visited.add(id);
+        const dataset=datasetById.get(id);
+        if(!dataset)continue;
+        const dependencies=this.collectDatasetIds(dataset);
+        for(const dependency of dataset?.meta?.generatedSubjectGroups||[])dependencies.add(String(dependency));
+        for(const dependency of dependencies){
+          const key=String(dependency);
+          if(!datasetRefs.has(key)){datasetRefs.add(key);queue.push(key);}
+        }
+      }
+
+      const datasets=allDatasets.filter(dataset=>
+        dataset.scope==='common'
+          ?datasetRefs.has(String(dataset.id))
+          :sessionSet.has(String(dataset.sessionId))
+      );
+      const mediaRefs=this.collectMediaIds({boards,widgets,datasets});
+      const media=(payload.media||[]).filter(item=>mediaRefs.has(String(item.id)));
+      return {...payload,sessions,boards,widgets,datasets,media,...(workState?{workState}:{})};
     }
     importSourceSessions(payload,selectedSessionIds=null){const wanted=selectedSessionIds?new Set(selectedSessionIds.map(String)):null;return (payload?.sessions||[]).filter(session=>!wanted||wanted.has(String(session.id)));}
     importedSessionEvidence(session){return !!(session?.meta?.importedAt||session?.meta?.importSource||session?.meta?.importSourceSessionId||session?.meta?.legacySessionId||session?.meta?.migratedFrom||/-import(?:-\d+)?$/i.test(String(session?.id||'')));}
@@ -7651,13 +7758,63 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       return restorePointIds;
     }
     async importNext(payload,{overwrite=false,overwriteMatches=false,selectedSessionIds=null,conflict='copy',titleSuffix='',sourceName='Plan Backup++'}={}){
-      if(!this.isNextPayload(payload))throw new Error('Ikke en Plan-/Tavle-backup');const validation=this.validateNext(payload);if(!validation.valid)throw new Error(validation.errors.join('\n'));const chosen=this.selectNextPayload(payload,selectedSessionIds),t=performance.now(),courseInfo=payload?.format==='tavle-next-course-package'?(payload.course||{}):null,sourceCourseMeta=(chosen.sessions||[]).find(session=>session?.meta?.courseId||session?.meta?.courseTitle)?.meta||{},sourceCourseTitle=String(courseInfo?.title||sourceCourseMeta.courseTitle||'Undervisningsforløb'),sourceHasCourse=Boolean(courseInfo||sourceCourseMeta.courseId||sourceCourseMeta.courseTitle||(chosen.sessions||[]).length>1),sourceOrder=new Map(((courseInfo?.sessionIds?.length?courseInfo.sessionIds:(chosen.sessions||[]).map(session=>session.id))).map((id,index)=>[String(id),index+1])),planBatchId=`plan_${TN.slugify(sourceName)||'import'}_${Date.now().toString(36)}_${TN.uid('batch').slice(-5)}`,targetCourseId=sourceHasCourse?`course_${TN.slugify(sourceCourseTitle)||'aarsforloeb'}_${Date.now().toString(36)}_${TN.uid('course').slice(-5)}`:null;
+      if(!this.isNextPayload(payload))throw new Error('Ikke en Plan-/Tavle-backup');
+      const validation=this.validateNext(payload);if(!validation.valid)throw new Error(validation.errors.join('\n'));
+      const chosen=this.selectNextPayload(payload,selectedSessionIds),t=performance.now();
+      const courseInfo=payload?.format==='tavle-next-course-package'?(payload.course||{}):null;
+      const planBatchId=`plan_${TN.slugify(sourceName)||'import'}_${Date.now().toString(36)}_${TN.uid('batch').slice(-5)}`;
+
+      /* Én fælles restore-motor bruges af Backup+, Backup++ og forløbspakker.
+         Hvert kildeforløb får sin egen nye lokale forløbsidentitet. Det er
+         afgørende for Backup++, hvor flere forløb ellers blev slået sammen. */
+      const sourceCourseSessions=new Map();
+      for(const session of chosen.sessions||[]){
+        const sourceKey=courseInfo?String(courseInfo.id||'course-package'):this.courseKeyForSession(session);
+        if(!sourceKey)continue;
+        if(!sourceCourseSessions.has(sourceKey))sourceCourseSessions.set(sourceKey,[]);
+        sourceCourseSessions.get(sourceKey).push(session);
+      }
+      const courseTargetMap=new Map(),courseTitleMap=new Map();
+      for(const [sourceKey,courseSessions] of sourceCourseSessions){
+        const first=courseSessions[0]||{},meta=first.meta||{};
+        const title=String(courseInfo?.title||meta.courseTitle||first.title||'Undervisningsforløb');
+        courseTitleMap.set(sourceKey,title);
+        courseTargetMap.set(sourceKey,`course_${TN.slugify(title)||'aarsforloeb'}_${Date.now().toString(36)}_${TN.uid('course').slice(-5)}`);
+      }
+      const sourceOrder=new Map();
+      for(const [sourceKey,courseSessions] of sourceCourseSessions){
+        const declared=courseInfo?.sessionIds?.length?courseInfo.sessionIds:(courseSessions[0]?.meta?.courseSessionIds||courseSessions.map(session=>session.id));
+        declared.forEach((id,index)=>sourceOrder.set(`${sourceKey}|${String(id)}`,index+1));
+      }
+      const targetCourseId=courseTargetMap.size===1?[...courseTargetMap.values()][0]:null;
       const matchInfo=overwriteMatches?await this.findImportSessionMatches(payload,{selectedSessionIds}):{matches:[],bySource:new Map()},restorePointIds=overwriteMatches?await this.prepareSessionReplacement(matchInfo.matches,{sourceName}):[];
       const existingSessions=await this.app.sessionManager.list(),existingSessionIds=new Set(existingSessions.map(s=>String(s.id))),sessionMap=new Map(),boardMap=new Map(),widgetMap=new Map(),datasetMap=new Map(),mediaMap=new Map();
       for(const s of chosen.sessions||[]){const sourceId=String(s.id),replacement=matchInfo.bySource.get(sourceId);let id=replacement?.existingId||sourceId;if(!replacement&&(conflict==='copy'||(!overwrite&&existingSessionIds.has(id))))id=this.uniqueSessionId(`${TN.slugify(s.title||s.id)||'session'}-import`,existingSessionIds);existingSessionIds.add(id);sessionMap.set(sourceId,id);}
       let n=0;for(const b of chosen.boards||[])boardMap.set(String(b.id),`board_${sessionMap.get(String(b.sessionId))||'import'}_${++n}_${TN.uid('b').slice(-6)}`);n=0;for(const w of chosen.widgets||[])widgetMap.set(String(w.id),`widget_${++n}_${TN.uid('w').slice(-10)}`);
       const existingCommon=await this.app.dataManager.listCommon(),commonBySignature=new Map();for(const d of existingCommon){const sig=await this.datasetSignature(d);commonBySignature.set(sig,d.id);}
-      n=0;for(const d of chosen.datasets||[]){if(d.scope==='common'){const sig=await this.datasetSignature(d),reuse=commonBySignature.get(sig);datasetMap.set(String(d.id),reuse||`common_${++n}_${TN.uid('ds').slice(-8)}`);if(!reuse)commonBySignature.set(sig,datasetMap.get(String(d.id)));}else datasetMap.set(String(d.id),`dataset_${sessionMap.get(String(d.sessionId))||'import'}_${++n}_${TN.uid('ds').slice(-6)}`);}
+      /* Map først de egentlige kildedatasæt. Afledte Team-/Bosted-grupper får
+         derefter deres kanoniske id ud fra den remappede kilde. Dermed overlever
+         Mine hold, tavlescope og widgetbindinger en import uden at pege på en
+         kortlivet kopi af samme levende gruppe. */
+      const chosenDatasets=chosen.datasets||[];
+      const isFieldGroup=d=>d?.scope==='common'&&d?.type==='subject-group'&&d?.meta?.selectionKind==='field-value'&&d?.meta?.sourceDatasetId;
+      n=0;
+      for(const d of chosenDatasets){
+        if(isFieldGroup(d))continue;
+        if(d.scope==='common'){
+          const sig=await this.datasetSignature(d),reuse=commonBySignature.get(sig);
+          datasetMap.set(String(d.id),reuse||`common_${++n}_${TN.uid('ds').slice(-8)}`);
+          if(!reuse)commonBySignature.set(sig,datasetMap.get(String(d.id)));
+        }else datasetMap.set(String(d.id),`dataset_${sessionMap.get(String(d.sessionId))||'import'}_${++n}_${TN.uid('ds').slice(-6)}`);
+      }
+      for(const d of chosenDatasets){
+        if(!isFieldGroup(d))continue;
+        const meta=d.meta||{},mappedSource=datasetMap.get(String(meta.sourceDatasetId))||String(meta.sourceDatasetId);
+        const category=TN.slugify(meta.derivedCategory||meta.filterField||'group')||'group';
+        const value=TN.slugify(meta.filterValue||d.name||'hold')||'hold';
+        const canonical=`derived-student-group-${mappedSource}-${category}-${value}`;
+        datasetMap.set(String(d.id),canonical);
+      }
       const hasMediaBytes=item=>Boolean(
         item?.blob instanceof Blob&&item.blob.size>0||
         item?.originalBlob instanceof Blob&&item.originalBlob.size>0||
@@ -7677,7 +7834,28 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         }
         mediaMap.set(String(m.id),id);
       }
-      const mappedCourseSequence=[...(courseInfo?.sessionIds?.length?courseInfo.sessionIds:(chosen.sessions||[]).map(session=>session.id))].map(id=>sessionMap.get(String(id))).filter(Boolean),sessions=(chosen.sessions||[]).map(s=>{const x=TN.deepClone(s);x.id=sessionMap.get(String(s.id));x.title=`${s.title||s.id}${titleSuffix||''}`;x.boardIds=(s.boardIds||[]).map(id=>boardMap.get(String(id))).filter(Boolean);x.activeBoardId=boardMap.get(String(s.activeBoardId))||x.boardIds[0]||null;x.updatedAt=TN.now();const sourceSequence=(s.meta?.courseSessionIds||[]).map(id=>sessionMap.get(String(id))).filter(Boolean),courseSequence=sourceSequence.length?sourceSequence:mappedCourseSequence;x.meta={...(x.meta||{}),importedAt:TN.now(),importSource:sourceName,importSourceSessionId:String(s.id),importSourceTitle:String(s.title||s.id),planOrder:sourceOrder.get(String(s.id))||null,planBatchId,courseSessionIds:[...courseSequence],courseSequenceVersion:1,courseSequenceSource:sourceHasCourse?'metadata':String(s.meta?.courseSequenceSource||'metadata'),...(sourceHasCourse?{courseId:targetCourseId,courseTitle:sourceCourseTitle,courseSubject:String(courseInfo?.subject||sourceCourseMeta.courseSubject||''),courseSchoolYear:String(courseInfo?.schoolYear||sourceCourseMeta.courseSchoolYear||''),courseOrder:sourceOrder.get(String(s.id))||null,importSourceCourseId:String(courseInfo?.id||sourceCourseMeta.courseId||'')}:{})};return x;});
+      const sessions=(chosen.sessions||[]).map(sourceSession=>{
+        const x=TN.deepClone(sourceSession),sourceMeta=sourceSession.meta||{};
+        const sourceCourseKey=courseInfo?String(courseInfo.id||'course-package'):this.courseKeyForSession(sourceSession);
+        const mappedCourseId=sourceCourseKey?courseTargetMap.get(sourceCourseKey)||null:null;
+        const courseMembers=sourceCourseKey?(sourceCourseSessions.get(sourceCourseKey)||[]):[];
+        const declaredSequence=courseInfo?.sessionIds?.length?courseInfo.sessionIds:(sourceMeta.courseSessionIds||courseMembers.map(session=>session.id));
+        const courseSequence=declaredSequence.map(id=>sessionMap.get(String(id))).filter(Boolean);
+        const order=sourceCourseKey?sourceOrder.get(`${sourceCourseKey}|${String(sourceSession.id)}`)||null:null;
+        x.id=sessionMap.get(String(sourceSession.id));x.title=`${sourceSession.title||sourceSession.id}${titleSuffix||''}`;
+        x.boardIds=(sourceSession.boardIds||[]).map(id=>boardMap.get(String(id))).filter(Boolean);
+        x.activeBoardId=boardMap.get(String(sourceSession.activeBoardId))||x.boardIds[0]||null;x.updatedAt=TN.now();
+        x.meta={...(x.meta||{}),importedAt:TN.now(),importSource:sourceName,importSourceSessionId:String(sourceSession.id),importSourceTitle:String(sourceSession.title||sourceSession.id),planOrder:order,planBatchId,courseSessionIds:[...courseSequence],courseSequenceVersion:1,courseSequenceSource:mappedCourseId?'metadata':String(sourceMeta.courseSequenceSource||'metadata')};
+        if(mappedCourseId){
+          x.meta.courseId=mappedCourseId;
+          x.meta.courseTitle=String(courseInfo?.title||sourceMeta.courseTitle||courseTitleMap.get(sourceCourseKey)||'Undervisningsforløb');
+          x.meta.courseSubject=String(courseInfo?.subject||sourceMeta.courseSubject||'');
+          x.meta.courseSchoolYear=String(courseInfo?.schoolYear||sourceMeta.courseSchoolYear||'');
+          x.meta.courseOrder=order;
+          x.meta.importSourceCourseId=String(courseInfo?.id||sourceCourseKey||'');
+        }
+        return x;
+      });
       const boards=(chosen.boards||[]).map(b=>{const sourceBoardId=String(b.id),x=TN.deepClone(b);x.id=boardMap.get(sourceBoardId);x.sessionId=sessionMap.get(String(b.sessionId));x.widgetIds=(b.widgetIds||[]).map(id=>widgetMap.get(String(id))).filter(Boolean);this.remapReferences(x,{sessionMap,boardMap,widgetMap,datasetMap,mediaMap});x.meta={...(x.meta||{}),importSourceBoardId:sourceBoardId};x.updatedAt=TN.now();return x;});
       const widgets=(chosen.widgets||[]).map(w=>{const sourceWidgetId=String(w.id),sourceBoardId=String(w.boardId),x=TN.deepClone(w);x.id=widgetMap.get(sourceWidgetId);x.boardId=boardMap.get(sourceBoardId);this.remapReferences(x,{sessionMap,boardMap,widgetMap,datasetMap,mediaMap});x.relations={...(x.relations||{}),importSourceWidgetId:sourceWidgetId,importSourceBoardId:sourceBoardId};x.updatedAt=TN.now();return x;});
       const datasets=[];
@@ -7721,31 +7899,46 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       /* Gendan lærerens arbejdsvalg fra Backup, Backup+ og Backup++.
          Tavle- og widgetscope ligger allerede i de importerede objekter og er
          remappet ovenfor. Her gendannes de valg, der med vilje ligger pr. forløb. */
-      const workState=payload?.workState;
+      const workState=chosen?.workState;
+      const restoredStateWarnings=[];
       if(workState?.version){
-        const targetKey=targetCourseId||this.courseKeyForSession(sessions[0]);
+        const importedDatasetIds=new Set(datasets.map(dataset=>String(dataset.id)));
+        const mapScope=(scope,label)=>{
+          if(scope?.kind==='all')return {kind:'all'};
+          if(scope?.kind!=='group'||!scope.id)return null;
+          const mapped=datasetMap.get(String(scope.id));
+          if(!mapped||!importedDatasetIds.has(String(mapped))){restoredStateWarnings.push(`${label}: holdet ${scope.id} kunne ikke gendannes`);return null;}
+          return {kind:'group',id:String(mapped)};
+        };
         for(const courseState of workState.courses||[]){
-          const courseKey=targetKey||String(courseState.courseKey||'');
-          if(!courseKey)continue;
-          const favourites=[...new Set((courseState.favouriteGroupIds||[]).map(id=>datasetMap.get(String(id))||String(id)).filter(Boolean))];
-          let courseDefault=courseState.courseDefault||null;
-          if(courseDefault?.kind==='group'&&courseDefault.id)courseDefault={kind:'group',id:datasetMap.get(String(courseDefault.id))||String(courseDefault.id)};
-          else if(courseDefault?.kind==='all')courseDefault={kind:'all'};
-          else courseDefault=null;
+          const sourceKey=String(courseState.courseKey||'');
+          const courseKey=courseTargetMap.get(sourceKey)||(courseTargetMap.size===1?[...courseTargetMap.values()][0]:null);
+          if(!courseKey){restoredStateWarnings.push(`Mine hold: forløbet ${sourceKey||'(uden id)'} kunne ikke knyttes til et importeret forløb`);continue;}
+          const favourites=[...new Set((courseState.favouriteGroupIds||[]).map(id=>datasetMap.get(String(id))).filter(id=>id&&importedDatasetIds.has(String(id))).map(String))];
+          const rejected=(courseState.favouriteGroupIds||[]).filter(id=>!datasetMap.get(String(id))||!importedDatasetIds.has(String(datasetMap.get(String(id)))));
+          if(rejected.length)restoredStateWarnings.push(`Mine hold: ${rejected.length} hold kunne ikke gendannes for ${courseTitleMap.get(sourceKey)||sourceKey}`);
+          const courseDefault=mapScope(courseState.courseDefault,`Forløbsstandard ${courseTitleMap.get(sourceKey)||sourceKey}`);
           try{
             localStorage.setItem(`plan:my-subject-groups:v2:${courseKey}`,JSON.stringify(favourites));
             if(courseDefault)localStorage.setItem(`plan:student-scope:course:${courseKey}`,JSON.stringify(courseDefault));
             else localStorage.removeItem(`plan:student-scope:course:${courseKey}`);
-          }catch(error){console.warn('Forløbets arbejdsvalg kunne ikke gendannes',error);}
+          }catch(error){restoredStateWarnings.push(`Arbejdsvalg kunne ikke skrives for ${courseTitleMap.get(sourceKey)||sourceKey}`);console.warn('Forløbets arbejdsvalg kunne ikke gendannes',error);}
         }
         for(const item of workState.sessionScopes||[]){
-          const mappedSessionId=sessionMap.get(String(item.sessionId));if(!mappedSessionId||!item.scope)continue;
-          let scope=item.scope;
-          if(scope?.kind==='group'&&scope.id)scope={kind:'group',id:datasetMap.get(String(scope.id))||String(scope.id)};
-          try{localStorage.setItem(`plan:student-scope:session:${mappedSessionId}`,JSON.stringify(scope));}catch(_){ }
+          const mappedSessionId=sessionMap.get(String(item.sessionId));if(!mappedSessionId)continue;
+          const scope=mapScope(item.scope,`Sessionsvalg ${item.sessionId}`);if(!scope)continue;
+          try{localStorage.setItem(`plan:student-scope:session:${mappedSessionId}`,JSON.stringify(scope));}catch(error){restoredStateWarnings.push(`Sessionsvalget ${item.sessionId} kunne ikke skrives`);}
         }
+        this.app.studentScope?.invalidateGroups?.();
+        if(this.app.studentScope)this.app.studentScope.revision=(this.app.studentScope.revision||0)+1;
+        TN.emit?.('studentcontextchange',{kind:'restore',revision:this.app.studentScope?.revision||0});
       }
-      TN.runtime.metrics.importMs=performance.now()-t;return {sessions:sessions.length,boards:boards.length,widgets:widgets.length,datasets:datasets.length,media:media.length,replaced:matchInfo.matches.length,restorePointIds,durationMs:TN.runtime.metrics.importMs,sessionIds:sessions.map(s=>s.id),courseId:targetCourseId,warnings:validation.warnings,logId:log.id};
+      if(restoredStateWarnings.length){
+        log.warnings=[...new Set([...(log.warnings||[]),...restoredStateWarnings])];
+        log.details={...(log.details||{}),restoreWarnings:restoredStateWarnings};
+        await this.app.storage.put('importLogs',log);
+      }
+      TN.runtime.metrics.importMs=performance.now()-t;return {sessions:sessions.length,boards:boards.length,widgets:widgets.length,datasets:datasets.length,media:media.length,replaced:matchInfo.matches.length,restorePointIds,durationMs:TN.runtime.metrics.importMs,sessionIds:sessions.map(s=>s.id),courseId:targetCourseId,warnings:[...validation.warnings,...restoredStateWarnings],logId:log.id};
     }
     uniqueSessionId(base,used){let id=base,n=2;while(used.has(id))id=`${base}-${n++}`;return id;}
     async datasetSignature(dataset){
@@ -7757,7 +7950,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       return TN.hashText(TN.stableStringify({type:dataset.type||'table',columns:dataset.columns||[],rows:dataset.rows||[],metaEvents:meta.events||null,semanticIdentity}));
     }
     remapReferences(value,maps){
-      const keyMaps={sessionId:maps.sessionMap,sessionIds:maps.sessionMap,boardId:maps.boardMap,boardIds:maps.boardMap,slideId:maps.boardMap,slideIds:maps.boardMap,widgetId:maps.widgetMap,widgetIds:maps.widgetMap,datasetId:maps.datasetMap,datasetIds:maps.datasetMap,sourceDatasetId:maps.datasetMap,sourceDatasetIds:maps.datasetMap,linkListDatasetId:maps.datasetMap,resultDatasetId:maps.datasetMap,resultsDatasetId:maps.datasetMap,notesDatasetId:maps.datasetMap,groupSetId:maps.datasetMap,assessmentDatasetId:maps.datasetMap,levelingAssessmentDatasetId:maps.datasetMap,conversationSourceDatasetId:maps.datasetMap,conversationSourceDatasetIds:maps.datasetMap,calendarDatasetId:maps.datasetMap,logDatasetId:maps.datasetMap,timerLogDatasetId:maps.datasetMap,questionBankDatasetId:maps.datasetMap,studentScopeGroupId:maps.datasetMap,defaultStudentScopeGroupId:maps.datasetMap,activeSubjectGroupId:maps.datasetMap,mediaId:maps.mediaMap,previewMediaRef:maps.mediaMap,backgroundMediaId:maps.mediaMap,fileMediaRef:maps.mediaMap};const seen=new WeakSet();
+      const keyMaps={sessionId:maps.sessionMap,sessionIds:maps.sessionMap,boardId:maps.boardMap,boardIds:maps.boardMap,slideId:maps.boardMap,slideIds:maps.boardMap,widgetId:maps.widgetMap,widgetIds:maps.widgetMap,datasetId:maps.datasetMap,datasetIds:maps.datasetMap,sourceDatasetId:maps.datasetMap,sourceDatasetIds:maps.datasetMap,linkListDatasetId:maps.datasetMap,resultDatasetId:maps.datasetMap,resultsDatasetId:maps.datasetMap,notesDatasetId:maps.datasetMap,groupSetId:maps.datasetMap,assessmentDatasetId:maps.datasetMap,levelingAssessmentDatasetId:maps.datasetMap,conversationSourceDatasetId:maps.datasetMap,conversationSourceDatasetIds:maps.datasetMap,calendarDatasetId:maps.datasetMap,logDatasetId:maps.datasetMap,timerLogDatasetId:maps.datasetMap,questionBankDatasetId:maps.datasetMap,studentScopeGroupId:maps.datasetMap,defaultStudentScopeGroupId:maps.datasetMap,activeSubjectGroupId:maps.datasetMap,sourceGroupId:maps.datasetMap,galaxyGroupSetId:maps.datasetMap,mediaId:maps.mediaMap,previewMediaRef:maps.mediaMap,backgroundMediaId:maps.mediaMap,fileMediaRef:maps.mediaMap};const seen=new WeakSet();
       const visit=obj=>{if(!obj||typeof obj!=='object'||seen.has(obj))return;seen.add(obj);if(Array.isArray(obj)){obj.forEach(visit);return;}if(obj.studentScope?.kind==='group'&&obj.studentScope.id)obj.studentScope.id=maps.datasetMap.get(String(obj.studentScope.id))||obj.studentScope.id;if(obj.courseDefault?.kind==='group'&&obj.courseDefault.id)obj.courseDefault.id=maps.datasetMap.get(String(obj.courseDefault.id))||obj.courseDefault.id;for(const [key,val] of Object.entries(obj)){const map=keyMaps[key];if(map){if(Array.isArray(val))obj[key]=val.map(x=>map.get(String(x))||x);else if(val!=null)obj[key]=map.get(String(val))||val;}visit(obj[key]);}};visit(value);return value;
     }
     remapDatasetRefs(widget,map){this.remapReferences(widget,{sessionMap:new Map(),boardMap:new Map(),widgetMap:new Map(),datasetMap:map,mediaMap:new Map()});}
@@ -23975,7 +24168,7 @@ scrollflade. Ingen data eller funktioner fjernes.
   'use strict';
   if(!TN || window.__planV093czStudentMatrixLayoutOwner) return;
   window.__planV093czStudentMatrixLayoutOwner = true;
-  TN.version = '0.9.3cz';
+  TN.version = '0.9.3cz-scope-repair';
 
   const App = TN.TavleNextApp;
   if(!App) return;
@@ -50336,21 +50529,29 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
     return (await cache.list).find(item=>norm(item?.name||item?.meta?.originalName)===wanted)||null;
   }
   async function sourcesFor(app,{file,mediaId}){
-    const sources=[],addMedia=media=>{
+    const sources=[],seen=new Set(),add=(src,revoke=null)=>{src=String(src||'');if(!src||seen.has(src))return;seen.add(src);sources.push({src,revoke});};
+    const addMedia=media=>{
       const blob=media?.blob instanceof Blob&&media.blob.size?media.blob:media?.originalBlob instanceof Blob&&media.originalBlob.size?media.originalBlob:null;
-      if(blob){const src=URL.createObjectURL(blob);sources.push({src,revoke:()=>URL.revokeObjectURL(src)});return;}
-      if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))sources.push({src:media.dataUrl,revoke:null});
+      if(blob){const src=URL.createObjectURL(blob);add(src,()=>URL.revokeObjectURL(src));}
+      if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))add(media.dataUrl);
+      if(typeof media?.originalDataUrl==='string'&&media.originalDataUrl.startsWith('data:'))add(media.originalDataUrl);
     };
     let media=await mediaById(app,mediaId);
     if(!media)media=await mediaByFile(app,file);
     addMedia(media);
-    const fallbackName=media?.meta?.originalName||file;
-    const fallbacks=[fallbackUrl(fallbackName)];
-    try{fallbacks.push(new URL(`/demo-data/elevbilleder/${encodeURIComponent(String(fallbackName).split(/[\\/]/).pop())}`,location.origin).href);}catch{}
-    for(const fallback of fallbacks)if(fallback&&!sources.some(item=>item.src===fallback))sources.push({src:fallback,revoke:null});
+    const fallbackName=String(media?.meta?.originalName||file||'').split(/[\/]/).pop();
+    const localPath=String(media?.meta?.assetPath||`demo-data/elevbilleder/${fallbackName}`);
+    try{add(new URL(localPath.split('/').map((part,index)=>index?encodeURIComponent(part):part).join('/'),document.baseURI).href);}catch{add(fallbackUrl(fallbackName));}
+    const browserNetwork=/^https?:$/i.test(location.protocol);
+    if(browserNetwork){
+      add(media?.meta?.webFallbackUrl);
+      add(media?.meta?.githubFallbackUrl);
+      add(`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);
+      add(`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);
+    }
     return sources;
   }
-  function frame(className,name){
+    function frame(className,name){
     const figure=document.createElement('figure');figure.className=`tn-student-portrait-frame ${className}`;figure.dataset.imageState='missing';figure.setAttribute('aria-label',`Portræt af ${name||'elev'} mangler`);figure.innerHTML=silhouette();return figure;
   }
   async function fillFrame(app,figure,dataset,object,name,revokes=[]){
@@ -50790,34 +50991,83 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
     async allowed(scope=null){
       const active=scope||await this.effective();
       if(active.kind!=='group'||!active.group)return null;
-      const cacheKey=`${active.id}|${active.group.updatedAt||''}`;
+      const group=active.group,meta=group.meta||{};
+      const cacheKey=[active.id,group.updatedAt||meta.updatedAt||'',meta.sourceDatasetId||'',meta.assessmentDatasetId||'',meta.filterField||'',meta.filterValue||meta.selectedHold||group.name||''].join('|');
       if(this.allowedCache.has(cacheKey))return this.allowedCache.get(cacheKey);
-      const entries=this.app.relationManager.studentRows(active.group)||[];
+
+      // Ren medlemsberegning: ingen widgetmutation, persistens, events eller rendering.
       const ids=new Set(),names=new Set();
-      for(const item of entries){
-        ids.add(String(item.rowKey));
-        names.add(norm(item.title));
+      const addId=value=>{
+        const id=clean(value);if(!id)return;
+        const bare=id.replace(/^id:/i,'');ids.add(id);ids.add(bare);ids.add(`id:${bare}`);
+      };
+      const addName=value=>{const name=norm(value);if(name)names.add(name);};
+      const same=(a,b)=>norm(a)===norm(b);
+      const valueByAlias=(object,aliases)=>{
+        for(const alias of aliases)for(const [key,value] of Object.entries(object||{}))if(same(key,alias)&&clean(value))return clean(value);
+        return '';
+      };
+      const addEntry=entry=>{
+        addId(entry?.rowKey);addName(entry?.title);
+        const object=entry?.object||{};
+        for(const alias of ['RowKey','ElevID','Elev-id','StudentId','Unilogin','UniLogin','DemoID'])addId(valueByAlias(object,[alias]));
+        addName(valueByAlias(object,['Fulde navn','FuldeNavn','Navn','Navn + efternavn']));
+        addName([valueByAlias(object,['Fornavn']),valueByAlias(object,['Mellemnavn']),valueByAlias(object,['Efternavn'])].filter(Boolean).join(' '));
+      };
+
+      for(const value of [...(meta.elevIds||[]),...(meta.memberIds||[]),...(group.memberIds||[])])addId(value);
+      for(const entry of this.app.relationManager.studentRows(group)||[])addEntry(entry);
+
+      const sourceDatasetId=clean(meta.sourceDatasetId);
+      const source=sourceDatasetId?await this.app.dataManager.get(sourceDatasetId).catch(()=>null):null;
+      const filterField=clean(meta.filterField),filterValue=clean(meta.filterValue||meta.selectedHold||group.name);
+      if(source&&filterField&&filterValue){
+        for(const entry of this.app.relationManager.studentRows(source)||[]){
+          if(same(valueByAlias(entry.object,[filterField]),filterValue))addEntry(entry);
+        }
       }
-      const result={ids,names,sourceDatasetId:clean(active.group.meta?.sourceDatasetId)};
+
+      const assessmentDatasetId=clean(meta.assessmentDatasetId);
+      if(assessmentDatasetId&&filterValue){
+        const assessment=await this.app.dataManager.get(assessmentDatasetId).catch(()=>null);
+        for(const entry of assessment?(this.app.relationManager.studentRows(assessment)||[]):[]){
+          const placement=valueByAlias(entry.object,['Aktuelt danskhold','Danskhold','Endeligt hold','Hold']);
+          if(same(placement,filterValue))addEntry(entry);
+        }
+      }
+
+      const result=Object.freeze({ids,names,sourceDatasetId});
       this.allowedCache.set(cacheKey,result);
       return result;
     }
-    async filterEntries(entries,{rowKey=e=>e?.rowKey,name=e=>e?.title,sourceId=''}={}){
+    async filterEntries(entries,{rowKey=e=>e?.rowKey,name=e=>e?.title,object=e=>e?.object||{},sourceId=''}={}){
       const active=await this.effective();
-      if(active.kind!=='group')return entries;
+      if(active.kind!=='group')return entries||[];
       const allowed=await this.allowed(active);
-      if(!allowed)return entries;
+      if(!allowed)return entries||[];
       return (entries||[]).filter(entry=>{
-        const key=clean(rowKey(entry));
-        const label=norm(name(entry));
-        return (key&&allowed.ids.has(key))||(label&&allowed.names.has(label));
+        const key=clean(rowKey(entry)),label=norm(name(entry)),data=object(entry)||{};
+        if(key&&(allowed.ids.has(key)||allowed.ids.has(key.replace(/^id:/i,''))||allowed.ids.has(`id:${key.replace(/^id:/i,'')}`)))return true;
+        if(label&&allowed.names.has(label))return true;
+        for(const [field,value] of Object.entries(data)){
+          if(!/rowkey|elev.?id|student.?id|unilogin|demo.?id/i.test(norm(field)))continue;
+          const id=clean(value),bare=id.replace(/^id:/i,'');
+          if(id&&(allowed.ids.has(id)||allowed.ids.has(bare)||allowed.ids.has(`id:${bare}`)))return true;
+        }
+        return false;
       });
     }
     async refreshVisibleViews(){
+      // Rendering må kun invalidere visningen. Den må aldrig skrive afledt scope,
+      // rowKeys, datakilde eller titel tilbage i widgetmodellen.
+      const revision=++this.revision;
       const app=this.app;
-      for(const widget of TN.runtime.activeWidgets||[]){
+      const widgets=(TN.runtime.activeWidgets||[]).filter(widget=>{
         const studentMatrix=widget.type==='card-matrix'&&(widget.content?.kind||'student')==='student';
-        if(!studentMatrix&&!['subject-conversation-matrix','grade-matrix'].includes(widget.type))continue;
+        return studentMatrix||['subject-conversation-matrix','grade-matrix','leveling-matrix','picture-flip-game'].includes(widget.type);
+      });
+      for(const widget of widgets){
+        if(revision!==this.revision)return;
         try{await app.refreshWidgetView(widget.id);}catch(error){console.warn('Elevvisningen kunne ikke opdateres',error);}
       }
     }
@@ -50875,8 +51125,10 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
       const scope=await context.app.studentScope.effective();
       if(scope.kind!=='group')return previous.call(this,context);
       const allowed=new Set(filtered.map(item=>String(item.rowKey)));
+      const follows=String(context.widget.content?.studentScopeMode||context.widget.content?.groupSelectionKind||'inherit')==='inherit';
       const original=Array.isArray(context.widget.content?.rowKeys)?context.widget.content.rowKeys.map(String):[];
-      const rowKeys=(original.length?original:all.map(item=>String(item.rowKey))).filter(key=>allowed.has(String(key)));
+      // Følg tavlen er levende og må ikke krydses med et tidligere holds gemte rowKeys.
+      const rowKeys=follows?[...allowed]:(original.length?original:all.map(item=>String(item.rowKey))).filter(key=>allowed.has(String(key)));
       const widget={...context.widget,content:{...(context.widget.content||{}),rowKeys}};
       return previous.call(this,{...context,widget});
     };
@@ -67153,6 +67405,232 @@ App.prototype.handleFiles=async function(files){
 TN.version='0.18.4-resource-package-stable-import-identities-v1';
 })(window.TavleNext);
 </script>
+
+<script id="plan2-galaxy-groups-as-my-holds-owner">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2GalaxyGroupsAsMyHoldsOwner)return;
+window.__plan2GalaxyGroupsAsMyHoldsOwner=true;
+const clean=value=>String(value??'').trim();
+const slug=value=>TN.slugify?.(value)||clean(value).toLocaleLowerCase('da').replace(/[^a-z0-9æøå]+/gi,'-').replace(/^-+|-+$/g,'');
+let syncing=false;
+
+function isGalaxySet(dataset){
+  return dataset?.type==='group-set'&&Boolean(dataset?.meta?.createdThroughGalaxy||dataset?.meta?.managedBy==='GroupManager');
+}
+function groupRows(dataset){
+  const map=new Map();
+  for(const row of dataset?.rows||[]){
+    const groupId=clean(Array.isArray(row)?row[0]:row?.GroupId??row?.groupId);
+    if(!groupId)continue;
+    const title=clean(Array.isArray(row)?row[1]:row?.GroupTitle??row?.groupTitle)||'Gruppe';
+    const memberId=clean(Array.isArray(row)?row[2]:row?.MemberId??row?.memberId);
+    if(!map.has(groupId))map.set(groupId,{id:groupId,title,memberIds:[]});
+    const item=map.get(groupId);item.title=title||item.title;if(memberId)item.memberIds.push(memberId);
+  }
+  for(const entry of [...(dataset?.meta?.groupCatalog||[]),...(dataset?.meta?.emptyGroups||[])]){
+    const id=clean(entry?.id);if(!id)continue;
+    if(!map.has(id))map.set(id,{id,title:clean(entry?.title)||'Gruppe',memberIds:[]});
+    else if(clean(entry?.title))map.get(id).title=clean(entry.title);
+  }
+  return [...map.values()];
+}
+function projectionId(groupSetId,groupId){
+  return `galaxy-student-group-${slug(groupSetId)||'set'}-${slug(groupId)||'group'}`;
+}
+async function syncGalaxySet(app,dataset){
+  if(syncing||!app?.storage||!isGalaxySet(dataset))return;
+  const sourceDatasetId=clean(dataset.meta?.sourceDatasetId);
+  if(!sourceDatasetId)return;
+  syncing=true;
+  try{
+    const groups=groupRows(dataset),keep=new Set();
+    for(const group of groups){
+      const id=projectionId(dataset.id,group.id);keep.add(id);
+      const existing=await app.storage.get('datasets',id);
+      const record=existing||TN.Models.dataset({id,sessionId:null,name:group.title,type:'subject-group',scope:'common',columns:[],rows:[],meta:{}});
+      record.id=id;record.sessionId=null;record.scope='common';record.type='subject-group';record.name=group.title;
+      record.columns=[];record.rows=[];record.updatedAt=TN.now();
+      record.meta={...(record.meta||{}),managedBy:'SubjectGroupManager',selectionKind:'direct-roster',sourceDatasetId,
+        elevIds:[...new Set(group.memberIds.map(String))],readOnly:true,derived:true,live:true,
+        groupKind:'galaxy',galaxyGroupSetId:String(dataset.id),galaxyGroupId:String(group.id),
+        galaxyGroupTitle:group.title,sourceName:dataset.name||'Gruppegalaksen',updatedAt:TN.now()};
+      await app.storage.put('datasets',record);
+      TN.emit?.('datasetchange',{kind:existing?'update':'create',dataset:record});
+    }
+    const all=await app.storage.getAll('datasets');
+    for(const item of all){
+      if(item?.type!=='subject-group'||clean(item.meta?.galaxyGroupSetId)!==clean(dataset.id)||keep.has(String(item.id)))continue;
+      await app.storage.delete('datasets',item.id);TN.emit?.('datasetchange',{kind:'delete',id:item.id});
+    }
+    app.studentScope?.invalidateGroups?.();
+  }finally{syncing=false;}
+}
+async function syncAll(app){
+  if(!app?.storage)return;
+  for(const dataset of await app.storage.getAll('datasets'))if(isGalaxySet(dataset))await syncGalaxySet(app,dataset);
+}
+function install(app){
+  if(!app||app.__galaxyGroupsAsMyHoldsInstalled)return;
+  app.__galaxyGroupsAsMyHoldsInstalled=true;
+  const dm=app.dataManager;
+  if(dm){
+    for(const method of ['create','update']){
+      const original=dm[method]?.bind(dm);if(!original||original.__galaxyGroupsAsMyHolds)continue;
+      const wrapped=async function(dataset){const result=await original(dataset);const saved=result||dataset;if(isGalaxySet(saved))await syncGalaxySet(app,saved);return result;};
+      wrapped.__galaxyGroupsAsMyHolds=true;dm[method]=wrapped;
+    }
+  }
+  syncAll(app).catch(error=>console.warn('Galaksegrupper kunne ikke registreres under Mine hold',error));
+}
+const App=TN.TavleNextApp;
+if(App?.prototype&&!App.prototype.__galaxyGroupsAsMyHoldsInit){
+  App.prototype.__galaxyGroupsAsMyHoldsInit=true;
+  const original=App.prototype.init;
+  App.prototype.init=async function(...args){const result=await original.apply(this,args);install(this);return result;};
+}
+if(TN.runtime?.app)install(TN.runtime.app);
+})(window.TavleNext);
+</script>
+<script id="plan2-group-catalogue-selection-separation-v1">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2GroupCatalogueSelectionSeparationV1)return;
+window.__plan2GroupCatalogueSelectionSeparationV1=true;
+const App=TN.TavleNextApp||TN.App;
+if(!App?.prototype)return;
+const clean=v=>String(v??'').trim();
+const norm=v=>clean(v).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const defs=[
+ {kind:'team',label:'Team',aliases:['Kontaktgruppe','Kontaktgruppe/Team','Kontaktteam','Team']},
+ {kind:'residence',label:'Bosted',aliases:['Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']}
+];
+let cataloguePromise=null;
+function columnIndex(dataset,aliases){const wanted=new Set(aliases.map(norm));return (dataset?.columns||[]).findIndex(column=>wanted.has(norm(column)));}
+function valueAt(row,index,column){return Array.isArray(row)?row[index]:row?.[column];}
+function sourceScore(dataset){
+ if(!dataset||dataset.type==='subject-group'||!Array.isArray(dataset.rows)||!dataset.rows.length)return-1;
+ if(!defs.some(def=>columnIndex(dataset,def.aliases)>=0))return-1;
+ let score=dataset.rows.length;
+ if(clean(dataset.meta?.demoDataId)==='haubro-elever')score+=1000000;
+ if(/danskelever|elevstamdata|stamdata|· elever$/i.test(clean(dataset.name)))score+=100000;
+ if(columnIndex(dataset,['Unilogin','ElevID','Elev-id'])>=0)score+=10000;
+ if(columnIndex(dataset,['Danskhold','Aktuelt danskhold'])>=0)score+=1000;
+ return score;
+}
+function stableId(sourceId,kind,value){return `derived-student-group-${norm(sourceId)}-${kind}-${norm(value)}`;}
+async function ensureCatalogue(app){
+ if(cataloguePromise)return cataloguePromise;
+ cataloguePromise=(async()=>{
+  const all=await app.storage.getAll('datasets');
+  const source=all.filter(item=>sourceScore(item)>=0).sort((a,b)=>sourceScore(b)-sourceScore(a))[0];
+  if(!source)return {source:null,created:0,updated:0};
+  let created=0,updated=0;
+  for(const def of defs){
+   const index=columnIndex(source,def.aliases);if(index<0)continue;
+   const column=source.columns[index];
+   const values=[...new Set((source.rows||[]).map(row=>clean(valueAt(row,index,column))).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'da',{numeric:true}));
+   for(const value of values){
+    const id=stableId(source.id,def.kind,value);
+    const count=(source.rows||[]).reduce((sum,row)=>sum+(clean(valueAt(row,index,column))===value?1:0),0);
+    const old=await app.storage.get('datasets',id);
+    const next={...(old||{}),id,type:'subject-group',scope:'common',sessionId:null,schemaVersion:1,name:value,columns:[],rows:[],createdAt:old?.createdAt||TN.now(),updatedAt:TN.now(),meta:{...(old?.meta||{}),managedBy:'SubjectGroupManager',selectionKind:'field-value',sourceDatasetId:String(source.id),filterField:column,filterValue:value,derivedCategory:def.kind,derivedCategoryLabel:def.label,memberCount:count,live:true,readOnly:true,derived:true,immutableSource:true,updatedAt:TN.now()}};
+    const before=old&&JSON.stringify([old.name,old.meta?.sourceDatasetId,old.meta?.filterField,old.meta?.filterValue,old.meta?.memberCount]);
+    const after=JSON.stringify([next.name,next.meta.sourceDatasetId,next.meta.filterField,next.meta.filterValue,next.meta.memberCount]);
+    if(!old||before!==after){await app.storage.put('datasets',next);TN.emit?.('datasetchange',{kind:old?'update':'create',dataset:next});old?updated++:created++;}
+   }
+  }
+  app.studentScope?.invalidateGroups?.();
+  return {source,created,updated};
+ })().finally(()=>{cataloguePromise=null;});
+ return cataloguePromise;
+}
+function install(app){
+ if(!app||app.__plan2GroupCatalogueSelectionSeparationV1)return;
+ app.__plan2GroupCatalogueSelectionSeparationV1=true;
+ app.ensureCompleteStudentGroupCatalogue=()=>ensureCatalogue(app);
+ const originalMyHolds=app.showMyHoldsInOverview?.bind(app);
+ if(originalMyHolds)app.showMyHoldsInOverview=async function(...args){await ensureCatalogue(this);this.studentScope?.invalidateGroups?.();return originalMyHolds(...args);};
+ const originalDropdown=app.renderStudentScopeDropdown?.bind(app);
+ if(originalDropdown)app.renderStudentScopeDropdown=async function(...args){await ensureCatalogue(this);this.studentScope?.invalidateGroups?.();return originalDropdown(...args);};
+ const scope=app.studentScope;
+ if(scope&&!scope.__plan2SelectionOnlyFavourites){
+  scope.__plan2SelectionOnlyFavourites=true;
+  const originalSet=scope.setFavouriteIds.bind(scope);
+  scope.setFavouriteIds=function(ids){
+   // Mine hold owns only the user's selected IDs. It never creates, updates or deletes groups.
+   const result=originalSet(ids);
+   TN.emit?.('myholdschanged',{ids:[...result]});
+   return result;
+  };
+ }
+ ensureCatalogue(app).catch(error=>console.warn('Det fulde Team-/bostedskatalog kunne ikke gendannes',error));
+}
+const originalInit=App.prototype.init;
+App.prototype.init=async function(...args){const result=await originalInit.apply(this,args);install(this);return result;};
+if(TN.runtime?.app)install(TN.runtime.app);
+TN.on?.('datasetchange',event=>{
+ const app=TN.runtime?.app,dataset=event?.dataset;
+ if(!app||dataset?.type==='subject-group')return;
+ if(dataset&&sourceScore(dataset)<0)return;
+ clearTimeout(app.__plan2CatalogueRefreshTimer);
+ app.__plan2CatalogueRefreshTimer=setTimeout(()=>ensureCatalogue(app).catch(console.warn),150);
+});
+TN.version='0.18.5-group-catalogue-selection-separation-v1';
+})(window.TavleNext);
+</script>
+
+<script id="plan2-backup-complete-group-catalogue-v1">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2BackupCompleteGroupCatalogueV1)return;
+window.__plan2BackupCompleteGroupCatalogueV1=true;
+const App=TN.TavleNextApp||TN.App;
+if(!App?.prototype)return;
+const clean=v=>String(v??'').trim();
+function expandCatalogue(allDatasets,seedIds){
+ const ids=new Set([...seedIds].map(String));
+ let changed=true;
+ while(changed){
+  changed=false;
+  for(const dataset of allDatasets||[]){
+   const id=String(dataset.id),source=clean(dataset.meta?.sourceDatasetId),assessment=clean(dataset.meta?.assessmentDatasetId);
+   const isGroup=dataset.type==='subject-group'||dataset.type==='leveling-active-hold'||dataset.type==='group-set';
+   // If a student source is part of the course, include every group generated from it.
+   if(isGroup&&source&&ids.has(source)&&!ids.has(id)){ids.add(id);changed=true;}
+   // If a group is included, include its source and assessment data.
+   if(ids.has(id))for(const dep of [source,assessment,...(dataset.meta?.generatedSubjectGroups||[])].filter(Boolean))if(!ids.has(String(dep))){ids.add(String(dep));changed=true;}
+  }
+ }
+ return ids;
+}
+function install(app){
+ if(!app?.backupManager||app.backupManager.__plan2CompleteGroupCatalogue)return;
+ const manager=app.backupManager;manager.__plan2CompleteGroupCatalogue=true;
+ const originalGather=manager.gatherRecords?.bind(manager);
+ if(originalGather)manager.gatherRecords=async function(...args){
+  await app.ensureCompleteStudentGroupCatalogue?.();
+  const result=await originalGather(...args);
+  const all=await app.storage.getAll('datasets');
+  const expanded=expandCatalogue(all,result.referencedDatasetIds||new Set((result.datasets||[]).map(item=>item.id)));
+  result.referencedDatasetIds=expanded;
+  result.datasets=all.filter(dataset=>dataset.scope==='common'?expanded.has(String(dataset.id)):(result.datasets||[]).some(item=>String(item.id)===String(dataset.id))).map(TN.deepClone);
+  return result;
+ };
+ const originalSelect=manager.selectNextPayload?.bind(manager);
+ if(originalSelect)manager.selectNextPayload=function(payload,...args){
+  const result=originalSelect(payload,...args),all=payload?.datasets||[];
+  const expanded=expandCatalogue(all,new Set((result.datasets||[]).map(item=>item.id)));
+  result.datasets=all.filter(dataset=>dataset.scope==='common'?expanded.has(String(dataset.id)):(result.datasets||[]).some(item=>String(item.id)===String(dataset.id)));
+  return result;
+ };
+}
+const originalInit=App.prototype.init;
+App.prototype.init=async function(...args){const result=await originalInit.apply(this,args);install(this);return result;};
+if(TN.runtime?.app)install(TN.runtime.app);
+})(window.TavleNext);
+</script>
+
 </body></html>`;
   const entries=[
     {name:'ÅBN DENNE PLANPAKKE.html',data:visitCard},
@@ -69465,7 +69943,7 @@ async function openMatrixWidget(app,groupId='',options={}){
 }
 
 async function chooseGroupForWidget(app,widget){
-  const groups=await allGroups(app);
+  const groups=await app.studentScope?.favouriteGroups?.()||[];
   const body=document.createElement('div');
   body.className='tn-subject-admin-list';
   const mode=clean(widget.content?.studentScopeMode||widget.content?.groupSelectionKind||'all');
@@ -71792,44 +72270,6 @@ async function createGroups(app,source,assessment){
   app.subjectGroups?.cache?.clear?.();app.studentScope?.invalidateGroups?.();
   return HOLDS.map(stableId);
 }
-async function resolvedGroup(app,id){
-  if(!id)return null;
-  const g=await app.dataManager.get(id).catch(()=>null);
-  return g?.type==='subject-group'?g:null;
-}
-async function effective(app,widget){
-  const mode=clean(widget?.content?.studentScopeMode||'inherit');
-  if(mode==='all')return{kind:'all',id:'',label:'Alle elever',group:null};
-  if(mode==='group'&&clean(widget?.content?.studentScopeGroupId)){
-    const group=await resolvedGroup(app,widget.content.studentScopeGroupId);return group?{kind:'group',id:group.id,label:group.name,group}:{kind:'all',id:'',label:'Alle elever',group:null};
-  }
-  const s=await app.studentScope?.effective?.().catch(()=>null);
-  if(s?.kind==='group'&&clean(s.id)){const group=s.group||await resolvedGroup(app,s.id);if(group)return{kind:'group',id:group.id,label:s.label||group.name,group};}
-  return{kind:'all',id:'',label:'Alle elever',group:null};
-}
-async function syncCardMatrix(app,widget){
-  if(widget?.type!=='card-matrix'||widget.content?.kind!=='student')return false;
-  const scope=await effective(app,widget),source=await app.dataManager.get('haubro-stamdata').catch(()=>null);if(!source)return false;
-  const all=app.relationManager.studentRows(source)||[];
-  let selected=all;
-  if(scope.kind==='group'&&scope.group){
-    const allowed=new Set((app.relationManager.studentRows(scope.group)||[]).map((e,i)=>rowId(scope.group,e.row,i)).filter(Boolean));
-    selected=all.filter((e,i)=>allowed.has(rowId(source,e.row,i)));
-  }
-  const keys=selected.map(e=>e.rowKey),same=JSON.stringify(keys)===JSON.stringify(widget.content?.rowKeys||[])&&clean(widget.content?.datasetId)===clean(source.id);
-  widget.content={...(widget.content||{}),datasetId:source.id,rowKeys:keys,sourceGroupId:scope.group?.id||'',sourceGroupName:scope.label,viewRole:'student-group-matrix',studentScopeResolvedLabel:scope.label};
-  widget.title=`Elevkort · ${scope.label}`;
-  if(!same)await app.widgetManager.update(widget,{immediate:true});
-  return true;
-}
-async function syncDemoWidgets(app,{refresh=true}={}){
-  for(const w of TN.runtime?.activeWidgets||[]){
-    if(w.id==='widget_demo_dana1_cards'||(w.type==='card-matrix'&&w.content?.viewRole==='student-group-matrix'&&clean(w.content?.studentScopeMode||'inherit')==='inherit'))await syncCardMatrix(app,w);
-    if(w.id==='widget_demo_dana1_talks'&&w.content?.datasetId!=='dataset_dansk_2026_27_subject_conversations'){w.content.datasetId='dataset_dansk_2026_27_subject_conversations';await app.widgetManager.update(w,{immediate:true});}
-    if(w.id==='widget_demo_dana1_grades'&&w.content?.datasetId!=='dataset_dansk_2026_27_student_grades'){w.content.datasetId='dataset_dansk_2026_27_student_grades';await app.widgetManager.update(w,{immediate:true});}
-    if(refresh&&['widget_demo_dana1_cards','widget_demo_dana1_talks','widget_demo_dana1_grades'].includes(w.id))await app.refreshWidgetView?.(w.id).catch(()=>{});
-  }
-}
 function updateHelp(){
   const H=TN.HelpRegistry?.entries;if(!H)return;
   for(const key of ['leveling','danish-workflow','my-danish-hold']){
@@ -71852,10 +72292,6 @@ function install(app){
     await createGroups(this.app,source,assessment);if(matrixWidgetId)await this.refreshMatrix(matrixWidgetId);return true;
   };
   cleanup(app).catch(console.error);updateHelp();
-  TN.on?.('studentcontextchange',()=>setTimeout(()=>syncDemoWidgets(app).catch(console.error),30));
-  const oldRender=app.renderActiveBoard?.bind(app);
-  if(oldRender&&!app.__build16Render){app.__build16Render=true;app.renderActiveBoard=async function(...args){const r=await oldRender(...args);await syncDemoWidgets(app,{refresh:false});return r;};}
-  setTimeout(()=>syncDemoWidgets(app).catch(console.error),250);
   return true;
 }
 let tries=0;const timer=setInterval(()=>{tries++;const app=TN.runtime?.app||window.tavleNextApp;if(app&&install(app)||tries>240)clearInterval(timer);},50);
@@ -72009,5 +72445,449 @@ queueMicrotask(async()=>{
 });
 TN.version='0.14.5-spreadsheet-resource-fix-v130';
 window.__PLAN_SPREADSHEET_RESOURCE_FIX__='1.30-2026-07-23';
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · WIDGET RUNTIME 2.0 · authoritative rowKeys + single scope owner · v9 -->
+<script id="plan2-widget-runtime-v9-owner">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2WidgetRuntimeV9Owner)return;
+window.__plan2WidgetRuntimeV9Owner=true;
+const App=TN.TavleNextApp;
+if(!App)return;
+const clean=v=>String(v??'').trim();
+
+function install(app){
+  if(!app?.widgetManager||!app.studentScope)return false;
+
+  // Sidste ejer af Elevkortmatrix: afledt elevscope er kun input til visningen.
+  const card=app.widgetManager.definition('card-matrix');
+  if(card?.mount&&!card.mount.__plan2RuntimeV9){
+    const previous=card.mount;
+    const mount=async function(context){
+      const {widget,body,app}=context;
+      if((widget.content?.kind||'student')!=='student')return previous.call(this,context);
+      const base=await app.dataManager.get(widget.content?.datasetId);
+      if(!base){body.innerHTML='<div class="tn-empty">Datakilden findes ikke.</div>';return;}
+      const dataset=await app.studentMasterLink?.enrichDataset?.(base)||base;
+      const all=app.relationManager.studentRows(dataset)||[];
+      // Autoritativ kontrakt: Følg tavlen/forløbet er levende scope. rowKeys er
+      // kun autoritative i en udtrykkelig fast/materialiseret visning.
+      const mode=clean(widget.content?.studentScopeMode||widget.content?.groupSelectionKind||'inherit').toLowerCase();
+      let items=all;
+      if(mode==='fixed'||mode==='rows'||mode==='selection'){
+        const explicit=new Set((widget.content?.rowKeys||[]).map(String));
+        if(explicit.size)items=all.filter(item=>explicit.has(String(item.rowKey)));
+      }else if(mode!=='all'){
+        let scope=null;
+        if(mode==='group'&&widget.content?.studentScopeGroupId){
+          const groups=await app.studentScope.groups().catch(()=>[]);
+          const group=groups.find(item=>String(item?.id||'')===String(widget.content.studentScopeGroupId));
+          if(group)scope={kind:'group',id:String(group.id),label:app.studentScope.shortName?.(group)||group.name||'Valgt hold',group,origin:'widget'};
+        }
+        if(!scope)scope=await app.studentScope.effective();
+        if(scope?.kind==='group'){
+          const allowed=await app.studentScope.allowed(scope);
+          if(allowed)items=all.filter(item=>{
+            const key=clean(item?.rowKey),label=String(item?.title||'').trim().toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+            if(key&&(allowed.ids.has(key)||allowed.ids.has(key.replace(/^id:/i,''))||allowed.ids.has(`id:${key.replace(/^id:/i,'')}`)))return true;
+            if(label&&allowed.names.has(label))return true;
+            for(const [field,value] of Object.entries(item?.object||{})){
+              const fieldKey=String(field||'').toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ');
+              if(!/rowkey|elev.?id|student.?id|unilogin|demo.?id/i.test(fieldKey))continue;
+              const id=clean(value),bare=id.replace(/^id:/i,'');
+              if(id&&(allowed.ids.has(id)||allowed.ids.has(bare)||allowed.ids.has(`id:${bare}`)))return true;
+            }
+            return false;
+          });
+        }
+      }
+      const rowKeys=items.map(item=>item.rowKey);
+      const root=document.createElement('div');root.className='tn-card-matrix';
+      const read=(row,aliases)=>{const i=app.relationManager.columnIndex(dataset,aliases);return i>=0?clean(row?.[i]):'';};
+      for(const item of items){
+        const className=read(item.row,['Klasse','Klassetrin','Årgang']);
+        const team=read(item.row,['Kontaktgruppe','Kontaktteam','Team']);
+        const id=read(item.row,['DemoID','ElevID','Unilogin']);
+        const subtitle=[className,team,id].filter(Boolean).join(' · ')||base.name;
+        const article=document.createElement('article');article.className='tn-matrix-card';
+        article.innerHTML=`<strong>${TN.escapeHtml(item.title)}</strong><small>${TN.escapeHtml(subtitle)}</small><div><button type="button" data-details>Detaljer</button><button type="button" data-note>Note</button></div>`;
+        article.querySelector('[data-details]').onclick=()=>app.studentFocus.open({datasetId:base.id,rowKey:item.rowKey,rowKeys,tab:'student'});
+        article.querySelector('[data-note]').onclick=()=>app.studentFocus.open({datasetId:base.id,rowKey:item.rowKey,rowKeys,tab:'notes'});
+        root.append(article);
+      }
+      if(!items.length)root.innerHTML='<div class="tn-empty">Ingen elever i det valgte elevudvalg.</div>';
+      body.replaceChildren(root);
+      // Bevidst ingen widgetManager.update(), titelmutation eller rowKeys-persistens.
+    };
+    mount.__plan2RuntimeV9=true;
+    app.widgetManager.register('card-matrix',{...card,mount});
+  }
+
+  // Sidste scope-ejer efter alle ældre manager-overskrivninger.
+  const Grades=TN.DanishGradeManager;
+  if(Grades?.prototype?.entries&&!Grades.prototype.entries.__plan2RuntimeV9){
+    const prior=Grades.prototype.entries;
+    Grades.prototype.entries=async function(base){
+      const result=await prior.call(this,base);
+      if(!result?.items||!this.app?.studentScope)return result;
+      const scope=await this.app.studentScope.effective();
+      if(scope.kind!=='group')return result;
+      const accepted=await this.app.studentScope.filterEntries(result.items,{
+        rowKey:item=>item?.rowKey,
+        name:(item,index)=>result.contexts?.[index]?.name||item?.title,
+        object:item=>item?.object||{},sourceId:base?.id
+      });
+      const set=new Set(accepted),indexes=[];
+      result.items.forEach((item,index)=>{if(set.has(item))indexes.push(index);});
+      return {...result,items:indexes.map(i=>result.items[i]),contexts:indexes.map(i=>result.contexts[i])};
+    };
+    Grades.prototype.entries.__plan2RuntimeV9=true;
+  }
+
+  const Conversations=TN.SubjectConversationManager;
+  // Fagsamtaler har allerede sin lokale scope-ejer (withWidgetScope). Et ekstra
+  // filter her gav dobbeltfiltrering, bl.a. 13 viste elever for DanA1's 25.
+  // Runtime v9 lader derfor prepared() være urørt og beskytter kun renderløbet.
+
+
+  // Render må ikke kunne afbryde sig selv via datasetchange fra ensure/create/persist.
+  for(const [Manager,type,method] of [[Grades,'grade-matrix','renderMatrix'],[Conversations,'subject-conversation-matrix','renderMatrix']]){
+    if(!Manager?.prototype?.[method]||Manager.prototype[method].__plan2RuntimeV9)continue;
+    const priorRender=Manager.prototype[method];
+    Manager.prototype[method]=async function(context){
+      const widget=context?.widget;if(!widget)return priorRender.call(this,context);
+      if(widget.__plan2RuntimeRenderPromise)return widget.__plan2RuntimeRenderPromise;
+      widget.__plan2RuntimeRendering=true;
+      const promise=Promise.resolve(priorRender.call(this,context)).finally(()=>{
+        widget.__plan2RuntimeRendering=false;
+        if(widget.__plan2RuntimeRenderPromise===promise)delete widget.__plan2RuntimeRenderPromise;
+      });
+      widget.__plan2RuntimeRenderPromise=promise;
+      return promise;
+    };
+    Manager.prototype[method].__plan2RuntimeV9=true;
+
+    const priorChange=Manager.prototype.onDatasetChange;
+    if(priorChange&&!priorChange.__plan2RuntimeV9){
+      Manager.prototype.onDatasetChange=function(event){
+        const active=(TN.runtime.activeWidgets||[]).some(w=>w.type===type&&w.__plan2RuntimeRendering);
+        if(active)return; // interne render-skrivninger er ikke en ny brugerændring
+        return priorChange.call(this,event);
+      };
+      Manager.prototype.onDatasetChange.__plan2RuntimeV9=true;
+    }
+  }
+  return true;
+}
+
+const priorInit=App.prototype.init;
+App.prototype.init=async function(...args){const result=await priorInit.apply(this,args);install(this);return result;};
+if(TN.runtime?.app)install(TN.runtime.app);
+TN.installPlan2WidgetRuntimeV9=install;
+})(window.TavleNext);
+</script>
+
+<script>
+/* Plan 2.0 persistence boundary v1 — 2026-07-26
+   Placeret sidst med vilje: historiske overrides kan ikke genindsætte runtime-state bagefter. */
+(function(TN){
+'use strict';
+const Backup=TN.BackupManager;
+if(!Backup||Backup.prototype.__plan2PersistenceBoundaryV1)return;
+
+const RUNTIME_KEYS=new Set([
+  'resolvedScope','resolvedRows','renderGeneration','rendering','saving',
+  'domRef','subscriptions','eventTokens','debounceHandle','cache',
+  '__plan2RuntimeRenderPromise'
+]);
+const ID_KEYS=new Set([
+  'datasetId','sourceDatasetId','relationSourceDatasetId','assessmentDatasetId',
+  'levelingAssessmentDatasetId','conversationSourceDatasetId','resultsDatasetId',
+  'resultDatasetId','notesDatasetId','groupSetId','studentScopeGroupId',
+  'defaultStudentScopeGroupId','activeSubjectGroupId','sourceGroupId','galaxyGroupSetId'
+]);
+const ID_ARRAY_KEYS=new Set(['datasetIds','sourceDatasetIds','conversationSourceDatasetIds','favouriteGroupIds','generatedSubjectGroups']);
+
+function clonePersistent(value,seen=new WeakMap()){
+  if(value==null||typeof value!=='object')return value;
+  if(value instanceof Date)return value.toISOString();
+  if(value instanceof Blob)return value;
+  if(seen.has(value))return undefined;
+  seen.set(value,true);
+  if(Array.isArray(value)){
+    const out=[];
+    for(const item of value){const next=clonePersistent(item,seen);if(next!==undefined)out.push(next);}
+    return out;
+  }
+  const out={};
+  for(const [key,item] of Object.entries(value)){
+    if(key.startsWith('__')||RUNTIME_KEYS.has(key))continue;
+    if(typeof item==='function'||typeof item==='symbol')continue;
+    const next=clonePersistent(item,seen);
+    if(next!==undefined)out[key]=next;
+  }
+  return out;
+}
+function cleanToken(value){return String(value??'').trim().toLocaleLowerCase('da-DK').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+function canonicalDimension(meta={}){
+  const raw=cleanToken(meta.derivedCategory||meta.dimensionField||meta.filterField||meta.groupField||'group');
+  if(['team','kontaktteam','kontaktgruppe','kontakt-gruppe'].includes(raw))return 'kontaktgruppe';
+  if(['residence','bosted','hus','gang','hus-gang'].includes(raw))return 'residence';
+  if(['dansk','danskhold','faghold','subject','subject-group'].includes(raw))return 'danskhold';
+  return raw||'group';
+}
+function groupConcept(dataset){
+  const meta=dataset?.meta||{};
+  const isDerived=dataset?.type==='derived-student-group'||(dataset?.type==='subject-group'&&(['field-value','detected-roster'].includes(meta.selectionKind)||meta.derived===true));
+  if(!isDerived||!meta.sourceDatasetId)return null;
+  const dimension=canonicalDimension(meta);
+  const value=cleanToken(meta.dimensionValue||meta.filterValue||meta.selectedHold||dataset.name);
+  return value?`${String(meta.sourceDatasetId)}|${dimension}|${value}`:null;
+}
+function canonicalGroupId(dataset){
+  const concept=groupConcept(dataset);if(!concept)return String(dataset.id);
+  const [source,dimension,value]=concept.split('|');
+  return `derived-student-group-${cleanToken(source)}-${dimension}-${value}`;
+}
+function remapTree(value,idMap,key=''){
+  if(value==null)return value;
+  if(Array.isArray(value))return ID_ARRAY_KEYS.has(key)?value.map(v=>idMap.get(String(v))||v):value.map(v=>remapTree(v,idMap,''));
+  if(typeof value!=='object')return (ID_KEYS.has(key)&&idMap.has(String(value)))?idMap.get(String(value)):value;
+  for(const [childKey,child] of Object.entries(value)){
+    if(childKey==='id'&&idMap.has(String(child))&&value.type!=='student-row')value[childKey]=idMap.get(String(child));
+    else if(ID_KEYS.has(childKey)&&child!=null)value[childKey]=idMap.get(String(child))||child;
+    else if(ID_ARRAY_KEYS.has(childKey)&&Array.isArray(child))value[childKey]=child.map(v=>idMap.get(String(v))||v);
+    else if((childKey==='studentScope'||childKey==='courseDefault'||childKey==='scope')&&child?.kind==='group'&&child.id)child.id=idMap.get(String(child.id))||child.id;
+    else remapTree(child,idMap,childKey);
+  }
+  return value;
+}
+function normalizeDerivedGroups(payload,report){
+  const datasets=payload.datasets||[],byConcept=new Map(),idMap=new Map(),kept=[];
+  for(const dataset of datasets){
+    const concept=groupConcept(dataset);
+    if(!concept){kept.push(dataset);continue;}
+    const canonical=canonicalGroupId(dataset),oldId=String(dataset.id);
+    idMap.set(oldId,canonical);
+    dataset.id=canonical;
+    dataset.type='derived-student-group';
+    dataset.meta={...(dataset.meta||{}),selectionKind:'field-value',derived:true,live:true,sourceDatasetId:String(dataset.meta.sourceDatasetId),dimensionField:dataset.meta.dimensionField||dataset.meta.filterField||dataset.meta.derivedCategory||canonicalDimension(dataset.meta),dimensionValue:dataset.meta.dimensionValue||dataset.meta.filterValue||dataset.name,derivedCategory:canonicalDimension(dataset.meta)};
+    const prior=byConcept.get(concept);
+    if(!prior){byConcept.set(concept,dataset);kept.push(dataset);}
+    else{
+      idMap.set(oldId,String(prior.id));
+      prior.meta={...(dataset.meta||{}),...(prior.meta||{})};
+      report.deduplicatedGroups.push({removed:oldId,kept:String(prior.id),name:dataset.name||prior.name});
+    }
+  }
+  payload.datasets=kept;
+  remapTree(payload,idMap);
+  return idMap;
+}
+function repairDanglingReferences(payload,report){
+  const datasets=payload.datasets||[],ids=new Set(datasets.map(d=>String(d.id))),idMap=new Map();
+  const groups=datasets.filter(d=>d.type==='derived-student-group'||d.type==='subject-group');
+  const byName=new Map();
+  for(const group of groups){const key=cleanToken(group.name);if(!byName.has(key))byName.set(key,[]);byName.get(key).push(group);}
+  const referenced=new Set();
+  const collect=value=>{
+    if(value==null)return;
+    if(Array.isArray(value)){value.forEach(collect);return;}
+    if(typeof value!=='object')return;
+    for(const [key,item] of Object.entries(value)){
+      if(ID_KEYS.has(key)&&item)referenced.add(String(item));
+      else if(ID_ARRAY_KEYS.has(key)&&Array.isArray(item))item.forEach(id=>referenced.add(String(id)));
+      else if((key==='studentScope'||key==='courseDefault'||key==='scope')&&item?.kind==='group'&&item.id)referenced.add(String(item.id));
+      else collect(item);
+    }
+  };
+  collect({boards:payload.boards,widgets:payload.widgets,workState:payload.workState,datasets:payload.datasets});
+  const inferName=id=>{
+    const token=cleanToken(id);
+    const patterns=[/(dana[123]|danb[123])$/,/(team-?\d+)$/,/(birken|ahorn|boegen|egen|elmen|fyrren|linden|roennen)$/];
+    for(const pattern of patterns){const match=token.match(pattern);if(match)return cleanToken(match[1]);}
+    return '';
+  };
+  for(const id of referenced){
+    if(ids.has(id))continue;
+    const name=inferName(id),candidates=byName.get(name)||[];
+    if(candidates.length===1){idMap.set(id,String(candidates[0].id));report.repairedReferences=(report.repairedReferences||[]).concat({from:id,to:String(candidates[0].id),reason:'unique-group-name'});}
+  }
+  const studentMasters=datasets.filter(d=>d.type==='table'&&(d.rows||[]).length>0&&/elevstamdata|rå stamdata/i.test(String(d.name||''))).sort((a,b)=>/elevstamdata/i.test(String(b.name||''))-/elevstamdata/i.test(String(a.name||'')));
+  const master=studentMasters[0];
+  if(master){
+    for(const widget of payload.widgets||[]){
+      const content=widget.content||{};
+      if(content.relationSourceDatasetId&&!ids.has(String(content.relationSourceDatasetId))){
+        report.repairedReferences=(report.repairedReferences||[]).concat({from:String(content.relationSourceDatasetId),to:String(master.id),widgetId:String(widget.id),reason:'missing-student-master'});
+        content.relationSourceDatasetId=String(master.id);
+      }
+    }
+  }
+  remapTree(payload,idMap);
+}
+function validateReferences(payload){
+  const ids=new Set((payload.datasets||[]).map(d=>String(d.id))),missing=[];
+  const add=(id,path)=>{if(id&&!ids.has(String(id)))missing.push({id:String(id),path});};
+  const walk=(value,path='root')=>{
+    if(value==null)return;
+    if(Array.isArray(value)){value.forEach((v,i)=>walk(v,`${path}[${i}]`));return;}
+    if(typeof value!=='object')return;
+    for(const [key,item] of Object.entries(value)){
+      const next=`${path}.${key}`;
+      if(ID_KEYS.has(key))add(item,next);
+      else if(ID_ARRAY_KEYS.has(key)&&Array.isArray(item))item.forEach((id,i)=>add(id,`${next}[${i}]`));
+      else if((key==='studentScope'||key==='courseDefault'||key==='scope')&&item?.kind==='group')add(item.id,`${next}.id`);
+      else walk(item,next);
+    }
+  };
+  walk({boards:payload.boards,widgets:payload.widgets,workState:payload.workState,datasets:payload.datasets});
+  return [...new Map(missing.map(x=>[`${x.id}|${x.path}`,x])).values()];
+}
+function sanitizePayload(raw,{normalizeGroups=false}={}){
+  const payload=clonePersistent(raw),report={removedRuntimeFields:true,deduplicatedGroups:[],repairedReferences:[],missingDatasetReferences:[]};
+  if(normalizeGroups)normalizeDerivedGroups(payload,report);
+  repairDanglingReferences(payload,report);
+  report.missingDatasetReferences=validateReferences(payload);
+  payload.persistenceReport={version:1,createdAt:TN.now(),...report};
+  payload.warnings=[...new Set([...(payload.warnings||[]),...report.missingDatasetReferences.map(x=>`Manglende datasætreference ${x.id} ved ${x.path}`)])];
+  return payload;
+}
+
+TN.serializePersistentState=function(model){return sanitizePayload(model,{normalizeGroups:true});};
+TN.normalizeImportedState=function(raw){return sanitizePayload(raw,{normalizeGroups:true});};
+
+const priorGather=Backup.prototype.gatherRecords;
+Backup.prototype.gatherRecords=async function(...args){
+  const records=await priorGather.apply(this,args);
+  const clean=sanitizePayload(records,{normalizeGroups:true});
+  const referencedDatasetIds=this.collectDatasetIds({boards:clean.boards,widgets:clean.widgets,datasets:clean.datasets,workState:clean.workState});
+  const referencedMediaIds=this.collectMediaIds({boards:clean.boards,widgets:clean.widgets,datasets:clean.datasets});
+  return {...clean,referencedDatasetIds,referencedMediaIds};
+};
+Backup.prototype.gatherRecords.__plan2PersistenceBoundaryV1=true;
+
+const priorImport=Backup.prototype.importNext;
+Backup.prototype.importNext=async function(payload,options={}){
+  const normalized=TN.normalizeImportedState(payload);
+  const result=await priorImport.call(this,normalized,options);
+  result.persistenceReport=normalized.persistenceReport;
+  return result;
+};
+Backup.prototype.importNext.__plan2PersistenceBoundaryV1=true;
+Backup.prototype.__plan2PersistenceBoundaryV1=true;
+})(window.TavleNext);
+</script>
+
+
+<!-- Plan 2.0 index 124 · samtalekilde- og scope-reparation -->
+<script id="plan2-dataset-relink-boundary-v2">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2DatasetRelinkBoundaryV2)return;
+window.__plan2DatasetRelinkBoundaryV2=true;
+
+const clean=value=>String(value??'').trim();
+const token=value=>clean(value).toLocaleLowerCase('da-DK').normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+
+function hasConversationSchema(dataset){
+  const cols=(dataset?.columns||[]).map(value=>token(value));
+  const has=patterns=>patterns.some(pattern=>cols.some(col=>col.includes(pattern)));
+  return has(['laesning'])&&has(['retstavning'])&&has(['skriftlig-fremstilling'])&&
+    has(['mundtlig'])&&has(['laererens-vurdering-laesning','laerer-karakter'])&&
+    has(['laererens-vurdering-retstavning','laerer-karakter-2'])&&
+    has(['laererens-vurdering-skriftlig-fremstilling','laerer-karakter-3'])&&
+    has(['laererens-vurdering-mundtlig-dansk','laerer-karakter-4']);
+}
+function isCanonicalStudentMaster(dataset){
+  const meta=dataset?.meta||{};
+  return dataset?.type==='table'&&(
+    meta.dataRole==='canonical-demo'||meta.identityKey==='Unilogin'||
+    /elevstamdata/i.test(clean(dataset?.name))
+  );
+}
+function subjectGroupFor(datasets,label){
+  const wanted=token(label);
+  if(!wanted)return null;
+  return datasets.find(dataset=>
+    ['subject-group','derived-student-group'].includes(dataset?.type)&&
+    token(dataset?.name)===wanted
+  )||null;
+}
+function repairModel(payload){
+  if(!payload||typeof payload!=='object')return payload;
+  const datasets=Array.isArray(payload.datasets)?payload.datasets:[];
+  const ids=new Set(datasets.map(dataset=>clean(dataset?.id)).filter(Boolean));
+  const masters=datasets.filter(isCanonicalStudentMaster);
+  const canonicalConversation=masters.find(hasConversationSchema)||datasets.find(hasConversationSchema)||null;
+
+  for(const dataset of datasets){
+    if(!dataset||typeof dataset!=='object')continue;
+    const stale=clean(dataset.meta?.conversationSourceDatasetId);
+    if(stale&&!ids.has(stale)&&canonicalConversation){
+      dataset.meta={...(dataset.meta||{}),conversationSourceDatasetId:clean(canonicalConversation.id),
+        conversationSourceName:canonicalConversation.name||'',conversationSourceRepair:'dataset-relink-v2'};
+    }
+    if(isCanonicalStudentMaster(dataset)&&hasConversationSchema(dataset)){
+      dataset.meta={...(dataset.meta||{}),conversationSourceDatasetId:clean(dataset.id),
+        conversationSourceName:dataset.name||'',conversationSourceRepair:'self-contained-canonical-source'};
+    }
+  }
+
+  for(const widget of payload.widgets||[]){
+    if(widget?.type!=='subject-conversation-matrix')continue;
+    widget.content=widget.content||{};
+    const groupLabel=clean(widget.content?.relationQuery?.subjectGroup||widget.content?.datasetRole?.split(':').pop());
+    const group=subjectGroupFor(datasets,groupLabel);
+    if(group){
+      widget.content.sourceGroupId=clean(group.id);
+      widget.content.sourceGroupName=group.name||groupLabel;
+    }
+    if(canonicalConversation){
+      const current=clean(widget.content.relationSourceDatasetId);
+      if(!current||!ids.has(current))widget.content.relationSourceDatasetId=clean(canonicalConversation.id);
+    }
+    delete widget.content.rowKeys;
+  }
+  return payload;
+}
+
+const priorNormalize=TN.normalizeImportedState;
+TN.normalizeImportedState=function(raw){return repairModel(priorNormalize?priorNormalize(raw):raw);};
+const priorSerialize=TN.serializePersistentState;
+TN.serializePersistentState=function(raw){return repairModel(priorSerialize?priorSerialize(raw):raw);};
+
+const Conversation=TN.SubjectConversationManager;
+if(Conversation){
+  const priorSourceDataset=Conversation.prototype.sourceDataset;
+  Conversation.prototype.sourceDataset=async function(base){
+    if(isCanonicalStudentMaster(base)&&hasConversationSchema(base)){
+      if(clean(base.meta?.conversationSourceDatasetId)!==clean(base.id)){
+        base.meta={...(base.meta||{}),conversationSourceDatasetId:clean(base.id),
+          conversationSourceName:base.name||'',conversationSourceRepair:'runtime-self-source'};
+        try{await this.app.dataManager.update(base);}catch{}
+      }
+      return base;
+    }
+    return priorSourceDataset.call(this,base);
+  };
+  const priorRemembered=Conversation.prototype.rememberedConversationSourceId;
+  Conversation.prototype.rememberedConversationSourceId=function(base){
+    if(isCanonicalStudentMaster(base)&&hasConversationSchema(base))return clean(base.id);
+    return priorRemembered.call(this,base);
+  };
+}
+
+const Backup=TN.BackupManager;
+if(Backup?.prototype?.importNext){
+  const priorImport=Backup.prototype.importNext;
+  Backup.prototype.importNext=async function(payload,options={}){
+    return priorImport.call(this,repairModel(payload),options);
+  };
+}
 })(window.TavleNext);
 </script>
