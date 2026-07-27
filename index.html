@@ -2227,6 +2227,13 @@ html[data-plan-embed="true"] #tavleNextApp .tn-board-utility-button[data-clock-v
 .tn-scope-pending-gate .tn-spinner{width:38px;height:38px;border:5px solid rgba(148,163,184,.35);border-top-color:#22d3ee;border-radius:50%;animation:tnScopePendingSpin .9s linear infinite}
 @keyframes tnScopePendingSpin{to{transform:rotate(360deg)}}
 </style>
+
+<style id="plan2-my-holds-visible-selection-style">
+.tn-my-holds-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tn-my-holds-selected-summary{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
+.tn-my-holds-selected-label,.tn-my-holds-selected-empty{font-size:12px;font-weight:800;opacity:.8}
+.tn-my-holds-selected-chip{display:inline-flex;align-items:center;min-height:30px;padding:4px 10px;border-radius:999px;background:rgba(31,191,225,.16);border:1px solid rgba(31,191,225,.55);font-size:13px;font-weight:800;white-space:nowrap}
+</style>
 </head>
 <style id="plan-093c-runtime-minimized-css">
 .tn-widget.tn-runtime-minimized{visibility:hidden!important;opacity:0!important;pointer-events:none!important;user-select:none!important}
@@ -7805,7 +7812,10 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         const meta=d.meta||{},mappedSource=datasetMap.get(String(meta.sourceDatasetId))||String(meta.sourceDatasetId);
         const category=TN.slugify(meta.derivedCategory||meta.filterField||'group')||'group';
         const value=TN.slugify(meta.filterValue||d.name||'hold')||'hold';
-        const canonical=`derived-student-group-${TN.slugify(mappedSource)||mappedSource}-${category}-${value}`;
+        /* Brug samme stabile ID-kontrakt som det levende Team-/bostedskatalog.
+           Kildedatasættets ID må ikke slugificeres; ellers genopretter kataloget
+           gruppen med et andet ID efter import, og Mine hold mister fluebenet. */
+        const canonical=`derived-student-group-${mappedSource}-${category}-${value}`;
         datasetMap.set(String(d.id),canonical);
       }
       /* Canonical semantic aliases. Historical UI state often points to an
@@ -51256,19 +51266,32 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
     root.dataset.planActiveTab='my-holds';root.dataset.planOpenGroup='work';
     root.querySelectorAll('.tn-plan-nav-button').forEach(button=>button.classList.toggle('active',button.dataset.planAction==='my-holds'));
     const groups=await this.studentScope.groups(),selected=new Set(this.studentScope.favouriteIds());
+    const orderedGroups=[...groups].sort((a,b)=>{
+      const aSelected=selected.has(String(a.id)),bSelected=selected.has(String(b.id));
+      if(aSelected!==bSelected)return aSelected?-1:1;
+      return this.studentScope.shortName(a).localeCompare(this.studentScope.shortName(b),'da',{numeric:true,sensitivity:'base'});
+    });
     content.scrollTop=0;
-    content.innerHTML='<div class="tn-dc-page-heading"><strong>★ Mine hold</strong><span>Saml faghold og egne elevgrupper, som skal være tilgængelige i toppanelet. Egne grupper oprettes fra stamdata og kan matches manuelt.</span></div><div class="tn-sg6-toolbar tn-my-holds-toolbar"><button data-refresh-my-holds>Find eksisterende hold</button><button class="primary" data-create-my-hold>Opret elevgruppe</button></div><div class="tn-my-holds-native-list"></div>';
+    content.innerHTML='<div class="tn-dc-page-heading"><strong>★ Mine hold</strong><span>Saml faghold og egne elevgrupper, som skal være tilgængelige i toppanelet. Egne grupper oprettes fra stamdata og kan matches manuelt.</span></div><div class="tn-sg6-toolbar tn-my-holds-toolbar"><button data-refresh-my-holds>Find eksisterende hold</button><button class="primary" data-create-my-hold>Opret elevgruppe</button><div class="tn-my-holds-selected-summary" data-selected-holds aria-live="polite"></div></div><div class="tn-my-holds-native-list"></div>';
+    const selectedSummary=content.querySelector('[data-selected-holds]');
+    const renderSelectedSummary=()=>{
+      const chosen=orderedGroups.filter(group=>selected.has(String(group.id)));
+      selectedSummary.innerHTML=chosen.length
+        ?'<span class="tn-my-holds-selected-label">Valgte:</span>'+chosen.map(group=>`<span class="tn-my-holds-selected-chip">${TN.escapeHtml(this.studentScope.shortName(group))}</span>`).join('')
+        :'<span class="tn-my-holds-selected-empty">Ingen hold valgt</span>';
+    };
+    renderSelectedSummary();
     content.querySelector('[data-create-my-hold]').onclick=()=>this.showStudentGroupEditorInOverview?.(root,null,{returnTo:'my-holds'});
     content.querySelector('[data-refresh-my-holds]').onclick=async event=>{const button=event.currentTarget;if(button.disabled)return;button.disabled=true;const old=button.textContent;button.textContent='Finder hold…';try{this.ensureSubjectGroupsV6?.();const result=await this.discoverExistingStudentGroups?.();this.studentScope.invalidateGroups?.();await this.showMyHoldsInOverview?.(root);this.toast?.(result.created?`${result.created} eksisterende hold blev fundet og tilføjet`:'Der blev ikke fundet nye elevhold');}catch(error){console.error(error);this.toast?.(error?.message||'Kunne ikke finde eksisterende hold')}finally{button.disabled=false;button.textContent=old}};
     const list=content.querySelector('.tn-my-holds-native-list');
-    if(!groups.length){list.innerHTML='<div class="tn-empty">Der findes endnu ingen elevgrupper. Opret en gruppe fra stamdata eller genfind eksisterende faghold.</div>';return root;}
-    for(const group of groups){
+    if(!orderedGroups.length){list.innerHTML='<div class="tn-empty">Der findes endnu ingen elevgrupper. Opret en gruppe fra stamdata eller genfind eksisterende faghold.</div>';return root;}
+    for(const group of orderedGroups){
       const label=document.createElement('label');label.className='tn-my-holds-native-row';
       const input=document.createElement('input');input.type='checkbox';input.checked=selected.has(String(group.id));
       const own=group.meta?.selectionKind==='direct-roster'&&!group.meta?.immutableSource;
       const kind=own?'Egen gruppe':'Faghold';
       const text=document.createElement('span');text.innerHTML=`<b>${TN.escapeHtml(this.studentScope.shortName(group))}</b><small>${kind} · ${Number(group.rows?.length||group.meta?.memberCount||0)} elever</small>`;
-      input.onchange=async()=>{if(input.checked)selected.add(String(group.id));else selected.delete(String(group.id));await this.studentScope.setFavouriteIds([...selected]);const effective=await this.studentScope.effective();if(effective.kind==='group'&&!selected.has(String(effective.id)))await this.studentScope.select(null);await this.updateStudentScopeChip?.();};
+      input.onchange=async()=>{if(input.checked)selected.add(String(group.id));else selected.delete(String(group.id));await this.studentScope.setFavouriteIds([...selected]);const effective=await this.studentScope.effective();if(effective.kind==='group'&&!selected.has(String(effective.id)))await this.studentScope.select(null);await this.updateStudentScopeChip?.();await this.showMyHoldsInOverview?.(root);};
       label.append(input,text);
       if(own){
         const actions=document.createElement('span');actions.className='tn-my-holds-row-actions';
