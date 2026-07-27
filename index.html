@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="dark light" name="color-scheme"/>
-<title>Plan_2.0_GLOBAL_KALENDER_VAELGER_TOUCH_CUSTOM_REPARERET</title>
+<title>Plan_2.0_BILLEDVENDESPIL_PORTRAETTER_RETTET</title>
 <meta content="Plan" name="application-name"/>
 <meta content="Plan" name="apple-mobile-web-app-title"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -59488,62 +59488,115 @@ App.prototype.buildPlanPackage=async function(payload,{
   </style></head><body><main class="shell"><section class="hero"><div class="brand"><span class="mark">▦</span><span>Plan 2.0</span></div><span class="badge">${cardEscape(typeInfo.label)} · Planpakke</span><h1>${cardEscape(title||typeInfo.headline)}</h1><p class="lead">${cardEscape(typeInfo.intro)}</p><div class="actions"><a class="button primary" href="https://plan2.xn--mns-ula.dk/">Åbn Plan 2.0</a><a class="button download" href="https://plan2.xn--mns-ula.dk/Plan2.zip" download>Hent Plan 2.0</a><a class="button" href="https://xn--mns-ula.dk/">Kontakt Måns</a></div><div class="meta">${manifest.counts.courses?`<span>${manifest.counts.courses} undervisningsforløb</span>`:''}<span>${manifest.counts.sessions} session${manifest.counts.sessions===1?'':'er'}</span><span>${manifest.counts.boards} tavle${manifest.counts.boards===1?'':'r'}</span><span>Oprettet ${cardEscape(created)}</span></div></section><div class="grid"><section class="card"><h2>Sådan åbner du pakken</h2><ol class="steps"><li><span>Åbn Plan 2.0.</span></li><li><span>Vælg <strong>Backup og sikkerhed</strong> og derefter <strong>Hent arbejde tilbage</strong>.</span></li><li><span>Gå tilbage til Filer, og vælg selve Planpakken med endelsen <strong>.planpkg.zip</strong> — ikke denne HTML-fil.</span></li></ol><div class="notice"><strong>Visitkortet ligger inde i Planpakken.</strong><br>Du kan læse overblikket her, men når pakken skal åbnes i Plan, vælger du den oprindelige ZIP-fil. Indholdet er lavet til Plan 2.0 og kan ikke bruges som almindelige dokumenter uden for Plan.</div><div class="course-list">${courseCards}</div></section><aside class="card about"><h2>Om Plan 2.0</h2><p>Plan samler undervisningsforløb, sessioner, tavler, materialer og arbejdsdata i ét fleksibelt undervisningsværktøj.</p><p class="tagline">En computer gemmer dine filer.<br>Plan bevarer din undervisning.</p><div class="privacy">Visitkortet viser kun et overblik. Selve indholdet bliver i Planpakken og åbnes først, når du importerer den.</div></aside></div><footer class="footer"><span>Plan 2.0 · Planpakke</span><span><a href="https://plan2.xn--mns-ula.dk/">plan2.måns.dk</a> · <a href="https://xn--mns-ula.dk/">måns.dk</a></span></footer></main>
 
 
-<!-- Plan 2.0 · levende samlet danskholdskatalog -->
-<script id="plan-live-subject-groups-catalog-owner">
+<!-- Plan 2.0 · Billedvendespil bruger elevkortets portræt-fallback · v22 -->
+<script id="plan-picture-flip-v22-portrait-resolver">
 (function(TN){
 'use strict';
-if(!TN||window.__planLiveSubjectGroupsCatalog)return;
-window.__planLiveSubjectGroupsCatalog=true;
-const HOLDS=['DanA1','DanB1','DanA2','DanB2','DanA3','DanB3'];
+if(!TN||window.__planPictureFlipV22PortraitResolver)return;
+window.__planPictureFlipV22PortraitResolver=true;
+const appNow=()=>TN.runtime?.app||window.tavleNextApp||null;
 const clean=v=>String(v??'').trim();
-const norm=v=>clean(v).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'');
-const canonical=v=>{const m=clean(v).match(/^dan([ab])(1|2|3)$/i);return m?`Dan${m[1].toUpperCase()}${m[2]}`:'';};
-const col=(ds,names)=>(ds?.columns||[]).findIndex(c=>names.includes(norm(c)));
-function isCatalog(ds){return ds?.type==='subject-groups'&&ds?.meta?.stableRole==='subject-groups-catalog';}
-async function findAssessment(manager,previous){
-  const all=await manager.app.storage.getAll('datasets');
-  const generated=all.filter(d=>d?.type==='subject-group'&&d?.meta?.selectionKind==='level-placement'&&d?.meta?.assessmentDatasetId);
-  const counts=new Map();
-  for(const d of generated){const id=clean(d.meta.assessmentDatasetId);if(id)counts.set(id,(counts.get(id)||0)+1);}
-  const preferred=[...counts.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0];
-  if(preferred){const ds=await previous.call(manager,preferred);if(ds)return ds;}
-  const candidates=all.filter(d=>d?.type==='leveling-assessment');
-  return candidates.find(d=>d?.meta?.stableRole==='leveling-assessment')||candidates.find(d=>d?.meta?.sortingStatus==='completed')||candidates[0]||null;
+const objectUrls=new WeakMap();
+const loading=new WeakSet();
+const completed=new WeakSet();
+const mediaCache=new Map();
+function mediaBlob(media){
+  if(media?.blob instanceof Blob&&media.blob.size)return media.blob;
+  if(media?.originalBlob instanceof Blob&&media.originalBlob.size)return media.originalBlob;
+  return null;
 }
-function materialize(raw,assessment){
-  if(!assessment)return raw;
-  const nameAt=col(assessment,['navn','elevnavn','name']);
-  const holdAt=col(assessment,['aktuelt danskhold','danskhold','endeligt hold']);
-  if(nameAt<0||holdAt<0)return raw;
-  const buckets=Object.fromEntries(HOLDS.map(h=>[h,[]]));
-  for(const row of assessment.rows||[]){
-    const hold=canonical(row?.[holdAt]);
-    const name=clean(row?.[nameAt]);
-    if(hold&&name)buckets[hold].push(name);
+function cardsNow(){
+  const map=new Map();
+  for(const widget of TN.runtime?.activeWidgets||[]){
+    if(widget?.type!=='picture-flip-game')continue;
+    for(const card of widget.content?.cards||[])if(card?.id)map.set(String(card.id),card);
   }
-  for(const hold of HOLDS)buckets[hold].sort((a,b)=>a.localeCompare(b,'da',{sensitivity:'base'}));
-  const max=Math.max(0,...HOLDS.map(h=>buckets[h].length));
-  const columns=['Danskhold','Niveau','Parallelhold',...Array.from({length:max},(_,i)=>`Elev ${i+1}`)];
-  const rows=HOLDS.map(hold=>[hold,Number(hold.slice(-1)),hold.slice(3,4),...buckets[hold]]);
-  return {...raw,columns,rows,meta:{...(raw.meta||{}),virtual:true,live:true,readOnly:true,managedBy:'LevelingReviewManager',assessmentDatasetId:assessment.id,memberCount:rows.reduce((n,r)=>n+Math.max(0,r.length-3),0),updatedFromAssessmentAt:assessment.updatedAt||TN.now()}};
+  return map;
 }
-function install(){
-  const DM=TN.DataManager;
-  if(!DM?.prototype)return false;
-  if(DM.prototype.__liveSubjectGroupsCatalog)return true;
-  DM.prototype.__liveSubjectGroupsCatalog=true;
-  const previous=DM.prototype.get;
-  DM.prototype.get=async function(id){
-    const raw=await previous.call(this,id);
-    if(!isCatalog(raw))return raw;
-    try{return materialize(raw,await findAssessment(this,previous));}
-    catch(error){console.error('Levende danskholdskatalog kunne ikke bygges',error);return raw;}
-  };
-  return true;
+async function mediaById(app,id){
+  id=clean(id);if(!app||!id)return null;
+  if(!mediaCache.has(id))mediaCache.set(id,Promise.resolve(app.mediaManager?.get?.(id)).catch(()=>null));
+  return mediaCache.get(id);
 }
-let tries=0;const timer=setInterval(()=>{tries++;if(install()||tries>200)clearInterval(timer);},50);
+function addCandidate(list,seen,value,revoke){
+  value=clean(value);if(!value||seen.has(value))return;
+  seen.add(value);list.push({src:value,revoke});
+}
+function localAssetUrl(path){
+  path=clean(path);if(!path)return '';
+  try{
+    const encoded=path.split('/').map((part,index)=>index?encodeURIComponent(part):part).join('/');
+    return new URL(encoded,document.baseURI).href;
+  }catch(_){return path;}
+}
+async function candidates(app,card){
+  const list=[],seen=new Set();
+  const media=await mediaById(app,card.mediaId);
+  const blob=mediaBlob(media);
+  if(blob){
+    const url=URL.createObjectURL(blob);
+    addCandidate(list,seen,url,()=>URL.revokeObjectURL(url));
+  }
+  addCandidate(list,seen,media?.dataUrl);
+  addCandidate(list,seen,media?.originalDataUrl);
+  addCandidate(list,seen,card.src);
+  const fileName=clean(media?.meta?.originalName||media?.name||card.fileName).split(/[\\/]/).pop();
+  const assetPath=clean(media?.meta?.assetPath||`demo-data/elevbilleder/${fileName}`);
+  addCandidate(list,seen,localAssetUrl(assetPath));
+  addCandidate(list,seen,media?.meta?.webFallbackUrl);
+  addCandidate(list,seen,media?.meta?.githubFallbackUrl);
+  if(fileName){
+    addCandidate(list,seen,`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fileName)}`);
+    addCandidate(list,seen,`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fileName)}`);
+  }
+  return list;
+}
+async function restore(img,card){
+  if(!img||!card||loading.has(img)||completed.has(img))return;
+  loading.add(img);
+  try{
+    const list=await candidates(appNow(),card);
+    if(!list.length)return;
+    let index=0;
+    const tryNext=()=>{
+      if(index>=list.length){img.removeAttribute('src');img.dataset.pfgPortraitMissing='1';return;}
+      const candidate=list[index++];
+      img.onload=()=>{
+        const old=objectUrls.get(img);
+        if(old&&old!==candidate)try{old.revoke?.();}catch(_){ }
+        if(candidate.revoke)objectUrls.set(img,candidate);
+        completed.add(img);
+        delete img.dataset.pfgPortraitMissing;
+      };
+      img.onerror=()=>{try{candidate.revoke?.();}catch(_){ }tryNext();};
+      img.src=candidate.src;
+    };
+    tryNext();
+  }catch(error){console.warn('Kunne ikke åbne elevportræt i billedvendespil',error);}
+  finally{loading.delete(img);}
+}
+function scan(){
+  const cards=cardsNow();
+  document.querySelectorAll('.tn-pfg-card[data-pfg-card] img').forEach(img=>{
+    const cardId=img.closest('.tn-pfg-card[data-pfg-card]')?.dataset?.pfgCard;
+    const card=cards.get(String(cardId||''));if(!card)return;
+    const src=clean(img.getAttribute('src'));
+    const broken=img.complete&&src&&!img.naturalWidth;
+    if(!src||src==='undefined'||src==='null'||broken){completed.delete(img);void restore(img,card);}
+  });
+}
+const start=()=>{
+  try{
+    new MutationObserver(()=>requestAnimationFrame(scan)).observe(document.body,{childList:true,subtree:true});
+    scan();
+    window.addEventListener('focus',scan,true);
+    document.addEventListener('visibilitychange',scan,true);
+  }catch(error){console.warn('Billedvendespillets portrætresolver kunne ikke startes',error);}
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })(window.TavleNext);
 </script>
+
 </body></html>`;
   const entries=[
     {name:'ÅBN DENNE PLANPAKKE.html',data:visitCard},
