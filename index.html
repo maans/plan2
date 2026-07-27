@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="dark light" name="color-scheme"/>
-<title>index-billedvendespil-sikker-rettet</title>
+<title>Plan 2.0 · billedvendespil filnavn-resolver rettet</title>
 <meta content="Plan" name="application-name"/>
 <meta content="Plan" name="apple-mobile-web-app-title"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -42709,15 +42709,28 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   }
 
   async function mediaUrl(app,card,urls){
-    if(card.mediaId){
-      const media=await app.mediaManager.get(card.mediaId).catch(()=>null);
-      const blob=(media?.blob instanceof Blob&&media.blob.size)?media.blob:((media?.originalBlob instanceof Blob&&media.originalBlob.size)?media.originalBlob:null);
-      if(blob){const url=URL.createObjectURL(blob);urls.push(url);return url;}
-      if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))return media.dataUrl;
-      const fallback=[media?.assetPath,media?.webFallbackUrl,media?.githubFallbackUrl].map(value=>String(value||'').trim()).find(Boolean);
-      if(fallback)return fallback;
+    if(typeof card?.src==='string'&&card.src)return card.src;
+    const cleanName=value=>String(value||'').split(/[\\/]/).pop().trim().toLocaleLowerCase('da-DK');
+    let media=null;
+    if(card?.mediaId)media=await app.mediaManager.get(card.mediaId).catch(()=>null);
+    if(!media&&card?.fileName){
+      const wanted=cleanName(card.fileName),all=await app.mediaManager.list().catch(()=>[]);
+      media=all.find(item=>cleanName(item?.name||item?.meta?.originalName||item?.fileName)===wanted)||null;
     }
-    return card.src||'';
+    const blob=(media?.blob instanceof Blob&&media.blob.size)?media.blob:((media?.originalBlob instanceof Blob&&media.originalBlob.size)?media.originalBlob:null);
+    if(blob){const url=URL.createObjectURL(blob);urls.push(url);return url;}
+    if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))return media.dataUrl;
+    if(typeof media?.originalDataUrl==='string'&&media.originalDataUrl.startsWith('data:'))return media.originalDataUrl;
+    if(typeof media?.meta?.webFallbackUrl==='string'&&media.meta.webFallbackUrl)return media.meta.webFallbackUrl;
+    if(typeof media?.meta?.githubFallbackUrl==='string'&&media.meta.githubFallbackUrl)return media.meta.githubFallbackUrl;
+    const fallbackName=String(media?.meta?.originalName||card?.fileName||'').split(/[\\/]/).pop();
+    const assetPath=String(media?.meta?.assetPath||'');
+    if(assetPath){try{return new URL(assetPath,document.baseURI).href;}catch(_){return assetPath;}}
+    if(fallbackName){
+      if(/^https?:$/i.test(location.protocol))return `https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`;
+      try{return new URL(`demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`,document.baseURI).href;}catch(_){ }
+    }
+    return '';
   }
   function orderedCards(content){const cards=Array.isArray(content.cards)?content.cards:[],byId=new Map(cards.map(card=>[String(card.id),card]));return Array.isArray(content.order)&&content.order.length?content.order.map(id=>byId.get(String(id))).filter(Boolean):cards.slice();}
   function frontText(card,mode){
@@ -73250,7 +73263,7 @@ function install(){
  };
  p.syncLevelGroups=async function(source,assessment,{create=false}={}){if(!create)return null;const finished=(assessment.rows||[]).every(r=>canonical(this.assessmentObject(assessment,r)['Aktuelt danskhold'])!=='Ikke afgjort');return finished?createSubjectGroups(this.app,source,assessment):null;};
  p.createOrUpdateGroups=async function({sourceDatasetId,assessmentDatasetId,matrixWidgetId=null}={}){const source=await this.app.dataManager.get(sourceDatasetId),assessment=await this.app.dataManager.get(assessmentDatasetId);if(!source||!assessment)throw new Error('Niveaudelingsdata findes ikke');const pending=(assessment.rows||[]).filter(r=>canonical(this.assessmentObject(assessment,r)['Aktuelt danskhold'])==='Ikke afgjort').length;if(pending)throw new Error(`Niveaudelingen mangler ${pending} elever. Brug først lærerens anbefalinger eller placér eleverne.`);await createSubjectGroups(this.app,source,assessment);if(matrixWidgetId)await this.refreshMatrix(matrixWidgetId);return true;};
- app.toast('Niveaudeling klar · danskhold oprettes først, når fordelingen gennemføres');return true;
+ return true;
 }
 let tries=0;const timer=setInterval(()=>{tries++;if(install()||tries>200)clearInterval(timer);},50);
 })(window.TavleNext);
