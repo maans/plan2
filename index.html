@@ -2234,6 +2234,31 @@ html[data-plan-embed="true"] #tavleNextApp .tn-board-utility-button[data-clock-v
 .tn-my-holds-selected-label,.tn-my-holds-selected-empty{font-size:12px;font-weight:800;opacity:.8}
 .tn-my-holds-selected-chip{display:inline-flex;align-items:center;min-height:30px;padding:4px 10px;border-radius:999px;background:rgba(31,191,225,.16);border:1px solid rgba(31,191,225,.55);font-size:13px;font-weight:800;white-space:nowrap}
 </style>
+
+<style id="plan2-data-source-picker-layout-fix">
+.tn-data-source-picker-modal{
+  width:min(920px,96vw)!important;
+  max-height:min(74dvh,760px)!important;
+}
+.tn-data-source-picker-modal>.tn-modal-body{
+  min-height:0;
+  overflow:hidden!important;
+}
+.tn-data-source-picker-shell{
+  height:100%;
+  min-height:0;
+  grid-template-rows:auto auto minmax(0,1fr) auto;
+}
+.tn-data-source-picker-shell>[data-list]{
+  min-height:0;
+  max-height:none!important;
+  overflow:auto!important;
+  -webkit-overflow-scrolling:touch;
+}
+@media(max-height:820px){
+  .tn-data-source-picker-modal{max-height:calc(100dvh - 170px)!important;}
+}
+</style>
 </head>
 <style id="plan-093c-runtime-minimized-css">
 .tn-widget.tn-runtime-minimized{visibility:hidden!important;opacity:0!important;pointer-events:none!important;user-select:none!important}
@@ -9602,7 +9627,51 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       this.closeLayoutPopover();
       return true;
     }
+    async showDataWidgetSourceDialog(id){
+      const widget=TN.runtime.activeWidgets.find(item=>String(item.id)===String(id));
+      if(!widget||widget.type!=='data')return false;
+      this.closeLayoutPopover();
+      const sessionId=TN.runtime.activeSession?.id||null,currentId=String(widget.content?.datasetId||'');
+      let datasets=await this.dataManager.listAvailable(sessionId);
+      if(currentId&&!datasets.some(item=>String(item.id)===currentId)){
+        const current=await this.dataManager.get(currentId);if(current)datasets=[current,...datasets];
+      }
+      datasets=datasets.filter(item=>Array.isArray(item?.columns)&&Array.isArray(item?.rows));
+      const unique=new Map();for(const item of datasets)unique.set(String(item.id),item);datasets=[...unique.values()];
+      datasets.sort((a,b)=>{
+        const ac=String(a.id)===currentId?0:1,bc=String(b.id)===currentId?0:1;
+        return ac-bc||String(a.name||'').localeCompare(String(b.name||''),'da',{numeric:true,sensitivity:'base'});
+      });
+      const shell=document.createElement('div');shell.className='tn-data-source-picker-shell';shell.style.cssText='display:grid;gap:12px;min-width:min(720px,78vw);';
+      shell.innerHTML=`<label style="display:grid;gap:6px;font-weight:800">Søg efter datakilde<input type="search" data-search autocomplete="off" placeholder="Skriv navn, type eller kolonne …" style="min-height:44px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);font:inherit"></label><div data-current style="font-size:.92rem;color:var(--muted)"></div><div data-list role="listbox" aria-label="Datakilder" style="display:grid;gap:8px;min-height:0;overflow:auto;padding:2px 4px 8px 0;overscroll-behavior:contain"></div><div data-empty class="tn-empty-state" hidden>Ingen datakilder matcher søgningen.</div>`;
+      const search=shell.querySelector('[data-search]'),list=shell.querySelector('[data-list]'),empty=shell.querySelector('[data-empty]'),currentLine=shell.querySelector('[data-current]');
+      let selectedId=currentId;
+      const currentDataset=datasets.find(item=>String(item.id)===currentId);currentLine.textContent=currentDataset?`Aktuel datakilde: ${currentDataset.name}`:'Widgetten har ingen gyldig datakilde.';
+      const normalized=value=>String(value??'').toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
+      const paint=()=>{
+        const query=normalized(search.value).trim();list.replaceChildren();let count=0;
+        for(const dataset of datasets){
+          const haystack=normalized([dataset.name,dataset.type,dataset.scope,...(dataset.columns||[])].join(' '));if(query&&!haystack.includes(query))continue;count++;
+          const button=document.createElement('button');button.type='button';button.dataset.datasetId=dataset.id;button.setAttribute('role','option');button.setAttribute('aria-selected',String(String(dataset.id)===String(selectedId)));button.style.cssText='display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:11px 12px;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);color:var(--text);font:inherit;';
+          const selected=String(dataset.id)===String(selectedId),active=String(dataset.id)===currentId,scope=dataset.scope==='common'?'Fælles data':'Sessionsdata';
+          button.innerHTML=`<span aria-hidden="true" style="font-size:1.15rem">${selected?'◉':'○'}</span><span style="min-width:0"><strong style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${TN.escapeHtml(dataset.name||'Uden navn')}</strong><small style="display:block;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${TN.escapeHtml(scope)} · ${Number(dataset.rows?.length||0)} rækker · ${Number(dataset.columns?.length||0)} kolonner</small></span>${active?'<span style="font-size:.78rem;font-weight:900;padding:4px 7px;border:1px solid var(--line);border-radius:999px">AKTUEL</span>':'<span></span>'}`;
+          button.onclick=()=>{selectedId=String(dataset.id);paint();};button.ondblclick=()=>apply();list.append(button);
+        }
+        empty.hidden=count!==0;list.hidden=count===0;
+      };
+      const apply=async()=>{
+        if(!selectedId)return this.toast('Vælg en datakilde'),false;
+        const dataset=await this.dataManager.get(selectedId);if(!dataset)return this.toast('Datakilden findes ikke længere'),false;
+        widget.content=widget.content||{};widget.content.datasetId=dataset.id;
+        await this.widgetManager.update(widget,{immediate:true});await this.refreshWidgetView(widget.id);
+        this.toast(`Datakilde valgt: ${dataset.name}`);return true;
+      };
+      search.addEventListener('input',paint);paint();
+      this.modalManager.open({title:'Vælg datakilde',body:shell,className:'tn-modal-wide tn-data-source-picker-modal',actions:[{label:'Annuller',run:()=>{}},{label:'Brug datakilde',primary:true,run:apply}]});
+      requestAnimationFrame(()=>search.focus({preventScroll:true}));return true;
+    }
     showWidgetMoreMenu(id,anchorButton){const widget=TN.runtime.activeWidgets.find(w=>w.id===id);if(!widget)return;this.closeLayoutPopover();const pop=document.createElement('div');pop.className='tn-widget-more-popover';const add=(icon,label,run,{disabled=false}={})=>{const button=document.createElement('button');button.type='button';button.disabled=disabled;button.innerHTML=`<span>${icon}</span><b>${TN.escapeHtml(label)}</b>`;button.onclick=run;pop.append(button);};
+      if(widget.type==='data')add('▦','Vælg datakilde …',()=>this.showDataWidgetSourceDialog(id));
       add(widget.settings?.locked?'🔓':'🔒',widget.settings?.locked?'Lås placering op':'Lås placering',()=>this.setWidgetLocked(id));
       const focused=TN.runtime.focusWidgetId===id;add(focused?'◉':'◎',focused?'Afslut fokus':'Fokusér',()=>{this.closeLayoutPopover();this.toggleFocus(id);});
       const rotationOn=!!widget.settings?.rotationHandleVisible;add('↻',`Rotation: ${rotationOn?'Til':'Fra'}`,()=>this.setWidgetRotationHandleVisible(id,!rotationOn),{disabled:!!widget.settings?.locked||!!widget.settings?.maximized});
