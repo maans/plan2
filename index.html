@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="dark light" name="color-scheme"/>
-<title>Plan 2.0 · billedvendespil filnavn-resolver rettet</title>
+<title>Plan 2.0 · elevportrætter på file-protokol · v2.4</title>
 <meta content="Plan" name="application-name"/>
 <meta content="Plan" name="apple-mobile-web-app-title"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -210,17 +210,32 @@
     if(!media&&file){if(!cache.list)cache.list=app.mediaManager.list().catch(()=>[]);const wanted=norm(clean(file).split(/[\\/]/).pop());media=(await cache.list).find(item=>norm(item?.name||item?.meta?.originalName)===wanted)||null;}
     return media;
   }
+  function addPortraitSource(sources,seen,value){const src=clean(value);if(src&&!seen.has(src)){seen.add(src);sources.push(src);}}
   function localPortraitUrl(file){const name=clean(file).split(/[\\/]/).pop();if(!name)return'';try{return new URL(`demo-data/elevbilleder/${encodeURIComponent(name)}`,document.baseURI).href;}catch{return`./demo-data/elevbilleder/${encodeURIComponent(name)}`;}}
+  async function hydratedPortraitObject(app,dataset,object){
+    if(fileOf(object,''))return object;
+    const sourceId=clean(dataset?.meta?.sourceDatasetId);if(!sourceId)return object;
+    const source=await app.dataManager.get(sourceId).catch(()=>null);if(!source)return object;
+    const wanted=norm(object?.ElevID||object?.Unilogin||object?.['UNI-login']||object?.['UNI login']);if(!wanted)return object;
+    const idIndex=(source.columns||[]).findIndex(column=>/^(unilogin|uni.?login|elev.?id|student.?id)$/i.test(clean(column)));if(idIndex<0)return object;
+    const row=(source.rows||[]).find(candidate=>norm(Array.isArray(candidate)?candidate[idIndex]:candidate?.[source.columns[idIndex]])===wanted);
+    return row?app.relationManager.rowObject(source,row):object;
+  }
   async function loadPortrait(app,node,dataset,object,name,revokes){
     if(!node||node.dataset.imageState==='ready'||node.dataset.imageState==='loading')return;
-    node.dataset.imageState='loading';const file=fileOf(object,name),index=await portraitIndex(app,dataset),short=norm(file.split(/[\\/]/).pop()),id=index.byFile.get(short)||index.byName.get(norm(name))||'';
-    const media=await mediaFor(app,id,file),sources=[];
+    node.dataset.imageState='loading';object=await hydratedPortraitObject(app,dataset,object);
+    const file=fileOf(object,name),index=await portraitIndex(app,dataset),short=norm(file.split(/[\\/]/).pop()),id=index.byFile.get(short)||index.byName.get(norm(name))||'';
+    const media=await mediaFor(app,id,file),sources=[],seen=new Set();
     const blob=media?.blob instanceof Blob&&media.blob.size?media.blob:media?.originalBlob instanceof Blob&&media.originalBlob.size?media.originalBlob:null;
-    if(blob){const url=URL.createObjectURL(blob);sources.push(url);revokes.push(()=>URL.revokeObjectURL(url));}
-    if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))sources.push(media.dataUrl);
-    const fallback=localPortraitUrl(media?.meta?.originalName||file);if(fallback&&!sources.includes(fallback))sources.push(fallback);
+    if(blob){const url=URL.createObjectURL(blob);addPortraitSource(sources,seen,url);revokes.push(()=>URL.revokeObjectURL(url));}
+    addPortraitSource(sources,seen,media?.dataUrl);addPortraitSource(sources,seen,media?.originalDataUrl);
+    addPortraitSource(sources,seen,media?.meta?.webFallbackUrl);addPortraitSource(sources,seen,media?.meta?.githubFallbackUrl);
+    const assetPath=clean(media?.meta?.assetPath);if(assetPath){try{addPortraitSource(sources,seen,new URL(assetPath,document.baseURI).href);}catch{addPortraitSource(sources,seen,assetPath);}}
+    const fallbackName=clean(media?.meta?.originalName||file).split(/[\\/]/).pop();
+    addPortraitSource(sources,seen,localPortraitUrl(fallbackName));
+    if(fallbackName){addPortraitSource(sources,seen,`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);addPortraitSource(sources,seen,`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);}
     if(!sources.length){node.dataset.imageState='missing';return;}
-    node.querySelectorAll('img').forEach(image=>image.remove());const image=document.createElement('img');image.alt=`Portræt af ${name||'elev'}`;image.loading='lazy';image.decoding='async';let cursor=0;
+    node.querySelectorAll('img').forEach(image=>image.remove());const image=document.createElement('img');image.alt=`Portræt af ${name||'elev'}`;image.loading='eager';image.decoding='async';let cursor=0;
     image.onload=()=>{node.dataset.imageState='ready';node.setAttribute('aria-label',image.alt);};
     image.onerror=()=>{cursor++;if(cursor<sources.length)image.src=sources[cursor];else{node.dataset.imageState='missing';image.remove();}};
     node.prepend(image);image.src=sources[0];
@@ -268,9 +283,9 @@
     const open=async(item,tab='student')=>{await app.studentFocus.open({datasetId:base.id,rowKey:item.rowKey,rowKeys,tab});if(!danish)removeNonDanishTools(app);};
     for(const item of items){const card=document.createElement('article');card.className='tn-matrix-card tn-v512-student-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label',`Åbn elevkort for ${item.title}`);const portrait=frame(item.title),copy=document.createElement('div');copy.className='tn-v512-student-copy';copy.innerHTML=`<strong>${esc(item.title)}</strong><small>${esc(secondary(item.object)||base.name||'')}</small>`;card.append(portrait,copy);card.onclick=event=>{if(!event.target.closest('button,a,input,select,textarea'))open(item).catch(error=>app.toast(error?.message||'Elevkortet kunne ikke åbnes'));};card.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open(item).catch(error=>app.toast(error?.message||'Elevkortet kunne ikke åbnes'));}};grid.append(card);pending.push({portrait,item});}
     if(!items.length)grid.innerHTML='<div class="tn-empty">Ingen elevkort i matricen.</div>';
-    let observer=null;const begin=entry=>loadPortrait(app,entry.portrait,base,entry.item.object,entry.item.title,revokes).catch(error=>console.warn('Portrættet kunne ikke indlæses',error));
-    requestAnimationFrame(()=>{if('IntersectionObserver'in window){const byNode=new Map(pending.map(entry=>[entry.portrait,entry]));observer=new IntersectionObserver(entries=>{for(const seen of entries){if(!seen.isIntersecting)continue;observer.unobserve(seen.target);const entry=byNode.get(seen.target);if(entry)begin(entry);}},{root:body,rootMargin:'260px 0px',threshold:0.01});pending.forEach(entry=>observer.observe(entry.portrait));}else Promise.allSettled(pending.map(begin));});
-    return()=>{observer?.disconnect();for(const revoke of revokes)try{revoke();}catch(_){}};
+    const begin=entry=>loadPortrait(app,entry.portrait,base,entry.item.object,entry.item.title,revokes).catch(error=>console.warn('Portrættet kunne ikke indlæses',error));
+    requestAnimationFrame(async()=>{for(let offset=0;offset<pending.length;offset+=6){await Promise.allSettled(pending.slice(offset,offset+6).map(begin));await new Promise(resolve=>setTimeout(resolve,0));}});
+    return()=>{for(const revoke of revokes)try{revoke();}catch(_){}};
   }
   function install(app){
     if(!app?.widgetManager)return false;const current=app.widgetManager.definition('card-matrix');if(!current?.mount||current.mount.__planV093deLightMatrix)return false;const previous=current.mount;
@@ -5218,19 +5233,34 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     const reg=(type,def)=>app.widgetManager.register(type,def);
     reg('text',{mount(ctx){if(TN.runtime.mode==='edit')return mountEditableText(ctx);renderTextPreview(ctx.widget,ctx.body);},unmount(){}});
     reg('list',{mount(ctx){if(TN.runtime.mode==='edit')return mountEditableText(ctx,{list:true});const {widget,body}=ctx,tag=widget.content.style==='numbered'?'ol':'ul',list=document.createElement(tag);list.className='tn-list-preview';list.style.fontSize=`${widget.content.fontSize||20}px`;for(const item of widget.content.items||[]){const li=document.createElement('li');li.textContent=item;list.append(li);}body.append(list);},unmount(){}});
-    reg('image',{async mount({widget,body,app}){const img=document.createElement('img');img.className='tn-image-content';img.alt=widget.content.alt||widget.title||'';img.style.objectFit=widget.content.fit||'contain';body.append(img);let src=widget.content.src||'';if(widget.content.mediaId){const found=await mediaSource(app,widget);src=found.url;}img.src=src||app.placeholderImage;},unmount({widget}){releaseWidgetUrl(widget);}});
+    reg('image',{async mount({widget,body,app}){
+      const img=document.createElement('img');img.className='tn-image-content';img.alt=widget.content.alt||widget.title||'';img.style.objectFit=widget.content.fit||'contain';body.append(img);
+      if(TN.AssetResolver?.bindImage){
+        const binding=await TN.AssetResolver.bindImage(app,img,{...(widget.content||{}),title:widget.title,alt:img.alt},{placeholderSrc:app.placeholderImage});
+        return()=>binding?.release?.();
+      }
+      let src=widget.content.src||'';if(widget.content.mediaId){const found=await mediaSource(app,widget);src=found.url;}img.src=src||app.placeholderImage;
+    },unmount({widget}){releaseWidgetUrl(widget);}});
     reg('image-matrix',{async mount({widget,body,app}){
-      const items=Array.isArray(widget.content?.items)?widget.content.items.filter(item=>item&&(item.mediaId||item.src)):[],pageSize=TN.clamp(Math.round(Number(widget.content?.pageSize)||12),4,30),pageCount=Math.max(1,Math.ceil(items.length/pageSize));
+      const items=Array.isArray(widget.content?.items)?widget.content.items.filter(item=>item&&(item.mediaId||item.src||item.dataUrl||item.fileName||item.name||item.assetPath||item.localPath)):[],pageSize=TN.clamp(Math.round(Number(widget.content?.pageSize)||12),4,30),pageCount=Math.max(1,Math.ceil(items.length/pageSize));
       widget.content.page=TN.clamp(Math.round(Number(widget.content?.page)||0),0,pageCount-1);widget.content.pageSize=pageSize;
       const root=document.createElement('div');root.className='tn-image-matrix';root.innerHTML='<div class="tn-image-matrix-grid" data-grid></div><div class="tn-image-matrix-nav"><button type="button" data-prev aria-label="Forrige side">‹</button><div class="tn-image-matrix-page"><span data-page></span><small data-summary></small></div><button type="button" data-next aria-label="Næste side">›</button></div>';body.append(root);
-      const grid=root.querySelector('[data-grid]'),pageLabel=root.querySelector('[data-page]'),summary=root.querySelector('[data-summary]'),prev=root.querySelector('[data-prev]'),next=root.querySelector('[data-next]');let urls=[],renderToken=0;
-      const release=()=>{for(const url of urls)try{URL.revokeObjectURL(url);}catch(_){}urls=[];};
+      const grid=root.querySelector('[data-grid]'),pageLabel=root.querySelector('[data-page]'),summary=root.querySelector('[data-summary]'),prev=root.querySelector('[data-prev]'),next=root.querySelector('[data-next]');let releases=[],renderToken=0;
+      const release=()=>{for(const dispose of releases)try{dispose?.();}catch(_){}releases=[];};
       const setGridShape=()=>{const rect=grid.getBoundingClientRect(),count=Math.min(pageSize,Math.max(1,items.length-widget.content.page*pageSize));let cols=rect.width<520?3:4;if(count<=6)cols=Math.min(3,count);cols=Math.max(1,Math.min(cols,count));const rows=Math.max(1,Math.ceil(count/cols));grid.style.setProperty('--tn-image-cols',String(cols));grid.style.setProperty('--tn-image-rows',String(rows));};
       const render=async()=>{const token=++renderToken;release();grid.replaceChildren();const start=widget.content.page*pageSize,visible=items.slice(start,start+pageSize);pageLabel.textContent=pageCount>1?`Side ${widget.content.page+1} / ${pageCount}`:`${items.length} billede${items.length===1?'':'r'}`;summary.textContent=pageCount>1?`${start+1}–${Math.min(items.length,start+visible.length)} af ${items.length}`:(widget.title||'Billedmatrix');prev.disabled=pageCount<2;next.disabled=pageCount<2;setGridShape();
         for(let localIndex=0;localIndex<visible.length;localIndex++){
           const item=visible[localIndex],globalIndex=start+localIndex,button=document.createElement('button');button.type='button';button.className='tn-image-matrix-tile';button.setAttribute('aria-label',`Åbn ${item.name||item.alt||`billede ${globalIndex+1}`}`);const img=document.createElement('img');img.alt=item.alt||item.name||`Billede ${globalIndex+1}`;img.draggable=false;const label=document.createElement('span');label.textContent=item.name||item.alt||`Billede ${globalIndex+1}`;button.append(img,label);grid.append(button);
-          try{let source=String(item.src||'');if(item.mediaId){const media=await app.mediaManager.get(item.mediaId);if(media?.blob){source=URL.createObjectURL(media.blob);urls.push(source);}}if(token!==renderToken)return;if(source)img.src=source;else{button.classList.add('is-missing');button.replaceChildren(document.createTextNode('Billedet mangler'));button.disabled=true;}}
-          catch(error){button.classList.add('is-missing');button.replaceChildren(document.createTextNode('Kunne ikke åbne billedet'));button.disabled=true;}
+          try{
+            if(TN.AssetResolver?.bindImage){
+              const binding=await TN.AssetResolver.bindImage(app,img,{...item,fileName:item.fileName||item.name,alt:img.alt},{placeholder:false,onMissing:()=>{button.classList.add('is-missing');button.replaceChildren(document.createTextNode('Billedet mangler'));button.disabled=true;}});
+              releases.push(()=>binding?.release?.());
+              if(token!==renderToken)return;
+            }else{
+              let source=String(item.src||'');if(item.mediaId){const media=await app.mediaManager.get(item.mediaId);if(media?.blob){source=URL.createObjectURL(media.blob);releases.push(()=>URL.revokeObjectURL(source));}}
+              if(token!==renderToken)return;if(source)img.src=source;else{button.classList.add('is-missing');button.replaceChildren(document.createTextNode('Billedet mangler'));button.disabled=true;}
+            }
+          }catch(error){button.classList.add('is-missing');button.replaceChildren(document.createTextNode('Kunne ikke åbne billedet'));button.disabled=true;}
           button.addEventListener('pointerdown',event=>event.stopPropagation());button.onclick=event=>{event.preventDefault();event.stopPropagation();app.openImageLightbox(items,globalIndex,{title:widget.title,sourceWidgetId:widget.id,returnFocus:button});};
         }
         setGridShape();
@@ -8445,7 +8475,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       return {valid:errors.length===0,errors:[...new Set(errors)],warnings:[...new Set(warnings)],counts:actual};
     }
     async buildPackage(definition){
-      const course=await this.saveDefinition(definition),payload=await this.app.backupManager.exportNext(course.sessionIds,{includeMedia:true,kind:'course-package'});payload.format='tavle-next-course-package';payload.backupKind='course-package';payload.coursePackageVersion=1;payload.course={id:course.id,title:course.title,subject:course.subject,schoolYear:course.schoolYear,sessionIds:[...course.sessionIds],exportedAt:TN.now(),sourceAppVersion:TN.version};payload.manifest={...(payload.manifest||{}),courseId:course.id,courseTitle:course.title,courseSessionIds:[...course.sessionIds]};payload.manifest.packageHash=await TN.hashText(TN.stableStringify({course:payload.course,contentHash:payload.manifest.contentHash,counts:payload.manifest.counts}));const verification=await this.verifyPackage(payload);if(!verification.valid)throw new Error(`Årsforløbspakken kunne ikke godkendes: ${verification.errors.join(' · ')}`);return {course,payload,verification};
+      const course=await this.saveDefinition(definition),payload=await this.app.backupManager.exportNext(course.sessionIds,{includeMedia:false,kind:'course-package'});payload.format='tavle-next-course-package';payload.backupKind='course-package';payload.coursePackageVersion=1;payload.course={id:course.id,title:course.title,subject:course.subject,schoolYear:course.schoolYear,sessionIds:[...course.sessionIds],exportedAt:TN.now(),sourceAppVersion:TN.version};payload.manifest={...(payload.manifest||{}),courseId:course.id,courseTitle:course.title,courseSessionIds:[...course.sessionIds]};payload.manifest.packageHash=await TN.hashText(TN.stableStringify({course:payload.course,contentHash:payload.manifest.contentHash,counts:payload.manifest.counts}));const verification=await this.verifyPackage(payload);if(!verification.valid)throw new Error(`Årsforløbspakken kunne ikke godkendes: ${verification.errors.join(' · ')}`);return {course,payload,verification};
     }
     async createBlank({title='Nyt årsforløb',subject='',schoolYear=''}={}){
       const session=await this.app.sessionManager.create(String(title||'Nyt årsforløb').trim()||'Nyt årsforløb'),courseId=`course_${TN.slugify(title)||'nyt'}_${Date.now().toString(36)}`;session.meta={...(session.meta||{}),courseId,courseTitle:String(title||'Nyt årsforløb').trim()||'Nyt årsforløb',courseSubject:String(subject||'').trim(),courseSchoolYear:String(schoolYear||'').trim(),courseOrder:1,courseSessionIds:[String(session.id)],courseSequenceVersion:this.sequenceVersion,courseSequenceSource:'metadata'};await this.app.storage.put('sessions',session);this.app.sessionManager.updateRegistry(session.id,session.title);const board=await this.app.boardManager.get(session.activeBoardId);if(board){board.title='Overblik';await this.app.storage.put('boards',board);}return {id:courseId,title:session.meta.courseTitle,subject:session.meta.courseSubject,schoolYear:session.meta.courseSchoolYear,sessionIds:[session.id],sessions:[session],newSession:session};
@@ -40848,9 +40878,18 @@ kompatible datasæt. Ingen kalenderdata migreres eller ændres ved almindelig vi
       const player=document.createElement(kind==='audio'?'audio':'video');player.controls=true;player.playsInline=true;player.preload='metadata';player.src=source.url;player.className=`tn-resource-player tn-resource-player-${kind}`;if(kind==='video')player.style.objectFit='contain';container.append(player);player.addEventListener('play',()=>app.pauseOtherMediaPlayers?.(player));return()=>{try{player.pause();player.removeAttribute('src');player.load?.();}catch(_){}if(source.revoke)try{URL.revokeObjectURL(source.url);}catch(_){}};
     }
     if(kind==='image'){
+      const image=document.createElement('img');
+      image.className='tn-resource-image-preview';
+      image.alt=item.title||item.fileName||'Billede';
+      image.draggable=false;
+      container.append(image);
+      if(TN.AssetResolver?.bindImage){
+        const binding=await TN.AssetResolver.bindImage(app,image,{...item,fileName:item.fileName||item.name||item.title,alt:image.alt},{placeholder:false,defaultFolder:'demo-data/elevbilleder',onMissing:()=>{image.remove();container.innerHTML='<div class="tn-resource-missing">Billedet kunne ikke åbnes.</div>';}});
+        return()=>binding?.release?.();
+      }
       const source=await mediaSourceFromItem(app,item);
-      if(!source.url){container.innerHTML='<div class="tn-resource-missing">Billedet kunne ikke åbnes.</div>';return()=>{};}
-      const image=document.createElement('img');image.className='tn-resource-image-preview';image.src=source.url;image.alt=item.title||'Billede';image.draggable=false;container.append(image);
+      if(!source.url){image.remove();container.innerHTML='<div class="tn-resource-missing">Billedet kunne ikke åbnes.</div>';return()=>{};}
+      image.src=source.url;
       return()=>{if(source.revoke)try{URL.revokeObjectURL(source.url);}catch(_){}};
     }
     if(kind==='pdf'){
@@ -42640,7 +42679,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   }
 
   async function createAutoDatasetForMatrix(app,widget){
-    const items=Array.isArray(widget.content?.items)?widget.content.items.filter(item=>item&&(item.mediaId||item.src)):[];
+    const items=Array.isArray(widget.content?.items)?widget.content.items.filter(item=>item&&(item.mediaId||item.src||item.fileName||item.name||item.assetPath||item.localPath)):[];
     if(!items.length)throw new Error('Billedmatrixen har ingen billeder');
     const columns=['KortID','Billedfil','Billedtitel','Forside','Bagside','BagsideTekst','Dansk','English','Deutsch','Français','Español','Kategori','Hint'];
     const objects=items.map((item,index)=>{const file=baseName(item.fileName||item.name||item.alt||`billede_${index+1}.png`),stem=stemTitle(file)||`Billede ${index+1}`;return{KortID:`K${String(index+1).padStart(3,'0')}`,Billedfil:file,Billedtitel:stem,Forside:'',Bagside:stem,BagsideTekst:stem,Dansk:'',English:'',Deutsch:'',Français:'',Español:'',Kategori:'',Hint:'Oprettet automatisk fra billedfilens navn. ID- og nummerdele er fjernet fra den viste titel.'};});
@@ -42709,28 +42748,8 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   }
 
   async function mediaUrl(app,card,urls){
-    if(typeof card?.src==='string'&&card.src)return card.src;
-    const cleanName=value=>String(value||'').split(/[\\/]/).pop().trim().toLocaleLowerCase('da-DK');
-    let media=null;
-    if(card?.mediaId)media=await app.mediaManager.get(card.mediaId).catch(()=>null);
-    if(!media&&card?.fileName){
-      const wanted=cleanName(card.fileName),all=await app.mediaManager.list().catch(()=>[]);
-      media=all.find(item=>cleanName(item?.name||item?.meta?.originalName||item?.fileName)===wanted)||null;
-    }
-    const blob=(media?.blob instanceof Blob&&media.blob.size)?media.blob:((media?.originalBlob instanceof Blob&&media.originalBlob.size)?media.originalBlob:null);
-    if(blob){const url=URL.createObjectURL(blob);urls.push(url);return url;}
-    if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))return media.dataUrl;
-    if(typeof media?.originalDataUrl==='string'&&media.originalDataUrl.startsWith('data:'))return media.originalDataUrl;
-    if(typeof media?.meta?.webFallbackUrl==='string'&&media.meta.webFallbackUrl)return media.meta.webFallbackUrl;
-    if(typeof media?.meta?.githubFallbackUrl==='string'&&media.meta.githubFallbackUrl)return media.meta.githubFallbackUrl;
-    const fallbackName=String(media?.meta?.originalName||card?.fileName||'').split(/[\\/]/).pop();
-    const assetPath=String(media?.meta?.assetPath||'');
-    if(assetPath){try{return new URL(assetPath,document.baseURI).href;}catch(_){return assetPath;}}
-    if(fallbackName){
-      if(/^https?:$/i.test(location.protocol))return `https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`;
-      try{return new URL(`demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`,document.baseURI).href;}catch(_){ }
-    }
-    return '';
+    if(TN.AssetResolver?.resolve){const resolved=await TN.AssetResolver.resolve(app,{...card,fileName:card?.fileName||card?.name,alt:card?.frontLabel||card?.fileName},{defaultFolder:'demo-data/elevbilleder'});for(const item of resolved.candidates||[])if(item.revoke)urls.push(item.src);return resolved.src;}
+    return typeof card?.src==='string'?card.src:'';
   }
   function orderedCards(content){const cards=Array.isArray(content.cards)?content.cards:[],byId=new Map(cards.map(card=>[String(card.id),card]));return Array.isArray(content.order)&&content.order.length?content.order.map(id=>byId.get(String(id))).filter(Boolean):cards.slice();}
   function frontText(card,mode){
@@ -42848,9 +42867,9 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   }
 
   function fallbackImageLightbox(app,items,startIndex,returnFocus){
-    const list=(items||[]).filter(item=>item&&(item.mediaId||item.src));
+    const list=(items||[]).filter(item=>item&&(item.mediaId||item.src||item.fileName||item.name||item.assetPath||item.localPath));
     if(!list.length)return false;
-    let index=Math.max(0,Math.min(list.length-1,startIndex||0)),objectUrl='',closed=false;
+    let index=Math.max(0,Math.min(list.length-1,startIndex||0)),binding=null,closed=false;
     const controller=new AbortController(),signal=controller.signal;
     const root=document.createElement('div');
     root.id='tnImageLightbox';root.className='is-open';root.tabIndex=-1;
@@ -42858,9 +42877,9 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     root.innerHTML='<div class="tn-image-lightbox-stage"><img class="tn-image-lightbox-image" alt="" draggable="false"></div><button type="button" class="tn-image-lightbox-close" aria-label="Luk">×</button><button type="button" class="tn-image-lightbox-prev" aria-label="Forrige">‹</button><button type="button" class="tn-image-lightbox-next" aria-label="Næste">›</button><div class="tn-image-lightbox-info"><span class="tn-image-lightbox-counter"></span><span class="tn-image-lightbox-name"></span></div>';
     document.body.append(root);document.body.classList.add('tn-image-lightbox-open');
     const img=root.querySelector('img'),counter=root.querySelector('.tn-image-lightbox-counter'),name=root.querySelector('.tn-image-lightbox-name');
-    const release=()=>{if(objectUrl){try{URL.revokeObjectURL(objectUrl);}catch(_){}objectUrl='';}};
+    const release=()=>{try{binding?.release?.();}catch(_){}binding=null;img.removeAttribute('src');};
     const close=()=>{if(closed)return;closed=true;controller.abort();release();root.remove();document.body.classList.remove('tn-image-lightbox-open');try{returnFocus?.focus?.({preventScroll:true});}catch(_){}};
-    const show=async delta=>{if(closed)return;release();index=(index+delta+list.length)%list.length;const item=list[index];counter.textContent=`${index+1} / ${list.length}`;name.textContent=item.name||item.alt||'Billede';img.alt=item.alt||item.name||'Billede';let src=item.src||'';try{if(item.mediaId){const media=await app.mediaManager.get(item.mediaId);if(media?.blob){src=URL.createObjectURL(media.blob);objectUrl=src;}}img.src=src;img.style.cssText='position:absolute;inset:0;margin:auto;max-width:86vw;max-height:86vh;width:auto;height:auto;object-fit:contain;';}catch(_){name.textContent=`${item.name||'Billede'} · kunne ikke åbnes`;}};
+    const show=async delta=>{if(closed)return;release();index=(index+delta+list.length)%list.length;const item=list[index];const label=item.name||item.fileName||item.alt||'Billede';counter.textContent=`${index+1} / ${list.length}`;name.textContent=label;img.alt=item.alt||label;img.style.cssText='position:absolute;inset:0;margin:auto;max-width:86vw;max-height:86vh;width:auto;height:auto;object-fit:contain;';try{if(TN.AssetResolver?.bindImage){binding=await TN.AssetResolver.bindImage(app,img,{...item,fileName:item.fileName||item.name,alt:item.alt||label},{placeholder:false,defaultFolder:'demo-data/elevbilleder',onMissing:()=>{name.textContent=`${label} · kunne ikke åbnes`;}});}else{let src=item.src||'';if(item.mediaId){const media=await app.mediaManager.get(item.mediaId);if(media?.blob){src=URL.createObjectURL(media.blob);binding={release:()=>URL.revokeObjectURL(src)};}}img.src=src;}}catch(_){name.textContent=`${label} · kunne ikke åbnes`;}};
     const nav=delta=>void show(delta);
     const keyHandler=e=>{if(closed)return;const key=e.key;if(key==='Escape'){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation?.();close();return;}if(key==='ArrowLeft'){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation?.();nav(-1);return;}if(key==='ArrowRight'){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation?.();nav(1);return;}};
     root.querySelector('.tn-image-lightbox-close').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();close();},{signal});
@@ -47782,8 +47801,11 @@ function requestResourcePackageFiles(app){
   const files=[...(input.files||[])];
   input.remove();
   if(!files.length)return;
-  if(typeof app.queueFiles==='function')app.queueFiles(files);
-  else if(typeof app.handleFiles==='function')void app.handleFiles(files);
+  /* Ressourceknappen ejer sin importkontekst. Gå direkte til den fælles
+     fil-dispatcher, så ZIP-filen først sniffes for plan-resources.json
+     i stedet for at queueFiles sender den til Planpakke-importøren. */
+  if(typeof app.handleFiles==='function')void app.handleFiles(files);
+  else if(typeof app.queueFiles==='function')app.queueFiles(files);
  },{once:true});
  input.addEventListener('cancel',()=>input.remove(),{once:true});
  input.click();
@@ -48310,7 +48332,7 @@ const personalKey=/elev|student|pupil|person|navn|name|mail|email|telefon|phone|
 const personalDataset=ds=>personalKey.test([ds?.name,ds?.title,ds?.type,ds?.meta?.kind,ds?.meta?.source].filter(Boolean).join(' '));
 function scrubPersonal(value){if(Array.isArray(value))return value.map(scrubPersonal);if(!value||typeof value!=='object')return value;const out={};for(const [key,val] of Object.entries(value)){if(personalKey.test(key)){if(Array.isArray(val))out[key]=[];else if(typeof val==='object'&&val)out[key]={};else out[key]='';continue;}out[key]=scrubPersonal(val);}return out;}
 function sharedPayload(payload){const out=clone(payload),removed=new Set((out.datasets||[]).filter(personalDataset).map(ds=>String(ds.id)));out.datasets=(out.datasets||[]).filter(ds=>!removed.has(String(ds.id))).map(scrubPersonal);out.sessions=(out.sessions||[]).map(scrubPersonal);out.boards=(out.boards||[]).map(scrubPersonal);out.widgets=(out.widgets||[]).map(widget=>{const copy=scrubPersonal(widget);for(const key of ['datasetId','sourceDatasetId','linkListDatasetId','notesDatasetId','groupSetId','resultDatasetId','outputDatasetId','timerLogDatasetId','pollDatasetId','calendarDatasetId'])if(copy.content&&removed.has(String(copy.content[key]||'')))delete copy.content[key];return copy;});out.manifest={...(out.manifest||{}),privacy:'personal-data-removed',removedDatasetIds:[...removed]};out.backupKind='share';return out;}
-function templatePayload(payload){const out=clone(payload);out.datasets=[];out.media=[];out.widgets=(out.widgets||[]).map(widget=>({...widget,content:{},meta:{...(widget.meta||{}),templateEmptied:true}}));out.boards=(out.boards||[]).map(board=>({...board,background:board.background?.kind==='color'?board.background:{kind:'color',value:'#14324a'}}));out.sessions=(out.sessions||[]).map(session=>({...session,meta:{...(session.meta||{}),template:true}}));out.manifest={...(out.manifest||{}),counts:{...(out.manifest?.counts||{}),datasets:0,media:0},referencedDatasetIds:[],referencedMediaIds:[],mediaBytes:0,template:true};out.backupKind='template';return out;}
+function templatePayload(payload){const out=clone(payload);out.datasets=[];out.media=(out.media||[]).map(media=>{const copy={...media};delete copy.blob;delete copy.originalBlob;delete copy.dataUrl;delete copy.originalDataUrl;return copy;});out.widgets=(out.widgets||[]).map(widget=>({...widget,content:clone(widget.content||{}),meta:{...(widget.meta||{}),templatePrepared:true}}));out.boards=(out.boards||[]).map(board=>({...board,background:board.background?.kind==='color'?board.background:{kind:'color',value:'#14324a'}}));out.sessions=(out.sessions||[]).map(session=>({...session,meta:{...(session.meta||{}),template:true}}));out.manifest={...(out.manifest||{}),counts:{...(out.manifest?.counts||{}),datasets:0,media:out.media.length},referencedDatasetIds:[],referencedMediaIds:[...new Set((out.media||[]).map(media=>String(media.id)).filter(Boolean))],mediaBytes:0,template:true,resourcePayloadsIncluded:false};out.backupKind='template';return out;}
 App.prototype.safetyCourse=async function(){const courses=await this.courseManager.listCourses(),id=String(TN.runtime.activeSession?.id||'');return courses.find(c=>c.sessionIds.map(String).includes(id))||courses[0]||null;};
 App.prototype.safetyExport=async function(kind,progress){
   let ids=[],label='',payload,name;
@@ -50581,6 +50603,50 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
   .tn-student-focus-hero.tn-student-focus-hero-with-portrait{grid-template-columns:minmax(82px,25%) minmax(0,1fr)!important}
 }
 </style>
+<!-- Plan 2.0 · fælles AssetResolver 1.7 -->
+<script id="plan2-asset-resolver-v1">
+(function(TN){
+'use strict';
+if(!TN||TN.AssetResolver?.version)return;
+const clean=v=>String(v??'').trim();
+const basename=v=>clean(v).split(/[\\/]/).pop();
+const norm=v=>basename(v).toLocaleLowerCase('da-DK');
+const placeholder=(label='Billede')=>`data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><rect width="640" height="480" fill="#e5e7eb"/><path d="M120 360l105-120 70 76 72-84 153 128H120z" fill="#94a3b8"/><circle cx="420" cy="145" r="46" fill="#cbd5e1"/><text x="320" y="430" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" fill="#475569">${String(label).replace(/[<>&]/g,'')}</text></svg>`)}`;
+function add(list,seen,src,kind,revoke=null){src=clean(src);if(!src||seen.has(src))return;seen.add(src);list.push({src,kind,revoke});}
+async function mediaFor(app,ref){
+ let media=null;
+ if(ref?.mediaId)media=await app?.mediaManager?.get?.(ref.mediaId).catch(()=>null);
+ if(!media&&ref?.fileName&&app?.mediaManager?.list){const wanted=norm(ref.fileName),all=await app.mediaManager.list().catch(()=>[]);media=all.find(item=>norm(item?.name||item?.meta?.originalName||item?.fileName)===wanted)||null;}
+ return media;
+}
+async function candidates(app,ref={},options={}){
+ if(typeof ref==='string')ref={src:ref};
+ const list=[],seen=new Set(),media=await mediaFor(app,ref);
+ const direct=clean(ref.src||ref.dataUrl);
+ if(/^data:/i.test(direct))add(list,seen,direct,'data');
+ const addMedia=m=>{const blob=m?.blob instanceof Blob&&m.blob.size?m.blob:m?.originalBlob instanceof Blob&&m.originalBlob.size?m.originalBlob:null;if(blob){const url=URL.createObjectURL(blob);add(list,seen,url,'blob',()=>URL.revokeObjectURL(url));}for(const value of [m?.dataUrl,m?.originalDataUrl])if(/^data:/i.test(clean(value)))add(list,seen,value,'data');};
+ addMedia(media);
+ const path=clean(ref.assetPath||media?.meta?.assetPath||ref.localPath);
+ const file=basename(ref.fileName||media?.meta?.originalName||media?.name||ref.name||'');
+ const tauri=globalThis.__TAURI__?.core?.convertFileSrc||globalThis.__TAURI__?.tauri?.convertFileSrc;
+ if(tauri&&path){try{add(list,seen,tauri(path),'tauri');}catch(_){}}
+ if(direct&&!/^data:/i.test(direct))add(list,seen,direct,/^https:/i.test(direct)?'https':'direct');
+ for(const value of [ref.webFallbackUrl,media?.meta?.webFallbackUrl,ref.githubFallbackUrl,media?.meta?.githubFallbackUrl])add(list,seen,value,'https');
+ /* Elevportrætter skal også kunne hentes, når den monolitiske app åbnes som file:// på iPad.
+    Elevkortets portrætejer har altid haft disse HTTPS-fallbacks; billedmatrix og
+    billedvendespil skal bruge den samme kildevej. */
+ if(file&&options.publicFallback!==false){add(list,seen,`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(file)}`,'https');add(list,seen,`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(file)}`,'https');}
+ if(path){try{add(list,seen,new URL(path,document.baseURI).href,'relative');}catch(_){add(list,seen,path,'relative');}}
+ if(!path&&file&&options.defaultFolder!==false){const folder=clean(options.defaultFolder||'demo-data/elevbilleder').replace(/\/$/,'');try{add(list,seen,new URL(`${folder}/${encodeURIComponent(file)}`,document.baseURI).href,'relative');}catch(_){}}
+ if(options.placeholder!==false)add(list,seen,options.placeholderSrc||placeholder(ref.alt||ref.title||file||'Billede'),'placeholder');
+ return list;
+}
+async function resolve(app,ref,options={}){const list=await candidates(app,ref,options),first=list[0]||null;return first?{...first,candidates:list,release:()=>list.forEach(item=>{try{item.revoke?.();}catch(_){}})}:{src:'',kind:'missing',candidates:[],release:()=>{}};}
+async function bindImage(app,img,ref,options={}){const list=await candidates(app,ref,options);let index=0,released=false;const release=()=>{if(released)return;released=true;for(const item of list)try{item.revoke?.();}catch(_){}};if(!list.length)return {release,candidates:list};img.onerror=()=>{index++;if(index<list.length)img.src=list[index].src;else options.onMissing?.(img);};img.src=list[0].src;return {release,candidates:list};}
+TN.AssetResolver=Object.freeze({version:'1.8-file-portrait',candidates,resolve,bindImage,placeholder});
+window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
+})(window.TavleNext);
+</script>
 <script id="plan-v093dc-student-portrait-standard-owner">
 (function(TN){
   'use strict';
@@ -50673,27 +50739,8 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
     return (await cache.list).find(item=>norm(item?.name||item?.meta?.originalName)===wanted)||null;
   }
   async function sourcesFor(app,{file,mediaId}){
-    const sources=[],seen=new Set(),add=(src,revoke=null)=>{src=String(src||'');if(!src||seen.has(src))return;seen.add(src);sources.push({src,revoke});};
-    const addMedia=media=>{
-      const blob=media?.blob instanceof Blob&&media.blob.size?media.blob:media?.originalBlob instanceof Blob&&media.originalBlob.size?media.originalBlob:null;
-      if(blob){const src=URL.createObjectURL(blob);add(src,()=>URL.revokeObjectURL(src));}
-      if(typeof media?.dataUrl==='string'&&media.dataUrl.startsWith('data:'))add(media.dataUrl);
-      if(typeof media?.originalDataUrl==='string'&&media.originalDataUrl.startsWith('data:'))add(media.originalDataUrl);
-    };
-    let media=await mediaById(app,mediaId);
-    if(!media)media=await mediaByFile(app,file);
-    addMedia(media);
-    const fallbackName=String(media?.meta?.originalName||file||'').split(/[\/]/).pop();
-    const localPath=String(media?.meta?.assetPath||`demo-data/elevbilleder/${fallbackName}`);
-    try{add(new URL(localPath.split('/').map((part,index)=>index?encodeURIComponent(part):part).join('/'),document.baseURI).href);}catch{add(fallbackUrl(fallbackName));}
-    const browserNetwork=/^https?:$/i.test(location.protocol);
-    if(browserNetwork){
-      add(media?.meta?.webFallbackUrl);
-      add(media?.meta?.githubFallbackUrl);
-      add(`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);
-      add(`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);
-    }
-    return sources;
+    if(TN.AssetResolver?.candidates)return TN.AssetResolver.candidates(app,{fileName:file,mediaId,alt:file},{defaultFolder:'demo-data/elevbilleder'});
+    return [{src:fallbackUrl(file),revoke:null}].filter(item=>item.src);
   }
     function frame(className,name){
     const figure=document.createElement('figure');figure.className=`tn-student-portrait-frame ${className}`;figure.dataset.imageState='missing';figure.setAttribute('aria-label',`Portræt af ${name||'elev'} mangler`);figure.innerHTML=silhouette();return figure;
@@ -50715,20 +50762,34 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
     const hold=object?.Danskhold||object?.Faghold||'';
     return [year?`${year}. årgang`:'',contact,hold].filter(Boolean).join(' · ')||dataset?.name||'';
   }
+  async function sourceRecord(app,dataset,rowKey,fallbackObject=null){
+    const sourceId=String(dataset?.meta?.sourceDatasetId||'');
+    if(!sourceId)return {dataset,object:fallbackObject};
+    const source=await app.dataManager.get(sourceId).catch(()=>null);if(!source)return {dataset,object:fallbackObject};
+    const wanted=String(rowKey||'');
+    const sourceItem=app.relationManager.studentRows(source).find(item=>String(item.rowKey)===wanted);
+    return {dataset:source,object:sourceItem?.object||fallbackObject};
+  }
   async function decorateStudentCard(context,revokes){
     const panel=context.body.querySelector('.tn-student-card .tn-card-panel');if(!panel||panel.querySelector(':scope > .tn-student-portrait-standard'))return;
     const resolved=await context.app.relationManager.resolveCard(context.widget);if(!resolved)return;
+    const record=await sourceRecord(context.app,resolved.dataset,resolved.rowKey||context.widget.content?.rowKey,resolved.object);
     panel.querySelector(':scope > .tn-student-portrait')?.remove();
     const hero=document.createElement('section');hero.className='tn-student-portrait-standard';
     const portrait=frame('tn-student-portrait-large',resolved.title),copy=document.createElement('div');copy.className='tn-student-portrait-standard-copy';
-    const strong=document.createElement('strong');strong.textContent=resolved.title||'Elev';const small=document.createElement('small');small.textContent=secondaryText(resolved.object,resolved.dataset);copy.append(strong,small);hero.append(portrait,copy);panel.prepend(hero);
-    await fillFrame(context.app,portrait,resolved.dataset,resolved.object,resolved.title,revokes);
+    const strong=document.createElement('strong');strong.textContent=resolved.title||'Elev';const small=document.createElement('small');small.textContent=secondaryText(record.object,resolved.dataset);copy.append(strong,small);hero.append(portrait,copy);panel.prepend(hero);
+    await fillFrame(context.app,portrait,record.dataset,record.object,resolved.title,revokes);
   }
   async function decorateMatrix(context,revokes){
     if((context.widget.content?.kind||'student')!=='student')return;
     const dataset=await context.app.dataManager.get(context.widget.content?.datasetId);if(!dataset)return;
     const allowed=new Set((context.widget.content?.rowKeys||[]).map(String));
     const items=context.app.relationManager.studentRows(dataset).filter(item=>!allowed.size||allowed.has(String(item.rowKey)));
+    let portraitDataset=dataset,portraitObjects=new Map();
+    if(dataset.meta?.sourceDatasetId){
+      const source=await context.app.dataManager.get(dataset.meta.sourceDatasetId).catch(()=>null);
+      if(source){portraitDataset=source;for(const entry of context.app.relationManager.studentRows(source))portraitObjects.set(String(entry.rowKey),entry.object);}
+    }
     const byName=new Map();for(const item of items){const key=norm(item.title);if(!byName.has(key))byName.set(key,[]);byName.get(key).push(item);}
     const isDanishGroup=String(dataset.type||'')==='subject-group'&&
       String(dataset.meta?.courseKey||'')==='dansk-2026-27'&&
@@ -50757,19 +50818,26 @@ kort-/matrixejere ikke kan fjerne billedvisningen.
         card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open();}});
       }
       actions?.remove();
-      pending.push({portrait,item});
+      pending.push({portrait,item,portraitObject:portraitObjects.get(String(item.rowKey))||item.object});
     }
     if(!pending.length)return null;
-    if('IntersectionObserver'in window){
-      const byFrame=new Map(pending.map(entry=>[entry.portrait,entry]));
-      const observer=new IntersectionObserver(entries=>{
-        for(const entry of entries){if(!entry.isIntersecting)continue;observer.unobserve(entry.target);const found=byFrame.get(entry.target);if(found)fillFrame(context.app,found.portrait,dataset,found.item.object,found.item.title,revokes).catch(console.error);}
-      },{root:grid,rootMargin:'240px 0px',threshold:0.01});
-      for(const {portrait}of pending)observer.observe(portrait);
-      return()=>observer.disconnect();
-    }
-    Promise.allSettled(pending.map(({portrait,item})=>fillFrame(context.app,portrait,dataset,item.object,item.title,revokes)));
-    return null;
+    // Quine/iPad kan undlade at udløse IntersectionObserver for kort inde i
+    // transformerede eller egne scroll-containere. Indlæs derfor portrætterne
+    // direkte i små puljer. Det bevarer responsiviteten og sikrer, at synlige
+    // elevkort ikke bliver stående som silhuetter.
+    let cancelled=false;
+    const loadPortraits=async()=>{
+      const batchSize=6;
+      for(let start=0;start<pending.length&&!cancelled;start+=batchSize){
+        const batch=pending.slice(start,start+batchSize);
+        await Promise.allSettled(batch.map(({portrait,item,portraitObject})=>
+          fillFrame(context.app,portrait,portraitDataset,portraitObject,item.title,revokes)
+        ));
+        if(start+batchSize<pending.length)await new Promise(resolve=>requestAnimationFrame(()=>resolve()));
+      }
+    };
+    loadPortraits().catch(console.error);
+    return()=>{cancelled=true;};
   }
   function installWidgets(app){
     if(!app?.widgetManager)return false;
@@ -59694,7 +59762,7 @@ App.prototype.safetyExport=async function(kind,progress){
   if(kind==='share'&&payload.backupKind!=='share')payload.backupKind='share';
   if(kind==='template'&&payload.backupKind!=='template'){
     payload={...payload,backupKind:'template',datasets:[],media:[],
-      widgets:(payload.widgets||[]).map(widget=>({...widget,content:{},meta:{...(widget.meta||{}),templateEmptied:true}}))
+      widgets:(payload.widgets||[]).map(widget=>({...widget,content:{...(widget.content||{})},meta:{...(widget.meta||{}),templatePrepared:true}}))
     };
   }
 
@@ -64804,7 +64872,7 @@ async function studentPhotoEntries(app){
  setTimeout(()=>compactExactPortraitDuplicates(app,all).then(result=>{if(result.deleted)app.toast?.(`${result.deleted} identiske elevfotokopier blev ryddet sikkert op`);}).catch(error=>console.warn('Elevfotodubletter kunne ikke komprimeres',error)),0);
  return{unique,total:all.length,duplicates:Math.max(0,all.length-unique.length)};
 }
-async function mediaUrl(app,item,revokes){if(item.src)return item.src;if(!item.mediaId)return'';const media=await app.mediaManager.get(item.mediaId).catch(()=>null),blob=media?.blob instanceof Blob?media.blob:media?.originalBlob instanceof Blob?media.originalBlob:null;if(blob){const url=URL.createObjectURL(blob);revokes.push(url);return url;}return media?.dataUrl||'';}
+async function mediaUrl(app,item,revokes){if(TN.AssetResolver?.resolve){const resolved=await TN.AssetResolver.resolve(app,item,{placeholder:false,defaultFolder:'demo-data/elevbilleder'});for(const candidate of resolved.candidates||[])if(candidate.revoke)revokes.push(candidate.src);return resolved.src;}return item?.src||'';}
 async function createFamilyWidget(app,mode,entries){
  if(!entries.length)throw new Error('Vælg mindst ét billede');app.modalManager.closeAll?.();const items=entries.map(entry=>entry.item||entry);
  let widget=await app.addWidget('image-matrix',{title:`${mode==='flip'?'Billedvendespil':'Billedmatrix'} · ${items.length} billeder`,content:{items,page:0,pageSize:12,fit:'cover'},geometry:{width:1050,height:640}});
@@ -66997,6 +67065,29 @@ function findEntry(map,candidates){
 }
 function parseJson(bytes){if(!bytes)return null;try{return JSON.parse(new TextDecoder().decode(bytes));}catch(_){return null;}}
 function esc(v){return clean(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function importManifestWebResources(app,manifest){
+ const resources=Array.isArray(manifest?.resources)?manifest.resources:[];
+ const web=resources.filter(r=>clean(r?.openUrl||r?.url||r?.embedUrl));
+ if(!web.length)return {total:0,added:0,dataset:null};
+ const all=await app.storage.getAll('datasets');
+ const normalizeUrl=value=>{try{const u=new URL(clean(value));u.hash='';return u.toString().replace(/\/$/,'');}catch(_){return clean(value).replace(/\/$/,'');}};
+ const existingUrls=new Set();
+ for(const ds of all.filter(ds=>['resource-list','resources','media-list','link-list','dataremix-link'].includes(clean(ds?.type).toLowerCase()))){
+  const cols=ds.columns||[],urlIndex=cols.findIndex(c=>clean(c).toLowerCase()==='url');
+  if(urlIndex<0)continue;
+  for(const row of ds.rows||[]){const value=Array.isArray(row)?row[urlIndex]:row?.[cols[urlIndex]];if(clean(value))existingUrls.add(normalizeUrl(value));}
+ }
+ const rows=[];
+ for(const r of web){
+  const url=clean(r.openUrl||r.url||r.embedUrl),key=normalizeUrl(url);if(!url||existingUrls.has(key))continue;existingUrls.add(key);
+  const youtube=/youtu(?:\.be|be\.com)/i.test(url);
+  rows.push([clean(r.title||r.name||'Link'),url,youtube?'YouTube':clean(r.type||r.kind||'Link'),clean(r.category||r.presentationCategory||'Links'),clean(r.note||r.description||''),clean(Array.isArray(r.tags)?r.tags.join(', '):r.tags||''),'',clean(r.embedUrl||''),clean(r.resourceId||r.id||''),'',clean(r.mimeType||'')]);
+ }
+ if(!rows.length)return {total:web.length,added:0,dataset:null};
+ const label=clean(manifest.scopeLabel||manifest.title||'Ressourcepakke');
+ const dataset=await app.dataManager.create({sessionId:TN.runtime.activeSession?.id||null,name:`Links · ${label}`,type:'resource-list',scope:'session',columns:['Titel','URL','Type','Kategori','Note','Tags','MediaId','EmbedUrl','ResourceId','FileName','MimeType'],rows,meta:{managedBy:'PlanResourcePackageWebImport',sourcePackage:label,sourcePackageCreatedAt:manifest.createdAt||'',importedAt:TN.now(),resourceCount:rows.length}});
+ return {total:web.length,added:rows.length,dataset};
+}
 function resourcePreview(app,file,entries,manifest,downstream){
  const resources=Array.isArray(manifest.resources)?manifest.resources:[];
  const body=document.createElement('div');body.className='tn-package-card-preview';
@@ -67015,9 +67106,40 @@ function resourcePreview(app,file,entries,manifest,downstream){
    files.push(new File([bytes],r.fileName||path.split('/').pop(),{type:r.mimeType||'application/octet-stream'}));
   }
   app.modalManager.closeAll();
-  if(!files.length){app.toast('Pakken indeholder ingen lokale filer, som kunne findes');return false;}
-  await downstream.call(app,files);
-  app.toast(`${files.length} ressourcer sendt til import${missing.length?` · ${missing.length} filer manglede`:''}`);
+  const columns=['Titel','URL','Type','Kategori','Note','Tags','MediaId','EmbedUrl','ResourceId','FileName','MimeType','Extension','Size','SourcePackagePath'];
+  const rows=[];
+  const importedMedia=new Map();
+  const seenUrls=new Set();
+  let localImported=0, linkImported=0;
+  const normalizeUrl=value=>{try{const u=new URL(clean(value));return u.toString().replace(/\/$/,'');}catch(_){return clean(value).replace(/\/$/,'');}};
+  for(const r of resources){
+   const title=clean(r.title||r.name||r.fileName||'Ressource');
+   const url=clean(r.openUrl||r.url||r.embedUrl);
+   if(url&&!r.packagePath){
+    const key=normalizeUrl(url);if(!key||seenUrls.has(key))continue;seenUrls.add(key);
+    const youtube=/youtu(?:\.be|be\.com)/i.test(url);
+    rows.push([title,url,youtube?'YouTube':clean(r.type||r.kind||'Link'),clean(r.category||r.presentationCategory||'Links'),clean(r.note||r.description||''),clean(Array.isArray(r.tags)?r.tags.join(', '):r.tags||''),'',clean(r.embedUrl||''),clean(r.resourceId||r.id||''),'',clean(r.mimeType||'text/uri-list'),clean(r.extension||''),Number(r.size||r.fileSize||0)||0,'']);
+    linkImported++;continue;
+   }
+   if(!r.packagePath)continue;
+   const path=normalizePath(r.packagePath);let bytes=entries.get(path);
+   if(!bytes){for(const [candidate,data] of entries){if(candidate.toLocaleLowerCase('da')===path.toLocaleLowerCase('da')){bytes=data;break;}}}
+   if(!bytes){missing.push(path);continue;}
+   const fileName=clean(r.fileName||path.split('/').pop());
+   const file=new File([bytes],fileName,{type:r.mimeType||'application/octet-stream'});
+   let mediaId=importedMedia.get(path)||'';
+   if(!mediaId){
+    const result=await app.mediaManager.importFile(file,{optimize:/^image\//i.test(file.type),maxDimension:/^image\//i.test(file.type)?2048:undefined,quality:/^image\//i.test(file.type)?.86:undefined,keepOriginal:false});
+    mediaId=result?.media?.id||'';if(mediaId)importedMedia.set(path,mediaId);
+   }
+   rows.push([title,url,clean(r.type||r.kind||'Dokument'),clean(r.category||r.presentationCategory||r.type||'Dokumenter'),clean(r.note||r.description||''),clean(Array.isArray(r.tags)?r.tags.join(', '):r.tags||''),mediaId,clean(r.embedUrl||''),clean(r.resourceId||r.id||''),fileName,clean(r.mimeType||file.type),clean(r.extension||fileName.split('.').pop()||''),Number(r.size||r.fileSize||file.size)||file.size,path]);
+   localImported++;
+  }
+  if(!rows.length){app.toast('Pakken indeholder ingen ressourcer, der kunne importeres');return false;}
+  const label=clean(manifest.scopeLabel||manifest.title||file.name.replace(/\.zip$/i,''));
+  const dataset=await app.dataManager.create({sessionId:TN.runtime.activeSession?.id||null,name:`Ressourcer · ${label}`,type:'resource-list',scope:'session',columns,rows,meta:{createdBy:'resource-package-unified-import',createdAt:TN.now(),sourcePackage:file.name,sourcePackageLabel:label,sourcePackageCreatedAt:manifest.createdAt||'',resourceCount:rows.length,localResourceCount:localImported,linkResourceCount:linkImported,missingFileCount:missing.length}});
+  if(TN.runtime.activeBoard){await app.addWidget('resource-matrix',{title:`Ressourcesamling · ${label}`,content:{datasetId:dataset.id,sourceName:dataset.name,view:'overview',activeIndex:0,typeFilter:'Alle',categoryFilter:'Alle',search:''},geometry:{x:55,y:55,width:1120,height:680}});}
+  app.toast(`${rows.length} ressourcer importeret · ${localImported} lokale filer · ${linkImported} links${missing.length?` · ${missing.length} filer manglede`:''}`);
   return false;
  }}]});
  // Local geometry owner for this preview only. Do not alter shared modal CSS.
@@ -67075,14 +67197,15 @@ function openResourcePicker(event){
  input.type='file';input.accept='.zip,.planpkg,.json,application/zip,application/json';input.multiple=true;
  input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';document.body.append(input);
  const remove=()=>setTimeout(()=>input.remove(),0);
- input.addEventListener('change',()=>{const selected=[...(input.files||[])];remove();const app=appInstance();if(selected.length&&app?.queueFiles)app.queueFiles(selected);else if(selected.length&&app?.handleFiles)void app.handleFiles(selected);},{once:true});
+ input.addEventListener('change',()=>{const selected=[...(input.files||[])];remove();const app=appInstance();if(selected.length&&app?.handleFiles)void app.handleFiles(selected);else if(selected.length&&app?.queueFiles)app.queueFiles(selected);},{once:true});
  input.addEventListener('cancel',remove,{once:true});
  input.click();
 }
 for(const type of ['pointerup','touchend','click'])document.addEventListener(type,openResourcePicker,true);
-TN.version='0.18.1-resource-import-touch-final';
+TN.version='0.19.0-unified-resource-import-routing';
 })(window.TavleNext);
 </script>
+<!-- Plan 2.0 · V1.9 fælles import-routing: ressourceknap -> handleFiles -> formatsniff -->
 <!-- Plan 2.0 · Ressourcesamling venstre filliste scroll 1.0 -->
 <style id="plan2-resource-collection-list-scroll-fix-v1-style">
 /* Lokal rettelse: kun venstre navigator i Ressourcesamling-widgetten. */
@@ -67286,7 +67409,7 @@ App.prototype.handleFiles=async function(files){
  if(ordinary.length)return previousHandleFiles.call(this,ordinary);
  return [];
 };
-TN.version='0.18.4-resource-package-stable-import-identities-v1';
+TN.version='0.18.6-resource-package-unified-import-v2';
 })(window.TavleNext);
 </script>
 <script id="plan2-galaxy-groups-as-my-holds-owner">
@@ -72997,11 +73120,7 @@ async function studentPhotoSources(app){
  }
  return deduped;
 }
-async function mediaUrl(app,item,revokes){
- if(item.src)return item.src;if(!item.mediaId)return'';
- const media=await app.mediaManager.get(item.mediaId).catch(()=>null);const blob=media?.blob instanceof Blob?media.blob:media?.originalBlob instanceof Blob?media.originalBlob:null;
- if(blob){const url=URL.createObjectURL(blob);revokes.push(url);return url;}return media?.dataUrl||'';
-}
+async function mediaUrl(app,item,revokes){if(TN.AssetResolver?.resolve){const resolved=await TN.AssetResolver.resolve(app,item,{placeholder:false,defaultFolder:'demo-data/elevbilleder'});for(const candidate of resolved.candidates||[])if(candidate.revoke)revokes.push(candidate.src);return resolved.src;}return item?.src||'';}
 async function createFamilyWidget(app,mode,items,title){
  if(!items.length)throw new Error('Vælg mindst ét billede');
  app.modalManager.closeAll?.();
