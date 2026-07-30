@@ -77271,6 +77271,135 @@ App.prototype.createResourceCollectionFromResourceScope=async function(mode='glo
  return this.dataManager.create({sessionId:TN.runtime.activeSession.id,name,type:'resource-list',scope:'session',columns:['Titel','URL','Type','Kategori','Note','Tags','MediaId','EmbedUrl','ResourceId','FileName','MimeType'],rows,meta:{createdBy:'resource-center-library',createdAt:TN.now(),sourceScope:mode,requestedResourceScope:mode,sourceResourceCount:rows.length,includesPortraitCategory:items.some(x=>categoryOf(x)==='Elevbilleder'),spreadsheetResourceContractVersion:2,resourceTypeRepairVersion:3}});
 };
 
+const isImportedResourcePackage=dataset=>{
+ const meta=dataset?.meta||{};
+ return clean(dataset?.type).toLowerCase()==='resource-list'&&(
+  meta.createdBy==='resource-package-unified-import'||
+  meta.managedBy==='PlanGlobalResourceLibrary'
+ )&&!!clean(meta.sourcePackage||meta.sourcePackageLabel);
+};
+const packageLabel=dataset=>clean(dataset?.meta?.sourcePackageLabel||dataset?.name||dataset?.meta?.sourcePackage||'Ressourcepakke');
+const packageMediaIds=dataset=>{
+ const columns=Array.isArray(dataset?.columns)?dataset.columns:[];
+ const index=columns.findIndex(name=>clean(name).toLowerCase()==='mediaid');
+ if(index<0)return [];
+ return [...new Set((dataset?.rows||[]).map(row=>clean(Array.isArray(row)?row[index]:row?.MediaId||row?.mediaId)).filter(Boolean))];
+};
+const objectReferencesDataset=(value,datasetId,seen=new WeakSet())=>{
+ if(value==null)return false;
+ if(typeof value!=='object')return clean(value)===datasetId;
+ if(seen.has(value))return false;seen.add(value);
+ if(Array.isArray(value))return value.some(entry=>objectReferencesDataset(entry,datasetId,seen));
+ for(const [key,entry] of Object.entries(value)){
+  if(/datasetid$/i.test(key)&&clean(entry)===datasetId)return true;
+  if(entry&&typeof entry==='object'&&objectReferencesDataset(entry,datasetId,seen))return true;
+ }
+ return false;
+};
+App.prototype.deleteImportedResourcePackage=async function(dataset){
+ const datasetId=clean(dataset?.id);
+ if(!datasetId||!isImportedResourcePackage(dataset))throw new Error('Pakke-ejerskabet kan ikke dokumenteres sikkert');
+ const resourceTypes=new Set(['resource-list','resources','media-list','link-list','dataremix-link']);
+ const columnsOf=ds=>Array.isArray(ds?.columns)?ds.columns:[];
+ const valueOf=(ds,row,name)=>{
+  const columns=columnsOf(ds),index=columns.findIndex(column=>clean(column).toLowerCase()===name.toLowerCase());
+  if(index<0)return '';
+  return clean(Array.isArray(row)?row[index]:row?.[columns[index]]??row?.[name]??row?.[name.toLowerCase()]);
+ };
+ const rowKey=(ds,row)=>{
+  const resourceId=valueOf(ds,row,'ResourceId');if(resourceId)return `rid:${resourceId}`;
+  const mediaId=valueOf(ds,row,'MediaId');if(mediaId)return `media:${mediaId}`;
+  const url=clean(valueOf(ds,row,'URL')||valueOf(ds,row,'EmbedUrl')).replace(/\/$/,'').toLowerCase();if(url)return `url:${url}`;
+  return `fallback:${clean(valueOf(ds,row,'Titel')||valueOf(ds,row,'Navn')).toLowerCase()}|${clean(valueOf(ds,row,'FileName')).toLowerCase()}|${clean(valueOf(ds,row,'Type')).toLowerCase()}`;
+ };
+ const packageKeys=new Set((dataset?.rows||[]).map(row=>rowKey(dataset,row)).filter(Boolean));
+ const packageMedia=new Set(packageMediaIds(dataset));
+ const [widgets,boards,allDatasets]=await Promise.all([this.storage.getAll('widgets'),this.storage.getAll('boards'),this.storage.getAll('datasets')]);
+ const boardById=new Map((boards||[]).map(board=>[clean(board.id),board]));
+ const directWidgets=(widgets||[]).filter(widget=>widget?.type==='resource-matrix'&&objectReferencesDataset(widget?.content||widget,datasetId));
+ let widgetsDeleted=0,widgetsKept=0;
+ for(const widget of directWidgets){
+  const board=boardById.get(clean(widget.boardId));
+  try{
+   if(board&&this.widgetManager?.delete){await this.widgetManager.delete(board,widget.id);await this.boardManager?.update?.(board);}
+   else await this.storage.delete('widgets',widget.id);
+   widgetsDeleted++;
+  }catch(error){widgetsKept++;console.warn('Ressourcewidget blev bevaret',widget?.id,error);}
+ }
+ /* Fjern pakkens poster fra afledte ressourcekataloger. Disse kataloger er kopier,
+    ikke selvstændige ejere af filerne. Andre importerede pakker berøres ikke. */
+ let mirroredRowsDeleted=0,derivedDatasetsUpdated=0;
+ for(const other of allDatasets||[]){
+  if(clean(other?.id)===datasetId||!resourceTypes.has(clean(other?.type).toLowerCase())||!Array.isArray(other?.rows))continue;
+  if(isImportedResourcePackage(other))continue;
+  const createdBy=clean(other?.meta?.createdBy);
+  const derived=createdBy==='resource-center-library'||createdBy==='resource-center'||createdBy==='resource-center-catalog';
+  if(!derived)continue;
+  const kept=other.rows.filter(row=>!packageKeys.has(rowKey(other,row)));
+  const removed=other.rows.length-kept.length;
+  if(!removed)continue;
+  mirroredRowsDeleted+=removed;derivedDatasetsUpdated++;
+  const updated={...other,rows:kept,meta:{...(other.meta||{}),sourceResourceCount:kept.length,resourceCount:kept.length,updatedAt:TN.now(),prunedByResourcePackageDelete:datasetId}};
+  try{await this.dataManager.update(updated);}catch(_){await this.storage.put?.('datasets',updated);}
+ }
+ await this.dataManager.delete(datasetId);
+ await this.storage.flush?.().catch(()=>{});
+ /* Beregn levende MediaId-referencer direkte fra alle tilbageværende ressource-datasæt.
+    listWithUsage alene ser ikke nødvendigvis kopierede katalogrækker. */
+ const remainingDatasets=await this.storage.getAll('datasets');
+ const liveDatasetMedia=new Set();
+ for(const ds of remainingDatasets||[]){
+  if(!resourceTypes.has(clean(ds?.type).toLowerCase())||!Array.isArray(ds?.rows))continue;
+  for(const row of ds.rows){const id=valueOf(ds,row,'MediaId');if(id)liveDatasetMedia.add(id);}
+ }
+ let mediaDeleted=0,mediaKept=0;
+ const usageEntries=await this.mediaManager.listWithUsage().catch(()=>[]);
+ const usageById=new Map((usageEntries||[]).map(entry=>[clean(entry.id),entry]));
+ for(const mediaId of packageMedia){
+  const entry=usageById.get(mediaId);
+  const liveUsage=(entry?.usage||[]).filter(ref=>ref?.kind!=='restorePoint'&&ref?.kind!=='trash'&&clean(ref?.datasetId)!==datasetId);
+  if(liveDatasetMedia.has(mediaId)||liveUsage.length){mediaKept++;continue;}
+  try{await this.mediaManager.remove(mediaId);mediaDeleted++;}
+  catch(error){mediaKept++;console.warn('Delt eller beskyttet ressourcefil blev bevaret',mediaId,error);}
+ }
+ await this.storage.flush?.().catch(()=>{});
+ return {widgetsDeleted,widgetsKept,mediaDeleted,mediaKept,mirroredRowsDeleted,derivedDatasetsUpdated,resources:Number(dataset?.meta?.resourceCount||dataset?.rows?.length||0)};
+};
+App.prototype.openDeleteImportedResourcePackage=async function(container,mode='global'){
+ const packages=(await this.storage.getAll('datasets')).filter(isImportedResourcePackage).sort((a,b)=>packageLabel(a).localeCompare(packageLabel(b),'da'));
+ if(!packages.length){this.toast('Der er ingen importerede ressourcepakker at slette');return;}
+ let selected=packages[0];
+ const body=document.createElement('div');
+ body.innerHTML='<p>Vælg den importerede ressourcepakke, der skal slettes permanent.</p><div data-package-list></div><p class="muted">Delte filer og andre levende referencer bevares automatisk.</p>';
+ const list=body.querySelector('[data-package-list]');
+ for(const dataset of packages){
+  const count=Number(dataset?.meta?.resourceCount||dataset?.rows?.length||0);
+  const row=document.createElement('label');row.style.cssText='display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border:1px solid var(--tn-line);border-radius:12px;margin:8px 0;background:var(--tn-panel2)';
+  const input=document.createElement('input');input.type='radio';input.name='delete-resource-package';input.checked=dataset===selected;input.onchange=()=>{selected=dataset;};
+  const info=document.createElement('span');info.innerHTML=`<strong>${esc(packageLabel(dataset))}</strong><br><small>${count} ressourcer · ${esc(dataset?.meta?.sourcePackage||'importeret pakke')}</small>`;
+  row.append(input,info);list.append(row);
+ }
+ const app=this;this.modalManager.closeAll();requestAnimationFrame(()=>app.modalManager.open({title:'Slet ressourcepakke',body,actions:[
+  {label:'Annuller',run:()=>true},
+  {label:'Fortsæt…',primary:true,run:()=>{
+   const chosen=selected,count=Number(chosen?.meta?.resourceCount||chosen?.rows?.length||0),confirmBody=document.createElement('div');
+   confirmBody.innerHTML=`<section style="border:1px solid var(--tn-danger,#d44);border-radius:12px;padding:14px"><p><strong>Slet “${esc(packageLabel(chosen))}” permanent?</strong></p><p>${count} registrerede ressourcer og direkte tilknyttede ressourcewidgets fjernes.</p><p>Filer med andre levende referencer bevares.</p></section>`;
+   setTimeout(()=>app.modalManager.open({title:'Bekræft permanent sletning',body:confirmBody,actions:[
+    {label:'Annuller',run:()=>true},
+    {label:'Slet permanent',primary:true,run:async()=>{
+     try{
+      const result=await app.deleteImportedResourcePackage(chosen);
+      app.toast(`Pakken er slettet · ${result.resources} pakkeposter · ${result.mirroredRowsDeleted} katalogkopier fjernet · ${result.mediaDeleted} fil${result.mediaDeleted===1?'':'er'} slettet · ${result.mediaKept} delt${result.mediaKept===1?' fil':'e filer'} bevaret`);
+      if(container?.isConnected)await app.renderResourceCatalog(container,mode);
+      return true;
+     }catch(error){console.error(error);app.toast(`Pakken kunne ikke slettes: ${error?.message||'ukendt fejl'}`);return false;}
+    }}
+   ]}),0);
+   return true;
+  }}
+ ]}));
+};
+
 App.prototype.renderResourceCatalog=async function(container,mode='global'){
  const context=await this.resourceScopeContext(mode);
  container.replaceChildren();container.className='tn-resource-catalog';container._tnResourceScopeMode=mode;
@@ -77283,7 +77412,7 @@ App.prototype.renderResourceCatalog=async function(container,mode='global'){
  const tools=document.createElement('div');tools.className='tn-resource-catalog-tools plan2-resource-tools-v81';
  tools.innerHTML=`<input type="search" placeholder="Søg i ressourcer" aria-label="Søg i ressourcer"><div class="plan2-resource-filter-checks" role="group" aria-label="Filtrér ressourcer efter kategori">${checkboxCats.map(c=>`<label><input type="checkbox" data-type="${esc(c)}" checked><span>${esc(c)}</span></label>`).join('')}</div>`;
  const selection=document.createElement('div');selection.className='plan2-resource-selection-tools';selection.innerHTML=`<button type="button" data-all>Vælg alle viste</button><button type="button" data-none>Fravælg alle viste</button>${hasPortraits?'<button type="button" data-portraits aria-pressed="true">Elevbilleder</button>':''}`;
- const packageRow=document.createElement('div');packageRow.className='plan2-resource-package-row';packageRow.innerHTML='<span data-count></span><button type="button" data-package>Eksportér ressourcepakke…</button>';
+ const packageRow=document.createElement('div');packageRow.className='plan2-resource-package-row';packageRow.innerHTML='<span data-count></span><button type="button" data-package>Eksportér ressourcepakke…</button><button type="button" data-delete-package>Slet ressourcepakke…</button>';
  const summary=document.createElement('section');summary.className='tn-resource-catalog-summary';
  const list=document.createElement('div');list.className='tn-resource-catalog-list';
  let visible=[];
@@ -77317,6 +77446,7 @@ App.prototype.renderResourceCatalog=async function(container,mode='global'){
  selection.querySelector('[data-none]').onclick=()=>{visible.forEach(x=>chosen.delete(x.index));draw();};
  const portraitButton=selection.querySelector('[data-portraits]');
  if(portraitButton)portraitButton.onclick=()=>{activeCats.has('Elevbilleder')?activeCats.delete('Elevbilleder'):activeCats.add('Elevbilleder');draw();};
+ packageRow.querySelector('[data-delete-package]').onclick=()=>this.openDeleteImportedResourcePackage(container,mode);
  packageRow.querySelector('[data-package]').onclick=async()=>{
   const items=selectedItems();if(!items.length)return this.toast('Vælg mindst én ressource');
   const body=document.createElement('div');body.className='plan2-resource-package-info';body.innerHTML=`<p><strong>${items.length} valgte ressourcer eksporteres.</strong></p><p>${esc(context.scopeLabel)}</p>`;
@@ -77341,7 +77471,7 @@ App.prototype.renderResourceCenter=async function(container){
  };
  await render();
 };
-try{TN.version='0.14.12g-widget-student-portraits';document.title='PLAN-2.0-PHASE12V-FIRST-WIDGET-WARMUP-TRIM';}catch(_){ }
+try{TN.version='0.14.12h-resource-package-delete';document.title='PLAN-2.0-PHASE12V-FIRST-WIDGET-WARMUP-TRIM';}catch(_){ }
 })(window.TavleNext);
 
 </script>
