@@ -61499,6 +61499,59 @@ if(!install()){
 }
 })();
 </script>
+
+<style id="plan2-resource-sticky-grid-v3-style">
+/* Ressourceoversigt V3: samlet sticky kontrolområde + kompakt responsivt kortgrid. */
+#tavleNextApp .tn-resource-center{
+  min-height:0;
+}
+#tavleNextApp .plan2-resource-sticky-v3{
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:grid;
+  gap:10px;
+  padding-bottom:10px;
+  background:var(--tn-panel,#111827);
+  border-bottom:1px solid var(--tn-line);
+  box-shadow:0 10px 18px rgba(0,0,0,.16);
+}
+#tavleNextApp .plan2-resource-sticky-controls-v3{display:grid;gap:10px;min-width:0}
+#tavleNextApp .plan2-resource-scroll-body-v3{min-height:0}
+#tavleNextApp .plan2-resource-scroll-body-v3>.tn-resource-catalog{gap:10px}
+#tavleNextApp .tn-resource-catalog-list{
+  grid-template-columns:repeat(auto-fit,minmax(205px,1fr))!important;
+  gap:8px!important;
+}
+#tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable{
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  grid-template-areas:'check info actions'!important;
+  gap:7px 8px!important;
+  align-items:center!important;
+  padding:9px 10px!important;
+  min-height:72px;
+  border-radius:10px;
+}
+#tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info{gap:2px}
+#tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info strong{font-size:13px;line-height:1.2}
+#tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info small{font-size:10.5px;line-height:1.2}
+#tavleNextApp .tn-resource-catalog-actions{padding-top:0;align-self:center}
+#tavleNextApp .tn-resource-catalog-actions button{min-height:31px;padding:5px 8px;font-size:12px}
+#tavleNextApp .plan2-resource-item-check{width:18px;height:18px;margin:0}
+@media (min-width:1180px){
+ #tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media (min-width:850px) and (max-width:1179px){
+ #tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media (max-width:849px){
+ #tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable{grid-template-columns:auto minmax(0,1fr)!important;grid-template-areas:'check info' 'actions actions'!important}
+}
+@media (max-width:560px){
+ #tavleNextApp .tn-resource-catalog-list{grid-template-columns:1fr!important}
+}
+</style>
 </body></html>`;
   const entries=[
     {name:'ÅBN DENNE PLANPAKKE.html',data:visitCard},
@@ -62230,7 +62283,7 @@ try{window.TavleNext.version='0.13.2-plan-package-v69';}catch(_){}
 .tn-session-section>h3{display:flex!important;align-items:center!important;gap:10px!important}
 @media(max-width:900px){
   #tavleNextApp .tn-widget[data-widget-type="setup-guide"] .tn-setup-guide-nav{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }
   #tavleNextApp .tn-widget[data-widget-type="setup-guide"] .tn-setup-guide-main{
     grid-template-columns:1fr!important;overflow:auto!important;
@@ -63246,27 +63299,28 @@ try{TN.version='0.13.5-resource-package-present-categories-v81';}catch(_){ }
 #tavleNextApp .tn-resource-catalog-summary strong{margin-right:auto}
 #tavleNextApp .tn-resource-catalog-list{
  display:grid!important;
- grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
  gap:10px!important;
  align-items:stretch;
 }
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable{
  display:grid!important;
  grid-template-columns:auto minmax(0,1fr)!important;
- grid-template-areas:'check info' 'actions actions';
+ grid-template-columns:auto minmax(0,1fr) auto!important;
+ grid-template-areas:'check info actions';
  gap:8px 10px!important;
  align-content:start;align-items:start;
- min-width:0;padding:12px!important;
+ min-width:0;padding:9px 10px!important;
  border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel2);
 }
 #tavleNextApp .plan2-resource-item-check{grid-area:check;width:20px;height:20px;margin:2px 0 0;accent-color:var(--tn-accent2);cursor:pointer}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info{grid-area:info;min-width:0;display:grid;gap:4px}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info strong{display:block;min-width:0;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info small{display:block;min-width:0;color:var(--tn-muted);font-size:12px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#tavleNextApp .tn-resource-catalog-actions{grid-area:actions;display:flex;gap:7px;justify-content:flex-end;align-items:center;padding-top:3px}
-#tavleNextApp .tn-resource-catalog-actions button{min-height:34px;padding:6px 10px;border-radius:9px}
+#tavleNextApp .tn-resource-catalog-actions{grid-area:actions;display:flex;gap:6px;justify-content:flex-end;align-items:start;padding-top:0}
+#tavleNextApp .tn-resource-catalog-actions button{min-height:32px;padding:5px 9px;border-radius:9px}
 #tavleNextApp .tn-resource-board-targets{display:grid;gap:8px}#tavleNextApp .tn-resource-board-targets button{min-height:44px;text-align:left}
-@media(min-width:1500px){#tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(min-width:1500px){#tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
 @media(max-width:850px){
  #tavleNextApp .tn-resource-catalog-tools{grid-template-columns:1fr}
  #tavleNextApp .tn-resource-catalog-list{grid-template-columns:1fr!important}
@@ -72723,27 +72777,27 @@ try{TN.version='0.13.5-resource-package-present-categories-v81';}catch(_){ }
 #tavleNextApp .tn-resource-catalog-summary strong{margin-right:auto}
 #tavleNextApp .tn-resource-catalog-list{
  display:grid!important;
- grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
  gap:10px!important;
  align-items:stretch;
 }
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable{
  display:grid!important;
- grid-template-columns:auto minmax(0,1fr)!important;
- grid-template-areas:'check info' 'actions actions';
+ grid-template-columns:auto minmax(0,1fr) auto!important;
+ grid-template-areas:'check info actions';
  gap:8px 10px!important;
  align-content:start;align-items:start;
- min-width:0;padding:12px!important;
+ min-width:0;padding:9px 10px!important;
  border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel2);
 }
 #tavleNextApp .plan2-resource-item-check{grid-area:check;width:20px;height:20px;margin:2px 0 0;accent-color:var(--tn-accent2);cursor:pointer}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info{grid-area:info;min-width:0;display:grid;gap:4px}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info strong{display:block;min-width:0;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #tavleNextApp .tn-resource-catalog-row.plan2-resource-selectable>.plan2-resource-info small{display:block;min-width:0;color:var(--tn-muted);font-size:12px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#tavleNextApp .tn-resource-catalog-actions{grid-area:actions;display:flex;gap:7px;justify-content:flex-end;align-items:center;padding-top:3px}
-#tavleNextApp .tn-resource-catalog-actions button{min-height:34px;padding:6px 10px;border-radius:9px}
+#tavleNextApp .tn-resource-catalog-actions{grid-area:actions;display:flex;gap:6px;justify-content:flex-end;align-items:start;padding-top:0}
+#tavleNextApp .tn-resource-catalog-actions button{min-height:32px;padding:5px 9px;border-radius:9px}
 #tavleNextApp .tn-resource-board-targets{display:grid;gap:8px}#tavleNextApp .tn-resource-board-targets button{min-height:44px;text-align:left}
-@media(min-width:1500px){#tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(min-width:1500px){#tavleNextApp .tn-resource-catalog-list{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
 @media(max-width:850px){
  #tavleNextApp .tn-resource-catalog-tools{grid-template-columns:1fr}
  #tavleNextApp .tn-resource-catalog-list{grid-template-columns:1fr!important}
@@ -77459,8 +77513,11 @@ App.prototype.renderResourceCenter=async function(container){
  container.replaceChildren();container.classList.add('tn-resource-center');
  const requested=window.__plan2ResourceRequestedScope;let mode=libraryOrder.includes(requested)?requested:'global';delete window.__plan2ResourceRequestedScope;
  const head=document.createElement('section');head.className='plan2-resource-center-head-v82';head.innerHTML=`<div><h2>📚 Ressourcer</h2><p>Se hele biblioteket eller filtrér efter, hvor ressourcer faktisk anvendes.</p></div><div class="plan2-resource-center-actions-v82"><span class="plan2-resource-scope-v82"><button type="button" data-scope-toggle></button></span><button type="button" class="primary" data-open-library>Åbn som bibliotek</button></div>`;
- const body=document.createElement('div');body.className='tn-resource-center-body';container.append(head,body);
- let token=0;const render=async()=>{const current=++token,button=head.querySelector('[data-scope-toggle]');button.textContent=labels[mode];button.dataset.scope=mode;body.replaceChildren();await this.renderResourceCatalog(body,mode);if(current===token)body.dataset.visibleScope=mode;};
+ const sticky=document.createElement('div');sticky.className='plan2-resource-sticky-v3';
+ const stickyControls=document.createElement('div');stickyControls.className='plan2-resource-sticky-controls-v3';
+ const body=document.createElement('div');body.className='tn-resource-center-body plan2-resource-scroll-body-v3';
+ sticky.append(head,stickyControls);container.append(sticky,body);
+ let token=0;const render=async()=>{const current=++token,button=head.querySelector('[data-scope-toggle]');button.textContent=labels[mode];button.dataset.scope=mode;stickyControls.replaceChildren();body.replaceChildren();await this.renderResourceCatalog(body,mode);if(current!==token)return;for(const selector of ['.tn-resource-catalog-tools','.plan2-resource-selection-tools','.plan2-resource-package-row']){const node=body.querySelector(`:scope > ${selector}`);if(node)stickyControls.append(node);}body.dataset.visibleScope=mode;};
  head.querySelector('[data-scope-toggle]').onclick=async()=>{mode=nextMode(mode);await render();};
  head.querySelector('[data-open-library]').onclick=async()=>{
   const state=body._plan2LibraryState,items=state?.getVisibleItems?.()||[];
@@ -77471,7 +77528,7 @@ App.prototype.renderResourceCenter=async function(container){
  };
  await render();
 };
-try{TN.version='0.14.12h-resource-package-delete';document.title='PLAN-2.0-PHASE12V-FIRST-WIDGET-WARMUP-TRIM';}catch(_){ }
+try{TN.version='0.14.12i-resource-sticky-grid-v3';document.title='PLAN-2.0-PHASE12V-FIRST-WIDGET-WARMUP-TRIM';}catch(_){ }
 })(window.TavleNext);
 
 </script>
