@@ -7265,15 +7265,38 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
           if(saveTypes.includes(data.type)){let backup=payload.backup??payload.json??payload.data??payload;if(typeof backup==='string'){try{backup=JSON.parse(backup);}catch(_){throw new Error('Appens gemmefil er ikke gyldig JSON');}}const filename=payload.filename||payload.fileName||`${isTjek?'Tjek':'Skriv'}-backup.json`;saveAppStateForContext(context,{backup,appId:data.app,protocol:data.protocol,type:data.type,filename}).then(record=>reply(isTjek?'TJEK_SAVE_ACK':'UDT_SAVE_ACK',{ok:true,ref:record.id,filename:record.name,savedAt:record.updatedAt})).catch(error=>fail(isTjek?'TJEK_SAVE_ERROR':'UDT_SAVE_ERROR',error));return;}
           if(readyTypes.includes(data.type)){readAppState(context).then(backup=>{reply(isTjek?'TJEK_HELLO':'UDT_HELLO',{ok:true,mode:'plan',hasBackup:!!backup});if(backup)reply(isTjek?'TJEK_LOAD':'UDT_LOAD',{backup,mode:'replace',source:'plan-widget-indexeddb'});}).catch(error=>fail(isTjek?'TJEK_LOAD_ERROR':'UDT_LOAD_ERROR',error));return;}
         }
+        if(data.protocol==='tavleapp-saver-v1'&&data.app==='txtappen'){
+          context.widget.content=context.widget.content||{};
+          context.widget.content.appKind='txtappen';
+          const saveTypes=['TXT_SAVE'],readyTypes=['TXT_READY','TXT_LOAD_REQUEST'];
+          if(saveTypes.includes(data.type)){
+            let backup=payload.backup??payload.data??payload;
+            if(typeof backup==='string'){try{backup=JSON.parse(backup);}catch(_){throw new Error('TxTappens gemmefil er ikke gyldig JSON');}}
+            const filename=payload.filename||payload.fileName||'TxTappen-historier.json';
+            saveAppStateForContext(context,{backup,appId:'txtappen',protocol:data.protocol,type:data.type,filename})
+              .then(record=>reply('TXT_SAVE_ACK',{ok:true,ref:record.id,filename:record.name,savedAt:record.updatedAt,hash:payload.hash||''}))
+              .catch(error=>fail('TXT_SAVE_ERROR',error));
+            return;
+          }
+          if(readyTypes.includes(data.type)){
+            readAppState(context)
+              .then(backup=>{
+                reply('TXT_HELLO',{ok:true,mode:'plan',hasBackup:!!backup});
+                if(backup)reply('TXT_LOAD',{backup,mode:'replace',source:'plan-widget-indexeddb'});
+              })
+              .catch(error=>fail('TXT_LOAD_ERROR',error));
+            return;
+          }
+        }
         if(data.protocol==='plan-htmlapp-v1'&&data.type==='SAVE_STATE'){saveAppStateForContext(context,{backup:payload.state||payload.backup||payload,appId:data.app||'htmlapp',protocol:data.protocol,type:data.type,filename:payload.filename}).then(record=>reply('SAVE_STATE_ACK',{ok:true,ref:record.id,savedAt:record.updatedAt})).catch(error=>fail('SAVE_STATE_ERROR',error));return;}
         if(data.protocol==='plan-htmlapp-v1'&&(data.type==='READY'||data.type==='LOAD_STATE_REQUEST')){readAppState(context).then(state=>reply('LOAD_STATE',{ok:true,state,source:state?'plan-widget-indexeddb':'empty'})).catch(error=>fail('LOAD_STATE_ERROR',error));}
       },false);
     };
     const likelyTiddlyWiki=html=>{const sample=String(html||'').slice(0,300000).toLowerCase();return sample.includes('$:/core/save/all')||sample.includes('window.$tw')||sample.includes('$tw.boot')||sample.includes('tiddlywiki.com/#gettingstarted')||(/<meta[^>]+name=["']application-name["'][^>]+content=["']tiddlywiki/i.test(sample));};
     const likelyPlanHtml=html=>{const sample=String(html||'').slice(0,500000).toLowerCase();return /<title>\s*(?:plan(?:\s|_|v)|indlejret plan)/i.test(sample)||sample.includes('global.tavlenext')||sample.includes('class tavlenextapp')||sample.includes('id="tavlenextapp"')||sample.includes("id='tavlenextapp'")||sample.includes('tavle-next-backup-plus-plus');};
-    const detectHtmlAppKind=html=>{const sample=String(html||'').slice(0,500000);const lower=sample.toLowerCase();if(likelyPlanHtml(sample))return 'plan';if(lower.includes('himmerlands-udtalelser')||lower.includes('udt_save')||lower.includes('tavle_import_pdf'))return 'skriv';if(lower.includes('himmerlands-tjek')||lower.includes('tjek_save')||lower.includes('tjek_ready'))return 'tjek';if(likelyTiddlyWiki(sample))return 'tiddlywiki';return 'htmlapp';};
-    const resolveHtmlAppKind=(widget,html)=>{if(widget.content?.planEmbed)return 'plan';const stored=String(widget.content?.appKind||'').toLowerCase(),known=['tiddlywiki','skriv','tjek','plan','tavle','htmlapp'];if(widget.content?.appKindFixed&&known.includes(stored))return stored;const inferred=detectHtmlAppKind(html);if(inferred!=='htmlapp')return inferred;return known.includes(stored)?stored:'htmlapp';};
-    const htmlAppLabel=kind=>({tiddlywiki:'TiddlyWiki',skriv:'Skriv',tjek:'Tjek',plan:'Plan',tavle:'Tavle'}[kind]||'HTML-app');
+    const detectHtmlAppKind=html=>{const sample=String(html||'').slice(0,500000);const lower=sample.toLowerCase();if(likelyPlanHtml(sample))return 'plan';if(lower.includes('himmerlands-udtalelser')||lower.includes('udt_save')||lower.includes('tavle_import_pdf'))return 'skriv';if(lower.includes('himmerlands-tjek')||lower.includes('tjek_save')||lower.includes('tjek_ready'))return 'tjek';if(lower.includes('txtappen')||lower.includes('txt_save')||lower.includes('txt_ready'))return 'txtappen';if(likelyTiddlyWiki(sample))return 'tiddlywiki';return 'htmlapp';};
+    const resolveHtmlAppKind=(widget,html)=>{if(widget.content?.planEmbed)return 'plan';const stored=String(widget.content?.appKind||'').toLowerCase(),known=['tiddlywiki','skriv','tjek','txtappen','plan','tavle','htmlapp'];if(widget.content?.appKindFixed&&known.includes(stored))return stored;const inferred=detectHtmlAppKind(html);if(inferred!=='htmlapp')return inferred;return known.includes(stored)?stored:'htmlapp';};
+    const htmlAppLabel=kind=>({tiddlywiki:'TiddlyWiki',skriv:'Skriv',tjek:'Tjek',txtappen:'TxTappen',plan:'Plan',tavle:'Tavle'}[kind]||'HTML-app');
     const embeddedPlanTarget=(widget,html='')=>{
       const liveSelf=!!widget.content?.planEmbed;let raw=liveSelf?location.href:String(widget.content?.planUrl||'').trim();
       if(!raw&&html){try{const doc=new DOMParser().parseFromString(String(html),'text/html');raw=doc.querySelector('iframe[src]')?.getAttribute('src')||'';}catch(_){}}
@@ -7296,17 +7319,81 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
     reg('html',{heavy:true,async mount({widget,body,app}){
       ensureHtmlAppBridge(app);const initial=await readHtmlWidgetSource(app,widget),previousKind=widget.content?.appKind||'',detectedKind=resolveHtmlAppKind(widget,initial.html),isTw=detectedKind==='tiddlywiki',isPlan=detectedKind==='plan',cleanApp=true,appLabel=htmlAppLabel(detectedKind);widget.content=widget.content||{};widget.content.appKind=detectedKind;if(previousKind&&previousKind!==detectedKind)console.info('Plan rettede HTMLApp-type',previousKind,'→',detectedKind,widget.id);
-      const descriptions={tiddlywiki:'TiddlyWiki startes først, når du aktiverer den. Gem-knappen skriver den opdaterede single-file HTML tilbage i Plan.',skriv:'Skriv startes først, når du aktiverer den. Gemmefil og PDF-eksport håndteres direkte af Plan.',tjek:'Tjek startes først, når du aktiverer den. Appens gemte tilstand følger widgetten og backup.',plan:'Plan startes som en lokal HTML-app i widgetten.',tavle:'Tavle startes som en lokal HTML-app i widgetten.',htmlapp:'HTML-apps startes kun, når du aktiverer dem. Appdata og eksporterede filer kan gemmes gennem Plan-broen.'};
+      const descriptions={tiddlywiki:'TiddlyWiki åbnes direkte. Gem-knappen skriver den opdaterede single-file HTML tilbage i Plan.',skriv:'Skriv åbnes direkte. Gemmefil og PDF-eksport håndteres gennem Plan.',tjek:'Tjek åbnes direkte. Appens gemte tilstand følger widgetten og backup.',txtappen:'TxTappen åbnes direkte. Gemte historier følger widgetten og backup.',plan:'Plan åbnes som en lokal HTML-app i widgetten.',tavle:'Tavle åbnes som en lokal HTML-app i widgetten.',htmlapp:'HTML-appen åbnes direkte. Appdata og eksporterede filer kan gemmes gennem Plan-broen.'};
       const shell=heavyShell({body,title:widget.title||initial.media?.name||appLabel,description:descriptions[detectedKind]||descriptions.htmlapp,activateLabel:`Start ${appLabel}`});
       const toolbar=document.createElement('div');toolbar.className='tn-htmlapp-tools';const download=document.createElement('button'),files=document.createElement('button'),status=document.createElement('span'),input=document.createElement('input');download.type=files.type='button';download.textContent='Hent HTML';files.textContent='Filer ind';status.className='tn-htmlapp-status';status.textContent=`${appLabel} · ikke startet`;input.type='file';input.multiple=true;input.accept='*/*';input.hidden=true;toolbar.append(download,files,input);
       const standbyActions=shell.standby.querySelector('.tn-heavy-actions'),standbyDownload=document.createElement('button');standbyDownload.type='button';standbyDownload.className='tn-htmlapp-tool';standbyDownload.textContent='Hent HTML';
       shell.stage.classList.add('tn-tiddly-clean');shell.root.append(input);
-      let frame=null,frameUrl='',planEmbedSafeAreaHandled=false;const zoomValue=()=>TN.clamp(Number(widget.content?.htmlAppZoom)||1,.5,2);const applyFrameZoom=()=>{if(!frame)return;const zoom=zoomValue(),compensatePlanInset=isPlan&&!planEmbedSafeAreaHandled;frame.classList.add('tn-htmlapp-scaled');frame.style.transform=`scale(${zoom})`;frame.style.width=`${100/zoom}%`;frame.style.top=compensatePlanInset?'calc(-1 * env(safe-area-inset-top,0px))':'0';frame.style.height=compensatePlanInset?`calc(${100/zoom}% + env(safe-area-inset-top,0px))`:`${100/zoom}%`;frame.dataset.htmlAppZoom=String(zoom);};const rawDownload=async()=>{const current=await readHtmlWidgetSource(app,widget),blob=current.media?.blob||new Blob([current.html],{type:'text/html;charset=utf-8'}),name=htmlFileName(widget.content?.name||current.media?.name||widget.title),prepared=app.fileExporter.prepareBlob(blob,name,blob.type||'text/html;charset=utf-8');app.showPreparedExport(prepared,{title:isTw?'TiddlyWiki-filen er klar':'HTML-filen er klar',summary:`${isTw?'Rå single-file TiddlyWiki':'Rå HTML'} · ${TN.formatBytes(prepared.size)}`});};
+      let frame=null,frameUrl='',planEmbedSafeAreaHandled=false,fitZoom=1,fitObserver=null;
+      const zoomMode=()=>{
+        if(detectedKind==='txtappen'&&!widget.content?.htmlAppZoomUserSet)return 'fixed';
+        return widget.content?.htmlAppZoomMode==='fixed'?'fixed':'fit';
+      };
+      const fixedZoom=()=>detectedKind==='txtappen'&&!widget.content?.htmlAppZoomUserSet?1:TN.clamp(Number(widget.content?.htmlAppZoom)||1,.5,2);
+      const measuredFitZoom=()=>{
+        if(!frame||zoomMode()!=='fit')return fixedZoom();
+        try{
+          const viewport=shell.content||shell.stage;
+          const doc=frame.contentDocument;
+          const root=doc?.documentElement,body=doc?.body;
+          const availableWidth=Math.max(1,viewport?.clientWidth||frame.clientWidth||1);
+          const availableHeight=Math.max(1,viewport?.clientHeight||frame.clientHeight||1);
+          const naturalWidth=Math.max(
+            root?.scrollWidth||0,body?.scrollWidth||0,
+            root?.offsetWidth||0,body?.offsetWidth||0,
+            1
+          );
+          const naturalHeight=Math.max(
+            root?.scrollHeight||0,body?.scrollHeight||0,
+            root?.offsetHeight||0,body?.offsetHeight||0,
+            1
+          );
+          const widthScale=availableWidth/naturalWidth;
+          const heightScale=availableHeight/naturalHeight;
+          return TN.clamp(Math.min(1,widthScale,heightScale)*.985,.5,1);
+        }catch(_){
+          return 1;
+        }
+      };
+      const applyFrameZoom=()=>{
+        if(!frame)return;
+        if(zoomMode()==='fit')fitZoom=measuredFitZoom();
+        const zoom=zoomMode()==='fit'?fitZoom:fixedZoom(),compensatePlanInset=isPlan&&!planEmbedSafeAreaHandled;
+        frame.classList.add('tn-htmlapp-scaled');
+        frame.style.transformOrigin='0 0';
+        frame.style.transform=`scale(${zoom})`;
+        frame.style.width=`${100/zoom}%`;
+        frame.style.top=compensatePlanInset?'calc(-1 * env(safe-area-inset-top,0px))':'0';
+        frame.style.height=compensatePlanInset?`calc(${100/zoom}% + env(safe-area-inset-top,0px))`:`${100/zoom}%`;
+        frame.dataset.htmlAppZoom=String(zoom);
+        frame.dataset.htmlAppZoomMode=zoomMode();
+      };const rawDownload=async()=>{const current=await readHtmlWidgetSource(app,widget),blob=current.media?.blob||new Blob([current.html],{type:'text/html;charset=utf-8'}),name=htmlFileName(widget.content?.name||current.media?.name||widget.title),prepared=app.fileExporter.prepareBlob(blob,name,blob.type||'text/html;charset=utf-8');app.showPreparedExport(prepared,{title:isTw?'TiddlyWiki-filen er klar':'HTML-filen er klar',summary:`${isTw?'Rå single-file TiddlyWiki':'Rå HTML'} · ${TN.formatBytes(prepared.size)}`});};
       const sendFiles=async selected=>{if(!frame){app.toast('Start HTML-appen først');return;}const items=[],transfers=[];for(const file of selected){const buffer=await TN.blobArrayBuffer(file);items.push({name:file.name,type:file.type||'application/octet-stream',buffer});transfers.push(buffer);}const requestId=TN.uid('htmlfiles');frame.contentWindow.postMessage({protocol:'plan-htmlapp-v1',app:'plan',type:'IMPORT_FILES',requestId,payload:{files:items}},'*',transfers);status.textContent=`Sender ${items.length} fil${items.length===1?'':'er'} …`;};
-      const suspend=()=>{if(frame){htmlAppRuntime.frames.delete(widget.id);frame.src='about:blank';frame.remove();frame=null;}if(frameUrl){URL.revokeObjectURL(frameUrl);frameUrl='';}shell.hide();status.textContent=`${appLabel} · suspenderet`;};
-      const start=async()=>{if(frame)return;shell.show();status.textContent='Indlæser …';const latest=await readHtmlWidgetSource(app,widget),directPlan=isPlan&&!!widget.content?.planEmbed,legacyRemoteUrl=['plan','tjek','tavle'].includes(detectedKind)&&/^https?:\/\/(?:plan|tjek|tavle)\./i.test(String(widget.content?.githubSourceUrl||''))?widget.content.githubSourceUrl:'',remoteRuntimeUrl=String(widget.content?.remoteRuntimeUrl||legacyRemoteUrl||''),directRemote=!!remoteRuntimeUrl,remoteTargetUrl=(()=>{if(!directRemote||!isPlan)return remoteRuntimeUrl;try{const target=new URL(remoteRuntimeUrl,location.href);target.searchParams.set('plan_embed','1');return target.href;}catch(_){return remoteRuntimeUrl;}})(),sourceUrl=widget.content?.githubSourceUrl||widget.content?.sourceUrl||'',code=(directPlan||directRemote)?'':injectHtmlAppBridge(injectHtmlAppBase(latest.html,sourceUrl),widget);if(directRemote&&!widget.content?.remoteRuntimeUrl){widget.content.remoteRuntimeUrl=remoteRuntimeUrl;await app.widgetManager.update(widget,{immediate:true});}frame=document.createElement('iframe');frame.className='tn-embedded-frame';const trustedLocalApp=['tiddlywiki','skriv','tjek','plan','tavle'].includes(detectedKind)||!!widget.content?.planEmbed;if(!directRemote)frame.setAttribute('sandbox',trustedLocalApp?'allow-scripts allow-forms allow-popups allow-downloads allow-modals allow-same-origin':'allow-scripts allow-forms allow-popups allow-downloads allow-modals');frame.setAttribute('allow','fullscreen; autoplay; clipboard-read; clipboard-write; camera; microphone');frame.setAttribute('allowusermedia','true');if(isPlan)frame.name='plan-embed';shell.content.append(frame);applyFrameZoom();let homeUrl=directRemote?remoteTargetUrl:'';htmlAppRuntime.frames.set(widget.id,{widget,app,frame,status,suspend,isTiddlyWiki:isTw,appKind:detectedKind,appLabel,pickFiles:()=>input.click(),setPlanEmbedReady:()=>{planEmbedSafeAreaHandled=true;applyFrameZoom();},goHome:()=>{if(!frame)return false;const target=homeUrl||frameUrl||remoteTargetUrl||remoteRuntimeUrl;if(!target)return false;try{frame.src=target;status.textContent=`${appLabel} · åbner startside`;return true;}catch(_){return false;}},homeLabel:`Hjem i ${appLabel}`,applyZoom:applyFrameZoom,getZoom:zoomValue});frame.onload=()=>{applyFrameZoom();status.textContent=isTw?'TiddlyWiki aktiv · brug wikiens egen Importér':`${appLabel} aktiv`;try{frame.contentWindow.postMessage({protocol:'plan-htmlapp-v1',app:'plan',type:'ENV',payload:{runningFromFile:location.protocol==='file:',planVersion:TN.version,widgetId:widget.id,cameraAllowed:trustedLocalApp,appKind:detectedKind}},'*');}catch(_){}};if(directPlan){const target=embeddedPlanTarget(widget,latest.html);await app.widgetManager.update(widget,{immediate:true});homeUrl=target.href;frame.src=homeUrl;}else if(directRemote){homeUrl=remoteTargetUrl;frame.src=homeUrl;}else{frameUrl=URL.createObjectURL(new Blob([code],{type:'text/html;charset=utf-8'}));homeUrl=frameUrl;frame.src=homeUrl;}};
-      shell.activate.onclick=()=>start().catch(error=>{console.error(error);app.toast(error.message||'HTML-appen kunne ikke startes');status.textContent='Kunne ikke starte';});shell.suspend.onclick=suspend;download.onclick=standbyDownload.onclick=()=>rawDownload().catch(error=>app.toast(error.message||'HTML-filen kunne ikke hentes'));files.onclick=()=>{if(!frame){app.toast('Start HTML-appen først');return;}input.click();};input.onchange=()=>{const selected=[...input.files];input.value='';if(selected.length)sendFiles(selected).catch(error=>app.toast(error.message||'Filerne kunne ikke sendes'));};
-      return()=>{suspend();releaseWidgetUrl(widget);};
+      const teardown=()=>{fitObserver?.disconnect?.();fitObserver=null;if(frame){htmlAppRuntime.frames.delete(widget.id);frame.src='about:blank';frame.remove();frame=null;}if(frameUrl){URL.revokeObjectURL(frameUrl);frameUrl='';}};
+      const start=async()=>{if(frame)return;shell.show();status.textContent='Indlæser …';const latest=await readHtmlWidgetSource(app,widget),directPlan=isPlan&&!!widget.content?.planEmbed,legacyRemoteUrl=['plan','tjek','tavle'].includes(detectedKind)&&/^https?:\/\/(?:plan|tjek|tavle)\./i.test(String(widget.content?.githubSourceUrl||''))?widget.content.githubSourceUrl:'',remoteRuntimeUrl=String(widget.content?.remoteRuntimeUrl||legacyRemoteUrl||''),directRemote=!!remoteRuntimeUrl,remoteTargetUrl=(()=>{if(!directRemote||!isPlan)return remoteRuntimeUrl;try{const target=new URL(remoteRuntimeUrl,location.href);target.searchParams.set('plan_embed','1');return target.href;}catch(_){return remoteRuntimeUrl;}})(),sourceUrl=widget.content?.githubSourceUrl||widget.content?.sourceUrl||'',code=(directPlan||directRemote)?'':injectHtmlAppBridge(injectHtmlAppBase(latest.html,sourceUrl),widget);if(directRemote&&!widget.content?.remoteRuntimeUrl){widget.content.remoteRuntimeUrl=remoteRuntimeUrl;await app.widgetManager.update(widget,{immediate:true});}frame=document.createElement('iframe');frame.className='tn-embedded-frame';const trustedLocalApp=['tiddlywiki','skriv','tjek','txtappen','plan','tavle'].includes(detectedKind)||!!widget.content?.planEmbed;if(!directRemote)frame.setAttribute('sandbox',trustedLocalApp?'allow-scripts allow-forms allow-popups allow-downloads allow-modals allow-same-origin':'allow-scripts allow-forms allow-popups allow-downloads allow-modals');frame.setAttribute('allow','fullscreen; autoplay; clipboard-read; clipboard-write; camera; microphone');frame.setAttribute('allowusermedia','true');if(isPlan)frame.name='plan-embed';shell.content.append(frame);applyFrameZoom();let homeUrl=directRemote?remoteTargetUrl:'';htmlAppRuntime.frames.set(widget.id,{widget,app,frame,status,isTiddlyWiki:isTw,appKind:detectedKind,appLabel,pickFiles:()=>input.click(),setPlanEmbedReady:()=>{planEmbedSafeAreaHandled=true;applyFrameZoom();},goHome:()=>{if(!frame)return false;const target=homeUrl||frameUrl||remoteTargetUrl||remoteRuntimeUrl;if(!target)return false;try{frame.src=target;status.textContent=`${appLabel} · åbner startside`;return true;}catch(_){return false;}},homeLabel:`Hjem i ${appLabel}`,applyZoom:applyFrameZoom,getZoom:()=>zoomMode()==='fit'?fitZoom:fixedZoom(),getZoomMode:zoomMode});frame.onload=()=>{
+          applyFrameZoom();
+          requestAnimationFrame(()=>applyFrameZoom());
+          setTimeout(()=>applyFrameZoom(),180);
+          setTimeout(()=>applyFrameZoom(),700);
+          status.textContent=isTw?'TiddlyWiki aktiv · brug wikiens egen Importér':`${appLabel} aktiv`;
+          try{frame.contentWindow.postMessage({protocol:'plan-htmlapp-v1',app:'plan',type:'ENV',payload:{runningFromFile:location.protocol==='file:',planVersion:TN.version,widgetId:widget.id,cameraAllowed:trustedLocalApp,appKind:detectedKind}},'*');}catch(_){}
+        };
+        if(typeof ResizeObserver==='function'){
+          fitObserver?.disconnect?.();
+          fitObserver=new ResizeObserver(()=>{if(zoomMode()==='fit')requestAnimationFrame(applyFrameZoom);});
+          fitObserver.observe(shell.content||shell.stage);
+        }if(directPlan){const target=embeddedPlanTarget(widget,latest.html);await app.widgetManager.update(widget,{immediate:true});homeUrl=target.href;frame.src=homeUrl;}else if(directRemote){homeUrl=remoteTargetUrl;frame.src=homeUrl;}else{frameUrl=URL.createObjectURL(new Blob([code],{type:'text/html;charset=utf-8'}));homeUrl=frameUrl;frame.src=homeUrl;}};
+      shell.activate.onclick=()=>start().catch(error=>{console.error(error);app.toast(error.message||'HTML-appen kunne ikke startes');status.textContent='Kunne ikke starte';});
+      if(shell.suspend){shell.suspend.remove();}
+      download.onclick=standbyDownload.onclick=()=>rawDownload().catch(error=>app.toast(error.message||'HTML-filen kunne ikke hentes'));
+      files.onclick=()=>{if(!frame){start().then(()=>input.click()).catch(error=>app.toast(error.message||'HTML-appen kunne ikke startes'));return;}input.click();};
+      input.onchange=()=>{const selected=[...input.files];input.value='';if(selected.length)sendFiles(selected).catch(error=>app.toast(error.message||'Filerne kunne ikke sendes'));};
+      await start().catch(error=>{
+        console.error(error);
+        app.toast(error.message||'HTML-appen kunne ikke startes');
+        status.textContent='Kunne ikke starte';
+      });
+      return()=>{teardown();releaseWidgetUrl(widget);};
     },suspend(){},unmount({widget}){htmlAppRuntime.frames.delete(widget.id);releaseWidgetUrl(widget);}});
 
     reg('pdf',{heavy:true,mount(ctx){return mountPdfJsWidget(ctx);},suspend(){},unmount({widget}){releaseWidgetUrl(widget);}});
@@ -8948,7 +9035,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       add('storage','Lagerredning, oprydning og sikker gemning',`<p>Plan afslutter aktive redigeringer, gemmer og læser den gemte kopi tilbage, før der skiftes til et andet forløb eller en anden session. Mislykkes kontrollen, bliver det aktuelle arbejde stående åbent.</p><p>Åbn lageradvarslen øverst eller <b>Planoversigt → Lager</b>:</p><ul class="tn-help-list"><li><b>Nødbackup fra hukommelsen</b> bruger det, der stadig er åbent i Plan, selv hvis normal lagring fejler.</li><li><b>Prøv gemning igen</b> gentager den kontrollerede gemmetransaktion.</li><li><b>Sikker oprydning</b> kan rydde cache og reelt forældreløse medier.</li><li>Andre lokale forløb kan sikkerhedskopieres og derefter fjernes for at frigøre plads.</li></ul><p>Sikker oprydning sletter ikke det aktuelle forløb, fælles data, Papirkurv eller gendannelsespunkter. En fil, som stadig bruges eller er beskyttet af en gendannelsesmulighed, regnes ikke som frit affald.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Mediearkiv</button><button data-help-jump="course-backup">Backup++</button><button data-help-jump="trash">Papirkurv</button></div>`,'Nødbackup, gemmefejl, lagerplads og sikker oprydning');
       add('trash','Papirkurv og gendannelsespunkter',`<p>Papirkurv og gendannelsespunkter beskytter to forskellige niveauer.</p><ul class="tn-help-list"><li><b>Papirkurv</b> gemmer slettede widgets og tavler med oprindelig tavle, placering og indhold.</li><li><b>Gendannelsespunkter</b> gemmer en versionskopi af en hel session.</li></ul><p>Brug <b>Delete/Backspace</b> til Papirkurv. Brug Shift-varianten kun ved bevidst permanent sletning. I Papirkurv kan du gendanne enkelte elementer, gendanne alle eller tømme permanent.</p><p>Gendan af et sessionspunkt opretter som standard en ny session. Den aktive session overskrives derfor ikke ved et almindeligt gendannelsesforsøg.</p><p>Medier, der kun findes i Papirkurv eller et gendannelsespunkt, vises som beskyttede i Mediearkivet. Når en tavle eller widget slettes permanent fra Papirkurv, sletter Plan samtidig de tilknyttede medier, som ikke længere bruges af andre tavler, widgets eller datakilder og ikke beskyttes af en anden papirkurvskopi, historik eller et gendannelsespunkt. Delte medier bevares.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="storage">Oprydning</button><button data-help-jump="media">Medier</button><button data-help-jump="course-backup">Backup++</button></div>`,'Slettede widgets, slettede tavler og hele sessionskopier');
       add('appearance','Baggrunde, grid og Redningsbælte',`<p><b>B</b> skifter tema. Baggrunden tilhører den aktuelle tavle. Åbn den fra <b>tavlemenuen → Baggrund</b>, med <b>Shift+B</b> eller ved højreklik/langt tryk på et tomt område. Tavlemenuen har sit eget felt ved siden af titlen. Feltet viser enten <b>•••</b> eller et valgfrit digitalt ur; begge åbner den samme menu.</p><p><b>Chrome på iPad:</b> Brug <b>••• øverst til venstre</b> til tavlemenuen. Musens højreklik kan blive overtaget af iPadOS. Touch/langt tryk virker fortsat som normalt.</p><ul class="tn-help-list"><li>Vælg mellem farveswatches og gradienter. Når baggrundsvælgeren er åben, kan du også bruge piletasterne til at se forslagene på tavleeksemplet, trykke <b>Enter</b> for at vælge og <b>Esc</b> for at lukke uden at ændre noget.</li><li>Vælg <b>Vis ur + kalender</b> eller <b>Skjul ur + kalender</b> i tavlemenuen. Urvalget gælder Plan-brugerfladen og ændrer ikke tavlens data.</li><li>Vælg et eget billede fra enheden og brug <b>Fyld tavlen</b>, <b>Vis hele billedet</b> eller <b>Stræk til tavlen</b>.</li><li>Den mørke tone kan gøre tekst og widgets lettere at læse oven på et foto.</li><li>Under <b>Markering af valgt widget</b> vælger du kantens styrke og farve samt om den skal vises i Redigering, Fokus og Præsentation. Valget gemmes på den enkelte tavle.</li><li>Billedet gemmes én gang i Mediearkivet og følger tavlen i Backup++, sessionpakker og årsforløb.</li><li>Annuller gendanner den tidligere baggrund. Når et baggrundsbillede erstattes, ryddes det gamle kun, hvis ingen anden tavle eller beskyttet kopi bruger det.</li><li><b>Cmd/Ctrl+B</b> vælger en tilfældig gradient, og <b>Shift+G</b> slår grid til eller fra.</li><li>Vælg <b>Tegn på tavlen</b> i tavlemenuen for frihånd, linje, firkant, cirkel og viskelæder. Én finger eller pen tegner; to fingre zoomer og flytter tavlen.</li><li>Tegningen gemmes på den konkrete tavle. Du kan fortryde, gentage, rydde eller gemme den som en almindelig Billedwidget i Mediearkivet.</li><li><b>Shift+O</b> aktiverer Redningsbæltet.</li></ul><p>Redningsbæltet nulstiller tavlens zoom og pan og afslutter en fastlåst fokusvisning uden at slette indhold. Brug det, når tavlen er kommet uden for synligt område, eller visningen er svær at komme tilbage fra.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="zoom-focus">Zoom og fokus</button><button data-help-jump="windows">Vindueslayout</button><button data-help-jump="media">Mediearkiv</button><button data-help-jump="storage">Lagerredning</button></div>`,'Tavlemenu, swatches, baggrundsbilleder, grid og Redningsbælte');
-      add('heavy','Tungt indhold og aktiv livscyklus',`<p>PDF, HTML-apps, webvisninger, video og lyd kan være væsentligt tungere end tekst og lister. Plan forsøger derfor kun at holde det nødvendige indhold aktivt.</p><ul class="tn-help-list"><li>Kun den aktive tavle monteres.</li><li>Matrixer monterer kun den aktuelle side.</li><li>Video og lyd pauses ved tavleskift og når et andet lokalt medie starter.</li><li>Midlertidige objektadresser frigives, når en tavle afmonteres.</li><li>HTML-apps kan suspenderes, når de ikke skal køre.</li><li>Maksimering og almindelige vindueslayouts ændrer så vidt muligt kun rammen omkring en aktiv HTML-app.</li></ul><p>Store forløb fungerer bedst, når tunge filer ligger i Mediearkivet og widgets bruger referencer frem for indlejrede kopier. Brug Planoversigts Medier- og Lager-faner til at finde pladsforbrug og reelt forældreløse filer.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Medier</button><button data-help-jump="web-html">HTML-apps</button><button data-help-jump="pdf">PDF</button><button data-help-jump="storage">Lager</button></div>`,'Ydelse, lazy mounting, PDF, HTML, video og lyd');
+      add('heavy','Tungt indhold og aktiv livscyklus',`<p>PDF, HTML-apps, webvisninger, video og lyd kan være væsentligt tungere end tekst og lister. Plan forsøger derfor kun at holde det nødvendige indhold aktivt.</p><ul class="tn-help-list"><li>Kun den aktive tavle monteres.</li><li>Matrixer monterer kun den aktuelle side.</li><li>Video og lyd pauses ved tavleskift og når et andet lokalt medie starter.</li><li>Midlertidige objektadresser frigives, når en tavle afmonteres.</li><li>HTML-apps åbnes automatisk sammen med tavlen.</li><li>Maksimering og almindelige vindueslayouts ændrer så vidt muligt kun rammen omkring en aktiv HTML-app.</li></ul><p>Store forløb fungerer bedst, når tunge filer ligger i Mediearkivet og widgets bruger referencer frem for indlejrede kopier. Brug Planoversigts Medier- og Lager-faner til at finde pladsforbrug og reelt forældreløse filer.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Medier</button><button data-help-jump="web-html">HTML-apps</button><button data-help-jump="pdf">PDF</button><button data-help-jump="storage">Lager</button></div>`,'Ydelse, lazy mounting, PDF, HTML, video og lyd');
     }
     registerCommands(){
       const add=c=>this.commandRegistry.register(c);const global='global';
@@ -9786,11 +9873,30 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       this.positionWidgetPopover(pop,anchorButton,{align:'left'});let current=0;const reveal=()=>pop.classList.add('keyboard-open'),focusAt=index=>{current=(index+buttons.length)%buttons.length;buttons[current]?.focus({preventScroll:true});},onOutside=event=>{if(!pop.contains(event.target)&&!anchorButton.contains(event.target))this.closeLayoutPopover();},onKey=event=>{if(event.key==='Escape'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();this.closeLayoutPopover();return;}const number=Number(event.key);if(Number.isInteger(number)&&number>=1&&number<=buttons.length){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();reveal();buttons[number-1].click();return;}if(['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();reveal();if(event.key==='Home')focusAt(0);else if(event.key==='End')focusAt(buttons.length-1);else focusAt(current+(event.key==='ArrowRight'||event.key==='ArrowDown'?1:-1));return;}if((event.key==='Enter'||event.key===' ')&&pop.contains(document.activeElement)){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();document.activeElement.click();}};
       setTimeout(()=>document.addEventListener('pointerdown',onOutside,true),0);document.addEventListener('keydown',onKey,true);this.layoutPopover={el:pop,onOutside,onKey};if(keyboard)requestAnimationFrame(()=>focusAt(0));
     }
-    htmlAppZoomValue(widget){return TN.clamp(Number(widget?.content?.htmlAppZoom)||1,.5,2);}
+    htmlAppZoomMode(widget){return widget?.content?.htmlAppZoomMode==='fixed'?'fixed':'fit';}
+    htmlAppZoomValue(widget){
+      const runtime=TN.runtime.htmlApps?.frames?.get(widget?.id);
+      if(this.htmlAppZoomMode(widget)==='fit'&&runtime?.getZoom)return TN.clamp(Number(runtime.getZoom())||1,.5,2);
+      return TN.clamp(Number(widget?.content?.htmlAppZoom)||1,.5,2);
+    }
     async setHtmlAppZoom(id,value){
       const widget=TN.runtime.activeWidgets.find(item=>item.id===id);if(!widget||widget.type!=='html')return 1;
-      const zoom=Math.round(TN.clamp(Number(value)||1,.5,2)*10)/10;widget.content=widget.content||{};widget.content.htmlAppZoom=zoom;
-      const runtime=TN.runtime.htmlApps?.frames?.get(id);runtime?.applyZoom?.();await this.widgetManager.update(widget,{immediate:true});return zoom;
+      const zoom=Math.round(TN.clamp(Number(value)||1,.5,2)*10)/10;
+      widget.content=widget.content||{};
+      widget.content.htmlAppZoom=zoom;
+      widget.content.htmlAppZoomMode='fixed';
+      widget.content.htmlAppZoomUserSet=true;
+      const runtime=TN.runtime.htmlApps?.frames?.get(id);runtime?.applyZoom?.();
+      await this.widgetManager.update(widget,{immediate:true});return zoom;
+    }
+    async fitHtmlAppZoom(id){
+      const widget=TN.runtime.activeWidgets.find(item=>item.id===id);if(!widget||widget.type!=='html')return 1;
+      widget.content=widget.content||{};
+      widget.content.htmlAppZoomMode='fit';
+      widget.content.htmlAppZoomUserSet=true;
+      const runtime=TN.runtime.htmlApps?.frames?.get(id);runtime?.applyZoom?.();
+      await this.widgetManager.update(widget,{immediate:true});
+      return runtime?.getZoom?.()||1;
     }
     async exportHtmlWidgetFile(id){
       const widget=TN.runtime.activeWidgets.find(item=>item.id===id);if(!widget||widget.type!=='html')return false;
@@ -9888,8 +9994,20 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         add('⇧','Udskift indhold …',()=>{this.closeLayoutPopover();this.replaceWidgetContent(id).catch(error=>this.toast(error.message||'Indholdet kunne ikke udskiftes'));});
       }
       if(widget.type==='html'){
-        const zoomControl=document.createElement('section');zoomControl.className='tn-htmlapp-zoom-control';zoomControl.innerHTML='<div><span>🔎</span><b>Zoom i HTMLApp</b></div><div class="tn-htmlapp-zoom-row"><button type="button" data-minus aria-label="Zoom ud">−</button><button type="button" data-reset aria-label="Nulstil HTMLApp-zoom til 100 procent" title="Nulstil til 100 %"></button><button type="button" data-plus aria-label="Zoom ind">＋</button></div>';
-        const value=zoomControl.querySelector('[data-reset]'),paint=()=>{value.textContent=`${Math.round(this.htmlAppZoomValue(widget)*100)} %`;},change=async delta=>{await this.setHtmlAppZoom(id,this.htmlAppZoomValue(widget)+delta);paint();};paint();zoomControl.querySelector('[data-minus]').onclick=event=>{event.preventDefault();event.stopPropagation();change(-.1);};zoomControl.querySelector('[data-plus]').onclick=event=>{event.preventDefault();event.stopPropagation();change(.1);};value.onclick=event=>{event.preventDefault();event.stopPropagation();this.setHtmlAppZoom(id,1).then(paint);};pop.append(zoomControl);
+        const zoomControl=document.createElement('section');zoomControl.className='tn-htmlapp-zoom-control';zoomControl.innerHTML='<div><span>🔎</span><b>Zoom i HTMLApp</b></div><div class="tn-htmlapp-zoom-row"><button type="button" data-minus aria-label="Zoom ud">−</button><button type="button" data-reset aria-label="Tilpas HTML-appen til vinduet" title="Tilpas til vindue"></button><button type="button" data-plus aria-label="Zoom ind">＋</button></div>';
+        const value=zoomControl.querySelector('[data-reset]'),paint=()=>{
+          const mode=this.htmlAppZoomMode(widget),percent=Math.round(this.htmlAppZoomValue(widget)*100);
+          value.textContent=mode==='fit'?`Tilpas · ${percent} %`:`${percent} %`;
+          value.title=mode==='fit'?'Tilpasset til vinduet · klik for at beregne igen':'Klik for at tilpasse til vinduet';
+        },change=async delta=>{
+          const current=this.htmlAppZoomValue(widget);
+          await this.setHtmlAppZoom(id,current+delta);paint();
+        };
+        paint();
+        zoomControl.querySelector('[data-minus]').onclick=event=>{event.preventDefault();event.stopPropagation();change(-.1);};
+        zoomControl.querySelector('[data-plus]').onclick=event=>{event.preventDefault();event.stopPropagation();change(.1);};
+        value.onclick=event=>{event.preventDefault();event.stopPropagation();this.fitHtmlAppZoom(id).then(()=>requestAnimationFrame(paint));};
+        pop.append(zoomControl);
         add('⇩','Hent HTML-fil',()=>{this.closeLayoutPopover();this.exportHtmlWidgetFile(id).catch(error=>this.toast(error.message||'HTML-filen kunne ikke hentes'));});
         const stateRef=widget.content?.appState?.fileMediaRef||widget.content?.udtBackupRef||widget.content?.tjekBackupRef,kind=widget.content?.appKind||widget.content?.appState?.app||'',stateLabel=kind==='skriv'||kind==='himmerlands-udtalelser'?'Hent Skriv-gemmefil':kind==='tjek'||kind==='himmerlands-tjek'?'Hent Tjek-gemmefil':'Hent appens gemmefil';if(stateRef)add('💾',stateLabel,()=>{this.closeLayoutPopover();this.exportHtmlAppStateFile(id).catch(error=>this.toast(error.message||'Gemmefilen kunne ikke hentes'));});
         const runtime=TN.runtime.htmlApps?.frames?.get(id);if(runtime&&typeof runtime.goHome==='function')add('⌂',runtime.homeLabel||'Hjem i HTML-app',()=>{this.closeLayoutPopover();if(!runtime.goHome())this.toast('HTML-appen er ikke aktiv');});if(runtime?.pickFiles)add('⇧','Filer ind',()=>{this.closeLayoutPopover();runtime.pickFiles();});if(runtime&&typeof runtime.suspend==='function')add('⏸',`Suspendér ${runtime.appLabel||'HTML-app'}`,()=>{this.closeLayoutPopover();runtime.suspend();});
@@ -10136,7 +10254,9 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     async importDocumentFile(file,type){
       const result=await this.mediaManager.importFile(file,{optimize:false,keepOriginal:false}),media=result.media;
       const existing=TN.runtime.activeWidgets.find(w=>(w.type===type&&w.content?.mediaId===media.id)||(w.type===`${type}-matrix`&&(w.content?.items||[]).some(item=>String(item?.mediaId||'')===String(media.id))));
-      if(existing){this.selectWidget(existing.id);this.toast(`${TN.Models.widgetTitle(type)} findes allerede på tavlen`);return existing;}
+      // HTML-apps må optræde flere gange på samme tavle. Selve HTML-mediefilen
+      // genbruges, mens hver widget beholder sit eget widget-id og sin egen app-state.
+      if(type!=='html'&&existing){this.selectWidget(existing.id);this.toast(`${TN.Models.widgetTitle(type)} findes allerede på tavlen`);return existing;}
       const index=TN.runtime.activeWidgets.length,base={x:80+(index%5)*24,y:80+(index%5)*22,z:index+1};
       let options;
       if(type==='pdf')options={title:file.name,content:{mediaId:media.id,url:null,name:file.name,page:1,scrollTop:0,formData:{},viewer:'pdfjs'},geometry:{...base,width:720,height:520}};
@@ -28447,7 +28567,7 @@ body.tn-pdf-matrix-reel-open{overflow:hidden!important}
     put('pdf','PDF og PDF-matrix',`<p>En enkelt PDF åbnes som en almindelig PDFWidget. Vælger eller slipper du flere PDF-filer samtidig, samler Plan dem automatisk i én <b>PDF-matrix</b>.</p><ul class="tn-help-list"><li>Matrixoversigten viser reelle sider fra PDF-filerne. Den side, der senest var åben i dokumentet, vises som lille forhåndsvisning.</li><li>Brug ‹ / › på den enkelte lille PDF til at bladre i den uden at åbne stor visning.</li><li>Knib med to fingre direkte på matrixen for at zoome oversigten. Brug den synlige <b>Nulstil zoom</b>-knap nederst for at vende tilbage til 100 % og udgangspunktet; procenttallet kan også trykkes.</li><li>Når widgetten ændres i størrelse, lægger Plan automatisk matrixen om inden for vinduet. Dokumenternes sider, zoom og placering ændres ikke.</li><li>Flere eksisterende PDFWidgets kan samles via <b>••• → Saml tavlens PDF’er i matrix</b>.</li><li>Tryk midt på en lille PDF-side for at åbne den store visning.</li><li>Stor visning starter med hele siden synlig. Vælg <b>Side</b> eller <b>Bredde</b>, og zoom med knib med to fingre eller −/＋. Tryk på zoomprocenten for at nulstille til 100 %. På computere kan vinduet også ændres i størrelse.</li><li>Tryk på sidefeltet, og vælg det ønskede sidetal i rullemenuen for at hoppe direkte i dokumentet.</li><li><b>↑ / ↓</b> skifter mellem PDF-filerne, mens <b>← / →</b> bladrer i den aktuelle PDF. Dokumenterne kører i ring: efter den sidste fortsætter visningen fra den første, og tilbage fra den første fortsætter fra den sidste.</li><li>Med touch eller mus bruges knapperne øverst til dokumenter og sidepile i værktøjslinjen eller de faste knapper til venstre og højre for PDF’en.</li><li><b>Esc</b> lukker stor visning. Står markøren i et formularfelt, slipper første Esc feltet, og næste Esc lukker.</li><li>Der bruges ikke swipe-navigation, så scroll, links, formularfelter og sidebetjening ikke kolliderer.</li></ul><p>Hvert dokument husker side, Side/Bredde, zoom, scrollposition og formularfelter. Tastetryk og pointerhandlinger i stor visning påvirker ikke tavlen bagved. Når matrixen står almindeligt på tavlen, ejer den ikke piletasterne.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Mediematricer</button><button data-help-jump="zoom-focus">Stor visning</button><button data-help-jump="import">Import</button></div>`,'Enkelt-PDF, PDF-matrix, små sidepile, pinch-zoom, sidevalg, hel side, bredde, formularer og navigation');
     put('import','Import, direkte filslip og klassisk Tavle',`<p>Du kan vælge filer eller slippe dem direkte på Plan. Plan genkender blandt andet JSON, CSV, TSV, TXT, XLSX, ICS, PDF, HTML, billeder, lyd og video.</p><ul class="tn-help-list"><li>Datafiler åbner et preview, før de gemmes.</li><li>Én mediefil oprettes som en almindelig widget.</li><li>Flere billeder, videoer, lydfiler eller PDF’er samles automatisk pr. medietype i en matrix.</li><li>Én PDF forbliver en almindelig PDFWidget; flere PDF’er bliver en PDF-matrix med reelle og bladrebare sidevisninger.</li><li>HTML oprettes som sin egen HTMLWidget.</li><li>Backup++ og årsforløbspakker åbner et import-preview med sessionsvalg og konflikthåndtering.</li><li>Gamle Tavle-backups og kendte legacy-widgets konverteres, hvor Plan har en sikker tilsvarende model.</li></ul><p>Importen genbruger identiske mediefiler, når det er sikkert, og springer dubletter på den aktive tavle over. Ukendte elementer må ikke slettes stiltiende.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Medieimport</button><button data-help-jump="pdf">PDF-matrix</button><button data-help-jump="data">Dataimport</button><button data-help-jump="course-backup">Backupimport</button></div>`,'Filslip, flere PDF’er, bladrebare PDF-sidevisninger, mediematricer, CSV, Excel og backup');
     const toolsEntry=this.helpRegistry.entries.find(item=>item.id==='tools');if(toolsEntry){toolsEntry.body=toolsEntry.body.replace('<b>PDF</b><small>dokument og formular</small>','<b>PDF</b><small>enkelt eller matrix</small>');TN.registry.help.set('tools',toolsEntry);}
-    put('heavy','Tungt indhold og aktiv livscyklus',`<p>PDF, PDF-matricer, HTML-apps, webvisninger, video og lyd kan være væsentligt tungere end tekst og lister. Plan holder derfor kun det nødvendige indhold aktivt.</p><ul class="tn-help-list"><li>Kun den aktive tavle monteres.</li><li>PDF-matrixen renderer kun små sider for dokumenterne på den aktuelle oversigtsside og genbruger dem i en begrænset cache.</li><li>Når du bladrer i en lille PDF, gengives kun den nye aktuelle side.</li><li>I stor visning er kun den ene PDF åben i PDF-motoren. De øvrige dokumenter forbliver lette referencer.</li><li>Video og lyd pauses ved tavleskift og når et andet lokalt medie starter.</li><li>Midlertidige PDF-data og renderinger frigives, når stor visning lukkes eller dokumentet skiftes.</li><li>HTML-apps kan suspenderes, når de ikke skal køre.</li></ul><p>Store forløb fungerer bedst, når tunge filer ligger i Mediearkivet og widgets bruger referencer frem for indlejrede kopier.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Medier</button><button data-help-jump="pdf">PDF-matrix</button><button data-help-jump="web-html">HTML-apps</button><button data-help-jump="storage">Lager</button></div>`,'Ydelse, PDF-sidevisninger, lokal bladring, lazy mounting, HTML, video og lyd');
+    put('heavy','Tungt indhold og aktiv livscyklus',`<p>PDF, PDF-matricer, HTML-apps, webvisninger, video og lyd kan være væsentligt tungere end tekst og lister. Plan holder derfor kun det nødvendige indhold aktivt.</p><ul class="tn-help-list"><li>Kun den aktive tavle monteres.</li><li>PDF-matrixen renderer kun små sider for dokumenterne på den aktuelle oversigtsside og genbruger dem i en begrænset cache.</li><li>Når du bladrer i en lille PDF, gengives kun den nye aktuelle side.</li><li>I stor visning er kun den ene PDF åben i PDF-motoren. De øvrige dokumenter forbliver lette referencer.</li><li>Video og lyd pauses ved tavleskift og når et andet lokalt medie starter.</li><li>Midlertidige PDF-data og renderinger frigives, når stor visning lukkes eller dokumentet skiftes.</li><li>HTML-apps åbnes automatisk sammen med tavlen.</li></ul><p>Store forløb fungerer bedst, når tunge filer ligger i Mediearkivet og widgets bruger referencer frem for indlejrede kopier.</p><div class="tn-help-see"><b>Se også:</b><button data-help-jump="media">Medier</button><button data-help-jump="pdf">PDF-matrix</button><button data-help-jump="web-html">HTML-apps</button><button data-help-jump="storage">Lager</button></div>`,'Ydelse, PDF-sidevisninger, lokal bladring, lazy mounting, HTML, video og lyd');
   };
 
   TN.version='0.9.3fi';
@@ -54313,27 +54433,53 @@ async function createImportNote(app,rejected){
 const previousHandleFiles=App.prototype.handleFiles;
 App.prototype.handleFiles=async function(files){
   const list=[...(files||[])].map(file=>this.normalizeImportFile(file));
-  const accepted=[];
+  const resourceFiles=[];
+  const canonicalFiles=[];
   const rejected=[];
 
   for(const file of list){
     const category=categoryFor(this,file);
-    if(category)accepted.push(file);
-    else{
-      const mime=this.inferImportMime(file)||file.type||'ukendt type';
-      rejected.push({file,reason:`filtypen ${mime} kan ikke bruges som billede, PDF, video eller lyd`});
+    const lower=String(file?.name||'').toLowerCase();
+    const mime=this.inferImportMime(file)||file.type||'';
+
+    /*
+      Ressourcesamlingen ejer kun billeder, PDF, lyd og video.
+      HTML-apps, JSON, datafiler m.m. skal fortsat behandles af Plans
+      kanoniske filimport. Den tidligere version af denne wrapper
+      afviste dem globalt og brød derfor "Tilføj HTML-app → Åbn HTML-fil".
+    */
+    if(category){
+      resourceFiles.push(file);
+    }else if(
+      /\.(?:html?|json|csv|tsv|txt|xlsx|ics)$/i.test(lower) ||
+      /^(?:text\/html|application\/xhtml\+xml|application\/json|text\/(?:plain|csv|tab-separated-values|calendar))$/i.test(mime) ||
+      mime==='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ){
+      canonicalFiles.push(file);
+    }else{
+      rejected.push({
+        file,
+        reason:`filtypen ${mime||'ukendt type'} understøttes ikke`
+      });
     }
   }
 
   if(rejected.length)await createImportNote(this,rejected);
-  if(!accepted.length){
-    this.toast(`${rejected.length} fil${rejected.length===1?'':'er'} kunne ikke importeres`);
-    return [];
+
+  if(resourceFiles.length){
+    const handled=await createCollectionFromFiles(this,resourceFiles);
+    if(!handled)await previousHandleFiles.call(this,resourceFiles);
   }
 
-  const handled=await createCollectionFromFiles(this,accepted);
-  if(handled)return [];
-  return previousHandleFiles.call(this,accepted);
+  if(canonicalFiles.length){
+    await previousHandleFiles.call(this,canonicalFiles);
+  }
+
+  if(!resourceFiles.length&&!canonicalFiles.length&&rejected.length){
+    this.toast(`${rejected.length} fil${rejected.length===1?'':'er'} kunne ikke importeres`);
+  }
+
+  return [];
 };
 
 const previousTitle=TN.Models?.widgetTitle?.bind(TN.Models);
