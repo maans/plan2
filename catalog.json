@@ -3,7 +3,7 @@
   "version": 2,
   "title": "Plan · guides, demoer og skabeloner",
   "description": "Interaktive guides, færdige demoforløb og arbejdsklare skabeloner, som Plan henter som selvstændige lokale kopier.",
-  "updatedAt": "2026-07-18T20:10:00+02:00",
+  "updatedAt": "2026-07-31T07:45:00+02:00",
   "categories": [
     {
       "id": "guides",
@@ -123,7 +123,7 @@
       "title": "Dansk 9.–10. klasse · årsplan 2026–27 · Haubro",
       "category": "dansk",
       "subject": "Dansk",
-      "description": "Dansk årsplan 2026–27 med kalender, danskhold, elevkort, niveaudeling, fagsamtaler og standpunktskarakterer.",
+      "description": "Haubro-referenceforløb med årsplan, elevadministration, levende holdkoblinger, niveaudeling, fagsamtaler, karakterer og danskfaglige sessioner.",
       "schoolYear": "2026–27",
       "gradeLevels": [
         "9",
@@ -149,16 +149,21 @@
         "automatisk fagsamtalekobling",
         "engangskonvertering ved import",
         "stabile lærerfelter",
-        "fagsamtale datamodel 3.0"
+        "fagsamtale datamodel 3.0",
+        "reference-demo",
+        "levende holdkoblinger",
+        "DanA1-standard",
+        "KaPardy V8",
+        "separat ressourcepakke"
       ],
-      "version": "5.15.0",
+      "version": "8.0.0",
       "packageUrl": "https://raw.githubusercontent.com/maans/plan2/main/plan-library/dansk/dansk-2026-27/forloeb.json",
-      "sizeBytes": 2700183,
+      "sizeBytes": 7252759,
       "featured": true,
-      "updatedAt": "2026-07-17T16:35:00+02:00",
-      "boardCount": 126,
-      "widgetCount": 527,
-      "datasetCount": 41
+      "updatedAt": "2026-07-31T07:45:00+02:00",
+      "boardCount": 113,
+      "widgetCount": 592,
+      "datasetCount": 109
     },
     {
       "id": "dansk-2025-26",

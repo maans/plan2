@@ -1,12 +1,18 @@
-# Dansk 9.–10. klasse · årsplan 2026–27
+# Dansk 9.–10. klasse · årsplan 2026–27 · Haubro
 
-Et samlet Plan-årsforløb med årsoversigt og faglige sessioner om familien, ungdom og identitet, litteraturhistorie, frihed og flugt samt reklamer, synopse og prøveforberedelse.
+Plan 2.0-referenceforløb uden lokale undervisningsfiler. Ressourcer distribueres separat som Haubro-masterressourcepakke.
 
-- **Sessioner:** 6
-- **Tavler:** 92
-- **Widgets:** 366
-- **Datasæt:** 1
-- **Fælles kalender:** Ja – både indbygget i årsforløbet og vedlagt som `kalender.ics`
-- **Materialer:** Tomme PDF-widgets bruges, hvor den præcise tekst eller fil ikke følger med
+- Sessioner: 7
+- Tavler: 113
+- Widgets: 592
+- Datasæt: 109
+- Fælles kalender: Ja — både indbygget og vedlagt som `kalender.ics`
+- Elevadministration: Ja
+- Levende holdkoblinger: DanA1, Team 6 og Birken
+- Forløbsstandard: DanA1
+- KaPardy: 6 spil, manuelt semantisk revideret, 4 kategorier pr. spil
+- Materialer: Ingen lokale undervisningsfiler er indlejret; hent den separate masterressourcepakke.
 
-Plan henter `forloeb.json` og opretter en selvstændig lokal arbejdskopi. Ændringer i brugerens kopi påvirker ikke bibliotekets original.
+## Vigtig importregel
+
+Denne udgave skal importeres som en **frisk lokal kopi**. Den må ikke flettes med en ældre Haubro-demo ud fra tavlenummer, tavletitel eller position.
