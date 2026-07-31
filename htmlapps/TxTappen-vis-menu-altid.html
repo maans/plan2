@@ -1,0 +1,1324 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TxTappen</title>
+<style>
+:root{
+  --bg:#eef2f7;
+  --panel:#ffffff;
+  --ink:#18212f;
+  --muted:#6f7a89;
+  --line:#dfe5ee;
+  --accent:#4b6fff;
+  --mine:#4b6fff;
+  --theirs:#ffffff;
+  --danger:#d9534f;
+  --shadow:0 18px 48px rgba(24,33,47,.12);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg); color:var(--ink); overflow:hidden;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{
+  display:grid;
+  grid-template-columns:minmax(320px,440px) minmax(320px,1fr);
+  height:100%;min-height:0;overflow:hidden;
+  transition:grid-template-columns .28s ease;
+}
+.app.menu-hidden{grid-template-columns:0 minmax(0,1fr)}
+.app.menu-hidden .editor{
+  opacity:0;pointer-events:none;overflow:hidden;border:0;
+}
+.editor{
+  display:flex;flex-direction:column;min-width:0;min-height:0;height:100%;
+  background:var(--panel);border-right:1px solid var(--line);
+  transition:opacity .18s ease;overflow:hidden;
+}
+.editor-footer{
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line);background:#fff;
+}
+.editor-footer .btn{width:100%}
+.topbar{
+  display:flex;align-items:center;gap:10px;padding:14px 16px;
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  width:38px;height:38px;border-radius:12px;
+  display:grid;place-items:center;background:linear-gradient(135deg,#4b6fff,#8a5cff);
+  color:white;font-weight:800;
+}
+.title-wrap{min-width:0;flex:1}
+.title-wrap strong{display:block}
+.title-wrap small{color:var(--muted)}
+.toolbar{
+  display:grid;gap:10px;padding:12px 16px 14px;border-bottom:1px solid var(--line);
+  background:#fbfcff;
+}
+.action-group{display:grid;gap:8px}
+.action-group.transport{grid-template-columns:1.25fr 1fr 1fr}
+.action-group.story-actions{grid-template-columns:1fr 1.35fr}
+.action-group.story-actions.single{grid-template-columns:1fr}
+.action-group.file-actions{grid-template-columns:1fr 1fr}
+.btn{
+  min-height:40px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:11px;padding:9px 12px;font-weight:750;line-height:1.1;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn:hover{background:#f7f9fc}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.soft{background:#f2f5fb}
+.btn.danger{color:var(--danger)}
+.btn.icon-only{width:42px;min-width:42px;padding:0;font-size:17px}
+.story-library{
+  margin-bottom:16px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#f8faff;
+}
+.story-library-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.story-library-head strong{font-size:14px}
+.story-library-head span{font-size:11px;color:var(--muted);text-align:right}
+.story-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:8px;align-items:stretch}
+.story-library-status{font-size:12px;color:var(--muted);min-height:18px;margin-top:7px;line-height:1.35}
+.story-library select{
+  width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;
+  padding:10px 34px 10px 11px;background:#fff;color:var(--ink);font-weight:650;
+}
+.story-library-note{font-size:11px;color:var(--muted);margin-top:7px}
+.editor-body{
+  padding:16px;overflow:auto;overflow-x:hidden;flex:1;min-height:0;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field label{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 11px;
+  background:#fff;color:var(--ink);outline:none;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(75,111,255,.12)}
+textarea{min-height:310px;resize:vertical;line-height:1.55}
+.help{
+  padding:10px 12px;background:#f6f8fc;border:1px solid var(--line);border-radius:10px;
+  color:var(--muted);font-size:13px;line-height:1.45;margin-bottom:14px
+}
+.preview{
+  display:grid;place-items:start center;min-width:0;min-height:0;height:100%;
+  padding:24px;position:relative;overflow:auto;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(75,111,255,.12),transparent 30%),
+    radial-gradient(circle at 85% 85%,rgba(138,92,255,.12),transparent 34%),
+    #e9eef6;
+}
+.phone{
+  width:min(430px,100%);height:min(820px,calc(100vh - 48px));
+  min-height:560px;background:#f4f6f9;border-radius:34px;box-shadow:var(--shadow);
+  overflow:hidden;border:10px solid #131820;display:flex;flex-direction:column;position:relative;
+  transition:width .28s ease,height .28s ease,border-radius .28s ease,border-width .28s ease;
+}
+.show-menu-btn{
+  display:none;position:absolute;left:14px;top:14px;z-index:30;
+  border:1px solid var(--line);background:rgba(255,255,255,.96);color:var(--ink);
+  border-radius:12px;padding:11px 14px;font-weight:800;box-shadow:0 8px 28px rgba(24,33,47,.18);
+}
+.app.menu-hidden .preview{padding:10px;overflow:auto}
+.app.menu-hidden .phone{
+  width:min(430px,100%);height:min(820px,calc(100vh - 20px));
+  max-width:430px;min-height:520px;border:10px solid #131820;border-radius:34px;box-shadow:var(--shadow);
+}
+.app.menu-hidden .show-menu-btn{display:none}
+.app.menu-hidden .phone-head{padding:clamp(14px,1.5vw,25px) clamp(16px,2vw,34px)}
+.app.menu-hidden .avatar{width:clamp(44px,4.4vw,76px);height:clamp(44px,4.4vw,76px);font-size:clamp(16px,1.6vw,28px)}
+.app.menu-hidden .chat-meta strong{font-size:clamp(18px,1.9vw,34px)}
+.app.menu-hidden .chat-meta small{font-size:clamp(13px,1.25vw,22px)}
+.app.menu-hidden .chat{padding:clamp(22px,3vw,52px) clamp(18px,3.2vw,58px)}
+.app.menu-hidden .row{margin:clamp(10px,1.35vw,25px) 0;gap:clamp(8px,1vw,16px)}
+.app.menu-hidden .message-wrap{max-width:min(58%,920px)}
+.app.menu-hidden .bubble{
+  padding:clamp(12px,1.4vw,24px) clamp(15px,1.7vw,30px);
+  border-radius:clamp(17px,1.7vw,28px);font-size:clamp(17px,1.55vw,29px);line-height:1.38;
+}
+.app.menu-hidden .mine .bubble{border-bottom-right-radius:7px}
+.app.menu-hidden .theirs .bubble{border-bottom-left-radius:7px}
+.app.menu-hidden .sender{font-size:clamp(12px,1.08vw,19px);margin:0 7px 5px}
+.app.menu-hidden .mini-avatar{width:clamp(28px,2.8vw,48px);height:clamp(28px,2.8vw,48px);font-size:clamp(11px,1vw,18px)}
+.app.menu-hidden .composer{padding:clamp(10px,1.3vw,22px) clamp(12px,1.7vw,30px)}
+.app.menu-hidden .fake-input{min-height:clamp(46px,4.4vw,70px);border-radius:999px;padding:clamp(11px,1.2vw,20px) clamp(16px,1.6vw,28px);font-size:clamp(16px,1.4vw,25px)}
+.app.menu-hidden .send{width:clamp(46px,4.5vw,72px);height:clamp(46px,4.5vw,72px);font-size:clamp(19px,1.8vw,31px)}
+.app.menu-hidden .statusbar{padding:clamp(8px,.9vw,15px) clamp(14px,1.7vw,30px);font-size:clamp(12px,1vw,18px)}
+.phone-head{
+  background:#fff;padding:15px 16px 12px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;font-weight:800;background:#7c8ca5;flex:0 0 auto;overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.chat-meta{min-width:0;flex:1}
+.chat-meta strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-meta small{color:#34a853;font-weight:700}
+.phone-actions{display:flex;gap:7px}
+.icon-btn{
+  width:36px;height:36px;border-radius:50%;border:0;background:#f0f3f8;
+  display:grid;place-items:center;font-weight:900
+}
+.chat{
+  flex:1;overflow:auto;padding:18px 12px 22px;
+  background:
+    linear-gradient(rgba(245,247,250,.92),rgba(245,247,250,.92)),
+    radial-gradient(circle at 10px 10px,#dce2eb 1px,transparent 1px);
+  background-size:auto,22px 22px;
+  scroll-behavior:smooth;
+}
+.row{display:flex;margin:7px 0;align-items:flex-end;gap:7px}
+.row.mine{justify-content:flex-end}
+.row.theirs{justify-content:flex-start}
+.mini-avatar{
+  width:26px;height:26px;border-radius:50%;background:#7c8ca5;color:white;
+  display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto
+}
+.message-wrap{
+  display:flex;flex-direction:column;align-items:flex-start;max-width:78%;min-width:0;
+}
+.mine .message-wrap{align-items:flex-end}
+.bubble{
+  display:inline-block;width:fit-content;max-width:100%;padding:10px 12px;border-radius:17px;line-height:1.4;
+  box-shadow:0 1px 1px rgba(0,0,0,.04);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;
+}
+.mine .bubble{background:var(--mine);color:#fff;border-bottom-right-radius:5px}
+.theirs .bubble{background:var(--theirs);color:var(--ink);border-bottom-left-radius:5px}
+.sender{font-size:11px;font-weight:800;opacity:.62;margin:0 4px 3px}
+.mine .sender{text-align:right}
+.typing{
+  display:inline-flex;gap:4px;align-items:center;padding:11px 13px;
+  background:#fff;border-radius:17px;border-bottom-left-radius:5px;
+}
+.typing i{
+  width:7px;height:7px;border-radius:50%;background:#9aa5b3;
+  animation:bounce 1.1s infinite ease-in-out
+}
+.typing i:nth-child(2){animation-delay:.14s}
+.typing i:nth-child(3){animation-delay:.28s}
+@keyframes bounce{0%,70%,100%{transform:translateY(0)}35%{transform:translateY(-5px)}}
+.composer{
+  background:#fff;border-top:1px solid var(--line);padding:10px 12px;
+  display:flex;align-items:center;gap:8px
+}
+.fake-input{
+  flex:1;min-height:42px;border:1px solid var(--line);border-radius:22px;
+  padding:10px 14px;color:#8190a5;background:#fafbfd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.send{width:42px;height:42px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:18px}
+.statusbar{
+  padding:8px 12px;background:#111722;color:#d6dbe4;font-size:12px;
+  display:flex;justify-content:space-between;gap:12px
+}
+.hidden{display:none!important}
+@media(max-width:850px){
+  body{overflow:hidden}
+  .app:not(.menu-hidden){
+    display:grid;
+    grid-template-columns:minmax(260px,44%) minmax(300px,1fr);
+    height:100%;
+  }
+  .app:not(.menu-hidden) .editor{border-right:1px solid var(--line)}
+  .app:not(.menu-hidden) .preview{min-height:0;padding:14px}
+  .app:not(.menu-hidden) .phone{height:min(680px,calc(100vh - 28px))}
+  .app.menu-hidden{display:grid;height:100vh}
+}
+@media(max-width:620px){
+  body{overflow:auto}
+  .app:not(.menu-hidden){display:block;height:auto;overflow:visible}
+  .app:not(.menu-hidden) .editor{height:auto;max-height:none;overflow:visible;border-right:0}
+  .app:not(.menu-hidden) .editor-body{overflow:visible}
+  .app:not(.menu-hidden) .preview{height:auto;min-height:700px;overflow:visible}
+}
+
+.topbar .top-phone-btn{
+  margin-left:auto;min-height:34px;padding:7px 10px;white-space:nowrap;
+}
+.topbar .top-phone-btn{display:inline-flex}
+
+
+.manuscript-field{
+  margin:0 0 14px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#f8faff;
+}
+.manuscript-field label{
+  font-weight:800;
+  color:var(--ink);
+}
+.manuscript-field textarea{
+  min-height:190px;
+  resize:vertical;
+  background:#fff;
+}
+@media(max-width:700px){
+  .manuscript-field{
+    margin-top:0;
+    scroll-margin-top:0;
+  }
+  .manuscript-field textarea{
+    min-height:230px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="editor">
+    <div class="topbar">
+      <div class="logo">Tx</div>
+      <div class="title-wrap">
+        <strong>TxTappen</strong>
+        <small>Skriv et manuskript og afspil det direkte</small>
+      </div>
+      <button class="btn top-phone-btn" id="hideMenuBtn" title="Vis telefonen">Vis telefon</button>
+    </div>
+
+    <div class="toolbar">
+      <div class="action-group transport" aria-label="Afspilning">
+        <button class="btn primary" id="playBtn">▶ Afspil</button>
+        <button class="btn" id="pauseBtn">⏸ Pause</button>
+        <button class="btn" id="resetBtn">↺ Nulstil</button>
+      </div>
+      <div class="action-group story-actions single" aria-label="Historie">
+        <button class="btn soft" id="newBtn">＋ Ny historie</button>
+      </div>
+      <div class="action-group file-actions" aria-label="Filer">
+        <button class="btn" id="loadBtn">⇩ Hent</button>
+        <button class="btn" id="exportBtn">⇧ Til disk</button>
+      </div>
+      <input id="fileInput" type="file" accept=".json,application/json" class="hidden">
+    </div>
+
+    <div class="editor-body">
+<div class="field manuscript-field">
+        <label>Manuskript</label>
+        <textarea id="script">Asta: Hej Mor
+Mor: Hejsa Sukkermus
+Asta: Det var det jeg ville tale med dig om …
+Mor: Hvad min kære Sukkermus?
+Asta: Jeg vil ikke have du kalder mig Sukkermus mere..
+Mor: Nej, ok - Det skal jeg nok prøve at huske…
+Mor: Hvad var det nu du ville?
+Asta: Det var det jeg ville sige…
+Mor: Aaah, Ok …
+Mor: ..
+Asta: …
+..
+
+</textarea>
+      </div>
+
+      <section class="story-library" aria-label="Gemte historier">
+        <div class="story-library-head">
+          <strong>Gemte historier</strong>
+          <span id="storageMode">Lokal lagring</span>
+        </div>
+        <div class="story-picker-row">
+          <select id="storySelect" aria-label="Vælg og åbn gemt historie">
+            <option value="">Ingen gemte historier</option>
+          </select>
+          <button class="btn danger icon-only" id="deleteStoryBtn" title="Slet den valgte historie" aria-label="Slet den valgte historie">🗑</button>
+        </div>
+        <div class="story-library-note">Et valg i listen åbner historien med det samme.</div>
+        <div class="story-library-status" id="libraryStatus"></div>
+      </section>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Person 1</label>
+          <input id="person1" value="Asta">
+        </div>
+        <div class="field">
+          <label>Person 2</label>
+          <input id="person2" value="Mor">
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Skrivehastighed</label>
+          <select id="speed">
+            <option value="55" selected>Langsom</option>
+            <option value="32">Normal</option>
+            <option value="18">Hurtig</option>
+            <option value="8">Meget hurtig</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Pause mellem beskeder</label>
+          <select id="gap">
+            <option value="250">Kort</option>
+            <option value="650">Normal</option>
+            <option value="1200" selected>Lang</option>
+            <option value="2000">Meget lang</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Samtalens titel</label>
+        <input id="chatTitle" value="Asta & Mor#Sukkermusen">
+      </div>
+    </div>
+  </section>
+
+  <main class="preview">
+    <div class="phone">
+      <div class="phone-head">
+        <div class="avatar" id="headerAvatar">A</div>
+        <div class="chat-meta">
+          <strong id="headerTitle">Anna og Mikkel</strong>
+          <small id="presence">klar</small>
+        </div>
+        <div class="phone-actions">
+          <button class="icon-btn" id="fullscreenBtn" title="Vis menu" aria-label="Vis menu">☰</button>
+        </div>
+      </div>
+
+      <div class="chat" id="chat"></div>
+
+      <div class="composer">
+        <div class="fake-input" id="fakeInput">Skriv en besked…</div>
+        <button class="send" id="phonePlayBtn" aria-label="Afspil samtale" title="Afspil samtale">➤</button>
+      </div>
+
+      <div class="statusbar">
+        <span id="progress">0 / 0 beskeder</span>
+        <span id="state">Klar</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  const els = {
+    person1:$('person1'), person2:$('person2'), speed:$('speed'), gap:$('gap'),
+    chatTitle:$('chatTitle'), script:$('script'), chat:$('chat'),
+    play:$('playBtn'), pause:$('pauseBtn'), reset:$('resetBtn'),
+    save:$('saveBtn'), load:$('loadBtn'), file:$('fileInput'),
+    title:$('headerTitle'), avatar:$('headerAvatar'), presence:$('presence'),
+    progress:$('progress'), state:$('state'), fakeInput:$('fakeInput'),
+    fullscreen:$('fullscreenBtn'), phonePlay:$('phonePlayBtn'),
+    hideMenu:$('hideMenuBtn'), showMenu:$('showMenuBtn'), app:document.querySelector('.app'),
+    newStory:$('newBtn'), exportFile:$('exportBtn'),
+    storySelect:$('storySelect'), deleteStory:$('deleteStoryBtn'),
+    libraryStatus:$('libraryStatus'), storageMode:$('storageMode')
+  };
+
+  let audioCtx = null;
+
+  function ensureAudio(){
+    if(!audioCtx){
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(AC) audioCtx=new AC();
+    }
+    if(audioCtx?.state==='suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function keyClick(){
+    const ctx=ensureAudio(); if(!ctx) return;
+    const now=ctx.currentTime;
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type='square'; osc.frequency.setValueAtTime(1050+Math.random()*180,now);
+    gain.gain.setValueAtTime(.025,now);
+    gain.gain.exponentialRampToValueAtTime(.0001,now+.022);
+    osc.connect(gain).connect(ctx.destination); osc.start(now); osc.stop(now+.024);
+  }
+
+  function messageDing(){
+    const ctx=ensureAudio(); if(!ctx) return;
+    const now=ctx.currentTime;
+    [[880,0,.055],[1320,.07,.13]].forEach(([freq,delay,end])=>{
+      const osc=ctx.createOscillator(), gain=ctx.createGain();
+      osc.type='sine'; osc.frequency.setValueAtTime(freq,now+delay);
+      gain.gain.setValueAtTime(.0001,now+delay);
+      gain.gain.exponentialRampToValueAtTime(.09,now+delay+.008);
+      gain.gain.exponentialRampToValueAtTime(.0001,now+end+.16);
+      osc.connect(gain).connect(ctx.destination); osc.start(now+delay); osc.stop(now+end+.18);
+    });
+  }
+
+  let playing = false;
+  let paused = false;
+  let runId = 0;
+  let currentIndex = 0;
+  let items = [];
+
+  function initials(name){
+    return (name || '?').trim().split(/\s+/).map(x => x[0]).join('').slice(0,2).toUpperCase();
+  }
+
+  function hashHue(text){
+    let h=0; for(const c of text) h=(h*31+c.charCodeAt(0))%360;
+    return h;
+  }
+
+  function colorFor(name){
+    return `hsl(${hashHue(name)} 58% 52%)`;
+  }
+
+  function parseScript(){
+    const names = [els.person1.value.trim(), els.person2.value.trim()].filter(Boolean);
+    const lines = els.script.value.split(/\r?\n/);
+    const parsed = [];
+    for(const raw of lines){
+      const line = raw.trim();
+      if(!line) continue;
+      const pause = line.match(/^\[pause=(\d+)\]$/i);
+      if(pause){ parsed.push({type:'pause', ms:+pause[1]}); continue; }
+      if(/^\[clear\]$/i.test(line)){ parsed.push({type:'clear'}); continue; }
+      const colon = line.indexOf(':');
+      if(colon > 0){
+        const sender = line.slice(0,colon).trim();
+        const text = line.slice(colon+1).trim();
+        if(text) parsed.push({type:'message', sender, text});
+      } else if(names[0]){
+        parsed.push({type:'message', sender:names[0], text:line});
+      }
+    }
+    return parsed;
+  }
+
+  function countMessages(){
+    return items.filter(x=>x.type==='message').length;
+  }
+
+  function updateHeader(){
+    els.title.textContent = els.chatTitle.value.trim() || `${els.person1.value} og ${els.person2.value}`;
+    els.avatar.textContent = initials(els.person2.value);
+    els.avatar.style.background = colorFor(els.person2.value);
+  }
+
+  function setState(text){ els.state.textContent = text; }
+
+  function messageNumberBefore(index){
+    return items.slice(0,index).filter(x=>x.type==='message').length;
+  }
+
+  function updateProgress(){
+    els.progress.textContent = `${messageNumberBefore(currentIndex)} / ${countMessages()} beskeder`;
+  }
+
+  function addBubble(sender, text=''){
+    const mine = sender.trim().toLowerCase() === els.person1.value.trim().toLowerCase();
+    const row = document.createElement('div');
+    row.className = `row ${mine ? 'mine':'theirs'}`;
+
+    if(!mine){
+      const av = document.createElement('div');
+      av.className='mini-avatar';
+      av.textContent=initials(sender);
+      av.style.background=colorFor(sender);
+      row.appendChild(av);
+    }
+
+    const wrap = document.createElement('div');
+    wrap.className='message-wrap';
+    const label = document.createElement('div');
+    label.className='sender';
+    label.textContent=sender;
+    const bubble = document.createElement('div');
+    bubble.className='bubble';
+    bubble.textContent=text;
+    wrap.append(label,bubble);
+    row.appendChild(wrap);
+    els.chat.appendChild(row);
+    els.chat.scrollTop=els.chat.scrollHeight;
+    return bubble;
+  }
+
+  function addTyping(sender){
+    const mine = sender.trim().toLowerCase() === els.person1.value.trim().toLowerCase();
+    const row = document.createElement('div');
+    row.className=`row ${mine ? 'mine':'theirs'}`;
+    if(!mine){
+      const av=document.createElement('div');
+      av.className='mini-avatar';
+      av.textContent=initials(sender);
+      av.style.background=colorFor(sender);
+      row.appendChild(av);
+    }
+    const t=document.createElement('div');
+    t.className='typing';
+    t.innerHTML='<i></i><i></i><i></i>';
+    row.appendChild(t);
+    els.chat.appendChild(row);
+    els.chat.scrollTop=els.chat.scrollHeight;
+    return row;
+  }
+
+  async function waitWhilePaused(myRun){
+    while(paused && myRun===runId) await sleep(80);
+  }
+
+  async function cancellableSleep(ms,myRun){
+    let left=ms;
+    while(left>0 && myRun===runId){
+      await waitWhilePaused(myRun);
+      const step=Math.min(50,left);
+      await sleep(step); left-=step;
+    }
+  }
+
+  async function typeText(bubble,text,myRun){
+    bubble.textContent='';
+    for(let i=0;i<text.length;i++){
+      if(myRun!==runId) return false;
+      await waitWhilePaused(myRun);
+      bubble.textContent+=text[i];
+      keyClick();
+      els.fakeInput.textContent=bubble.textContent;
+      els.chat.scrollTop=els.chat.scrollHeight;
+      const punctuation=/[.!?…]/.test(text[i]) ? 3.1 : /[,;:]/.test(text[i]) ? 1.8 : 1;
+      await sleep(Number(els.speed.value)*punctuation);
+    }
+    els.fakeInput.textContent='Skriv en besked…';
+    return true;
+  }
+
+  function paintPlaybackButtons(){
+    const active=playing&&!paused;
+    els.play.textContent=active?'⏸ Pause':'▶ Afspil';
+    els.phonePlay.textContent=active?'Ⅱ':'➤';
+    els.phonePlay.title=active?'Pause samtalen':'Afspil samtalen';
+    els.phonePlay.setAttribute('aria-label',active?'Pause samtalen':'Afspil samtalen');
+  }
+
+  function togglePlayback(){
+    ensureAudio();
+    if(playing&&!paused){
+      pause();
+      return;
+    }
+    play();
+  }
+
+  function restartPlayback(){
+    ensureAudio();
+    reset();
+    play();
+  }
+
+  function bindClickAndDoubleClick(button,onClick,onDoubleClick){
+    let timer=0;
+    button.addEventListener('click',event=>{
+      event.preventDefault();
+      clearTimeout(timer);
+      timer=setTimeout(onClick,220);
+    });
+    button.addEventListener('dblclick',event=>{
+      event.preventDefault();
+      clearTimeout(timer);
+      onDoubleClick();
+    });
+  }
+
+  async function play(){
+    if(playing){
+      paused=false;
+      els.presence.textContent='skriver…';
+      setState('Afspiller');
+      paintPlaybackButtons();
+      return;
+    }
+    items=parseScript();
+    if(!items.length) return;
+    if(currentIndex>=items.length){
+      els.chat.innerHTML='';
+      currentIndex=0;
+    }
+    playing=true; paused=false;
+    const myRun=++runId;
+    els.presence.textContent='skriver…';
+    setState('Afspiller');
+    paintPlaybackButtons();
+    updateProgress();
+
+    for(;currentIndex<items.length;currentIndex++){
+      if(myRun!==runId) break;
+      await waitWhilePaused(myRun);
+      const item=items[currentIndex];
+
+      if(item.type==='pause'){
+        setState(`Pause ${item.ms} ms`);
+        await cancellableSleep(item.ms,myRun);
+        setState('Afspiller');
+        continue;
+      }
+
+      if(item.type==='clear'){
+        els.chat.innerHTML='';
+        continue;
+      }
+
+      const typing=addTyping(item.sender);
+      const think=Math.min(1400,350+item.text.length*12);
+      await cancellableSleep(think,myRun);
+      if(myRun!==runId) break;
+      typing.remove();
+
+      const bubble=addBubble(item.sender);
+      const ok=await typeText(bubble,item.text,myRun);
+      if(!ok) break;
+      messageDing();
+      currentIndex++;
+      updateProgress();
+      currentIndex--;
+      await cancellableSleep(Number(els.gap.value),myRun);
+    }
+
+    if(myRun===runId){
+      currentIndex=items.length;
+      playing=false; paused=false;
+      els.presence.textContent='online';
+      setState('Færdig');
+      paintPlaybackButtons();
+      updateProgress();
+    }
+  }
+
+  function pause(){
+    if(!playing) return;
+    paused=!paused;
+    els.presence.textContent=paused?'sat på pause':'skriver…';
+    setState(paused?'Pause':'Afspiller');
+    paintPlaybackButtons();
+  }
+
+  function reset(){
+    runId++;
+    playing=false; paused=false; currentIndex=0;
+    items=parseScript();
+    els.chat.innerHTML='';
+    els.fakeInput.textContent='Skriv en besked…';
+    els.presence.textContent='klar';
+    setState('Klar');
+    paintPlaybackButtons();
+    updateProgress();
+  }
+
+  async function exportProject(){
+    const data={
+      version:1,
+      person1:els.person1.value,
+      person2:els.person2.value,
+      title:els.chatTitle.value,
+      speed:els.speed.value,
+      gap:els.gap.value,
+      script:els.script.value
+    };
+    const filename=(data.title||'TxTappen-projekt').replace(/[^\p{L}\p{N}\-_]+/gu,'-')+'.json';
+    const json=JSON.stringify(data,null,2);
+    const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+    const file=new File([blob],filename,{type:blob.type});
+
+    try{
+      if(typeof showSaveFilePicker==='function'){
+        const handle=await showSaveFilePicker({
+          suggestedName:filename,
+          types:[{description:'TxTappen-projekt',accept:{'application/json':['.json']}}]
+        });
+        const writable=await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        setLibraryStatus('Projektet er gemt til disk');
+        return;
+      }
+    }catch(error){
+      if(error?.name==='AbortError')return;
+    }
+
+    try{
+      if(navigator.canShare?.({files:[file]})&&navigator.share){
+        await navigator.share({files:[file],title:data.title||'TxTappen'});
+        setLibraryStatus('Projektet er sendt til deling/gemning');
+        return;
+      }
+    }catch(error){
+      if(error?.name==='AbortError')return;
+    }
+
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=filename;
+    a.rel='noopener';
+    a.style.display='none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    setLibraryStatus('Projektet er sendt til disk');
+  }
+
+  async function loadProject(file){
+    try{
+      const data=JSON.parse(await file.text());
+      els.person1.value=data.person1||"Asta";
+      els.person2.value=data.person2||"Mor";
+      els.chatTitle.value=data.title||'';
+      els.speed.value=String(data.speed||32);
+      els.gap.value=String(data.gap||650);
+      els.script.value=data.script||'';
+      library.activeStoryId=null;
+      updateHeader(); reset();
+      renderLibrary();
+      scheduleDraftSave();
+      setLibraryStatus('Projektfil importeret · gem den for at føje den til biblioteket');
+    }catch(err){
+      alert('Projektfilen kunne ikke læses.');
+    }
+  }
+
+
+  const APP_ID='txtappen';
+  const PLAN_PROTOCOL='plan-htmlapp-v1';
+  const DB_NAME='TxTappen';
+  const DB_VERSION=1;
+  const STORE_NAME='appState';
+  const LIBRARY_KEY='story-library-v1';
+  let library={version:2,stories:[],activeStoryId:null,draft:null,ui:{menuHidden:true,editorScroll:0,chatScroll:0},updatedAt:null};
+  let planConnected=false;
+  let planLoadReceived=false;
+  let persistTimer=0;
+  let lastPlanRequest='';
+
+  function uid(){
+    return 'story_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9);
+  }
+
+  function cleanProject(data={}){
+    return {
+      version:2,
+      person1:String(data.person1||"Asta"),
+      person2:String(data.person2||"Mor"),
+      title:String(data.title||''),
+      speed:String(data.speed||32),
+      gap:String(data.gap||650),
+      script:String(data.script||'')
+    };
+  }
+
+  function collectProject(){
+    return cleanProject({
+      person1:els.person1.value,
+      person2:els.person2.value,
+      title:els.chatTitle.value,
+      speed:els.speed.value,
+      gap:els.gap.value,
+      script:els.script.value
+    });
+  }
+
+  function applyProject(data){
+    const project=cleanProject(data);
+    els.person1.value=project.person1;
+    els.person2.value=project.person2;
+    els.chatTitle.value=project.title;
+    els.speed.value=project.speed;
+    els.gap.value=project.gap;
+    els.script.value=project.script;
+    updateHeader();
+    reset();
+  }
+
+  function normalizeLibrary(value){
+    const source=value&&typeof value==='object'?value:{};
+    const stories=Array.isArray(source.stories)?source.stories.map(item=>({
+      id:String(item?.id||uid()),
+      title:String(item?.title||item?.project?.title||'Historie'),
+      createdAt:Number(item?.createdAt)||Date.now(),
+      updatedAt:Number(item?.updatedAt)||Date.now(),
+      project:cleanProject(item?.project||item)
+    })):[];
+    return {
+      version:1,
+      stories,
+      activeStoryId:stories.some(item=>item.id===source.activeStoryId)?source.activeStoryId:null,
+      draft:source.draft?cleanProject(source.draft):null,
+      updatedAt:Number(source.updatedAt)||null
+    };
+  }
+
+  function storyTitle(project){
+    const title=String(project.title||'').trim();
+    if(title)return title;
+    const first=String(project.person1||'Person 1').trim();
+    const second=String(project.person2||'Person 2').trim();
+    return `${first} og ${second}`;
+  }
+
+  function formatDate(value){
+    try{
+      return new Intl.DateTimeFormat('da-DK',{dateStyle:'short',timeStyle:'short'}).format(new Date(value));
+    }catch(_){ return ''; }
+  }
+
+  function setLibraryStatus(text,error=false){
+    els.libraryStatus.textContent=text||'';
+    els.libraryStatus.style.color=error?'var(--danger)':'var(--muted)';
+  }
+
+  function renderLibrary(){
+    const selected=library.activeStoryId||els.storySelect.value;
+    els.storySelect.replaceChildren();
+    if(!library.stories.length){
+      const option=document.createElement('option');
+      option.value='';
+      option.textContent='Ingen gemte historier';
+      els.storySelect.append(option);
+      els.deleteStory.disabled=true;
+      if(els.save)els.save.textContent='💾 Gem historie';
+      return;
+    }
+    const ordered=[...library.stories].sort((a,b)=>b.updatedAt-a.updatedAt);
+    for(const story of ordered){
+      const option=document.createElement('option');
+      option.value=story.id;
+      option.textContent=`${story.title} · ${formatDate(story.updatedAt)}`;
+      els.storySelect.append(option);
+    }
+    els.storySelect.value=ordered.some(item=>item.id===selected)?selected:ordered[0].id;
+    els.deleteStory.disabled=false;
+    if(els.save)els.save.textContent=library.activeStoryId?'💾 Gem ændringer':'💾 Gem historie';
+  }
+
+  function openDb(){
+    return new Promise((resolve,reject)=>{
+      if(!('indexedDB' in window)){resolve(null);return;}
+      const request=indexedDB.open(DB_NAME,DB_VERSION);
+      request.onupgradeneeded=()=>{
+        const db=request.result;
+        if(!db.objectStoreNames.contains(STORE_NAME))db.createObjectStore(STORE_NAME);
+      };
+      request.onsuccess=()=>resolve(request.result);
+      request.onerror=()=>reject(request.error||new Error('IndexedDB kunne ikke åbnes'));
+    });
+  }
+
+  async function readLocalLibrary(){
+    const db=await openDb();
+    if(!db)return null;
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE_NAME,'readonly');
+      const request=tx.objectStore(STORE_NAME).get(LIBRARY_KEY);
+      request.onsuccess=()=>resolve(request.result||null);
+      request.onerror=()=>reject(request.error);
+      tx.oncomplete=()=>db.close();
+    });
+  }
+
+  async function writeLocalLibrary(state){
+    const db=await openDb();
+    if(!db)return false;
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE_NAME,'readwrite');
+      tx.objectStore(STORE_NAME).put(state,LIBRARY_KEY);
+      tx.oncomplete=()=>{db.close();resolve(true);};
+      tx.onerror=()=>{db.close();reject(tx.error);};
+    });
+  }
+
+  function planSend(type,payload={}){
+    if(window.parent===window)return '';
+    const requestId='txt_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+    try{
+      window.parent.postMessage({
+        protocol:PLAN_PROTOCOL,
+        app:APP_ID,
+        type,
+        requestId,
+        payload
+      },'*');
+      return requestId;
+    }catch(_){ return ''; }
+  }
+
+
+  function captureUiState(){
+    library.ui=library.ui||{};
+    library.ui.menuHidden=els.app.classList.contains('menu-hidden');
+    library.ui.editorScroll=Number(document.querySelector('.editor-body')?.scrollTop)||0;
+    library.ui.chatScroll=Number(els.chat?.scrollTop)||0;
+  }
+
+  function restoreUiState(){
+    const ui=library.ui||{};
+    els.app.classList.toggle('menu-hidden',ui.menuHidden!==false);
+    requestAnimationFrame(()=>{
+      const editor=document.querySelector('.editor-body');
+      if(editor)editor.scrollTop=Number(ui.editorScroll)||0;
+      if(els.chat)els.chat.scrollTop=Number(ui.chatScroll)||0;
+    });
+  }
+
+  function upsertActiveStoryFromProject(){
+    const project=collectProject();
+    const now=Date.now();
+    let story=library.stories.find(item=>item.id===library.activeStoryId);
+    if(!story){
+      story={id:uid(),title:storyTitle(project),createdAt:now,updatedAt:now,project};
+      library.stories.push(story);
+      library.activeStoryId=story.id;
+    }else{
+      story.project=project;
+      story.title=storyTitle(project);
+      story.updatedAt=now;
+    }
+    library.draft=project;
+    return story;
+  }
+
+  function exportState(){
+    captureUiState();
+    return normalizeLibrary(library);
+  }
+
+  async function importState(state,source='plan'){
+    await useLoadedLibrary(state,source);
+    restoreUiState();
+    return true;
+  }
+
+  async function persistLibrary({silent=false}={}){
+    try{
+      upsertActiveStoryFromProject();
+      captureUiState();
+      library.updatedAt=Date.now();
+      await writeLocalLibrary(library);
+      renderLibrary();
+      if(window.parent!==window){
+        els.storageMode.textContent='Plan 2.0 · gemmer …';
+        const ok=window.TxTappenPlanBridge?.save?.(silent?'autosave':'manual');
+        if(!ok)setLibraryStatus('Kunne ikke sende gemningen til Plan',true);
+      }else{
+        els.storageMode.textContent='Lokal IndexedDB';
+        if(!silent)setLibraryStatus('Gemt lokalt');
+      }
+    }catch(error){
+      console.error(error);
+      setLibraryStatus('Historierne kunne ikke gemmes',true);
+    }
+  }
+
+  function scheduleDraftSave(){
+    clearTimeout(persistTimer);
+    persistTimer=setTimeout(()=>persistLibrary({silent:true}),450);
+  }
+
+  async function saveCurrentStory(){
+    const story=upsertActiveStoryFromProject();
+    await persistLibrary();
+    setLibraryStatus(`“${story.title}” er gemt`);
+  }
+
+  async function newStory(){
+    library.activeStoryId=null;
+    applyProject({"version": 1, "person1": "Asta", "person2": "Mor", "title": "Asta & Mor#Sukkermusen", "speed": "55", "gap": "1200", "script": "Asta: Hej Mor\nMor: Hejsa Sukkermus\nAsta: Det var det jeg ville tale med dig om …\nMor: Hvad min kære Sukkermus?\nAsta: Jeg vil ikke have du kalder mig Sukkermus mere..\nMor: Nej, ok - Det skal jeg nok prøve at huske…\nMor: Hvad var det nu du ville?\nAsta: Det var det jeg ville sige…\nMor: Aaah, Ok …\nMor: ..\nAsta: …\n..\n\n"});
+    renderLibrary();
+    await persistLibrary({silent:true});
+    setLibraryStatus('Ny historie oprettet');
+    els.chatTitle.focus();
+    els.chatTitle.select();
+  }
+
+  async function openSelectedStory(){
+    const id=els.storySelect.value;
+    const story=library.stories.find(item=>item.id===id);
+    if(!story)return;
+    library.activeStoryId=story.id;
+    applyProject(story.project);
+    renderLibrary();
+    await persistLibrary({silent:true});
+    setLibraryStatus(`Aktiv: “${story.title}”`);
+  }
+
+  async function deleteSelectedStory(){
+    const id=els.storySelect.value;
+    const story=library.stories.find(item=>item.id===id);
+    if(!story)return;
+    if(!confirm(`Slet historien “${story.title}”?`))return;
+    library.stories=library.stories.filter(item=>item.id!==id);
+    if(library.activeStoryId===id)library.activeStoryId=null;
+    renderLibrary();
+    await persistLibrary();
+    setLibraryStatus(`“${story.title}” er slettet`);
+  }
+
+  async function useLoadedLibrary(state,source){
+    library=normalizeLibrary(state);
+    renderLibrary();
+    const active=library.stories.find(item=>item.id===library.activeStoryId);
+    if(active)applyProject(active.project);
+    else if(library.draft)applyProject(library.draft);
+    els.storageMode.textContent=source==='plan'?'Plan 2.0 · IndexedDB':'Lokal IndexedDB';
+    restoreUiState();
+    setLibraryStatus(library.stories.length?`${library.stories.length} gemte histor${library.stories.length===1?'ie':'ier'} fundet`:'Ingen gemte historier endnu');
+  }
+
+  window.addEventListener('message',event=>{
+    const message=event.data||{};
+    if(message.protocol!==PLAN_PROTOCOL)return;
+    if(message.type==='LOAD_STATE'){
+      planConnected=true;
+      planLoadReceived=true;
+      const state=message.payload?.state;
+      els.storageMode.textContent='Plan 2.0 · IndexedDB';
+      if(state)useLoadedLibrary(state,'plan');
+      else{
+        renderLibrary();
+        setLibraryStatus('Denne widget har endnu ingen gemte historier');
+      }
+      return;
+    }
+    if(message.type==='SAVE_STATE_ACK'){
+      planConnected=true;
+      els.storageMode.textContent='Plan 2.0 · IndexedDB';
+      if(!lastPlanRequest||message.requestId===lastPlanRequest)setLibraryStatus('Gemt i Plan 2.0');
+      return;
+    }
+    if(message.type==='SAVE_STATE_ERROR'||message.type==='LOAD_STATE_ERROR'){
+      setLibraryStatus(message.payload?.message||'Plan-lagringen mislykkedes',true);
+    }
+  });
+
+  async function initializeLibrary(){
+    try{
+      const local=await readLocalLibrary();
+      if(local)await useLoadedLibrary(local,'local');
+      else renderLibrary();
+    }catch(error){
+      console.warn(error);
+      renderLibrary();
+    }
+    if(window.parent!==window){
+      els.storageMode.textContent='Forbinder til Plan …';
+      if(!window.TxTappenSaver){
+        planSend('READY',{title:document.title,capabilities:['story-library','save-state','load-state']});
+        setTimeout(()=>{if(!planLoadReceived)planSend('LOAD_STATE_REQUEST',{});},180);
+      }
+    }else{
+      els.storageMode.textContent='Lokal IndexedDB';
+    }
+  }
+
+
+  window.TxTappenApp={
+    exportState,
+    importState,
+    setSavedStatus(message='Gemt i Plan 2.0'){
+      els.storageMode.textContent='Plan 2.0 · IndexedDB';
+      setLibraryStatus(message);
+    },
+    setSaveError(message='Plan kunne ikke gemme historierne'){
+      els.storageMode.textContent='Plan 2.0 · gemmefejl';
+      setLibraryStatus(message,true);
+    }
+  };
+
+  bindClickAndDoubleClick(els.play,togglePlayback,restartPlayback);
+  bindClickAndDoubleClick(els.phonePlay,togglePlayback,restartPlayback);
+  els.pause.addEventListener('click',pause);
+
+  document.addEventListener('keydown',event=>{
+    if(event.code!=='Space'||event.repeat)return;
+    const target=event.target;
+    const tag=String(target?.tagName||'').toLowerCase();
+    const isEditing=
+      target?.isContentEditable||
+      tag==='textarea'||
+      tag==='input'||
+      tag==='select';
+    if(isEditing)return;
+    event.preventDefault();
+    togglePlayback();
+  });
+  els.reset.addEventListener('click',reset);
+  els.save?.addEventListener('click',saveCurrentStory);
+  els.newStory.addEventListener('click',newStory);
+  els.exportFile.addEventListener('click',event=>{event.preventDefault();exportProject().catch(error=>setLibraryStatus(error?.message||'Kunne ikke gemme til disk',true));});
+  els.load.addEventListener('click',()=>els.file.click());
+  els.deleteStory.addEventListener('click',deleteSelectedStory);
+  els.storySelect.addEventListener('change',openSelectedStory);
+  els.file.addEventListener('change',e=>{
+    const f=e.target.files?.[0];
+    if(f) loadProject(f);
+    e.target.value='';
+  });
+  function focusManuscriptAtEnd(){
+    const end=els.script.value.length;
+    try{els.script.focus({preventScroll:true});}catch(_){els.script.focus();}
+    try{els.script.setSelectionRange(end,end);}catch(_){}
+  }
+
+  function editManuscriptFromPhone(event){
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+
+    const editorBody=document.querySelector('.editor-body');
+
+    // Fjern layout-animation netop under skiftet. På iPad kan et felt miste fokus,
+    // hvis det fokuseres, mens grid-kolonnen stadig animerer fra skjult til synlig.
+    const previousTransition=els.app.style.transition;
+    els.app.style.transition='none';
+    els.app.classList.remove('menu-hidden');
+    void els.app.offsetWidth;
+    if(editorBody)editorBody.scrollTop=0;
+
+    // Første fokus ligger direkte i brugerens tryk og må derfor åbne tastaturet.
+    focusManuscriptAtEnd();
+
+    requestAnimationFrame(()=>{
+      if(editorBody)editorBody.scrollTop=0;
+      focusManuscriptAtEnd();
+      els.app.style.transition=previousTransition;
+    });
+    setTimeout(()=>{
+      if(editorBody)editorBody.scrollTop=0;
+      focusManuscriptAtEnd();
+    },90);
+    setTimeout(()=>{
+      if(editorBody)editorBody.scrollTop=0;
+      focusManuscriptAtEnd();
+    },280);
+
+    library.ui=library.ui||{};
+    library.ui.editorScroll=0;
+    scheduleDraftSave();
+  }
+
+  // pointerup giver én stabil hændelse på både mus og iPad og undgår den
+  // dobbelte touchend+click-sekvens, som kunne flytte fokus væk igen.
+  els.fakeInput.addEventListener('pointerup',editManuscriptFromPhone);
+
+  function openMenuFromPhone(){
+    els.app.classList.remove('menu-hidden');
+    requestAnimationFrame(()=>{
+      const editorBody=document.querySelector('.editor-body');
+      if(editorBody)editorBody.scrollTop=Number(library.ui?.editorScroll)||0;
+    });
+    scheduleDraftSave();
+  }
+
+  els.fullscreen.textContent='☰';
+  els.fullscreen.title='Vis menu';
+  els.fullscreen.setAttribute('aria-label','Vis menu');
+  els.fullscreen.addEventListener('click',openMenuFromPhone);
+  document.querySelector('.editor-body')?.addEventListener('scroll',scheduleDraftSave,{passive:true});
+  els.chat?.addEventListener('scroll',scheduleDraftSave,{passive:true});
+
+  [els.person1,els.person2,els.chatTitle].forEach(el=>el.addEventListener('input',()=>{updateHeader();scheduleDraftSave();}));
+  [els.speed,els.gap].forEach(el=>el.addEventListener('change',scheduleDraftSave));
+  els.script.addEventListener('input',()=>{ if(!playing){items=parseScript();updateProgress();} scheduleDraftSave(); });
+  els.script.addEventListener('keydown',event=>{
+    if(event.key!=='Enter'||event.shiftKey)return;
+    event.preventDefault();
+    clearTimeout(persistTimer);
+    persistLibrary().then(()=>{
+      const active=library.stories.find(item=>item.id===library.activeStoryId);
+      setLibraryStatus(active?`“${active.title}” er gemt`:'Ændringerne er gemt');
+    });
+  });
+
+  updateHeader();
+  reset();
+  initializeLibrary();
+})();
+</script>
+
+<script id="txtappen-tavle-saver-v2">
+(function(){
+  'use strict';
+  if(window.__TXTAPPEN_TAVLE_SAVER_V2__)return;
+  window.__TXTAPPEN_TAVLE_SAVER_V2__=true;
+  const PROTOCOL='tavleapp-saver-v1',APP='txtappen';
+  const embedded=(()=>{try{return window.parent!==window;}catch(_){return false;}})();
+  const instanceId=(()=>{try{return crypto.randomUUID();}catch(_){return 'txt_'+Date.now();}})();
+  let pendingHash='',timer=0,applying=false;
+
+  function hash(value){
+    const s=JSON.stringify(value||{});
+    let h=2166136261;
+    for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}
+    return String(h>>>0);
+  }
+  function post(type,payload={}){
+    if(!embedded)return false;
+    try{
+      parent.postMessage({protocol:PROTOCOL,app:APP,type,instanceId,payload},'*');
+      return true;
+    }catch(_){return false;}
+  }
+  function backup(){
+    return {
+      schema:'txtappen_backup_v2',
+      app:APP,
+      createdAt:new Date().toISOString(),
+      library:window.TxTappenApp?.exportState?.()||null
+    };
+  }
+  function save(reason='autosave'){
+    if(applying)return true;
+    const data=backup(),h=hash(data.library);
+    pendingHash=h;
+    const sent=post('TXT_SAVE',{reason,backup:data,hash:h,filename:'TxTappen-historier.json'});
+    clearTimeout(timer);
+    if(sent)timer=setTimeout(()=>{
+      if(pendingHash===h)window.TxTappenApp?.setSaveError?.('Plan kvitterede ikke for gemningen');
+    },6000);
+    return sent;
+  }
+  window.TxTappenPlanBridge={save};
+
+  addEventListener('message',async event=>{
+    const msg=event.data||{};
+    if(msg.protocol!==PROTOCOL)return;
+    if(msg.app&&msg.app!==APP&&msg.app!=='tavleapp')return;
+    if(msg.type==='TXT_LOAD'){
+      applying=true;
+      try{
+        const state=msg.payload?.backup?.library||msg.payload?.library||msg.payload?.backup||msg.payload;
+        if(state)await window.TxTappenApp?.importState?.(state,'plan');
+      }finally{applying=false;}
+      return;
+    }
+    if(msg.type==='TXT_SAVE_ACK'){
+      clearTimeout(timer);pendingHash='';
+      window.TxTappenApp?.setSavedStatus?.('Gemt automatisk i Plan 2.0');
+      return;
+    }
+    if(msg.type==='TXT_SAVE_ERROR'||msg.type==='TXT_LOAD_ERROR'){
+      clearTimeout(timer);pendingHash='';
+      window.TxTappenApp?.setSaveError?.(msg.payload?.message||'Plan kunne ikke gemme historierne');
+    }
+  });
+
+  addEventListener('DOMContentLoaded',()=>{
+    if(!embedded)return;
+    post('TXT_READY',{title:document.title||'TxTappen'});
+    post('TXT_LOAD_REQUEST',{title:document.title||'TxTappen'});
+  });
+})();
+</script>
+</body>
+</html>
