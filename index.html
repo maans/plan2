@@ -10945,16 +10945,17 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     setHtmlAppFolderUrl(value){const url=String(value||'').trim()||'./htmlapps/';try{localStorage.setItem(this.htmlAppFolderStorageKey(),url);}catch(_){}return url;}
     requestHtmlDiskImport(){this.fileInput.accept='.html,.htm,text/html';this.fileInput.multiple=true;this.fileInput.click();}
     knownHtmlApps(){return [
-      {id:'plan',title:'Plan',appKind:'plan',url:'https://plan2.xn--mns-ula.dk/index.html',fallbackUrls:['https://plan2.xn--mns-ula.dk/','https://plan2.måns.dk/index.html','https://plan2.måns.dk/'],remoteRuntime:true,fileName:'Plan.html',description:'Den aktuelle Plan-app fra sin faste webadresse.'},
-      {id:'skriv',title:'Skriv',appKind:'skriv',url:'https://skriv.måns.dk/index.html',fileName:'Skriv.html',description:'Skriv, udtalelser og PDF-arbejdsgange.'},
-      {id:'tavle',title:'Tavle',appKind:'tavle',url:'https://tavle.xn--mns-ula.dk/',fallbackUrls:['https://tavle.xn--mns-ula.dk/index.html','https://tavle.måns.dk/','https://tavle.måns.dk/index.html'],remoteRuntime:true,fileName:'Tavle.html',description:'Den aktuelle TavleApp fra sin faste webadresse.'},
-      {id:'tjek',title:'Tjek',appKind:'tjek',url:'https://tjek.xn--mns-ula.dk/index.html',fallbackUrls:['https://tjek.xn--mns-ula.dk/','https://tjek.måns.dk/index.html','https://tjek.måns.dk/'],remoteRuntime:true,fileName:'Tjek.html',description:'Tjek og tilstedeværelsesarbejdsgange fra den faste webadresse.'},
-      {id:'tiddlywiki',title:'TiddlyWiki',appKind:'tiddlywiki',url:'https://tavle.måns.dk/htmlapps/TiddlyWiki.html',fallbackUrls:['https://maans.github.io/Tavle/htmlapps/TiddlyWiki.html'],fileName:'TiddlyWiki.html',description:'En tom single-file wiki, som kan gemmes tilbage i Plan.'}
+      {id:'plan',title:'Plan',appKind:'plan',url:new URL('./index.html',location.href).href,remoteRuntime:true,fileName:'Plan.html',description:'Den lokale Plan-app fra samme installation.'},
+      {id:'skriv',title:'Skriv',appKind:'skriv',url:new URL('./htmlapps/Skriv.html',location.href).href,fileName:'Skriv.html',description:'Skriv, udtalelser og PDF-arbejdsgange.'},
+      {id:'tavle',title:'Tavle',appKind:'tavle',url:new URL('./htmlapps/Tavle.html',location.href).href,remoteRuntime:true,fileName:'Tavle.html',description:'Den lokale TavleApp fra Plan-installationen.'},
+      {id:'tjek',title:'Tjek',appKind:'tjek',url:new URL('./htmlapps/Tjek.html',location.href).href,remoteRuntime:true,fileName:'Tjek.html',description:'Den lokale Tjek-app fra Plan-installationen.'},
+      {id:'tiddlywiki',title:'TiddlyWiki',appKind:'tiddlywiki',url:new URL('./htmlapps/TiddlyWiki.html',location.href).href,fileName:'TiddlyWiki.html',description:'En lokal single-file wiki, som kan gemmes tilbage i Plan.'},
+      {id:'txt',title:'TxT',appKind:'txtappen',url:new URL('./htmlapps/TxT.html',location.href).href,fileName:'TxT.html',description:'Opret, gem og afspil beskedsamtaler.'}
     ];}
     async addKnownHtmlApp(id){const item=this.knownHtmlApps().find(entry=>entry.id===id);if(!item){this.toast('HTML-appen blev ikke fundet');return null;}this.toast(item.remoteRuntime?`Åbner ${item.title} …`:`Henter ${item.title} …`);try{return await this.importHtmlAppFromUrl({...item,appKindFixed:true,source:'known-app'},item.url.replace(/[^/]+$/,''));}catch(error){console.error(error);this.toast(`${item.title} kunne ikke hentes · ${error?.message||String(error)}`);return null;}}
     htmlAppFileTitle(value){let name=String(value||'HTML-app').split(/[?#]/)[0].split('/').pop()||'HTML-app';try{name=decodeURIComponent(name);}catch(_){}return name.replace(/\.html?$/i,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim()||'HTML-app';}
     htmlAppTitleFromUrl(value,fallback='HTML-app'){let url;try{url=new URL(String(value||''),location.href);}catch(_){return this.htmlAppFileTitle(fallback);}const file=this.htmlAppFileTitle(url.pathname.split('/').pop()||'');if(file&&file.toLocaleLowerCase('da-DK')!=='index')return file;let label=String(url.hostname||'').replace(/^www\./i,'').split('.')[0]||fallback;try{label=decodeURIComponent(label);}catch(_){}return label.replace(/[_-]+/g,' ').replace(/\b\p{L}/gu,ch=>ch.toLocaleUpperCase('da-DK')).trim()||this.htmlAppFileTitle(fallback);}
-    htmlAppKindFromUrl(value){let url;try{url=new URL(String(value||''),location.href);}catch(_){return '';}const host=url.hostname.toLocaleLowerCase('da-DK'),path=url.pathname.toLocaleLowerCase('da-DK');if(path.includes('tiddlywiki'))return 'tiddlywiki';if(host.startsWith('plan.'))return 'plan';if(host.startsWith('skriv.'))return 'skriv';if(host.startsWith('tjek.'))return 'tjek';if(host.startsWith('tavle.'))return 'tavle';return '';}
+    htmlAppKindFromUrl(value){let url;try{url=new URL(String(value||''),location.href);}catch(_){return '';}const host=url.hostname.toLocaleLowerCase('da-DK'),path=url.pathname.toLocaleLowerCase('da-DK');if(path.includes('tiddlywiki'))return 'tiddlywiki';if(/\/htmlapps\/skriv\.html?$/.test(path))return 'skriv';if(/\/htmlapps\/tjek\.html?$/.test(path))return 'tjek';if(/\/htmlapps\/tavle\.html?$/.test(path))return 'tavle';if(/\/htmlapps\/txt\.html?$/.test(path))return 'txtappen';if(host.startsWith('plan.'))return 'plan';if(host.startsWith('skriv.'))return 'skriv';if(host.startsWith('tjek.'))return 'tjek';if(host.startsWith('tavle.'))return 'tavle';return '';}
     htmlAppFolderInfo(value){
       const input=String(value||'').trim()||'./htmlapps/';let url;try{url=new URL(input,location.href);}catch(_){throw new Error('Mappeadressen er ugyldig');}
       const parts=url.pathname.split('/').filter(Boolean).map(part=>{try{return decodeURIComponent(part);}catch(_){return part;}}),host=url.hostname.toLowerCase();
@@ -40108,7 +40109,7 @@ kompatible datasæt. Ingen kalenderdata migreres eller ændres ved almindelig vi
         <li>Et link kan vises som et roligt linkkort eller som en webvisning.</li>
         <li>Du kan skifte mellem de to visninger uden at miste titel, note eller placering.</li>
         <li>En linkliste kan deles af mange widgets og kan oprette en matrix eller én tavle pr. link.</li>
-        <li>Plan, Skriv, Tavle, Tjek og TiddlyWiki findes som direkte HTML-appvalg.</li>
+        <li>Plan, Skriv, TxT, Tavle, Tjek og TiddlyWiki findes som direkte HTML-appvalg.</li>
         <li>Hjem i HTML-app vender tilbage til appens startside.</li>
         <li>Suspendér pauser en webvisning, når den ikke skal køre.</li>
       </ul>
@@ -45480,6 +45481,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
       {id:'app-plan',icon:'P',title:'Plan',description:'Åbn en indlejret Plan-app på tavlen',keywords:'html app indlejret plan arbejdsbord',run:a=>a.addKnownHtmlApp?.('plan')},
       {id:'app-tjek',icon:'✓',title:'Tjek',description:'Åbn Tjek som indlejret app',keywords:'html app evaluering tjekliste himmerlands',run:a=>a.addKnownHtmlApp?.('tjek')},
       {id:'app-skriv',icon:'S',title:'Skriv',description:'Åbn Skriv som indlejret app',keywords:'html app udtalelse tekst skrive',run:a=>a.addKnownHtmlApp?.('skriv')},
+      {id:'app-txt',icon:'💬',title:'TxT',description:'Opret og afspil beskedsamtaler',keywords:'html app txt chat samtale beskeder telefon dialog',run:a=>a.addKnownHtmlApp?.('txt')},
       {id:'app-tiddlywiki',icon:'W',title:'TiddlyWiki',description:'Åbn en lokal wiki på tavlen',keywords:'html app wiki noter tiddler',run:a=>a.addKnownHtmlApp?.('tiddlywiki')},
       {id:'app-html',icon:'<>',title:'HTML-app',description:'Åbn en vilkårlig HTML-fil eller webapp',keywords:'html fil webapp import egen app',run:a=>a.requestHtmlImport?.()},
       {id:'app-tavle',icon:'T',title:'Tavle',description:'Åbn den klassiske Tavle som indlejret app',keywords:'html app klassisk tavle indlejret',run:a=>a.addKnownHtmlApp?.('tavle')}
