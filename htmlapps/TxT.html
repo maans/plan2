@@ -293,9 +293,6 @@ textarea{min-height:310px;resize:vertical;line-height:1.55}
         <button class="btn" id="pauseBtn">⏸ Pause</button>
         <button class="btn" id="resetBtn">↺ Nulstil</button>
       </div>
-      <div class="action-group story-actions single" aria-label="Historie">
-        <button class="btn soft" id="newBtn">＋ Ny historie</button>
-      </div>
       <div class="action-group file-actions" aria-label="Filer">
         <button class="btn" id="loadBtn">⇩ Hent</button>
         <button class="btn" id="exportBtn">⇧ Til disk</button>
@@ -367,6 +364,10 @@ Asta: …
             <option value="2000">Meget lang</option>
           </select>
         </div>
+      </div>
+
+      <div class="action-group story-actions single" aria-label="Historie">
+        <button class="btn soft" id="newBtn">＋ Ny historie</button>
       </div>
 
       <div class="field">
@@ -964,7 +965,11 @@ Asta: …
 
   function restoreUiState(){
     const ui=library.ui||{};
-    els.app.classList.toggle('menu-hidden',ui.menuHidden!==false);
+    // TxTappen skal altid åbne i telefonvisning. Redigeringen åbnes først,
+    // når brugeren aktivt vælger Vis menu eller trykker i tekstfeltet.
+    els.app.classList.add('menu-hidden');
+    library.ui=library.ui||{};
+    library.ui.menuHidden=true;
     requestAnimationFrame(()=>{
       const editor=document.querySelector('.editor-body');
       if(editor)editor.scrollTop=Number(ui.editorScroll)||0;
@@ -1207,9 +1212,17 @@ Asta: …
     scheduleDraftSave();
   }
 
-  // pointerup giver én stabil hændelse på både mus og iPad og undgår den
-  // dobbelte touchend+click-sekvens, som kunne flytte fokus væk igen.
-  els.fakeInput.addEventListener('pointerup',editManuscriptFromPhone);
+  // Pointerup virker bedst på iPad. Click er fallback i browsere eller
+  // iframe-miljøer, hvor pointer-hændelsen ikke når frem som forventet.
+  let lastFakeInputPointerUp=0;
+  els.fakeInput.addEventListener('pointerup',event=>{
+    lastFakeInputPointerUp=Date.now();
+    editManuscriptFromPhone(event);
+  });
+  els.fakeInput.addEventListener('click',event=>{
+    if(Date.now()-lastFakeInputPointerUp<450)return;
+    editManuscriptFromPhone(event);
+  });
 
   function openMenuFromPhone(){
     els.app.classList.remove('menu-hidden');
@@ -1220,6 +1233,18 @@ Asta: …
     scheduleDraftSave();
   }
 
+  function showPhone(){
+    captureUiState();
+    els.app.classList.add('menu-hidden');
+    library.ui=library.ui||{};
+    library.ui.menuHidden=true;
+    requestAnimationFrame(()=>{
+      if(els.chat)els.chat.scrollTop=Number(library.ui.chatScroll)||els.chat.scrollHeight;
+    });
+    scheduleDraftSave();
+  }
+
+  els.hideMenu?.addEventListener('click',showPhone);
   els.fullscreen.textContent='☰';
   els.fullscreen.title='Vis menu';
   els.fullscreen.setAttribute('aria-label','Vis menu');
