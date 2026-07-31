@@ -8332,7 +8332,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         restoredActiveBoard=boardMap.get(String(activeContext.boardId||''))||null;
         if(restoredActiveSession){try{localStorage.setItem('tn.v3.lastSession',String(restoredActiveSession));}catch(_){}}
         const restoredCourse=courseTargetMap.get(String(activeContext.courseKey||''))||targetCourseId||null;
-        if(restoredCourse){try{localStorage.setItem('tn.v3.lastCourse',String(restoredCourse));}catch(_){}}
+        if(restoredCourse){try{localStorage.setItem('tn.v3.lastCourse',`course:${String(restoredCourse).replace(/^course:/,'')}`);}catch(_){}}
         if(restoredActiveBoard){
           const session=sessions.find(item=>String(item.id)===String(restoredActiveSession));
           if(session&&session.boardIds?.includes(restoredActiveBoard)){session.activeBoardId=restoredActiveBoard;await this.app.storage.put('sessions',session);}
@@ -9871,6 +9871,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     showWidgetMoreMenu(id,anchorButton){const widget=TN.runtime.activeWidgets.find(w=>w.id===id);if(!widget)return;this.closeLayoutPopover();const pop=document.createElement('div');pop.className='tn-widget-more-popover';const add=(icon,label,run,{disabled=false}={})=>{const button=document.createElement('button');button.type='button';button.disabled=disabled;button.innerHTML=`<span>${icon}</span><b>${TN.escapeHtml(label)}</b>`;button.onclick=run;pop.append(button);};
       if(widget.type==='data')add('▦','Vælg datakilde …',()=>this.showDataWidgetSourceDialog(id));
       if(this.isUniversalResourceReceiver?.(widget))add('📎',widget.relations?.expectedResource?.requiresLocalResourceImport?'Find ressource …':'Tilføj ressource …',()=>{this.closeLayoutPopover();this.openUniversalResourcePicker(id);});
+      if(widget.type==='text')add('✎','Omdøb',async()=>{this.closeLayoutPopover();const title=prompt('Nyt navn på tekstwidgetten',widget.title);if(title==null)return;const clean=title.trim();if(!clean)return this.toast('Tekstwidgetten skal have et navn');widget.title=clean;await this.widgetManager.update(widget);const el=this.boardLayer.querySelector(`[data-widget-id="${CSS.escape(widget.id)}"]`),titleEl=el?.querySelector('.tn-widget-title');if(titleEl){titleEl.textContent=widget.title;titleEl.title=widget.title;}this.updateWidgetPicker();});
       add(widget.settings?.locked?'🔓':'🔒',widget.settings?.locked?'Lås placering op':'Lås placering',()=>this.setWidgetLocked(id));
       const focused=TN.runtime.focusWidgetId===id;add(focused?'◉':'◎',focused?'Afslut fokus':'Fokusér',()=>{this.closeLayoutPopover();this.toggleFocus(id);});
       const rotationOn=!!widget.settings?.rotationHandleVisible;add('↻',`Rotation: ${rotationOn?'Til':'Fra'}`,()=>this.setWidgetRotationHandleVisible(id,!rotationOn),{disabled:!!widget.settings?.locked||!!widget.settings?.maximized});
