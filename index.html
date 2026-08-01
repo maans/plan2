@@ -7511,10 +7511,19 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
     reg('student-card',{async mount({widget,body,app}){
       const resolved=await app.relationManager.resolveCard(widget),root=document.createElement('div');root.className='tn-entity-card tn-student-card';if(!resolved){root.innerHTML='<div class="tn-empty">Eleven eller datakilden findes ikke længere.</div>';body.append(root);return;}
-      const active=widget.content.activeTab||'student';cardTabs(root,[{id:'student',label:'Elev'},{id:'notes',label:'Notater'}],active,async id=>{widget.content.activeTab=id;await rerenderWidget(app,widget);});const panel=document.createElement('section');panel.className='tn-card-panel';root.append(panel);
-      if(active==='notes'){const found=await app.relationManager.notesFor(TN.runtime.activeSession.id,'student',resolved.id);panel.innerHTML=`<div class="tn-card-heading"><strong>${escape(resolved.title)}</strong><button type="button" data-new-note>＋ Ny note</button></div><div class="tn-note-summary"></div>`;const list=panel.querySelector('.tn-note-summary');for(const note of found.notes){const button=document.createElement('button');button.type='button';button.innerHTML=`<strong>${escape(note.title)}</strong><small>${new Date(note.date).toLocaleString('da-DK')}</small>`;button.onclick=()=>app.openEntityNote({entityType:'student',entityId:resolved.id,title:resolved.title,newNote:false,noteId:note.id});list.append(button);}if(!found.notes.length)list.innerHTML='<p>Ingen noter endnu.</p>';panel.querySelector('[data-new-note]').onclick=()=>app.openEntityNote({entityType:'student',entityId:resolved.id,title:resolved.title,newNote:true});}
-      else{panel.innerHTML=`<div class="tn-card-heading"><strong>${escape(resolved.title)}</strong><span>${escape(resolved.dataset.name)}</span></div><dl class="tn-card-fields"></dl>`;const dl=panel.querySelector('dl');for(const field of visibleCardFields(resolved.dataset,resolved.row)){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=field.label;dd.textContent=field.value;dl.append(dt,dd);}}
-      body.append(root);
+      const tabs=[{id:'student',label:'Elev'},{id:'notes',label:'Notater'}],initial=widget.content.activeTab||'student',panel=document.createElement('section');panel.className='tn-card-panel';
+      let retainedPortraitHero=null;
+      const retainPortraitHero=()=>{
+        const current=panel.querySelector(':scope > .tn-student-portrait-standard, :scope > .tn-student-portrait');
+        if(current)retainedPortraitHero=current;
+      };
+      const renderPanel=async active=>{
+        retainPortraitHero();
+        panel.replaceChildren();
+        if(active==='notes'){const found=await app.relationManager.notesFor(TN.runtime.activeSession.id,'student',resolved.id);panel.innerHTML=`<div class="tn-card-heading"><strong>${escape(resolved.title)}</strong><button type="button" data-new-note>＋ Ny note</button></div><div class="tn-note-summary"></div>`;const list=panel.querySelector('.tn-note-summary');for(const note of found.notes){const button=document.createElement('button');button.type='button';button.innerHTML=`<strong>${escape(note.title)}</strong><small>${new Date(note.date).toLocaleString('da-DK')}</small>`;button.onclick=()=>app.openEntityNote({entityType:'student',entityId:resolved.id,title:resolved.title,newNote:false,noteId:note.id});list.append(button);}if(!found.notes.length)list.innerHTML='<p>Ingen noter endnu.</p>';panel.querySelector('[data-new-note]').onclick=()=>app.openEntityNote({entityType:'student',entityId:resolved.id,title:resolved.title,newNote:true});}
+        else{panel.innerHTML=`<div class="tn-card-heading"><strong>${escape(resolved.title)}</strong><span>${escape(resolved.dataset.name)}</span></div><dl class="tn-card-fields"></dl>`;const dl=panel.querySelector('dl');for(const field of visibleCardFields(resolved.dataset,resolved.row)){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=field.label;dd.textContent=field.value;dl.append(dt,dd);}if(retainedPortraitHero)panel.prepend(retainedPortraitHero);}
+      };
+      const nav=cardTabs(root,tabs,initial,async id=>{if(id===widget.content.activeTab)return;widget.content.activeTab=id;widget.updatedAt=TN.now();app.storage.queuePut('widgets',widget);[...nav.children].forEach((button,index)=>button.classList.toggle('active',tabs[index].id===id));await renderPanel(id);});root.append(panel);await renderPanel(initial);body.append(root);
     },unmount(){}});
 
     reg('group-card',{async mount({widget,body,app}){
@@ -70248,7 +70257,151 @@ function finalPlanVisitCard(manifest={}){
  const includesPortraits=manifest.includesStudentPortraits===true;
  const categories=resources.categories||{};
  const categoryRows=Object.entries(categories).sort((a,b)=>a[0].localeCompare(b[0],'da')).map(([name,count])=>`<tr><th>${escHtml(name)}</th><td>${Number(count)||0}</td></tr>`).join('')||'<tr><th>Kategorier</th><td>Ingen</td></tr>';
- return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${escHtml(title)} · Plan 2.0</title><style>:root{color-scheme:light dark;--bg:#091221;--panel:#14233a;--panel2:#1d304c;--ink:#f4f7fb;--muted:#a9b6c8;--line:#304867;--accent:#27c2df}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(960px,calc(100% - 28px));margin:28px auto}.hero,.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:24px}.hero h1{margin:4px 0 8px;line-height:1.08}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:13px}.stat b{display:block;font-size:1.45rem}.stat span{color:var(--muted);font-size:.9rem}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel h2{margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{padding:8px 0;border-bottom:1px solid var(--line);text-align:left}td{text-align:right;font-weight:800}.status{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;background:var(--panel2)}a{color:var(--accent)}@media(max-width:700px){.columns{grid-template-columns:1fr}}</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">${escHtml(typeLabel)}</div><h1>${escHtml(title)}</h1><p class="muted">Dette visitkort er genereret fra pakkens endelige manifest efter samling af Plan-state og ressourcer.</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(plan.datasets)||0}</b><span>datasæt i Plan-state</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer i alt</span></div><div class="stat"><b>${Number(resources.mediaFiles)||0}</b><span>almindelige lokale filer</span></div><div class="stat"><b>${Number(resources.webResources)||0}</b><span>internetressourcer</span></div><div class="stat"><b>${Number(resources.studentPortraits)||0}</b><span>elevbilleder</span></div><div class="stat"><b>${Number(resources.activeDatasources||resources.studentDatasets)||0}</b><span>datakilder</span></div></div><span class="status">Elevdata: <b>${includesStudentData?'medtaget':'ikke medtaget'}</b> · Elevbilleder: <b>${includesPortraits?'medtaget':'ikke medtaget'}</b> · Ressourcer: <b>${includesResources?'medtaget':'ikke medtaget'}</b></span></section><div class="columns"><section class="panel"><h2>Pakkens deklarerede indhold</h2><table><tr><th>Backup-type</th><td>${escHtml(typeLabel)}</td></tr><tr><th>Ressourceomfang</th><td>${escHtml(manifest.resourceScopeLabel||manifest.resourceScope||'—')}</td></tr><tr><th>Advarsler</th><td>${Number(resources.warnings)||0}</td></tr><tr><th>Oprettet</th><td>${escHtml(created||'—')}</td></tr></table></section><section class="panel"><h2>Ressourcekategorier</h2><table>${categoryRows}</table></section></div><section class="panel" style="margin-top:14px"><h2>Import</h2><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcernes detaljer findes også i <code>resources/manifest.json</code>.</p><p><a href="https://plan2.måns.dk/">Åbn Plan 2.0</a></p></section></main></body></html>`;
+ return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${escHtml(title)} · Plan 2.0</title><style>:root{color-scheme:light dark;--bg:#091221;--panel:#14233a;--panel2:#1d304c;--ink:#f4f7fb;--muted:#a9b6c8;--line:#304867;--accent:#27c2df}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(960px,calc(100% - 28px));margin:28px auto}.hero,.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:24px}.hero h1{margin:4px 0 8px;line-height:1.08}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:13px}.stat b{display:block;font-size:1.45rem}.stat span{color:var(--muted);font-size:.9rem}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel h2{margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{padding:8px 0;border-bottom:1px solid var(--line);text-align:left}td{text-align:right;font-weight:800}.status{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;background:var(--panel2)}a{color:var(--accent)}@media(max-width:700px){.columns{grid-template-columns:1fr}}</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">${escHtml(typeLabel)}</div><h1>${escHtml(title)}</h1><p class="muted">Dette visitkort er genereret fra pakkens endelige manifest efter samling af Plan-state og ressourcer.</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(plan.datasets)||0}</b><span>datasæt i Plan-state</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer i alt</span></div><div class="stat"><b>${Number(resources.mediaFiles)||0}</b><span>almindelige lokale filer</span></div><div class="stat"><b>${Number(resources.webResources)||0}</b><span>internetressourcer</span></div><div class="stat"><b>${Number(resources.studentPortraits)||0}</b><span>elevbilleder</span></div><div class="stat"><b>${Number(resources.activeDatasources||resources.studentDatasets)||0}</b><span>datakilder</span></div></div><span class="status">Elevdata: <b>${includesStudentData?'medtaget':'ikke medtaget'}</b> · Elevbilleder: <b>${includesPortraits?'medtaget':'ikke medtaget'}</b> · Ressourcer: <b>${includesResources?'medtaget':'ikke medtaget'}</b></span></section><div class="columns"><section class="panel"><h2>Pakkens deklarerede indhold</h2><table><tr><th>Backup-type</th><td>${escHtml(typeLabel)}</td></tr><tr><th>Ressourceomfang</th><td>${escHtml(manifest.resourceScopeLabel||manifest.resourceScope||'—')}</td></tr><tr><th>Advarsler</th><td>${Number(resources.warnings)||0}</td></tr><tr><th>Oprettet</th><td>${escHtml(created||'—')}</td></tr></table></section><section class="panel"><h2>Ressourcekategorier</h2><table>${categoryRows}</table></section></div><section class="panel" style="margin-top:14px"><h2>Import</h2><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcernes detaljer findes også i <code>resources/manifest.json</code>.</p><p><a href="https://plan2.måns.dk/">Åbn Plan 2.0</a></p></section></main>
+
+
+<!-- Plan 2.0 · Elevkort fase 1c: kun relevante datasæt må genmontere elevvisninger · 2026-08-01 -->
+<script id="plan-student-card-relevant-dataset-refresh-fix-v1">
+(function(TN){
+  'use strict';
+  if(!TN || window.__planStudentCardRelevantDatasetRefreshFixV1)return;
+  window.__planStudentCardRelevantDatasetRefreshFixV1=true;
+
+  const Manager=TN.StudentMasterLinkManager;
+  if(!Manager?.prototype || typeof Manager.prototype.onDatasetChange!=='function')return;
+
+  const previousOnDatasetChange=Manager.prototype.onDatasetChange;
+  const normalizeId=value=>String(value??'');
+
+  Manager.prototype.onDatasetChange=function(event){
+    const detail=event?.detail || event || {};
+    const dataset=detail.dataset || event?.dataset || null;
+    const changedId=normalizeId(dataset?.id || detail.id);
+    if(!changedId)return;
+
+    const relevantIds=new Set();
+    if(this.master?.id!=null)relevantIds.add(normalizeId(this.master.id));
+
+    for(const widget of TN.runtime?.activeWidgets || []){
+      const isStudentCard=widget?.type==='student-card';
+      const isStudentMatrix=widget?.type==='card-matrix' && (widget.content?.kind||'student')==='student';
+      if(!(isStudentCard||isStudentMatrix))continue;
+      if(widget.content?.datasetId!=null)relevantIds.add(normalizeId(widget.content.datasetId));
+      if(widget.content?.sourceDatasetId!=null)relevantIds.add(normalizeId(widget.content.sourceDatasetId));
+    }
+
+    const focus=this.app?.studentFocus?.current;
+    if(focus?.dataset?.id!=null)relevantIds.add(normalizeId(focus.dataset.id));
+
+    /*
+     * En eksisterende elevvisning skal kun genmonteres, når dens egen kilde
+     * eller den aktive stamdatakilde faktisk ændres. En ny/opdateret datakilde,
+     * som reelt kan blive stamdatakilde, må også passere. Karakterer, samtaler,
+     * noter og andre hjælpe-/resultatdatasæt må ikke starte en fuld elevkort-
+     * genmontering ved tavlens åbning.
+     */
+    let canBecomeMaster=false;
+    if(dataset && typeof this.candidateScore==='function'){
+      try{canBecomeMaster=Number.isFinite(this.candidateScore(dataset));}
+      catch(_error){canBecomeMaster=false;}
+    }
+
+    if(!relevantIds.has(changedId) && !canBecomeMaster)return;
+    return previousOnDatasetChange.call(this,event);
+  };
+
+  try{TN.version='0.14.20-student-card-relevant-dataset-refresh-fix';}
+  catch(_error){}
+})(window.TavleNext);
+</script>
+
+<script id="plan2-student-card-note-close-phase2">
+(function(TN){
+'use strict';
+if(!TN || window.__plan2StudentCardNoteClosePhase2) return;
+window.__plan2StudentCardNoteClosePhase2=true;
+
+const App=TN.TavleNextApp;
+if(!App) return;
+const text=v=>String(v??'');
+
+/* Markér noter åbnet fra et Elevkort som visninger, der skal vende tilbage
+   til deres ophavskort, frem for almindelige widgets der skal i Papirkurven. */
+const previousOpenEntityNote=App.prototype.openEntityNote;
+App.prototype.openEntityNote=async function(options={}){
+  const entityType=text(options.entityType||'entity');
+  const entityId=text(options.entityId||'');
+  let parent=null;
+  if(entityType==='student'){
+    parent=(TN.runtime.activeWidgets||[]).find(widget=>
+      widget?.type==='student-card' &&
+      (
+        text(widget.content?.entityId||widget.content?.rowKey||widget.content?.studentId)===entityId ||
+        text(widget.content?.rowKey)===entityId
+      )
+    ) || (TN.runtime.activeWidgets||[]).find(widget=>widget?.type==='student-card' && widget.id===TN.runtime.selectedWidgetId) || null;
+  }
+
+  const result=await previousOpenEntityNote.call(this,options);
+  if(entityType!=='student' || !result || result.type!=='note') return result;
+
+  result.content=result.content||{};
+  const changed=
+    result.content.closeMode!=='student-card-view' ||
+    text(result.content.returnWidgetId)!==text(parent?.id||'');
+  result.content.closeMode='student-card-view';
+  result.content.returnWidgetId=parent?.id||result.content.returnWidgetId||null;
+  result.content.returnTab='notes';
+  if(changed) await this.widgetManager.update(result,{immediate:true});
+  return result;
+};
+
+const previousIsCloseOnlyWidget=App.prototype.isCloseOnlyWidget;
+App.prototype.isCloseOnlyWidget=function(widget){
+  if(widget?.type==='note' && widget.content?.closeMode==='student-card-view') return true;
+  return previousIsCloseOnlyWidget.call(this,widget);
+};
+
+const previousCloseWidgetView=App.prototype.closeWidgetView;
+App.prototype.closeWidgetView=async function(id){
+  const widget=(TN.runtime.activeWidgets||[]).find(item=>text(item.id)===text(id));
+  if(!(widget?.type==='note' && widget.content?.closeMode==='student-card-view')){
+    return previousCloseWidgetView.call(this,id);
+  }
+
+  const board=TN.runtime.activeBoard;
+  if(!board) return false;
+  const returnId=widget.content?.returnWidgetId||null;
+  const parent=(TN.runtime.activeWidgets||[]).find(item=>text(item.id)===text(returnId));
+
+  if(parent?.type==='student-card'){
+    parent.content=parent.content||{};
+    parent.content.activeTab='notes';
+    parent.updatedAt=TN.now();
+    await this.widgetManager.update(parent,{immediate:true});
+  }
+
+  this.detachWidgetFromResponsiveLayout(widget,{persist:false,silent:true});
+  const animation=this.animateWidgetDeparture(id,'minimize');
+  await this.widgetManager.delete(board,id);
+  await this.boardManager.update(board);
+  if(text(TN.runtime.selectedWidgetId)===text(id)) TN.runtime.selectedWidgetId=null;
+  this.keyboardWidgetContentMode=null;
+  await animation;
+  await this.renderActiveBoard({preserveSelection:true});
+
+  if(parent && (TN.runtime.activeWidgets||[]).some(item=>text(item.id)===text(parent.id))){
+    this.selectWidget(parent.id,{keyboard:false,focus:false});
+  }
+  this.showToolbar({delay:2600});
+  this.toast('Noten er lukket · den er bevaret i elevkortet');
+  return true;
+};
+
+TN.version='0.11.7-student-card-note-close-phase2';
+})(window.TavleNext);
+</script>
+</body></html>`;
 }
 
 App.prototype.buildCombinedPlanPackage=async function(request={},payload,resourceResult){
@@ -77788,3 +77941,149 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
 </script>
 
 
+
+<!-- Plan 2.0 · Karakterer/Fagsamtaler må afmonteres før lagerkontrol ved forløbsskift -->
+<script id="plan2-heavy-student-view-course-switch-fix-v1">
+(function(TN){
+  'use strict';
+  if(!TN || window.__plan2HeavyStudentViewCourseSwitchFixV1)return;
+  window.__plan2HeavyStudentViewCourseSwitchFixV1=true;
+  const App=TN.TavleNextApp;
+  if(!App?.prototype || typeof App.prototype.loadSession!=='function')return;
+
+  const previousLoadSession=App.prototype.loadSession;
+  const heavyTypes=new Set(['grade-matrix','subject-conversation-matrix']);
+
+  function hasHeavyStudentView(){
+    return (TN.runtime?.activeWidgets||[]).some(widget=>heavyTypes.has(String(widget?.type||'')));
+  }
+
+  function removeTransientWidgetFields(){
+    for(const widget of TN.runtime?.activeWidgets||[]){
+      if(!heavyTypes.has(String(widget?.type||'')))continue;
+      for(const key of Object.keys(widget)){
+        if(key.startsWith('__'))delete widget[key];
+      }
+    }
+  }
+
+  App.prototype.loadSession=async function(id,boardId=null,options={}){
+    const currentId=String(TN.runtime?.activeSession?.id||'');
+    const targetId=String(id||'');
+    const changesSession=Boolean(currentId&&targetId&&currentId!==targetId);
+
+    if(changesSession&&hasHeavyStudentView()){
+      /*
+       * Karakter- og fagsamtalevisninger arbejder asynkront og kan ellers nå at
+       * ændre skrivekøen, mens StorageRescue verificerer den. Afmontér derfor
+       * visningen først; den normale loadSession må gerne afmontere igen bagefter.
+       */
+      removeTransientWidgetFields();
+      await this.unmountBoard?.();
+      await Promise.resolve();
+    }
+
+    return previousLoadSession.call(this,id,boardId,options);
+  };
+
+  try{
+    TN.version='0.14.17-heavy-view-course-switch-fix';
+    document.title='PLAN-2.0-KARAKTERER-FAGSAMTALER-FORLOEBSSKIFT-FIX';
+  }catch(_error){}
+})(window.TavleNext);
+</script>
+
+
+<!-- Plan 2.0 · Holdmatrix elevkort-noter: elevnoter må ikke genindlæse stamdatakoblingen · 2026-08-01 -->
+<script id="plan-holdmatrix-student-note-dataset-refresh-fix-v3">
+(function(TN){
+  'use strict';
+  if(!TN || window.__planHoldmatrixStudentNoteDatasetRefreshFixV3)return;
+  window.__planHoldmatrixStudentNoteDatasetRefreshFixV3=true;
+
+  const Manager=TN.StudentMasterLinkManager;
+  if(!Manager?.prototype || typeof Manager.prototype.onDatasetChange!=='function')return;
+
+  const previousOnDatasetChange=Manager.prototype.onDatasetChange;
+  const irrelevantTypes=new Set([
+    'student-notes',
+    'group-notes',
+    'board-notes'
+  ]);
+
+  Manager.prototype.onDatasetChange=function(event){
+    const detail=event?.detail || event || {};
+    const dataset=detail.dataset || event?.dataset || null;
+    const type=String(dataset?.type || '').trim().toLowerCase();
+
+    /*
+     * Elevstamdata-koblingen skal kun genberegnes, når en datakilde kan ændre
+     * elevmatch eller de oplysninger, som vises i elevkort og Holdmatrix.
+     * Notedatasæt er bevidst udelukket fra stamdataberigelsen og kan derfor
+     * ikke påvirke koblingen. At genlæse alle datasæt og elevvisninger ved
+     * hvert autosave-tastetryk skaber den kontinuerlige baggrundsrerendering.
+     */
+    if(irrelevantTypes.has(type))return;
+
+    return previousOnDatasetChange.call(this,event);
+  };
+
+  try{TN.version='0.14.19-holdmatrix-note-dataset-refresh-fix-v3';}
+  catch(_error){}
+})(window.TavleNext);
+</script>
+
+
+<!-- Plan 2.0 · Elevkort fase 1d: aktiv afgrænsning af stamdata-rerender · 2026-08-01 -->
+<script id="plan-student-card-active-relevant-dataset-refresh-fix-v2">
+(function(TN){
+  'use strict';
+  if(!TN || window.__planStudentCardActiveRelevantDatasetRefreshFixV2)return;
+  window.__planStudentCardActiveRelevantDatasetRefreshFixV2=true;
+
+  const Manager=TN.StudentMasterLinkManager;
+  if(!Manager?.prototype || typeof Manager.prototype.onDatasetChange!=='function')return;
+
+  const previousOnDatasetChange=Manager.prototype.onDatasetChange;
+  const normalizeId=value=>String(value??'');
+
+  Manager.prototype.onDatasetChange=function(event){
+    const detail=event?.detail || event || {};
+    const dataset=detail.dataset || event?.dataset || null;
+    const changedId=normalizeId(dataset?.id || detail.id);
+    if(!changedId)return;
+
+    const relevantIds=new Set();
+    const masterId=normalizeId(this.master?.id);
+    if(masterId)relevantIds.add(masterId);
+
+    for(const widget of TN.runtime?.activeWidgets || []){
+      const isStudentCard=widget?.type==='student-card';
+      const isStudentMatrix=widget?.type==='card-matrix' && (widget.content?.kind||'student')==='student';
+      if(!(isStudentCard||isStudentMatrix))continue;
+      if(widget.content?.datasetId!=null)relevantIds.add(normalizeId(widget.content.datasetId));
+      if(widget.content?.sourceDatasetId!=null)relevantIds.add(normalizeId(widget.content.sourceDatasetId));
+    }
+
+    const focus=this.app?.studentFocus?.current;
+    if(focus?.dataset?.id!=null)relevantIds.add(normalizeId(focus.dataset.id));
+
+    /*
+     * Når en stamdatakilde allerede er valgt, må andre datasæt ikke starte en
+     * ny global stamdatagennemgang og genmontering af alle Elevkort. Først hvis
+     * der endnu ikke findes en stamdatakilde, må en reel kandidat passere.
+     */
+    let initialMasterCandidate=false;
+    if(!masterId && dataset && typeof this.candidateScore==='function'){
+      try{initialMasterCandidate=Number.isFinite(this.candidateScore(dataset));}
+      catch(_error){initialMasterCandidate=false;}
+    }
+
+    if(!relevantIds.has(changedId) && !initialMasterCandidate)return;
+    return previousOnDatasetChange.call(this,event);
+  };
+
+  try{TN.version='0.14.21-student-card-active-rerender-filter-fix';}
+  catch(_error){}
+})(window.TavleNext);
+</script>
