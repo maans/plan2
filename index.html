@@ -2443,7 +2443,7 @@ html[data-plan-embed="true"] .tn-board-counter-center{min-width:56px;padding-inl
 <div id="tnModalRoot"></div>
 <div aria-live="polite" id="tnToast" role="status"></div>
 <aside hidden="" id="tnDevPanel"></aside>
-<input accept=".zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*" hidden="" id="tnFileInput" multiple="" type="file"/>
+<input accept=".plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*" hidden="" id="tnFileInput" multiple="" type="file"/>
 </div>
 <section hidden="" id="tnFatal"><h1>Plan kunne ikke starte</h1><pre id="tnFatalMessage"></pre></section>
 <script>
@@ -8841,7 +8841,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         await map[action]?.();
       });
       if(this.widgetPicker)this.widgetPicker.addEventListener('change',()=>{const id=this.widgetPicker.value;if(!id)return;this.chooseWidgetFromPicker(id);});
-      this.fileInput.addEventListener('change',()=>{const files=[...this.fileInput.files];this.fileInput.value='';this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.queueFiles(files);});
+      this.fileInput.addEventListener('change',()=>{const files=[...this.fileInput.files];this.fileInput.value='';this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.queueFiles(files);});
       let dropOverlayTimer=0;const clearDropOverlay=()=>{clearTimeout(dropOverlayTimer);dropOverlayTimer=0;this.viewport.classList.remove('dragover');};const armDropOverlay=()=>{this.viewport.classList.add('dragover');clearTimeout(dropOverlayTimer);dropOverlayTimer=setTimeout(clearDropOverlay,700);};
       this.viewport.addEventListener('dragenter',e=>{e.preventDefault();armDropOverlay();});
       this.viewport.addEventListener('dragover',e=>{e.preventDefault();armDropOverlay();});
@@ -10266,6 +10266,9 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
 
 
+
+
+
 </body></html>`;
       return this.addWidget('html',{title:'Plan · indlejret',content:{html:wrapper,mediaId:null,source:'inline',trusted:true,planEmbed:true,appKind:'plan',name:'Plan-indlejret.html',embeddedSessionId:sessionId,planUrl:url.href},geometry:{width:860,height:600}});
     }
@@ -10824,7 +10827,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       return this.addWidget('calendar',{title:dataset.name,content:{view:'month',date,datasetId:dataset.id,events:[]},geometry:{x:90,y:70,width:520,height:470}});
     }
     downloadText(text,filename,type='text/plain;charset=utf-8'){const prepared=this.fileExporter.prepareText(text,filename,type);this.fileExporter.download(prepared);}
-    requestImportFiles(){this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();}
+    requestImportFiles(){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();}
     requestImageImport(){this.fileInput.accept='image/*';this.fileInput.multiple=true;this.fileInput.click();}
     async showDemoDataLibrary(){
       const body=document.createElement('div');
@@ -48147,7 +48150,7 @@ function requestResourcePackageFiles(app){
  if(!app)return;
  const input=document.createElement('input');
  input.type='file';
- input.accept='.zip,.planpkg,.json,application/zip,application/json';
+ input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
  input.multiple=true;
  input.style.position='fixed';
  input.style.left='-10000px';
@@ -57531,7 +57534,7 @@ App.prototype.exportResourcePackage=async function(mode='session',selectedResour
  const warningLines=manifest.warnings.length?manifest.warnings.map(item=>`- ${item.title||item.fileName||'Element'}: ${item.warning}`).join('\n'):'- Ingen';
  const guide=`PLAN 2.0 · RESSOURCEPAKKE\n\nSTART HER\nÅbn filen "ÅBN PLAN-RESSOURCER.html" i pakkens øverste mappe.\n\nFAKTISK INDHOLD\nOmfang: ${manifest.scopeLabel}\nRessourcer i pakken: ${manifest.counts.resources}\nLokale ressourcefiler: ${manifest.counts.mediaFiles}\nInternetressourcer: ${manifest.counts.webResources}\nElevdata medtaget: ${includeDatasources?'Ja':'Nej'}\nElevdatasæt: ${manifest.counts.studentDatasets}\nElevbilleder: ${manifest.counts.studentPortraits}\nElevbilleder der ikke kunne hentes: ${manifest.counts.missingStudentPortraits}\n\nKATEGORIER\n${categoryLines}\n\nRESSOURCER\n${resourceLines||'Ingen ressourcer'}\n\nELEVDATA\n${datasetLines}\n\nADVARSLER\n${warningLines}\n\nIMPORTÉR PAKKEN I PLAN\nÅbn Plan 2.0, gå til Planoversigt → Ressourcer → Importér ressourcer, og vælg ZIP-pakken eller filen "plan-resources.json".\n\nDe originale lokale filer ligger i undermapperne under "Plan-Ressourcer - filer". Elevbilleder ligger i mappen "elevbilleder". Internetressourcer åbnes via deres links.`;
  entries.push({name:'ÅBN PLAN-RESSOURCER.html',data:browserHtml(manifest)},{name:'Plan-Ressourcer - filer/LÆS MIG.txt',data:guide},{name:'Plan-Ressourcer - filer/plan-resources.json',data:JSON.stringify(manifest,null,2)});
- const zip=await makeZip(entries),now=new Date(),stamp=now.toISOString().replace(/[:.]/g,'-').replace('T','_').replace('Z',''),categoryPart=[...new Set(output.map(item=>item.presentationCategory).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'da')).join('-eller-'),filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${safeName(categoryPart||'ressourcer').replace(/\s+/g,'-')}-${output.length}-stk-${stamp}.zip`;
+ const zip=await makeZip(entries),now=new Date(),stamp=now.toISOString().replace(/[:.]/g,'-').replace('T','_').replace('Z',''),categoryPart=[...new Set(output.map(item=>item.presentationCategory).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'da')).join('-eller-'),filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${safeName(categoryPart||'ressourcer').replace(/\s+/g,'-')}-${output.length}-stk-${stamp}.plan2`;
  const prepared=this.fileExporter.prepareBlob(zip,filename,'application/zip');
  /* Canonical backup fase 5: den eksisterende ressourcebygger kan nu bruges
     programmatisk uden modal, save-interception eller skjult global timing. */
@@ -59299,7 +59302,7 @@ Behold mappen "medier" ved siden af HTML-filen, så links til de lokale filer fo
   );
 
   const zipBlob=await makeZip(entries);
-  const filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.zip`;
+  const filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.plan2`;
   const prepared=this.fileExporter.prepareBlob(zipBlob,filename,'application/zip');
   const result=await this.fileExporter.save(prepared);
   if(result?.status!=='cancelled'){
@@ -60131,7 +60134,7 @@ App.prototype.buildPlanPackage=async function(payload,{
   const created=new Intl.DateTimeFormat('da-DK',{dateStyle:'long',timeStyle:'short'}).format(new Date(manifest.createdAt));
   const visitCard=`<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${cardEscape(title)} · Planpakke</title><style>
   :root{color-scheme:light dark;--bg:#07111f;--panel:#0d1b2d;--panel2:#12233a;--ink:#f7fbff;--muted:#a9b8ca;--line:#29405d;--cyan:#20b7d6;--orange:#f39a36;--green:#46d17b;--shadow:0 24px 80px #0008}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 15% 0,#17314c 0,transparent 36rem),radial-gradient(circle at 90% 18%,#16374a 0,transparent 28rem),var(--bg)}a{color:inherit}.shell{width:min(1060px,calc(100% - 28px));margin:auto;padding:28px 0 48px}.hero{position:relative;overflow:hidden;padding:clamp(28px,6vw,62px);border:1px solid #ffffff20;border-radius:28px;background:linear-gradient(145deg,#10253d 0%,#0a1728 68%);box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:260px;height:260px;right:-95px;top:-95px;border:42px solid #20b7d61c;border-radius:50%}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.02em}.mark{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,var(--cyan),#087795);font-size:23px;box-shadow:0 10px 30px #20b7d644}.badge{display:inline-flex;margin-top:42px;padding:7px 11px;border:1px solid #f39a3670;border-radius:999px;background:#f39a3618;color:#ffd7a6;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hero h1{max-width:780px;margin:14px 0 10px;font-size:clamp(34px,6.4vw,68px);line-height:1.02;letter-spacing:-.045em}.hero .lead{max-width:700px;margin:0;color:#c8d6e6;font-size:clamp(17px,2vw,21px);line-height:1.55}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 17px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);font-weight:850;text-decoration:none}.button.primary{border-color:transparent;background:linear-gradient(135deg,var(--cyan),#1287a4);color:white}.button.download{border-color:#46d17b66;background:#46d17b18}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;color:var(--muted);font-size:13px}.meta span{padding:7px 10px;border:1px solid #ffffff16;border-radius:999px;background:#ffffff08}.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:18px;margin-top:18px}.card{padding:24px;border:1px solid var(--line);border-radius:22px;background:color-mix(in srgb,var(--panel) 94%,transparent);box-shadow:0 16px 50px #0004}.card h2{margin:0 0 14px;font-size:22px}.steps{display:grid;gap:12px;margin:0;padding:0;list-style:none;counter-reset:step}.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;color:#d9e5f1;line-height:1.45}.steps li:before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#20b7d61a;border:1px solid #20b7d655;color:#8ee9fa;font-weight:900}.notice{margin-top:18px;padding:15px 16px;border:1px solid #f39a3655;border-radius:14px;background:#f39a3610;color:#ffe2bd;line-height:1.5}.course-list{display:grid;gap:14px;margin-top:18px}.course{padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel2)}.course-head{display:flex;justify-content:space-between;gap:18px;align-items:start}.course small{color:var(--cyan);font-weight:850;text-transform:uppercase;letter-spacing:.08em}.course h3{margin:4px 0 0;font-size:20px}.course-head>span{white-space:nowrap;padding:6px 9px;border-radius:999px;background:#ffffff0d;color:var(--muted);font-size:12px}.course p{color:var(--muted);line-height:1.5}.course details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}.course summary{cursor:pointer;font-weight:800;color:#dce9f5}.course ol{margin:12px 0 0;padding-left:23px;color:var(--muted);line-height:1.7}.more{font-style:italic}.about p{color:var(--muted);line-height:1.55}.tagline{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-weight:850;line-height:1.45}.footer{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:22px 4px 0;color:var(--muted);font-size:13px}.footer a{color:#bfeef7}.privacy{display:flex;gap:8px;align-items:start;margin-top:16px;color:var(--muted);font-size:13px;line-height:1.45}.privacy:before{content:"✓";color:var(--green);font-weight:900}@media(max-width:760px){.grid{grid-template-columns:1fr}.hero{border-radius:22px}.course-head{display:grid}.footer{display:grid}.button{flex:1 1 100%}}@media(prefers-color-scheme:light){:root{--bg:#edf4f8;--panel:#fff;--panel2:#f5f9fc;--ink:#132235;--muted:#5e7084;--line:#cfdae5;--shadow:0 22px 70px #20304020}body{background:radial-gradient(circle at 15% 0,#d7edf4 0,transparent 36rem),var(--bg)}.hero{background:linear-gradient(145deg,#fff,#edf6fa)}.hero .lead,.steps li{color:#40546a}.badge{color:#8a4b06}.notice{color:#74410d}.course summary{color:#263b50}.meta span{border-color:#13223515;background:#fff}.button{background:#fff}.footer a{color:#087795}}
-  </style></head><body><main class="shell"><section class="hero"><div class="brand"><span class="mark">▦</span><span>Plan 2.0</span></div><span class="badge">${cardEscape(typeInfo.label)} · Planpakke</span><h1>${cardEscape(title||typeInfo.headline)}</h1><p class="lead">${cardEscape(typeInfo.intro)}</p><div class="actions"><a class="button primary" href="https://plan2.xn--mns-ula.dk/">Åbn Plan 2.0</a><a class="button download" href="https://plan2.xn--mns-ula.dk/Plan2.zip" download>Hent Plan 2.0</a><a class="button" href="https://xn--mns-ula.dk/">Kontakt Måns</a></div><div class="meta">${manifest.counts.courses?`<span>${manifest.counts.courses} undervisningsforløb</span>`:''}<span>${manifest.counts.sessions} session${manifest.counts.sessions===1?'':'er'}</span><span>${manifest.counts.boards} tavle${manifest.counts.boards===1?'':'r'}</span><span>Oprettet ${cardEscape(created)}</span></div></section><div class="grid"><section class="card"><h2>Sådan åbner du pakken</h2><ol class="steps"><li><span>Åbn Plan 2.0.</span></li><li><span>Vælg <strong>Backup og sikkerhed</strong> og derefter <strong>Hent arbejde tilbage</strong>.</span></li><li><span>Gå tilbage til Filer, og vælg selve Planpakken med endelsen <strong>.planpkg.zip</strong> — ikke denne HTML-fil.</span></li></ol><div class="notice"><strong>Visitkortet ligger inde i Planpakken.</strong><br>Du kan læse overblikket her, men når pakken skal åbnes i Plan, vælger du den oprindelige ZIP-fil. Indholdet er lavet til Plan 2.0 og kan ikke bruges som almindelige dokumenter uden for Plan.</div><div class="course-list">${courseCards}</div></section><aside class="card about"><h2>Om Plan 2.0</h2><p>Plan samler undervisningsforløb, sessioner, tavler, materialer og arbejdsdata i ét fleksibelt undervisningsværktøj.</p><p class="tagline">En computer gemmer dine filer.<br>Plan bevarer din undervisning.</p><div class="privacy">Visitkortet viser kun et overblik. Selve indholdet bliver i Planpakken og åbnes først, når du importerer den.</div></aside></div><footer class="footer"><span>Plan 2.0 · Planpakke</span><span><a href="https://plan2.xn--mns-ula.dk/">plan2.måns.dk</a> · <a href="https://xn--mns-ula.dk/">måns.dk</a></span></footer></main>
+  </style></head><body><main class="shell"><section class="hero"><div class="brand"><span class="mark">▦</span><span>Plan 2.0</span></div><span class="badge">${cardEscape(typeInfo.label)} · Planpakke</span><h1>${cardEscape(title||typeInfo.headline)}</h1><p class="lead">${cardEscape(typeInfo.intro)}</p><div class="actions"><a class="button primary" href="https://plan2.xn--mns-ula.dk/">Åbn Plan 2.0</a><a class="button download" href="https://plan2.xn--mns-ula.dk/Plan2.zip" download>Hent Plan 2.0</a><a class="button" href="https://xn--mns-ula.dk/">Kontakt Måns</a></div><div class="meta">${manifest.counts.courses?`<span>${manifest.counts.courses} undervisningsforløb</span>`:''}<span>${manifest.counts.sessions} session${manifest.counts.sessions===1?'':'er'}</span><span>${manifest.counts.boards} tavle${manifest.counts.boards===1?'':'r'}</span><span>Oprettet ${cardEscape(created)}</span></div></section><div class="grid"><section class="card"><h2>Sådan åbner du pakken</h2><ol class="steps"><li><span>Åbn Plan 2.0.</span></li><li><span>Vælg <strong>Backup og sikkerhed</strong> og derefter <strong>Hent arbejde tilbage</strong>.</span></li><li><span>Gå tilbage til Filer, og vælg selve Planpakken med endelsen <strong>.plan2</strong> — ikke denne HTML-fil.</span></li></ol><div class="notice"><strong>Visitkortet ligger inde i Planpakken.</strong><br>Du kan læse overblikket her, men når pakken skal åbnes i Plan, vælger du den oprindelige Plan 2-fil. Indholdet er lavet til Plan 2.0 og kan ikke bruges som almindelige dokumenter uden for Plan.</div><div class="course-list">${courseCards}</div></section><aside class="card about"><h2>Om Plan 2.0</h2><p>Plan samler undervisningsforløb, sessioner, tavler, materialer og arbejdsdata i ét fleksibelt undervisningsværktøj.</p><p class="tagline">En computer gemmer dine filer.<br>Plan bevarer din undervisning.</p><div class="privacy">Visitkortet viser kun et overblik. Selve indholdet bliver i Planpakken og åbnes først, når du importerer den.</div></aside></div><footer class="footer"><span>Plan 2.0 · Planpakke</span><span><a href="https://plan2.xn--mns-ula.dk/">plan2.måns.dk</a> · <a href="https://xn--mns-ula.dk/">måns.dk</a></span></footer></main>
 
 
 <!-- Plan 2.0 · Sikkerhed fase 4B v1 · Backup+ = Plan-state + ressourcearkiv -->
@@ -60275,7 +60278,7 @@ async function buildCombined(app,resourcePrepared,context){
   entries.push({name:target,data});
  }
  const blob=await makeZip(entries);
- return app.fileExporter.prepareBlob(blob,`${(TN.slugify?.(course?.title)||'undervisningsforloeb')}-BackupP-${createdAt.slice(0,10)}.planpkg.zip`,'application/zip');
+ return app.fileExporter.prepareBlob(blob,`${(TN.slugify?.(course?.title)||'undervisningsforloeb')}-BackupP-${createdAt.slice(0,10)}.plan2`,'application/zip');
 }
 
 /* Marker kun Backup+-ruten. Almindelige ressourcepakker ændres ikke. */
@@ -60382,7 +60385,7 @@ proto.handleFiles=async function(files){
     const file=this.normalizeImportFile?this.normalizeImportFile(original):original;
     const name=String(file?.name||'').toLowerCase();
     const type=String(file?.type||'').toLowerCase();
-    if(name.endsWith('.zip')||name.endsWith('.planpkg')||name.endsWith('.planpkg.zip')||type==='application/zip'||type==='application/x-zip-compressed')packageFiles.push(file);
+    if(name.endsWith('.plan2')||name.endsWith('.zip')||name.endsWith('.planpkg')||type==='application/zip'||type==='application/x-zip-compressed')packageFiles.push(file);
     else remaining.push(file);
   }
   for(const file of packageFiles){
@@ -60396,7 +60399,7 @@ proto.handleFiles=async function(files){
 const oldRequest=proto.requestImportFiles;
 proto.requestImportFiles=function(){
   if(this.fileInput){
-    this.fileInput.accept='.zip,.planpkg,.planpkg.zip,.json,application/zip,application/x-zip-compressed,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/x-zip-compressed,application/json';
     this.fileInput.multiple=false;
     this.fileInput.click();
     return;
@@ -60646,7 +60649,7 @@ App.prototype.safetyExport=async function(kind,progress){
             payload={...payload,manifest:{...(payload.manifest||{}),includesActiveDatasources:dataCheck.checked,privacy:dataCheck.checked?'contains-active-datasources':'active-student-data-excluded'}};
 
             const date=new Date().toISOString().slice(0,10);
-            const filename=`${safeName(titleInput.value||info.label)}-${date}.planpkg.zip`;
+            const filename=`${safeName(titleInput.value||info.label)}-${date}.plan2`;
             progress?.('Åbner Gem i Filer / Del …');
             const result=await this.savePlanPackage(payload,{backupType:info.backupKind,title:titleInput.value.trim()||info.title,filename,includeApp:appCheck.checked});
             if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');finish(result);return false;}
@@ -60711,7 +60714,7 @@ App.prototype.safetyExport=async function(kind,progress){
  const schedule=()=>{clearTimeout(schedule.timer);schedule.timer=setTimeout(()=>prepare().catch(error=>{console.error(error);status.textContent=error?.message||'Pakken kunne ikke forberedes';}),180);};
  titleInput.addEventListener('input',schedule);dataCheck.addEventListener('change',schedule);mediaCheck.addEventListener('change',schedule);
  await prepare();
- return await new Promise(resolve=>{let modal=null;modal=this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder-final',actions:[{label:'Annuller',run:()=>{resolve({status:'cancelled'});return true;}},{label:'Opret Plan-pakke',primary:true,run:async()=>{try{const current=prepared||await prepare();if(!current)throw new Error('Pakken er ikke færdig');const filename=`${safe(titleInput.value.trim()||defaultTitle)}.planpkg.zip`;const file=this.fileExporter.prepareBlob(current.built.blob,filename,'application/zip');status.textContent='Åbner Gem i Filer / Del …';const result=await this.fileExporter.save(file);if(result?.status==='cancelled'){status.textContent='Gemning blev annulleret.';return false;}progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve({...result,manifest:current.built.manifest});return true;}catch(error){console.error(error);status.textContent=error?.message||'Pakken kunne ikke oprettes';this.toast(status.textContent);return false;}}}]});});
+ return await new Promise(resolve=>{let modal=null;modal=this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder-final',actions:[{label:'Annuller',run:()=>{resolve({status:'cancelled'});return true;}},{label:'Opret Plan-pakke',primary:true,run:async()=>{try{const current=prepared||await prepare();if(!current)throw new Error('Pakken er ikke færdig');const filename=`${safe(titleInput.value.trim()||defaultTitle)}.plan2`;const file=this.fileExporter.prepareBlob(current.built.blob,filename,'application/zip');status.textContent='Åbner Gem i Filer / Del …';const result=await this.fileExporter.save(file);if(result?.status==='cancelled'){status.textContent='Gemning blev annulleret.';return false;}progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve({...result,manifest:current.built.manifest});return true;}catch(error){console.error(error);status.textContent=error?.message||'Pakken kunne ikke oprettes';this.toast(status.textContent);return false;}}}]});});
 };
 try{document.title='index-sikkerhed-fase4b-v11-kanonisk-pakkebygger-routing-repareret';TN.version='0.14.10-safety-canonical-builder';}catch(_){ }
 })(window.TavleNext);
@@ -61131,7 +61134,7 @@ App.prototype.safetyExport=async function(kind,progress){
             privacy:dataCheck.checked?'contains-active-datasources':'active-student-data-excluded'}};
 
           const date=new Date().toISOString().slice(0,10);
-          const filename=`${safeName(titleInput.value||info.label)}-${date}.planpkg.zip`;
+          const filename=`${safeName(titleInput.value||info.label)}-${date}.plan2`;
           progress?.('Åbner Gem i Filer / Del …');
           const result=await this.savePlanPackage(payload,{backupType:info.backupKind,title:titleInput.value.trim()||info.title,filename,includeApp:appCheck.checked});
           if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');finish(result);return false;}
@@ -61763,14 +61766,14 @@ if(!install()){
 App.prototype.savePlanPackage=async function(payload,{
   backupType='backup',
   title='Plan-pakke',
-  filename='Plan-pakke.zip',
+  filename='Plan-pakke.plan2',
   includeApp=includeAppPreference(),
   notes=''
 }={}){
   const built=await this.buildPlanPackage(payload,{backupType,title,includeApp,notes});
   const prepared=this.fileExporter.prepareBlob(
     built.blob,
-    filename.toLowerCase().endsWith('.zip')?filename:`${filename}.zip`,
+    filename.toLowerCase().endsWith('.plan2')?filename:`${filename.replace(/\.(?:planpkg\.)?zip$/i,'')}.plan2`,
     'application/zip'
   );
   const result=await this.fileExporter.save(prepared);
@@ -61781,7 +61784,7 @@ App.prototype.openPlanPackage=async function(file){
   if(file.size>1024*1024*180)throw new Error('Plan-pakken er større end 180 MB og kan ikke åbnes sikkert på denne enhed');
   const entries=readZipStoreOnly(await file.arrayBuffer());
   const manifestBytes=entries.get('data/manifest.json')||entries.get('manifest.json');
-  if(!manifestBytes)throw new Error('ZIP-filen er ikke en Plan-pakke: manifest.json mangler');
+  if(!manifestBytes)throw new Error('Filen er ikke en Plan-pakke: manifest.json mangler');
   let manifest;
   try{manifest=JSON.parse(new TextDecoder().decode(manifestBytes));}
   catch(_){throw new Error('Plan-pakkens manifest kan ikke læses');}
@@ -61902,7 +61905,7 @@ App.prototype.handleFiles=async function(files){
   for(const file of files||[]){
     const lower=String(file.name||'').toLowerCase();
     const type=String(file.type||'').toLowerCase();
-    if(lower.endsWith('.zip')||lower.endsWith('.planpkg')||type==='application/zip')packages.push(file);
+    if(lower.endsWith('.plan2')||lower.endsWith('.zip')||lower.endsWith('.planpkg')||type==='application/zip')packages.push(file);
     else ordinary.push(file);
   }
   for(const file of packages)await this.previewPlanPackageImport(file);
@@ -61911,7 +61914,7 @@ App.prototype.handleFiles=async function(files){
 
 const originalRequestImportFiles=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
-  this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
   this.fileInput.multiple=true;
   this.fileInput.click();
 };
@@ -61946,8 +61949,8 @@ App.prototype.safetyExport=async function(kind,progress){
   const base=kind==='all'?'Plan':safeName(course?.title||'Undervisningsforløb').replace(/\s+/g,'-');
   const date=new Date().toISOString().slice(0,10);
   const filename=kind==='all'
-    ?`Plan-BackupPP-${date}.planpkg.zip`
-    :`${base}-${label.replace(/\s+/g,'-').replace(/\+/g,'P')}-${date}.planpkg.zip`;
+    ?`Plan-BackupPP-${date}.plan2`
+    :`${base}-${label.replace(/\s+/g,'-').replace(/\+/g,'P')}-${date}.plan2`;
   progress?.('Åbner Gem i Filer / Del …');
   const result=await this.savePlanPackage(payload,{
     backupType:kind,
@@ -61998,8 +62001,8 @@ App.prototype.showBackup=async function(){
         const payload=await this.backupManager.exportNext(ids);
         const date=new Date().toISOString().slice(0,10);
         const name=ids.length===1
-          ?`${safeName(sessions.find(s=>s.id===ids[0])?.title||ids[0]).replace(/\s+/g,'-')}-BackupPP-${date}.planpkg.zip`
-          :`Plan-BackupPP-${date}.planpkg.zip`;
+          ?`${safeName(sessions.find(s=>s.id===ids[0])?.title||ids[0]).replace(/\s+/g,'-')}-BackupPP-${date}.plan2`
+          :`Plan-BackupPP-${date}.plan2`;
         const result=await this.savePlanPackage(payload,{
           backupType:'backup++',
           title:ids.length===1?'Backup++ · '+(sessions.find(s=>s.id===ids[0])?.title||'Session'):'Backup++ · valgte sessioner',
@@ -62029,7 +62032,7 @@ App.prototype.showCoursePackageExport=function({course,payload,verification}){
       {label:'Luk',run:()=>{}},
       {label:'Gem Plan-pakke',primary:true,run:async()=>{
         const includeApp=body.querySelector('[data-app]').checked;setIncludeAppPreference(includeApp);
-        const filename=`Plan-${safeName(course.title).replace(/\s+/g,'-')}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10)).replace(/\s+/g,'-')}.planpkg.zip`;
+        const filename=`Plan-${safeName(course.title).replace(/\s+/g,'-')}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10)).replace(/\s+/g,'-')}.plan2`;
         const result=await this.savePlanPackage(payload,{backupType:'course-package',title:course.title,filename,includeApp});
         if(result?.status==='cancelled')return false;
         saved=true;body.querySelector('[data-course-save-state]').innerHTML='<b>Pakken er sendt til lagring.</b> Du kan nu arkivere det lokale årsforløb.';
@@ -62067,7 +62070,7 @@ App.prototype.exportCommonDataBackup=async function(){
   const result=await this.savePlanPackage(payload,{
     backupType:'common-data',
     title:'Fælles data',
-    filename:`Plan-Faelles-data-${date}.planpkg.zip`,
+    filename:`Plan-Faelles-data-${date}.plan2`,
     includeApp:includeAppPreference()
   });
   if(result?.status!=='cancelled')this.toast(`${datasets.length} fælles datasæt er sendt til lagring`);
@@ -62086,7 +62089,7 @@ if(TN.StorageRescueManager?.prototype){
     const result=await this.app.savePlanPackage(payload,{
       backupType:includeMedia?'emergency':'emergency-light',
       title:`Nødbackup · ${target.title}`,
-      filename:`Plan-NOEDBACKUP-${safeName(target.title).replace(/\s+/g,'-')}-${stamp}.planpkg.zip`,
+      filename:`Plan-NOEDBACKUP-${safeName(target.title).replace(/\s+/g,'-')}-${stamp}.plan2`,
       includeApp:includeAppPreference()
     });
     if(result?.status!=='cancelled')this.app.toast(includeMedia?'Nødbackup med medier er sendt til Filer':'Hurtig nødbackup er sendt til Filer');
@@ -66013,7 +66016,7 @@ try{document.title='Plan_2_0_v8h';}catch{}
   function isZip(file){
     const name=String(file?.name||'').toLowerCase();
     const type=String(file?.type||'').toLowerCase();
-    return name.endsWith('.zip')||name.endsWith('.planpkg')||type==='application/zip'||type==='application/x-zip-compressed';
+    return name.endsWith('.plan2')||name.endsWith('.zip')||name.endsWith('.planpkg')||type==='application/zip'||type==='application/x-zip-compressed';
   }
   function isJson(file){
     const name=String(file?.name||'').toLowerCase();
@@ -66022,7 +66025,7 @@ try{document.title='Plan_2_0_v8h';}catch{}
   }
 
   App.prototype.requestCoursePackageImport=function(){
-    this.fileInput.accept='.zip,.planpkg,.json,application/zip,application/x-zip-compressed,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/x-zip-compressed,application/json';
     this.fileInput.multiple=false;
     this.fileInput.click();
   };
@@ -66162,7 +66165,7 @@ async function courseCandidates(app,file){
 }
 App.prototype.previewPlanPackageImport=async function(file){
   const lower=String(file?.name||'').toLowerCase();
-  if(lower.endsWith('.zip')||String(file?.type||'').toLowerCase()==='application/zip'){
+  if(lower.endsWith('.plan2')||lower.endsWith('.zip')||String(file?.type||'').toLowerCase()==='application/zip'){
     try{
       const candidates=await courseCandidates(this,file);
       if(candidates.length){
@@ -66192,7 +66195,7 @@ App.prototype.previewPlanPackageImport=async function(file){
   }
   /* Planpakker med data/manifest.json + data/backup.json skal ikke falde tilbage
      til en metode, som endnu ikke fandtes, da denne patch blev initialiseret. */
-  if(lower.endsWith('.zip')||lower.endsWith('.planpkg')||String(file?.type||'').toLowerCase()==='application/zip'){
+  if(lower.endsWith('.plan2')||lower.endsWith('.zip')||lower.endsWith('.planpkg')||String(file?.type||'').toLowerCase()==='application/zip'){
     const entries=readZip(await file.arrayBuffer());
     const byName=new Map(entries.map(entry=>[entry.name.replace(/^\.\//,''),entry]));
     const manifestEntry=entries.find(entry=>/(^|\/)manifest\.json$/i.test(entry.name));
@@ -66218,7 +66221,7 @@ App.prototype.previewPlanPackageImport=async function(file){
 const previousRequest=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
   if(this.fileInput){
-    this.fileInput.accept='.zip,.planpkg,.json,application/zip,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
     this.fileInput.multiple=false;
     this.fileInput.click();
     return;
@@ -67217,7 +67220,7 @@ function courseImportInput(app){
  input=document.createElement('input');
  input.id='plan2CourseImportInput';
  input.type='file';
- input.accept='.zip,.planpkg,.json,application/zip,application/json';
+ input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
  input.multiple=false;
  input.tabIndex=-1;
  input.setAttribute('aria-hidden','true');
@@ -67595,7 +67598,7 @@ TN.version='0.9.7-derived-groups-via-mine-holds';
   const downstreamRequestImportFiles=App.prototype.requestImportFiles;
   App.prototype.requestImportFiles=function(){
     if(this.fileInput){
-      this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,application/json,text/csv,text/tab-separated-values,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+      this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,application/json,text/csv,text/tab-separated-values,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
       this.fileInput.multiple=true;
       this.fileInput.click();
       return;
@@ -67655,7 +67658,7 @@ const downstream=App.prototype.handleFiles;
 App.prototype.handleFiles=async function(files){const normal=[...(files||[])].map(f=>this.normalizeImportFile?this.normalizeImportFile(f):f),zips=normal.filter(isZip),data=normal.filter(f=>!isZip(f)&&DATA_RE.test(f.name)),other=normal.filter(f=>!isZip(f)&&!DATA_RE.test(f.name));for(const zip of zips){const entries=await unzip(zip),manifestBytes=entries.get('manifest.json')||entries.get('Plan-Ressourcer - filer/plan-resources.json');let manifest=null;if(manifestBytes)try{manifest=JSON.parse(new TextDecoder().decode(manifestBytes));}catch(_){}if(manifest?.format==='Plan 2.0 resource-package'){const extracted=[];for(const item of manifest.resources||[]){if(!item.packagePath)continue;const bytes=entries.get(item.packagePath);if(bytes&&DATA_RE.test(item.fileName||item.packagePath))extracted.push(new File([bytes],item.fileName||item.packagePath.split('/').pop(),{type:item.mimeType||mimeFor(item.fileName||item.packagePath)}));}if(extracted.length)showImport(this,extracted,{title:'Importér Data fra Ressourcepakke',source:'resource-package'});else this.toast('Ressourcepakken indeholder ingen regneark eller CSV-filer');continue;}if(manifest?.format==='Plan 2.0 package'||manifest?.format==='plan-package'){await this.previewPlanPackageImport(zip);continue;}const extracted=[...entries].filter(([name])=>DATA_RE.test(name)).map(([name,bytes])=>new File([bytes],name.split('/').pop(),{type:mimeFor(name)}));if(extracted.length)showImport(this,extracted,{title:`Importér ${extracted.length} datafiler fra ZIP`,source:'zip'});else await this.previewPlanPackageImport(zip);}
  if(data.length)showImport(this,data);if(other.length)return downstream.call(this,other);return [];
 };
-const previousRequest=App.prototype.requestImportFiles;App.prototype.requestImportFiles=function(){if(this.fileInput){this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.xlsx,.xls,.ods,.ics,.pdf,.html,.htm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();return;}return previousRequest?.call(this);};
+const previousRequest=App.prototype.requestImportFiles;App.prototype.requestImportFiles=function(){if(this.fileInput){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.xlsx,.xls,.ods,.ics,.pdf,.html,.htm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();return;}return previousRequest?.call(this);};
 TN.version='0.14.0-data-resources-zip-v100';window.__PLAN_DATA_RESOURCES__='1.0';
 })(window.TavleNext);
 </script>
@@ -68363,7 +68366,7 @@ Behold mappen "medier" ved siden af HTML-filen, så links til de lokale filer fo
   );
 
   const zipBlob=await makeZip(entries);
-  const filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.zip`;
+  const filename=`Plan-Ressourcepakke-${safeName(context.scopeLabel).replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.plan2`;
   const prepared=this.fileExporter.prepareBlob(zipBlob,filename,'application/zip');
   const result=await this.fileExporter.save(prepared);
   if(result?.status!=='cancelled'){
@@ -69196,7 +69199,7 @@ App.prototype.buildPlanPackage=async function(payload,{
   const visitCard=`<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${cardEscape(title)} · Planpakke</title><style>
   :root{color-scheme:light dark;--bg:#07111f;--panel:#0d1b2d;--panel2:#12233a;--ink:#f7fbff;--muted:#a9b8ca;--line:#29405d;--cyan:#20b7d6;--orange:#f39a36;--green:#46d17b;--shadow:0 24px 80px #0008}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 15% 0,#17314c 0,transparent 36rem),radial-gradient(circle at 90% 18%,#16374a 0,transparent 28rem),var(--bg)}a{color:inherit}.shell{width:min(1060px,calc(100% - 28px));margin:auto;padding:28px 0 48px}.hero{position:relative;overflow:hidden;padding:clamp(28px,6vw,62px);border:1px solid #ffffff20;border-radius:28px;background:linear-gradient(145deg,#10253d 0%,#0a1728 68%);box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:260px;height:260px;right:-95px;top:-95px;border:42px solid #20b7d61c;border-radius:50%}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.02em}.mark{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,var(--cyan),#087795);font-size:23px;box-shadow:0 10px 30px #20b7d644}.badge{display:inline-flex;margin-top:42px;padding:7px 11px;border:1px solid #f39a3670;border-radius:999px;background:#f39a3618;color:#ffd7a6;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hero h1{max-width:780px;margin:14px 0 10px;font-size:clamp(34px,6.4vw,68px);line-height:1.02;letter-spacing:-.045em}.hero .lead{max-width:700px;margin:0;color:#c8d6e6;font-size:clamp(17px,2vw,21px);line-height:1.55}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 17px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);font-weight:850;text-decoration:none}.button.primary{border-color:transparent;background:linear-gradient(135deg,var(--cyan),#1287a4);color:white}.button.download{border-color:#46d17b66;background:#46d17b18}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;color:var(--muted);font-size:13px}.meta span{padding:7px 10px;border:1px solid #ffffff16;border-radius:999px;background:#ffffff08}.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:18px;margin-top:18px}.card{padding:24px;border:1px solid var(--line);border-radius:22px;background:color-mix(in srgb,var(--panel) 94%,transparent);box-shadow:0 16px 50px #0004}.card h2{margin:0 0 14px;font-size:22px}.steps{display:grid;gap:12px;margin:0;padding:0;list-style:none;counter-reset:step}.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;color:#d9e5f1;line-height:1.45}.steps li:before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#20b7d61a;border:1px solid #20b7d655;color:#8ee9fa;font-weight:900}.notice{margin-top:18px;padding:15px 16px;border:1px solid #f39a3655;border-radius:14px;background:#f39a3610;color:#ffe2bd;line-height:1.5}.course-list{display:grid;gap:14px;margin-top:18px}.course{padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel2)}.course-head{display:flex;justify-content:space-between;gap:18px;align-items:start}.course small{color:var(--cyan);font-weight:850;text-transform:uppercase;letter-spacing:.08em}.course h3{margin:4px 0 0;font-size:20px}.course-head>span{white-space:nowrap;padding:6px 9px;border-radius:999px;background:#ffffff0d;color:var(--muted);font-size:12px}.course p{color:var(--muted);line-height:1.5}.course details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}.course summary{cursor:pointer;font-weight:800;color:#dce9f5}.course ol{margin:12px 0 0;padding-left:23px;color:var(--muted);line-height:1.7}.more{font-style:italic}.about p{color:var(--muted);line-height:1.55}.tagline{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-weight:850;line-height:1.45}.footer{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:22px 4px 0;color:var(--muted);font-size:13px}.footer a{color:#bfeef7}.privacy{display:flex;gap:8px;align-items:start;margin-top:16px;color:var(--muted);font-size:13px;line-height:1.45}.privacy:before{content:"✓";color:var(--green);font-weight:900}@media(max-width:760px){.grid{grid-template-columns:1fr}.hero{border-radius:22px}.course-head{display:grid}.footer{display:grid}.button{flex:1 1 100%}}@media(prefers-color-scheme:light){:root{--bg:#edf4f8;--panel:#fff;--panel2:#f5f9fc;--ink:#132235;--muted:#5e7084;--line:#cfdae5;--shadow:0 22px 70px #20304020}body{background:radial-gradient(circle at 15% 0,#d7edf4 0,transparent 36rem),var(--bg)}.hero{background:linear-gradient(145deg,#fff,#edf6fa)}.hero .lead,.steps li{color:#40546a}.badge{color:#8a4b06}.notice{color:#74410d}.course summary{color:#263b50}.meta span{border-color:#13223515;background:#fff}.button{background:#fff}.footer a{color:#087795}}
   </style>
-</head><body><main class="shell"><section class="hero"><div class="brand"><span class="mark">▦</span><span>Plan 2.0</span></div><span class="badge">${cardEscape(typeInfo.label)} · Planpakke</span><h1>${cardEscape(title||typeInfo.headline)}</h1><p class="lead">${cardEscape(typeInfo.intro)}</p><div class="actions"><a class="button primary" href="https://plan2.xn--mns-ula.dk/">Åbn Plan 2.0</a><a class="button download" href="https://plan2.xn--mns-ula.dk/Plan2.zip" download>Hent Plan 2.0</a><a class="button" href="https://xn--mns-ula.dk/">Kontakt Måns</a></div><div class="meta">${manifest.counts.courses?`<span>${manifest.counts.courses} undervisningsforløb</span>`:''}<span>${manifest.counts.sessions} session${manifest.counts.sessions===1?'':'er'}</span><span>${manifest.counts.boards} tavle${manifest.counts.boards===1?'':'r'}</span><span>Oprettet ${cardEscape(created)}</span></div></section><div class="grid"><section class="card"><h2>Sådan åbner du pakken</h2><ol class="steps"><li><span>Åbn Plan 2.0.</span></li><li><span>Vælg <strong>Backup og sikkerhed</strong> og derefter <strong>Hent arbejde tilbage</strong>.</span></li><li><span>Gå tilbage til Filer, og vælg selve Planpakken med endelsen <strong>.planpkg.zip</strong> — ikke denne HTML-fil.</span></li></ol><div class="notice"><strong>Visitkortet ligger inde i Planpakken.</strong><br>Du kan læse overblikket her, men når pakken skal åbnes i Plan, vælger du den oprindelige ZIP-fil. Indholdet er lavet til Plan 2.0 og kan ikke bruges som almindelige dokumenter uden for Plan.</div><div class="course-list">${courseCards}</div></section><aside class="card about"><h2>Om Plan 2.0</h2><p>Plan samler undervisningsforløb, sessioner, tavler, materialer og arbejdsdata i ét fleksibelt undervisningsværktøj.</p><p class="tagline">En computer gemmer dine filer.<br>Plan bevarer din undervisning.</p><div class="privacy">Visitkortet viser kun et overblik. Selve indholdet bliver i Planpakken og åbnes først, når du importerer den.</div></aside></div><footer class="footer"><span>Plan 2.0 · Planpakke</span><span><a href="https://plan2.xn--mns-ula.dk/">plan2.måns.dk</a> · <a href="https://xn--mns-ula.dk/">måns.dk</a></span></footer></main>
+</head><body><main class="shell"><section class="hero"><div class="brand"><span class="mark">▦</span><span>Plan 2.0</span></div><span class="badge">${cardEscape(typeInfo.label)} · Planpakke</span><h1>${cardEscape(title||typeInfo.headline)}</h1><p class="lead">${cardEscape(typeInfo.intro)}</p><div class="actions"><a class="button primary" href="https://plan2.xn--mns-ula.dk/">Åbn Plan 2.0</a><a class="button download" href="https://plan2.xn--mns-ula.dk/Plan2.zip" download>Hent Plan 2.0</a><a class="button" href="https://xn--mns-ula.dk/">Kontakt Måns</a></div><div class="meta">${manifest.counts.courses?`<span>${manifest.counts.courses} undervisningsforløb</span>`:''}<span>${manifest.counts.sessions} session${manifest.counts.sessions===1?'':'er'}</span><span>${manifest.counts.boards} tavle${manifest.counts.boards===1?'':'r'}</span><span>Oprettet ${cardEscape(created)}</span></div></section><div class="grid"><section class="card"><h2>Sådan åbner du pakken</h2><ol class="steps"><li><span>Åbn Plan 2.0.</span></li><li><span>Vælg <strong>Backup og sikkerhed</strong> og derefter <strong>Hent arbejde tilbage</strong>.</span></li><li><span>Gå tilbage til Filer, og vælg selve Planpakken med endelsen <strong>.plan2</strong> — ikke denne HTML-fil.</span></li></ol><div class="notice"><strong>Visitkortet ligger inde i Planpakken.</strong><br>Du kan læse overblikket her, men når pakken skal åbnes i Plan, vælger du den oprindelige Plan 2-fil. Indholdet er lavet til Plan 2.0 og kan ikke bruges som almindelige dokumenter uden for Plan.</div><div class="course-list">${courseCards}</div></section><aside class="card about"><h2>Om Plan 2.0</h2><p>Plan samler undervisningsforløb, sessioner, tavler, materialer og arbejdsdata i ét fleksibelt undervisningsværktøj.</p><p class="tagline">En computer gemmer dine filer.<br>Plan bevarer din undervisning.</p><div class="privacy">Visitkortet viser kun et overblik. Selve indholdet bliver i Planpakken og åbnes først, når du importerer den.</div></aside></div><footer class="footer"><span>Plan 2.0 · Planpakke</span><span><a href="https://plan2.xn--mns-ula.dk/">plan2.måns.dk</a> · <a href="https://xn--mns-ula.dk/">måns.dk</a></span></footer></main>
 <style id="plan2-package-preview-v18-style">
 .tn-package-card-preview{display:grid;gap:14px}.tn-package-card-hero{padding:22px;border:1px solid var(--tn-line);border-radius:20px;background:linear-gradient(145deg,color-mix(in srgb,var(--tn-panel2) 94%,#18b7d6 6%),var(--tn-panel2));overflow:hidden}.tn-package-card-kicker{color:#35c7df;font-size:12px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.tn-package-card-hero h2{margin:7px 0 6px;font-size:clamp(24px,4vw,38px);line-height:1.05}.tn-package-card-hero p{margin:0;color:var(--tn-muted);line-height:1.5}.tn-package-card-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}.tn-package-card-meta span{padding:6px 9px;border:1px solid var(--tn-line);border-radius:999px;background:color-mix(in srgb,var(--tn-panel) 85%,transparent);font-size:12px}.tn-package-card-list{display:grid;gap:9px;max-height:min(390px,48dvh);overflow:auto;padding-right:3px}.tn-package-card-item{padding:13px 14px;border:1px solid var(--tn-line);border-radius:14px;background:var(--tn-panel2)}.tn-package-card-item header{display:flex;justify-content:space-between;gap:12px;align-items:start}.tn-package-card-item h3{margin:0;font-size:16px}.tn-package-card-item small,.tn-package-card-item p{color:var(--tn-muted)}.tn-package-card-item p{margin:7px 0 0;line-height:1.45}.tn-package-card-item details{margin-top:9px}.tn-package-card-item summary{cursor:pointer;font-weight:800}.tn-package-card-item ol{margin:8px 0 0;padding-left:22px;color:var(--tn-muted);line-height:1.55}.tn-package-card-note{padding:12px 14px;border:1px solid color-mix(in srgb,#f39a36 45%,var(--tn-line));border-radius:13px;background:color-mix(in srgb,#f39a36 9%,var(--tn-panel));line-height:1.45}
 </style>
@@ -69397,7 +69400,7 @@ function openResourcePicker(event){
  event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();
  const now=Date.now();if(now-lastOpen<600)return;lastOpen=now;
  const input=document.createElement('input');
- input.type='file';input.accept='.zip,.planpkg,.json,application/zip,application/json';input.multiple=true;
+ input.type='file';input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';input.multiple=true;
  input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';document.body.append(input);
  const remove=()=>setTimeout(()=>input.remove(),0);
  input.addEventListener('change',()=>{const selected=[...(input.files||[])];remove();const app=appInstance();if(selected.length&&app?.handleFiles)void app.handleFiles(selected);else if(selected.length&&app?.queueFiles)app.queueFiles(selected);},{once:true});
@@ -70154,7 +70157,7 @@ window.PlanElevadministration=window.PlanElevadministration||{};window.PlanEleva
 #tnModalRoot>.tn-modal-layer>.tn-modal.tn-modal-package-builder-final{width:min(720px,calc(100vw - 24px))!important;max-height:calc(100dvh - var(--plan-modal-top-clearance,88px) - var(--plan-modal-bottom-clearance,10px) - 20px)!important;grid-template-rows:auto minmax(0,1fr) auto!important}
 .tn-modal-package-builder-final>.tn-modal-body{overflow:auto!important;min-height:0!important;padding:14px 16px!important}
 .tn-modal-package-builder-final>.tn-modal-footer{position:relative!important;z-index:3!important;background:var(--tn-panel)!important;border-top:1px solid var(--tn-line)!important;padding-bottom:max(12px,env(safe-area-inset-bottom))!important}
-.plan2-package-builder-final{display:grid;gap:12px}.plan2-package-builder-final label{display:grid;gap:6px}.plan2-package-builder-final input[type=text]{width:100%;min-height:42px}.plan2-pb-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.plan2-pb-stat{display:grid;gap:2px;padding:9px 10px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}.plan2-pb-stat small{color:var(--tn-muted)}.plan2-pb-size{display:flex;gap:14px;flex-wrap:wrap;padding:9px 10px;border:1px solid var(--tn-line);border-radius:11px}.plan2-pb-choice{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:10px!important;align-items:start;padding:11px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}.plan2-pb-choice input{width:22px;height:22px;margin-top:1px;accent-color:var(--tn-accent2)}.plan2-pb-choice span{display:grid;gap:3px}.plan2-pb-choice small{color:var(--tn-muted)}.plan2-pb-privacy{padding:10px 12px;border-radius:11px}.plan2-pb-privacy.safe{border:1px solid #16a34a88;background:#22c55e18}.plan2-pb-privacy.warn{border:1px solid #d97706;background:#f59e0b20}.plan2-pb-privacy strong,.plan2-pb-privacy span{display:block}.plan2-pb-privacy span{margin-top:2px;color:var(--tn-muted)}
+.plan2-package-builder-final{display:grid;gap:12px}.plan2-package-builder-final label{display:grid;gap:6px}.plan2-package-builder-final input[type=text]{width:100%;min-height:42px}.plan2-pb-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.plan2-pb-stat{display:grid;gap:2px;padding:9px 10px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}.plan2-pb-stat small{color:var(--tn-muted)}.plan2-pb-size{display:flex;gap:14px;flex-wrap:wrap;padding:9px 10px;border:1px solid var(--tn-line);border-radius:11px}.plan2-pb-choice{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:10px!important;align-items:start;padding:11px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}.plan2-pb-choice input{width:22px;height:22px;margin-top:1px;accent-color:var(--tn-accent2)}.plan2-pb-choice span{display:grid;gap:3px}.plan2-pb-choice small{color:var(--tn-muted)}.plan2-pb-privacy{padding:10px 12px;border-radius:11px}.plan2-pb-privacy.safe{border:1px solid #16a34a88;background:#22c55e18}.plan2-pb-privacy.warn{border:1px solid #d97706;background:#f59e0b20}.plan2-pb-privacy strong,.plan2-pb-privacy span{display:block}.plan2-pb-privacy span{margin-top:2px;color:var(--tn-muted)}.plan2-pb-format{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:12px!important;align-items:center;padding:11px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}.plan2-pb-format>span{display:grid;gap:3px}.plan2-pb-format small{color:var(--tn-muted)}.plan2-pb-format select{min-width:180px;padding:9px 11px;border:1px solid var(--tn-line);border-radius:9px;background:var(--tn-panel);color:var(--tn-ink);font:inherit;font-weight:800}
 @media(max-width:650px){.plan2-pb-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <script id="plan2-package-builder-final-owner">
@@ -70198,15 +70201,21 @@ function suspendOverview(){
 function stripActive(payload){const ids=activeIds();const removed=(payload.datasets||[]).filter(ds=>ids.has(String(ds.id))||ids.has(String(ds?.meta?.sourceDatasetId)));const removedIds=new Set(removed.map(ds=>String(ds.id)));const portraitIds=new Set(removed.flatMap(ds=>(ds?.meta?.portraitRefs||[]).map(r=>String(r?.mediaId||'')).filter(Boolean)));return {...payload,datasets:(payload.datasets||[]).filter(ds=>!removedIds.has(String(ds.id))),media:(payload.media||[]).filter(m=>!portraitIds.has(String(m.id)))};}
 function builderBody({title,counts={},raw=0,zipSize=null,defaultInclude=false,description=''}){
  const body=document.createElement('div');body.className='plan2-package-builder-final';
- body.innerHTML=`<label><span>Pakkens titel</span><input type="text" data-title></label><div class="plan2-pb-stats"><span class="plan2-pb-stat"><b>${counts.sessions||0}</b><small>sessioner</small></span><span class="plan2-pb-stat"><b>${counts.boards||0}</b><small>tavler</small></span><span class="plan2-pb-stat"><b>${counts.widgets||0}</b><small>widgets</small></span><span class="plan2-pb-stat"><b>${counts.media||counts.resources||0}</b><small>${counts.resources!=null?'ressourcer':'medier'}</small></span></div><div class="plan2-pb-size"><b data-raw-size>Indhold før komprimering: ${TN.formatBytes?.(raw)||raw+' B'}</b><span data-zip-size>${zipSize==null?'Beregner estimeret ZIP-størrelse …':'Estimeret ZIP-størrelse: '+(TN.formatBytes?.(zipSize)||zipSize+' B')}</span></div>${description?`<small>${description}</small>`:''}<label class="plan2-pb-choice"><input type="checkbox" data-data ${defaultInclude?'checked':''}><span><strong>Medtag elevdata og elevbilleder</strong><small>Medtager elevstamdata, elevrelaterede datasæt, fagsamtaler, karakterer, niveaudeling og tilknyttede elevbilleder.</small></span></label><div class="plan2-pb-privacy" data-privacy></div>`;
+ body.innerHTML=`<label><span>Pakkens titel</span><input type="text" data-title></label><div class="plan2-pb-stats"><span class="plan2-pb-stat"><b>${counts.sessions||0}</b><small>sessioner</small></span><span class="plan2-pb-stat"><b>${counts.boards||0}</b><small>tavler</small></span><span class="plan2-pb-stat"><b>${counts.widgets||0}</b><small>widgets</small></span><span class="plan2-pb-stat"><b>${counts.media||counts.resources||0}</b><small>${counts.resources!=null?'ressourcer':'medier'}</small></span></div><div class="plan2-pb-size"><b data-raw-size>Indhold før komprimering: ${TN.formatBytes?.(raw)||raw+' B'}</b><span data-zip-size>${zipSize==null?'Beregner estimeret ZIP-størrelse …':'Estimeret ZIP-størrelse: '+(TN.formatBytes?.(zipSize)||zipSize+' B')}</span></div>${description?`<small>${description}</small>`:''}<label class="plan2-pb-choice"><input type="checkbox" data-data ${defaultInclude?'checked':''}><span><strong>Medtag elevdata og elevbilleder</strong><small>Medtager elevstamdata, elevrelaterede datasæt, fagsamtaler, karakterer, niveaudeling og tilknyttede elevbilleder.</small></span></label>${packageFormatMarkup()}<div class="plan2-pb-privacy" data-privacy></div>`;
  body.querySelector('[data-title]').value=title;
  const check=body.querySelector('[data-data]'),privacy=body.querySelector('[data-privacy]');
  const paint=()=>{privacy.className='plan2-pb-privacy '+(check.checked?'warn':'safe');privacy.innerHTML=check.checked?'<strong>Indeholder muligvis personoplysninger (GDPR)</strong><span>Del kun pakken med personer, der må modtage oplysningerne.</span>':'<strong>Elevdata og elevbilleder medtages ikke</strong><span>Pakken kan deles uden de valgte elevoplysninger og tilknyttede elevbilleder.</span>';};
- check.onchange=paint;paint();return body;
+ check.onchange=paint;paint();initialisePackageFormat(body);return body;
 }
 function setBuilderZipSize(body,size){const node=body?.querySelector?.('[data-zip-size]');if(node)node.textContent=size==null?'Beregner estimeret ZIP-størrelse …':`Estimeret ZIP-størrelse: ${TN.formatBytes?.(size)||size+' B'}`;}
 function packageStamp(){const d=new Date(),pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}.${pad(d.getMinutes())}`;}
 function suggestedTitle(kind,course){const stamp=packageStamp();if(kind==='all')return `Plan 2.0 · Komplet backup · ${stamp}`;if(kind==='course')return `${course?.title||'Undervisningsforløb'} · Backup+ · ${stamp}`;if(kind==='share')return `${course?.title||'Undervisningsforløb'} · Backup · ${stamp}`;return `Plan 2.0 · Skabelon · ${stamp}`;}
+function nativePlanRuntime(){return Boolean(window.__PLAN_RUNTIME__?.environment==='tauri'||window.__TAURI_INTERNALS__||window.__TAURI__);}
+function defaultPackageFormat(){return nativePlanRuntime()?'plan2':'zip';}
+function packageFileExtension(format){return format==='plan2'?'.plan2':'.zip';}
+function packageFileName(title,format){return `${safe(title)}${packageFileExtension(format)}`;}
+function packageFormatMarkup(){return `<label class="plan2-pb-format"><span><strong>Filformat</strong><small data-format-help></small></span><select data-package-format><option value="zip">ZIP-fil (.zip)</option><option value="plan2">Plan 2-fil (.plan2)</option></select></label>`;}
+function initialisePackageFormat(body){const select=body?.querySelector?.('[data-package-format]');if(!select)return null;select.value=defaultPackageFormat();const help=body.querySelector('[data-format-help]');const paint=()=>{if(help)help.textContent=select.value==='plan2'?'Plan 2-format til det installerede program.':'Kompatibel ZIP-fil til web- og HTML-versionen.';};select.addEventListener('change',paint);paint();return select;}
 
 
 /* Ressourcepakker: brug den eksisterende eksportmotor, men giv den valget fra Pakkebyggeren. */
@@ -70272,6 +70281,203 @@ function finalPlanVisitCard(manifest={}){
  const categoryRows=Object.entries(categories).sort((a,b)=>a[0].localeCompare(b[0],'da')).map(([name,count])=>`<tr><th>${escHtml(name)}</th><td>${Number(count)||0}</td></tr>`).join('')||'<tr><th>Kategorier</th><td>Ingen</td></tr>';
  return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${escHtml(title)} · Plan 2.0</title><style>:root{color-scheme:light dark;--bg:#091221;--panel:#14233a;--panel2:#1d304c;--ink:#f4f7fb;--muted:#a9b6c8;--line:#304867;--accent:#27c2df}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(960px,calc(100% - 28px));margin:28px auto}.hero,.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:24px}.hero h1{margin:4px 0 8px;line-height:1.08}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:13px}.stat b{display:block;font-size:1.45rem}.stat span{color:var(--muted);font-size:.9rem}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel h2{margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{padding:8px 0;border-bottom:1px solid var(--line);text-align:left}td{text-align:right;font-weight:800}.status{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;background:var(--panel2)}a{color:var(--accent)}@media(max-width:700px){.columns{grid-template-columns:1fr}}</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">${escHtml(typeLabel)}</div><h1>${escHtml(title)}</h1><p class="muted">Dette visitkort er genereret fra pakkens endelige manifest efter samling af Plan-state og ressourcer.</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(plan.datasets)||0}</b><span>datasæt i Plan-state</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer i alt</span></div><div class="stat"><b>${Number(resources.mediaFiles)||0}</b><span>almindelige lokale filer</span></div><div class="stat"><b>${Number(resources.webResources)||0}</b><span>internetressourcer</span></div><div class="stat"><b>${Number(resources.studentPortraits)||0}</b><span>elevbilleder</span></div><div class="stat"><b>${Number(resources.activeDatasources||resources.studentDatasets)||0}</b><span>datakilder</span></div></div><span class="status">Elevdata: <b>${includesStudentData?'medtaget':'ikke medtaget'}</b> · Elevbilleder: <b>${includesPortraits?'medtaget':'ikke medtaget'}</b> · Ressourcer: <b>${includesResources?'medtaget':'ikke medtaget'}</b></span></section><div class="columns"><section class="panel"><h2>Pakkens deklarerede indhold</h2><table><tr><th>Backup-type</th><td>${escHtml(typeLabel)}</td></tr><tr><th>Ressourceomfang</th><td>${escHtml(manifest.resourceScopeLabel||manifest.resourceScope||'—')}</td></tr><tr><th>Advarsler</th><td>${Number(resources.warnings)||0}</td></tr><tr><th>Oprettet</th><td>${escHtml(created||'—')}</td></tr></table></section><section class="panel"><h2>Ressourcekategorier</h2><table>${categoryRows}</table></section></div><section class="panel" style="margin-top:14px"><h2>Import</h2><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcernes detaljer findes også i <code>resources/manifest.json</code>.</p><p><a href="https://plan2.måns.dk/">Åbn Plan 2.0</a></p></section></main>
 
+
+</body></html>`;
+}
+
+App.prototype.buildCombinedPlanPackage=async function(request={},payload,resourceResult){
+ if(!payload)throw new Error('Plan-state mangler');
+ if(!resourceResult?.prepared?.blob)throw new Error('Den forberedte ressourcepakke mangler');
+ const title=clean(request.title)||'Planpakke',backupType=request.kind==='all'?'backup++':(request.kind||'backup');
+ const planBuilt=await this.buildPlanPackage(payload,{backupType,title,includeApp:!!request.includeApp,notes:request.notes||''});
+ const planEntries=canonicalReadZip(await planBuilt.blob.arrayBuffer()),resourceEntries=canonicalReadZip(await resourceResult.prepared.blob.arrayBuffer());
+ const manifestPath=planEntries.has('data/manifest.json')?'data/manifest.json':'manifest.json';
+ let manifest={...(planBuilt.manifest||{})};try{manifest={...manifest,...JSON.parse(canonicalZipDecoder.decode(planEntries.get(manifestPath)))};}catch(_){ }
+ manifest={...manifest,resourceManifestPath:'resources/manifest.json',containsResources:true,resourceScope:resourceResult.manifest?.scope||null,resourceScopeLabel:resourceResult.manifest?.scopeLabel||null,includesActiveDatasources:!!resourceResult.manifest?.includesActiveDatasources,includesStudentData:!!resourceResult.manifest?.includesStudentData,includesStudentPortraits:!!resourceResult.manifest?.includesStudentPortraits,resourceCounts:resourceResult.manifest?.counts||{}};
+ planEntries.set(manifestPath,canonicalZipEncoder.encode(JSON.stringify(manifest,null,2)));
+ planEntries.set('ÅBN-MIG.html',canonicalZipEncoder.encode(finalPlanVisitCard(manifest)));
+ for(const [name,data] of resourceEntries){const target=(name==='manifest.json'||name==='Plan-Ressourcer - filer/plan-resources.json')?'resources/manifest.json':`resources/${name}`;if(!planEntries.has(target))planEntries.set(target,data);}
+ const blob=await canonicalMakeZip([...planEntries].map(([name,data])=>({name,data})));
+ return {blob,manifest,resourceManifest:resourceResult.manifest,counts:{plan:manifest.counts||{},resources:resourceResult.manifest?.counts||{}}};
+};
+
+/* Opgrader den eksisterende ressourcebekræftelse til Pakkebygger uden at fjerne Planoversigten under den. */
+function installModalUpgrade(app){
+ const manager=app.modalManager;
+ if(!manager||manager.__plan2PackageBuilderWrapped)return;
+ manager.__plan2PackageBuilderWrapped=true;
+ const rawOpen=manager.open.bind(manager);
+ manager.open=function(config={}){
+  if(config?.title==='Eksportér ressourcepakke'&&config?.actions?.length){
+   const restore=window.__plan2PendingResourceRestore||suspendOverview();window.__plan2PendingResourceRestore=null;
+   const originalClose=config.onClose;
+   const onClose=()=>{try{originalClose?.();}finally{restore();}};
+   const text=config.body?.textContent||'';
+   const count=Number((text.match(/(\d+)\s+valgte ressourcer/)||[])[1]||0);
+   const local=Number((text.match(/(\d+)\s+lokale filer/)||[])[1]||0);
+   const raw=Math.max(0,local*180000);
+   const scope=(text.split(/\n+/).map(x=>x.trim()).find(x=>x&&/·/.test(x))||'Valgte ressourcer').replace(/\s*·\s*\d+\s+lokale filer.*$/i,'');
+   const body=builderBody({title:`${scope} · Ressourcepakke · ${packageStamp()}`,counts:{resources:count},raw,defaultInclude:false,description:text});
+   const oldPrimary=config.actions.find(a=>a.primary)||config.actions.at(-1);
+   const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]');
+   /* Bevar begge færdigberegnede varianter. Et kort fravalg af elevdata må ikke
+      kassere den allerede beregnede pakke med elevdata og udløse 150 nye downloads. */
+   const preparedCache=new Map(),preparePromises=new Map(),preparedSizes=new Map();
+   let prepared=null,preparedFor=null;
+   const prepare=async(signature=String(dataCheck.checked))=>{
+    if(preparedCache.has(signature)){
+     const cached=preparedCache.get(signature);prepared=cached;preparedFor=signature;
+     setBuilderZipSize(body,preparedSizes.get(signature)??cached.blob.size);return cached;
+    }
+    if(preparePromises.has(signature))return preparePromises.get(signature);
+    if(signature===String(dataCheck.checked))setBuilderZipSize(body,null);
+    const promise=(async()=>{
+     const originalSave=app.fileExporter.save.bind(app.fileExporter);
+     const originalToast=app.toast?.bind(app);
+     let captured=null;
+     app.fileExporter.save=async file=>{captured=file;return {status:'prepared'};};
+     if(app.toast)app.toast=()=>{};
+     window.__plan2ResourceIncludeDatasources=signature==='true';
+     try{await oldPrimary.run();}
+     finally{app.fileExporter.save=originalSave;if(originalToast)app.toast=originalToast;window.__plan2ResourceIncludeDatasources=false;}
+     if(!captured?.blob)throw new Error('Ressourcepakken kunne ikke færdigberegnes');
+     preparedCache.set(signature,captured);preparedSizes.set(signature,captured.blob.size);
+     if(signature===String(dataCheck.checked)){prepared=captured;preparedFor=signature;setBuilderZipSize(body,captured.blob.size);}
+     return captured;
+    })().finally(()=>{preparePromises.delete(signature);});
+    preparePromises.set(signature,promise);return promise;
+   };
+   let primaryButton=null;
+   const setReadyState=(ready,message='')=>{
+    if(primaryButton){
+     primaryButton.disabled=!ready;
+     primaryButton.setAttribute('aria-disabled',String(!ready));
+     primaryButton.setAttribute('aria-busy',String(!ready));
+     primaryButton.tabIndex=ready?0:-1;
+     primaryButton.style.pointerEvents=ready?'':'none';
+     primaryButton.style.opacity=ready?'':'0.58';
+     primaryButton.textContent=ready?'Opret ressourcepakke':'Forbereder pakken …';
+    }
+    const sizeLine=body.querySelector('[data-zip-size]')||body.querySelector('.plan2-package-size-line');
+    if(message&&sizeLine)sizeLine.setAttribute('aria-label',message);
+   };
+   const savePreparedFromGesture=async preparedFile=>{
+    const failures=[];
+    /* På file:///Quine må en ZIP aldrig sendes gennem blob:-download. Delingsarket
+       kaldes direkte fra brugerens klik, mens aktiveringen stadig er gyldig. */
+    if(navigator?.share&&preparedFile?.file){
+     try{
+      await navigator.share({files:[preparedFile.file]});
+      return {status:'shared',method:'share'};
+     }catch(error){
+      if(app.fileExporter.isCancel?.(error))return {status:'cancelled',method:'share'};
+      failures.push(error);
+     }
+    }
+    if(typeof window.showSaveFilePicker==='function'){
+     try{return await app.fileExporter.saveWithPicker(preparedFile);}catch(error){failures.push(error);}
+    }
+    /* Almindelige http(s)-browsere må fortsat bruge den afprøvede downloadvej.
+       Lokale browsere får derimod en forklaring frem for blob:null-fejlen. */
+    if(location.protocol!=='file:')return app.fileExporter.download(preparedFile);
+    const reason=failures.at(-1)?.message||'Delingsarket kunne ikke åbnes';
+    throw new Error(`Pakken er færdig, men Quine kunne ikke åbne Gem i Filer/Del (${reason}). Tryk på knappen igen, eller kontrollér at deling af filer er tilladt.`);
+   };
+   const actions=[
+    {label:'Annuller',run:()=>true},
+    {label:'Forbereder pakken …',primary:true,run:async()=>{
+      try{
+       if(!prepared?.blob){app.toast('Pakken forberedes stadig. Vent til knappen hedder “Opret ressourcepakke”.');return false;}
+       const title=(titleInput.value||'Ressourcepakke').trim();
+       const format=body.querySelector('[data-package-format]')?.value||defaultPackageFormat();
+       const filename=packageFileName(title,format);
+       const renamed=app.fileExporter.prepareBlob(prepared.blob,filename,'application/zip');
+       const result=await savePreparedFromGesture(renamed);
+       if(result?.status==='cancelled')return false;
+       app.toast(result?.method==='share'?'Delingsarket er åbnet':'Ressourcepakken er sendt til lagring');
+       return true;
+      }catch(error){console.error(error);app.toast(error?.message||'Ressourcepakken kunne ikke gemmes');return false;}
+    }}
+   ];
+   const opened=rawOpen({...config,title:'Ressourcepakke · Pakkebygger',body,className:'tn-modal-package-builder-final',actions,onClose});
+   primaryButton=opened?.footer?.querySelector('button.primary')||opened?.querySelector?.('button.primary')||null;
+   setReadyState(false);
+   const activateSignature=signature=>{
+    const cached=preparedCache.get(signature);
+    if(cached){prepared=cached;preparedFor=signature;setBuilderZipSize(body,preparedSizes.get(signature)??cached.blob.size);setReadyState(true);return;}
+    prepared=null;preparedFor=null;setReadyState(false);
+    prepare(signature).then(file=>{
+     if(signature!==String(dataCheck.checked))return;
+     prepared=file;preparedFor=signature;setBuilderZipSize(body,preparedSizes.get(signature)??file.blob.size);setReadyState(true);
+    }).catch(error=>{if(signature!==String(dataCheck.checked))return;console.error(error);setReadyState(false);app.toast(error?.message||'Pakken kunne ikke forberedes');});
+   };
+   requestAnimationFrame(()=>activateSignature(String(dataCheck.checked)));
+   dataCheck.addEventListener('change',()=>activateSignature(String(dataCheck.checked)));
+   return opened;
+  }
+  return rawOpen(config);
+ };
+}
+
+/* Backupvarianter: selve knappen åbner altid Pakkebyggeren før filen produceres. */
+App.prototype.safetyExport=async function(kind,progress){
+ const restore=suspendOverview();
+ try{
+  const sessions=await this.sessionManager.list();
+  const course=kind==='all'?null:await this.safetyCourse();
+  const ids=kind==='all'?sessions.map(s=>s.id):(course?.sessionIds||[]);
+  if(!ids.length)throw new Error('Der er ingen sessioner at gemme');
+  const labels={all:'Backup++',course:'Backup+',share:'Backup',template:'Skabelon'},label=labels[kind]||'Backup';
+  const defaultInclude=kind==='all'||kind==='course';
+  const title=suggestedTitle(kind,course);
+  progress?.('Samler pakkens indhold …');
+  let sourcePayload=await this.backupManager.exportNext(kind==='all'?null:ids,{includeMedia:true,kind:kind==='all'?'backup++':kind});
+  const estimate=await this.backupManager.estimateExport(kind==='all'?null:ids).catch(()=>null);
+  const counts=estimate?.counts||{sessions:ids.length,boards:sourcePayload.boards?.length||0,widgets:sourcePayload.widgets?.length||0,media:sourcePayload.media?.length||0};
+  const raw=estimate?.totalBytes||0;
+  const body=builderBody({title,counts,raw,defaultInclude});
+  const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]');
+  let buildToken=0,prepared=null;
+  const prepare=async()=>{
+   const token=++buildToken;setBuilderZipSize(body,null);
+   let payload=dataCheck.checked?sourcePayload:stripActive(sourcePayload);
+   payload={...payload,backupKind:kind==='all'?'backup++':kind,manifest:{...(payload.manifest||{}),includesActiveDatasources:dataCheck.checked,privacy:dataCheck.checked?'contains-active-datasources':'active-datasources-omitted'}};
+   const built=await this.buildPlanPackage(payload,{backupType:kind,title:titleInput.value.trim()||title,includeApp:false});
+   if(token!==buildToken)return null;prepared={payload,built};setBuilderZipSize(body,built.blob.size);return prepared;
+  };
+  dataCheck.addEventListener('change',()=>{prepare().catch(console.error)});
+  titleInput.addEventListener('input',TN.debounce(()=>{prepare().catch(console.error)},250));
+  await prepare();
+  return await new Promise(resolve=>this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder-final',onClose:restore,actions:[{label:'Annuller',run:()=>{resolve({status:'cancelled'});return true;}},{label:'Opret pakke',primary:true,run:async()=>{try{
+    const current=await prepare();if(!current)throw new Error('Pakken kunne ikke færdigberegnes');
+    const finalTitle=titleInput.value.trim()||title;
+    const filename=`${safe(finalTitle)}.plan2`;
+    const preparedFile=this.fileExporter.prepareBlob(current.built.blob,filename,'application/zip');
+    const result=await this.fileExporter.save(preparedFile);
+    if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');resolve(result);return false;}
+    progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve({...result,manifest:current.built.manifest,prepared:preparedFile});return true;
+   }catch(error){console.error(error);this.toast(error?.message||'Pakken kunne ikke oprettes');resolve({status:'error',error});return false;}}}]}));
+ }catch(error){restore();throw error;}
+};
+
+
+function closeOverviewBeforeForwardedImport(app){
+ const overview=[...document.querySelectorAll('#tnModalRoot .tn-modal')].find(modal=>modal.querySelector('.tn-datacenter'));
+ if(!overview)return false;
+ const close=overview.querySelector(':scope > header [data-modal-close]');
+ if(close)close.click();else app?.modalManager?.closeAll?.();
+ return true;
+}
+function boot(){const app=TN.runtime?.app;if(!app)return setTimeout(boot,80);installModalUpgrade(app);
+ if(!app.__plan2ForwardedImportClosesOverview){app.__plan2ForwardedImportClosesOverview=true;const rawHandleFiles=app.handleFiles.bind(app);app.handleFiles=async function(files){closeOverviewBeforeForwardedImport(app);return rawHandleFiles(files);};}
+ document.addEventListener('click',event=>{const button=event.target?.closest?.('.tn-resource-catalog [data-package]');if(!button||typeof button.onclick!=='function'||button.__plan2Forwarding)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();button.__plan2Forwarding=true;window.__plan2PendingResourceRestore=suspendOverview();try{button.onclick.call(button,event);}catch(error){window.__plan2PendingResourceRestore?.();window.__plan2PendingResourceRestore=null;throw error;}finally{setTimeout(()=>{button.__plan2Forwarding=false;},160);} },true);
+}
+boot();
+try{TN.version='0.14.4-resource-physical-files-size-fix-v95';}catch(_){ }
+})(window.TavleNext);
+</script>
+
+<!-- Reparationsflytning 2026-08-02: Disse eksisterende blokke lå fejlagtigt inde i finalPlanVisitCard-template-strengen og afkortede pakkebyggerens parseraktive script. Koden er uændret; kun placeringen er korrigeret. -->
 
 <!-- Plan 2.0 · Elevkort fase 1c: kun relevante datasæt må genmontere elevvisninger · 2026-08-01 -->
 <script id="plan-student-card-relevant-dataset-refresh-fix-v1">
@@ -70517,198 +70723,22 @@ try{TN.version='0.11.8-student-card-note-editor-phase3';}catch(_error){}
 </script>
 
 
-</body></html>`;
-}
 
-App.prototype.buildCombinedPlanPackage=async function(request={},payload,resourceResult){
- if(!payload)throw new Error('Plan-state mangler');
- if(!resourceResult?.prepared?.blob)throw new Error('Den forberedte ressourcepakke mangler');
- const title=clean(request.title)||'Planpakke',backupType=request.kind==='all'?'backup++':(request.kind||'backup');
- const planBuilt=await this.buildPlanPackage(payload,{backupType,title,includeApp:!!request.includeApp,notes:request.notes||''});
- const planEntries=canonicalReadZip(await planBuilt.blob.arrayBuffer()),resourceEntries=canonicalReadZip(await resourceResult.prepared.blob.arrayBuffer());
- const manifestPath=planEntries.has('data/manifest.json')?'data/manifest.json':'manifest.json';
- let manifest={...(planBuilt.manifest||{})};try{manifest={...manifest,...JSON.parse(canonicalZipDecoder.decode(planEntries.get(manifestPath)))};}catch(_){ }
- manifest={...manifest,resourceManifestPath:'resources/manifest.json',containsResources:true,resourceScope:resourceResult.manifest?.scope||null,resourceScopeLabel:resourceResult.manifest?.scopeLabel||null,includesActiveDatasources:!!resourceResult.manifest?.includesActiveDatasources,includesStudentData:!!resourceResult.manifest?.includesStudentData,includesStudentPortraits:!!resourceResult.manifest?.includesStudentPortraits,resourceCounts:resourceResult.manifest?.counts||{}};
- planEntries.set(manifestPath,canonicalZipEncoder.encode(JSON.stringify(manifest,null,2)));
- planEntries.set('ÅBN-MIG.html',canonicalZipEncoder.encode(finalPlanVisitCard(manifest)));
- for(const [name,data] of resourceEntries){const target=(name==='manifest.json'||name==='Plan-Ressourcer - filer/plan-resources.json')?'resources/manifest.json':`resources/${name}`;if(!planEntries.has(target))planEntries.set(target,data);}
- const blob=await canonicalMakeZip([...planEntries].map(([name,data])=>({name,data})));
- return {blob,manifest,resourceManifest:resourceResult.manifest,counts:{plan:manifest.counts||{},resources:resourceResult.manifest?.counts||{}}};
-};
-
-/* Opgrader den eksisterende ressourcebekræftelse til Pakkebygger uden at fjerne Planoversigten under den. */
-function installModalUpgrade(app){
- const manager=app.modalManager;
- if(!manager||manager.__plan2PackageBuilderWrapped)return;
- manager.__plan2PackageBuilderWrapped=true;
- const rawOpen=manager.open.bind(manager);
- manager.open=function(config={}){
-  if(config?.title==='Eksportér ressourcepakke'&&config?.actions?.length){
-   const restore=window.__plan2PendingResourceRestore||suspendOverview();window.__plan2PendingResourceRestore=null;
-   const originalClose=config.onClose;
-   const onClose=()=>{try{originalClose?.();}finally{restore();}};
-   const text=config.body?.textContent||'';
-   const count=Number((text.match(/(\d+)\s+valgte ressourcer/)||[])[1]||0);
-   const local=Number((text.match(/(\d+)\s+lokale filer/)||[])[1]||0);
-   const raw=Math.max(0,local*180000);
-   const scope=(text.split(/\n+/).map(x=>x.trim()).find(x=>x&&/·/.test(x))||'Valgte ressourcer').replace(/\s*·\s*\d+\s+lokale filer.*$/i,'');
-   const body=builderBody({title:`${scope} · Ressourcepakke · ${packageStamp()}`,counts:{resources:count},raw,defaultInclude:false,description:text});
-   const oldPrimary=config.actions.find(a=>a.primary)||config.actions.at(-1);
-   const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]');
-   /* Bevar begge færdigberegnede varianter. Et kort fravalg af elevdata må ikke
-      kassere den allerede beregnede pakke med elevdata og udløse 150 nye downloads. */
-   const preparedCache=new Map(),preparePromises=new Map(),preparedSizes=new Map();
-   let prepared=null,preparedFor=null;
-   const prepare=async(signature=String(dataCheck.checked))=>{
-    if(preparedCache.has(signature)){
-     const cached=preparedCache.get(signature);prepared=cached;preparedFor=signature;
-     setBuilderZipSize(body,preparedSizes.get(signature)??cached.blob.size);return cached;
-    }
-    if(preparePromises.has(signature))return preparePromises.get(signature);
-    if(signature===String(dataCheck.checked))setBuilderZipSize(body,null);
-    const promise=(async()=>{
-     const originalSave=app.fileExporter.save.bind(app.fileExporter);
-     const originalToast=app.toast?.bind(app);
-     let captured=null;
-     app.fileExporter.save=async file=>{captured=file;return {status:'prepared'};};
-     if(app.toast)app.toast=()=>{};
-     window.__plan2ResourceIncludeDatasources=signature==='true';
-     try{await oldPrimary.run();}
-     finally{app.fileExporter.save=originalSave;if(originalToast)app.toast=originalToast;window.__plan2ResourceIncludeDatasources=false;}
-     if(!captured?.blob)throw new Error('Ressourcepakken kunne ikke færdigberegnes');
-     preparedCache.set(signature,captured);preparedSizes.set(signature,captured.blob.size);
-     if(signature===String(dataCheck.checked)){prepared=captured;preparedFor=signature;setBuilderZipSize(body,captured.blob.size);}
-     return captured;
-    })().finally(()=>{preparePromises.delete(signature);});
-    preparePromises.set(signature,promise);return promise;
-   };
-   let primaryButton=null;
-   const setReadyState=(ready,message='')=>{
-    if(primaryButton){
-     primaryButton.disabled=!ready;
-     primaryButton.setAttribute('aria-disabled',String(!ready));
-     primaryButton.setAttribute('aria-busy',String(!ready));
-     primaryButton.tabIndex=ready?0:-1;
-     primaryButton.style.pointerEvents=ready?'':'none';
-     primaryButton.style.opacity=ready?'':'0.58';
-     primaryButton.textContent=ready?'Opret ressourcepakke':'Forbereder pakken …';
-    }
-    const sizeLine=body.querySelector('[data-zip-size]')||body.querySelector('.plan2-package-size-line');
-    if(message&&sizeLine)sizeLine.setAttribute('aria-label',message);
-   };
-   const savePreparedFromGesture=async preparedFile=>{
-    const failures=[];
-    /* På file:///Quine må en ZIP aldrig sendes gennem blob:-download. Delingsarket
-       kaldes direkte fra brugerens klik, mens aktiveringen stadig er gyldig. */
-    if(navigator?.share&&preparedFile?.file){
-     try{
-      await navigator.share({files:[preparedFile.file]});
-      return {status:'shared',method:'share'};
-     }catch(error){
-      if(app.fileExporter.isCancel?.(error))return {status:'cancelled',method:'share'};
-      failures.push(error);
-     }
-    }
-    if(typeof window.showSaveFilePicker==='function'){
-     try{return await app.fileExporter.saveWithPicker(preparedFile);}catch(error){failures.push(error);}
-    }
-    /* Almindelige http(s)-browsere må fortsat bruge den afprøvede downloadvej.
-       Lokale browsere får derimod en forklaring frem for blob:null-fejlen. */
-    if(location.protocol!=='file:')return app.fileExporter.download(preparedFile);
-    const reason=failures.at(-1)?.message||'Delingsarket kunne ikke åbnes';
-    throw new Error(`Pakken er færdig, men Quine kunne ikke åbne Gem i Filer/Del (${reason}). Tryk på knappen igen, eller kontrollér at deling af filer er tilladt.`);
-   };
-   const actions=[
-    {label:'Annuller',run:()=>true},
-    {label:'Forbereder pakken …',primary:true,run:async()=>{
-      try{
-       if(!prepared?.blob){app.toast('Pakken forberedes stadig. Vent til knappen hedder “Opret ressourcepakke”.');return false;}
-       const title=(titleInput.value||'Ressourcepakke').trim();
-       const filename=`${safe(title)}.zip`;
-       const renamed=app.fileExporter.prepareBlob(prepared.blob,filename,'application/zip');
-       const result=await savePreparedFromGesture(renamed);
-       if(result?.status==='cancelled')return false;
-       app.toast(result?.method==='share'?'Delingsarket er åbnet':'Ressourcepakken er sendt til lagring');
-       return true;
-      }catch(error){console.error(error);app.toast(error?.message||'Ressourcepakken kunne ikke gemmes');return false;}
-    }}
-   ];
-   const opened=rawOpen({...config,title:'Ressourcepakke · Pakkebygger',body,className:'tn-modal-package-builder-final',actions,onClose});
-   primaryButton=opened?.footer?.querySelector('button.primary')||opened?.querySelector?.('button.primary')||null;
-   setReadyState(false);
-   const activateSignature=signature=>{
-    const cached=preparedCache.get(signature);
-    if(cached){prepared=cached;preparedFor=signature;setBuilderZipSize(body,preparedSizes.get(signature)??cached.blob.size);setReadyState(true);return;}
-    prepared=null;preparedFor=null;setReadyState(false);
-    prepare(signature).then(file=>{
-     if(signature!==String(dataCheck.checked))return;
-     prepared=file;preparedFor=signature;setBuilderZipSize(body,preparedSizes.get(signature)??file.blob.size);setReadyState(true);
-    }).catch(error=>{if(signature!==String(dataCheck.checked))return;console.error(error);setReadyState(false);app.toast(error?.message||'Pakken kunne ikke forberedes');});
-   };
-   requestAnimationFrame(()=>activateSignature(String(dataCheck.checked)));
-   dataCheck.addEventListener('change',()=>activateSignature(String(dataCheck.checked)));
-   return opened;
-  }
-  return rawOpen(config);
- };
-}
-
-/* Backupvarianter: selve knappen åbner altid Pakkebyggeren før filen produceres. */
-App.prototype.safetyExport=async function(kind,progress){
- const restore=suspendOverview();
- try{
-  const sessions=await this.sessionManager.list();
-  const course=kind==='all'?null:await this.safetyCourse();
-  const ids=kind==='all'?sessions.map(s=>s.id):(course?.sessionIds||[]);
-  if(!ids.length)throw new Error('Der er ingen sessioner at gemme');
-  const labels={all:'Backup++',course:'Backup+',share:'Backup',template:'Skabelon'},label=labels[kind]||'Backup';
-  const defaultInclude=kind==='all'||kind==='course';
-  const title=suggestedTitle(kind,course);
-  progress?.('Samler pakkens indhold …');
-  let sourcePayload=await this.backupManager.exportNext(kind==='all'?null:ids,{includeMedia:true,kind:kind==='all'?'backup++':kind});
-  const estimate=await this.backupManager.estimateExport(kind==='all'?null:ids).catch(()=>null);
-  const counts=estimate?.counts||{sessions:ids.length,boards:sourcePayload.boards?.length||0,widgets:sourcePayload.widgets?.length||0,media:sourcePayload.media?.length||0};
-  const raw=estimate?.totalBytes||0;
-  const body=builderBody({title,counts,raw,defaultInclude});
-  const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]');
-  let buildToken=0,prepared=null;
-  const prepare=async()=>{
-   const token=++buildToken;setBuilderZipSize(body,null);
-   let payload=dataCheck.checked?sourcePayload:stripActive(sourcePayload);
-   payload={...payload,backupKind:kind==='all'?'backup++':kind,manifest:{...(payload.manifest||{}),includesActiveDatasources:dataCheck.checked,privacy:dataCheck.checked?'contains-active-datasources':'active-datasources-omitted'}};
-   const built=await this.buildPlanPackage(payload,{backupType:kind,title:titleInput.value.trim()||title,includeApp:false});
-   if(token!==buildToken)return null;prepared={payload,built};setBuilderZipSize(body,built.blob.size);return prepared;
+<script id="plan2-native-file-format-runtime-v1">
+(function(){
+  'use strict';
+  const isTauri=Boolean(window.__TAURI_INTERNALS__||window.__TAURI__);
+  const previous=(window.__PLAN_RUNTIME__&&typeof window.__PLAN_RUNTIME__==='object')?window.__PLAN_RUNTIME__:{};
+  window.__PLAN_RUNTIME__={
+    ...previous,
+    environment:isTauri?'tauri':(location.protocol==='file:'?'local-html':'web'),
+    nativePackages:isTauri,
+    preferredPackageFormat:isTauri?'plan2':'zip',
+    packageExtension:isTauri?'.plan2':'.zip',
+    packageMimeType:'application/vnd.plan2.package',
+    legacyPackageExtensions:['.zip','.planpkg']
   };
-  dataCheck.addEventListener('change',()=>{prepare().catch(console.error)});
-  titleInput.addEventListener('input',TN.debounce(()=>{prepare().catch(console.error)},250));
-  await prepare();
-  return await new Promise(resolve=>this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder-final',onClose:restore,actions:[{label:'Annuller',run:()=>{resolve({status:'cancelled'});return true;}},{label:'Opret pakke',primary:true,run:async()=>{try{
-    const current=await prepare();if(!current)throw new Error('Pakken kunne ikke færdigberegnes');
-    const finalTitle=titleInput.value.trim()||title;
-    const filename=`${safe(finalTitle)}.planpkg.zip`;
-    const preparedFile=this.fileExporter.prepareBlob(current.built.blob,filename,'application/zip');
-    const result=await this.fileExporter.save(preparedFile);
-    if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');resolve(result);return false;}
-    progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve({...result,manifest:current.built.manifest,prepared:preparedFile});return true;
-   }catch(error){console.error(error);this.toast(error?.message||'Pakken kunne ikke oprettes');resolve({status:'error',error});return false;}}}]}));
- }catch(error){restore();throw error;}
-};
-
-
-function closeOverviewBeforeForwardedImport(app){
- const overview=[...document.querySelectorAll('#tnModalRoot .tn-modal')].find(modal=>modal.querySelector('.tn-datacenter'));
- if(!overview)return false;
- const close=overview.querySelector(':scope > header [data-modal-close]');
- if(close)close.click();else app?.modalManager?.closeAll?.();
- return true;
-}
-function boot(){const app=TN.runtime?.app;if(!app)return setTimeout(boot,80);installModalUpgrade(app);
- if(!app.__plan2ForwardedImportClosesOverview){app.__plan2ForwardedImportClosesOverview=true;const rawHandleFiles=app.handleFiles.bind(app);app.handleFiles=async function(files){closeOverviewBeforeForwardedImport(app);return rawHandleFiles(files);};}
- document.addEventListener('click',event=>{const button=event.target?.closest?.('.tn-resource-catalog [data-package]');if(!button||typeof button.onclick!=='function'||button.__plan2Forwarding)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();button.__plan2Forwarding=true;window.__plan2PendingResourceRestore=suspendOverview();try{button.onclick.call(button,event);}catch(error){window.__plan2PendingResourceRestore?.();window.__plan2PendingResourceRestore=null;throw error;}finally{setTimeout(()=>{button.__plan2Forwarding=false;},160);} },true);
-}
-boot();
-try{TN.version='0.14.4-resource-physical-files-size-fix-v95';}catch(_){ }
-})(window.TavleNext);
+})();
 </script>
 <!-- Plan 2.0 · Kanonisk synkronisering af tavlens elevscope, topchip og dropdown -->
 <script id="plan2-board-scope-single-source-sync-owner">
@@ -71539,14 +71569,14 @@ proto.gatherRecords.__plan2HaubroPrimaryDatasetRecoveryV8=true;
 App.prototype.savePlanPackage=async function(payload,{
   backupType='backup',
   title='Plan-pakke',
-  filename='Plan-pakke.zip',
+  filename='Plan-pakke.plan2',
   includeApp=includeAppPreference(),
   notes=''
 }={}){
   const built=await this.buildPlanPackage(payload,{backupType,title,includeApp,notes});
   const prepared=this.fileExporter.prepareBlob(
     built.blob,
-    filename.toLowerCase().endsWith('.zip')?filename:`${filename}.zip`,
+    filename.toLowerCase().endsWith('.plan2')?filename:`${filename.replace(/\.(?:planpkg\.)?zip$/i,'')}.plan2`,
     'application/zip'
   );
   const result=await this.fileExporter.save(prepared);
@@ -71557,7 +71587,7 @@ App.prototype.openPlanPackage=async function(file){
   if(file.size&gt;1024*1024*180)throw new Error('Plan-pakken er større end 180 MB og kan ikke åbnes sikkert på denne enhed');
   const entries=readZipStoreOnly(await file.arrayBuffer());
   const manifestBytes=entries.get('data/manifest.json')||entries.get('manifest.json');
-  if(!manifestBytes)throw new Error('ZIP-filen er ikke en Plan-pakke: manifest.json mangler');
+  if(!manifestBytes)throw new Error('Filen er ikke en Plan-pakke: manifest.json mangler');
   let manifest;
   try{manifest=JSON.parse(new TextDecoder().decode(manifestBytes));}
   catch(_){throw new Error('Plan-pakkens manifest kan ikke læses');}
@@ -71677,7 +71707,7 @@ App.prototype.previewPlanPackageImport=async function(file){
 
 const originalRequestImportFiles=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
-  this.fileInput.accept='.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
   this.fileInput.multiple=true;
   this.fileInput.click();
 };
@@ -71702,7 +71732,7 @@ App.prototype.safetyExport=async function(kind,progress){
   body.innerHTML=`<label class="tn-field"><span>Pakkens titel</span><input data-title="" type="text"/></label><div class="plan2-package-stats"><span><b>${counts.sessions||ids.length}</b><small>sessioner</small></span><span><b>${counts.boards||0}</b><small>tavler</small></span><span><b>${counts.widgets||0}</b><small>widgets</small></span><span><b>${counts.media||0}</b><small>medier</small></span></div><div class="plan2-package-size"><b>Indhold: ${TN.formatBytes(raw)}</b><span>Estimeret ZIP: ca. ${TN.formatBytes(estimatedZip)}</span></div><label class="plan2-package-choice"><input ${defaultinclude?'checked':''}="" data-data="" type="checkbox"/><span><strong>Medtag elevdata og elevbilleder</strong><small>Medtager elevstamdata, elevrelaterede datasæt, fagsamtaler, karakterer, niveaudeling og tilknyttede elevbilleder.</small></span></label><div data-privacy=""></div>`;
   const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]'),privacy=body.querySelector('[data-privacy]');titleInput.value=plan2PackageTitle(kind,course);
   const paint=()=&gt;{privacy.className=dataCheck.checked?'plan2-gdpr-warning':'plan2-privacy-safe';privacy.innerHTML=dataCheck.checked?'<strong>Indeholder personoplysninger</strong><span>Del kun pakken med personer, der må modtage oplysningerne.</span>':'<strong>Datakilder udelades</strong><span>Pakken er bedre egnet som skabelon eller til deling.</span>';};dataCheck.onchange=paint;paint();
-  return new Promise(resolve=&gt;this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder',actions:[{label:'Annuller',run:()=&gt;{resolve({status:'cancelled'});return true;}},{label:'Opret pakke',primary:true,run:async()=&gt;{try{progress?.('Samler Plan-pakke …');let payload=await this.backupManager.exportNext(kind==='all'?null:ids,{includeMedia:true,kind:kind==='all'?'backup++':kind});if(kind==='share'&amp;&amp;typeof sharedPayload==='function')payload=sharedPayload(payload);if(kind==='template'&amp;&amp;typeof templatePayload==='function')payload=templatePayload(payload);if(kind==='share'&amp;&amp;payload.backupKind!=='share')payload.backupKind='share';if(kind==='template'&amp;&amp;payload.backupKind!=='template')payload={...payload,backupKind:'template',datasets:[],media:[],widgets:(payload.widgets||[]).map(widget=&gt;({...widget,content:{},meta:{...(widget.meta||{}),templateEmptied:true}}))};if(!dataCheck.checked)payload=plan2StripActiveDatasources(payload);payload.manifest={...(payload.manifest||{}),includesActiveDatasources:dataCheck.checked,privacy:dataCheck.checked?'contains-active-datasources':'datakilder-udeladt'};const date=new Date().toISOString().slice(0,10),base=safeName(titleInput.value||label).replace(/\s+/g,'-'),filename=`${base}-${date}.planpkg.zip`;progress?.('Åbner Gem i Filer / Del …');const result=await this.savePlanPackage(payload,{backupType:kind,title:titleInput.value.trim()||plan2PackageTitle(kind,course),filename,includeApp:includeAppPreference()});if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');resolve(result);return false;}progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve(result);return true;}catch(error){console.error(error);this.toast(error?.message||'Pakken kunne ikke oprettes');resolve({status:'error',error});return false;}}}] }));
+  return new Promise(resolve=&gt;this.modalManager.open({title:`${label} · Pakkebygger`,body,className:'tn-modal-package-builder',actions:[{label:'Annuller',run:()=&gt;{resolve({status:'cancelled'});return true;}},{label:'Opret pakke',primary:true,run:async()=&gt;{try{progress?.('Samler Plan-pakke …');let payload=await this.backupManager.exportNext(kind==='all'?null:ids,{includeMedia:true,kind:kind==='all'?'backup++':kind});if(kind==='share'&amp;&amp;typeof sharedPayload==='function')payload=sharedPayload(payload);if(kind==='template'&amp;&amp;typeof templatePayload==='function')payload=templatePayload(payload);if(kind==='share'&amp;&amp;payload.backupKind!=='share')payload.backupKind='share';if(kind==='template'&amp;&amp;payload.backupKind!=='template')payload={...payload,backupKind:'template',datasets:[],media:[],widgets:(payload.widgets||[]).map(widget=&gt;({...widget,content:{},meta:{...(widget.meta||{}),templateEmptied:true}}))};if(!dataCheck.checked)payload=plan2StripActiveDatasources(payload);payload.manifest={...(payload.manifest||{}),includesActiveDatasources:dataCheck.checked,privacy:dataCheck.checked?'contains-active-datasources':'datakilder-udeladt'};const date=new Date().toISOString().slice(0,10),base=safeName(titleInput.value||label).replace(/\s+/g,'-'),filename=`${base}-${date}.plan2`;progress?.('Åbner Gem i Filer / Del …');const result=await this.savePlanPackage(payload,{backupType:kind,title:titleInput.value.trim()||plan2PackageTitle(kind,course),filename,includeApp:includeAppPreference()});if(result?.status==='cancelled'){progress?.('Gemning blev annulleret.');resolve(result);return false;}progress?.('Plan-pakken er sendt til lagring.');this.toast('Plan-pakken er sendt til Gem i Filer / Del');resolve(result);return true;}catch(error){console.error(error);this.toast(error?.message||'Pakken kunne ikke oprettes');resolve({status:'error',error});return false;}}}] }));
 };
 
 /* Klassisk Backup++-dialog gemmer også ZIP. */
@@ -71742,8 +71772,8 @@ App.prototype.showBackup=async function(){
         const payload=await this.backupManager.exportNext(ids);
         const date=new Date().toISOString().slice(0,10);
         const name=ids.length===1
-          ?`${safeName(sessions.find(s=&gt;s.id===ids[0])?.title||ids[0]).replace(/\s+/g,'-')}-BackupPP-${date}.planpkg.zip`
-          :`Plan-BackupPP-${date}.planpkg.zip`;
+          ?`${safeName(sessions.find(s=&gt;s.id===ids[0])?.title||ids[0]).replace(/\s+/g,'-')}-BackupPP-${date}.plan2`
+          :`Plan-BackupPP-${date}.plan2`;
         const result=await this.savePlanPackage(payload,{
           backupType:'backup++',
           title:ids.length===1?'Backup++ · '+(sessions.find(s=&gt;s.id===ids[0])?.title||'Session'):'Backup++ · valgte sessioner',
@@ -71773,7 +71803,7 @@ App.prototype.showCoursePackageExport=function({course,payload,verification}){
       {label:'Luk',run:()=&gt;{}},
       {label:'Gem Plan-pakke',primary:true,run:async()=&gt;{
         const includeApp=body.querySelector('[data-app]').checked;setIncludeAppPreference(includeApp);
-        const filename=`Plan-${safeName(course.title).replace(/\s+/g,'-')}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10)).replace(/\s+/g,'-')}.planpkg.zip`;
+        const filename=`Plan-${safeName(course.title).replace(/\s+/g,'-')}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10)).replace(/\s+/g,'-')}.plan2`;
         const result=await this.savePlanPackage(payload,{backupType:'course-package',title:course.title,filename,includeApp});
         if(result?.status==='cancelled')return false;
         saved=true;body.querySelector('[data-course-save-state]').innerHTML='<b>Pakken er sendt til lagring.</b> Du kan nu arkivere det lokale årsforløb.';
@@ -71811,7 +71841,7 @@ App.prototype.exportCommonDataBackup=async function(){
   const result=await this.savePlanPackage(payload,{
     backupType:'common-data',
     title:'Fælles data',
-    filename:`Plan-Faelles-data-${date}.planpkg.zip`,
+    filename:`Plan-Faelles-data-${date}.plan2`,
     includeApp:includeAppPreference()
   });
   if(result?.status!=='cancelled')this.toast(`${datasets.length} fælles datasæt er sendt til lagring`);
@@ -71830,7 +71860,7 @@ if(TN.StorageRescueManager?.prototype){
     const result=await this.app.savePlanPackage(payload,{
       backupType:includeMedia?'emergency':'emergency-light',
       title:`Nødbackup · ${target.title}`,
-      filename:`Plan-NOEDBACKUP-${safeName(target.title).replace(/\s+/g,'-')}-${stamp}.planpkg.zip`,
+      filename:`Plan-NOEDBACKUP-${safeName(target.title).replace(/\s+/g,'-')}-${stamp}.plan2`,
       includeApp:includeAppPreference()
     });
     if(result?.status!=='cancelled')this.app.toast(includeMedia?'Nødbackup med medier er sendt til Filer':'Hurtig nødbackup er sendt til Filer');
@@ -75240,7 +75270,7 @@ function install(){
         {label:'Gem',primary:true,run:async()=>{
           const includeApp=!!body.querySelector('[data-app]')?.checked;
           setInclude(includeApp);
-          const filename=`Plan-${safeName(course.title)}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10))}.planpkg.zip`;
+          const filename=`Plan-${safeName(course.title)}-${safeName(course.schoolYear||new Date().toISOString().slice(0,10))}.plan2`;
           const result=await this.savePlanPackage(payload,{backupType:'course-package',title:course.title,filename,includeApp});
           if(result?.status==='cancelled')return false;
           const state=body.querySelector('[data-state]');
@@ -77330,6 +77360,12 @@ async function filterPayloadMedia(app,payload,mode){
 }
 
 App.prototype.safetyExport=async function(kind,progress){
+  // Lokale format-hjælpere til den aktive Backup-pakkebygger.
+  const backupNativePlanRuntime=()=>Boolean(window.__PLAN_RUNTIME__?.environment==='tauri'||window.__TAURI_INTERNALS__||window.__TAURI__);
+  const backupDefaultPackageFormat=()=>backupNativePlanRuntime()?'plan2':'zip';
+  const backupPackageFileExtension=format=>format==='plan2'?'.plan2':'.zip';
+  const backupPackageFormatMarkup=()=>`<label class="plan2-pb-format"><span><strong>Filformat</strong><small data-format-help></small></span><select data-package-format><option value="zip">ZIP-fil (.zip)</option><option value="plan2">Plan 2-fil (.plan2)</option></select></label>`;
+  const backupInitialisePackageFormat=body=>{const select=body?.querySelector?.('[data-package-format]');if(!select)return null;select.value=backupDefaultPackageFormat();const help=body.querySelector('[data-format-help]');const paint=()=>{if(help)help.textContent=select.value==='plan2'?'Plan 2-format til det installerede program.':'Kompatibel ZIP-fil til web- og HTML-versionen.';};select.addEventListener('change',paint);paint();return select;};
   const overview=[...document.querySelectorAll('#tnModalRoot .tn-modal')].find(modal=>modal.querySelector('.tn-datacenter'));
   if(overview){
     const close=overview.querySelector(':scope > header [data-modal-close]');
@@ -77366,10 +77402,12 @@ App.prototype.safetyExport=async function(kind,progress){
     <div class="plan2-pb-size"><b>Plan-state før komprimering: ${TN.formatBytes?.(raw)||raw+' B'}</b><span>Foreløbig ZIP-estimat uden færdig ressourcepakke: ${TN.formatBytes?.(estimatedZip)||estimatedZip+' B'}</span></div>
     <label class="plan2-pb-choice"><input type="checkbox" data-data ${includeDataDefault?'checked':''}><span><strong>Medtag elevdata og elevbilleder</strong><small>Slås dette fra, fjernes elevdata og elevbilleder, uanset det valgte ressourceomfang.</small></span></label>
     <label class="plan2-pb-choice"><input type="checkbox" data-app ${includeAppDefault?'checked':''}><span><strong>Medtag en kopi af Plan-appen</strong><small>Frivilligt. Appfilen arkiveres i pakken, men importeres aldrig.</small></span></label>
+    ${backupPackageFormatMarkup()}
     <div class="plan2-pb-privacy" data-privacy></div>`;
 
   const titleInput=body.querySelector('[data-title]'),dataCheck=body.querySelector('[data-data]');
   const appCheck=body.querySelector('[data-app]'),privacy=body.querySelector('[data-privacy]');
+  const formatSelect=backupInitialisePackageFormat(body);
   const scopeButton=body.querySelector('[data-resource-scope]'),scopeHelp=body.querySelector('[data-resource-help]');
   titleInput.value=info.title;
   const help={
@@ -77408,7 +77446,9 @@ App.prototype.safetyExport=async function(kind,progress){
     setReady(false,'Samler den færdige Plan-pakke …');
     const built=await this.buildCombinedPlanPackage(request,payload,resourceResult);
     if(token!==prepareToken||closed)return null;
-    const date=new Date().toISOString().slice(0,10),filename=`${safeName(titleInput.value||info.label)}-${date}.planpkg.zip`;
+    const date=new Date().toISOString().slice(0,10);
+    const baseName=`${safeName(titleInput.value||info.label)}-${date}`;
+    const filename=`${baseName}${backupPackageFileExtension(formatSelect?.value||backupDefaultPackageFormat())}`;
     prepared={file:this.fileExporter.prepareBlob(built.blob,filename,'application/zip'),built};
     setReady(true,'Pakken er klar');return prepared;
   };
@@ -77421,6 +77461,7 @@ App.prototype.safetyExport=async function(kind,progress){
     const reason=failures.at(-1)?.message||'Delingsarket kunne ikke åbnes';throw new Error(`Plan-pakken er færdig, men Gem i Filer/Del kunne ikke åbnes (${reason}).`);
   };
   dataCheck.addEventListener('change',queuePrepare);
+  formatSelect?.addEventListener('change',queuePrepare);
   titleInput.addEventListener('input',queuePrepare);
   const oldScopeClick=scopeButton.onclick;scopeButton.onclick=()=>{oldScopeClick();queuePrepare();};
 
@@ -78037,7 +78078,7 @@ function effectiveType(w){const ex=expectedOf(w),inferred=inferredKindFromTitle(
 App.prototype.isUniversalResourceReceiver=function(widget){if(!widget||clean(widget.type).toLowerCase()==='note')return false;return universalReceiverTypes.has(clean(widget.type).toLowerCase())||widget.relations?.resourceReceiver===true||!!placeholderIdOf(widget);};
 const resourceUrl=item=>clean(item?.openUrl||item?.url||item?.embedUrl),resourceKind=item=>clean(item?.kind||item?.type||item?.category).toLowerCase();
 function compatible(widget,item){const type=effectiveType(widget);if(!type)return true;const kind=resourceKind(item),mime=clean(item?.mimeType).toLowerCase(),name=clean(item?.fileName).toLowerCase();if(type==='link'||type==='iframe')return !!resourceUrl(item);if(!item?.mediaId&&!item?.packagePath)return false;if(type==='image')return kind.includes('billede')||kind.includes('image')||mime.startsWith('image/');if(type==='pdf')return kind.includes('pdf')||mime==='application/pdf'||name.endsWith('.pdf');if(type==='audio')return kind.includes('lyd')||kind.includes('audio')||mime.startsWith('audio/');if(type==='video')return kind.includes('video')||mime.startsWith('video/');return true;}
-function fileAccept(t){return ({image:'image/*',pdf:'.pdf,application/pdf',audio:'audio/*',video:'video/*'})[t]||'*/*,.zip,application/zip';}
+function fileAccept(t){return ({image:'image/*',pdf:'.pdf,application/pdf',audio:'audio/*',video:'video/*'})[t]||'*/*,.plan2,.zip,application/zip';}
 async function widgetFor(app,id){return (TN.runtime.activeWidgets||[]).find(w=>clean(w.id)===clean(id))||app.storage.get('widgets',id);}
 async function siblings(app,w){const pid=placeholderIdOf(w);if(!pid)return [w];return (await app.storage.getAll('widgets')).filter(x=>placeholderIdOf(x)===pid&&app.isUniversalResourceReceiver(x));}
 function activeContext(app,w){const board=TN.runtime.activeBoard||{},session=TN.runtime.activeSession||{},course=TN.runtime.activeCourse||TN.runtime.activeWorkspace||{};return {courseId:clean(w.courseId||board.courseId||session.courseId||course.id),sessionId:clean(w.sessionId||board.sessionId||session.id),boardId:clean(w.boardId||board.id),widgetId:clean(w.id)};}
@@ -78050,7 +78091,7 @@ async function unzip(file){const bytes=new Uint8Array(await file.arrayBuffer()),
 function manifestFrom(entries){for(const name of ['manifest.json','Plan-Ressourcer - filer/plan-resources.json','plan-resources.json','resources/manifest.json']){const b=entries.get(name);if(b)try{return JSON.parse(new TextDecoder().decode(b));}catch(_){}}return null;}
 function packageCandidates(entries,manifest){const rows=[];for(const r of manifest?.resources||[]){if(!r.packagePath)continue;const path=clean(r.packagePath).replace(/^resources\//,'');const bytes=entries.get(r.packagePath)||entries.get(path)||entries.get(`resources/${path}`);if(!bytes)continue;rows.push({...r,_bytes:bytes,fileName:r.fileName||path.split('/').pop(),packagePath:path});}if(rows.length)return rows;for(const [path,bytes] of entries){if(/(^|\/)(manifest\.json|plan-resources\.json|ÅBN-MIG\.html)$/i.test(path))continue;rows.push({title:path.split('/').pop(),fileName:path.split('/').pop(),packagePath:path,mimeType:'application/octet-stream',_bytes:bytes});}return rows;}
 async function linkPanel(app,w,panel,allGetter){panel.innerHTML=`<div class="plan2-placeholder-form"><label><strong>Indsæt link</strong></label><input type="url" inputmode="url" autocomplete="url" placeholder="https://…"><label><strong>Titel (valgfri)</strong></label><input type="text" data-title value="${esc(placeholderTitleOf(w))}" placeholder="Fx Artikel om romantikken"><small>Linket kan knyttes direkte til en tom Tekst-, Liste- eller LinkWidget. En eksisterende placeholdertitel bevares.</small><button type="button">Tilføj link</button></div>`;const urlInput=panel.querySelector('input[type="url"]'),titleInput=panel.querySelector('[data-title]');panel.querySelector('button').onclick=async()=>{try{let url=clean(urlInput.value);if(!url)throw new Error('Indsæt et link');if(!/^[a-z][a-z0-9+.-]*:/i.test(url))url='https://'+url;const parsed=new URL(url);if(!/^https?:$/i.test(parsed.protocol))throw new Error('Linket skal begynde med http:// eller https://');const title=clean(titleInput.value)||placeholderTitleOf(w)||parsed.hostname;const item={id:`url:${url}`,resourceId:`url:${url}`,title,url,openUrl:url,type:'link',category:'Links',mimeType:'text/uri-list'};if(!placeholderTitleOf(w)&&title){w.title=title;w.relations={...(w.relations||{}),expectedResource:{...(expectedOf(w)||{}),placeholderTitle:title,title}};}await bind(app,w,item,allGetter());app.modalManager.closeAll();}catch(e){app.toast(e.message||'Linket kunne ikke tilføjes');}};setTimeout(()=>urlInput.focus(),30);}
-async function diskPanel(app,w,panel,allGetter){panel.innerHTML=`<div class="plan2-universal-disk"><p><strong>Vælg fra Disk</strong></p><p>Vælg en almindelig fil eller en ressourcepakke. En pakke åbnes som en liste, så kun den valgte fil bruges.</p><button type="button">Vælg fil eller pakke…</button><input type="file" hidden accept="${esc(fileAccept(effectiveType(w)))},.zip,application/zip"></div>`;const input=panel.querySelector('input');panel.querySelector('button').onclick=()=>input.click();input.onchange=async()=>{const f=input.files?.[0];if(!f)return;try{if(!/\.zip$/i.test(f.name)&&!/application\/(zip|x-zip-compressed)/i.test(f.type||'')){await importOrdinary(app,w,f,allGetter());app.modalManager.closeAll();return;}panel.innerHTML='<div class="plan2-universal-resource-empty">Læser ressourcepakken…</div>';const entries=await unzip(f),manifest=manifestFrom(entries);if(manifest?.format!=='Plan 2.0 resource-package')throw new Error('ZIP-filen er ikke en Plan 2.0-ressourcepakke');const items=packageCandidates(entries,manifest).filter(x=>compatible(w,x));panel.replaceChildren();const search=document.createElement('input'),list=document.createElement('div');search.type='search';search.className='plan2-universal-resource-search';search.placeholder='Søg i pakkens filer';list.className='plan2-universal-resource-list';panel.append(search,list);const draw=()=>{const q=clean(search.value).toLowerCase(),visible=items.filter(x=>!q||[x.title,x.fileName,x.category,x.type,x.tags].map(clean).join(' ').toLowerCase().includes(q));list.replaceChildren();for(const item of visible){const row=document.createElement('article');row.className='plan2-universal-resource-row';row.innerHTML=`<span><strong>${esc(item.title||item.fileName)}</strong><small>${esc(item.category||item.type||'Ressource')} · ${esc(item.fileName)}</small></span><button type="button">Vælg</button>`;row.querySelector('button').onclick=async()=>{const file=new File([item._bytes],item.fileName,{type:item.mimeType||'application/octet-stream'});await importOrdinary(app,w,file,allGetter());app.modalManager.closeAll();};list.append(row);}if(!visible.length)list.innerHTML='<div class="plan2-universal-resource-empty">Ingen kompatible filer i pakken.</div>';};search.oninput=draw;draw();}catch(e){console.error(e);app.toast(e.message||'Filen kunne ikke åbnes');void diskPanel(app,w,panel,allGetter);}};}
+async function diskPanel(app,w,panel,allGetter){panel.innerHTML=`<div class="plan2-universal-disk"><p><strong>Vælg fra Disk</strong></p><p>Vælg en almindelig fil eller en ressourcepakke. En pakke åbnes som en liste, så kun den valgte fil bruges.</p><button type="button">Vælg fil eller pakke…</button><input type="file" hidden accept="${esc(fileAccept(effectiveType(w)))},.plan2,.zip,application/zip"></div>`;const input=panel.querySelector('input');panel.querySelector('button').onclick=()=>input.click();input.onchange=async()=>{const f=input.files?.[0];if(!f)return;try{if(!/\.(?:plan2|zip)$/i.test(f.name)&&!/application\/(zip|x-zip-compressed)/i.test(f.type||'')){await importOrdinary(app,w,f,allGetter());app.modalManager.closeAll();return;}panel.innerHTML='<div class="plan2-universal-resource-empty">Læser ressourcepakken…</div>';const entries=await unzip(f),manifest=manifestFrom(entries);if(manifest?.format!=='Plan 2.0 resource-package')throw new Error('Filen er ikke en Plan 2.0-ressourcepakke');const items=packageCandidates(entries,manifest).filter(x=>compatible(w,x));panel.replaceChildren();const search=document.createElement('input'),list=document.createElement('div');search.type='search';search.className='plan2-universal-resource-search';search.placeholder='Søg i pakkens filer';list.className='plan2-universal-resource-list';panel.append(search,list);const draw=()=>{const q=clean(search.value).toLowerCase(),visible=items.filter(x=>!q||[x.title,x.fileName,x.category,x.type,x.tags].map(clean).join(' ').toLowerCase().includes(q));list.replaceChildren();for(const item of visible){const row=document.createElement('article');row.className='plan2-universal-resource-row';row.innerHTML=`<span><strong>${esc(item.title||item.fileName)}</strong><small>${esc(item.category||item.type||'Ressource')} · ${esc(item.fileName)}</small></span><button type="button">Vælg</button>`;row.querySelector('button').onclick=async()=>{const file=new File([item._bytes],item.fileName,{type:item.mimeType||'application/octet-stream'});await importOrdinary(app,w,file,allGetter());app.modalManager.closeAll();};list.append(row);}if(!visible.length)list.innerHTML='<div class="plan2-universal-resource-empty">Ingen kompatible filer i pakken.</div>';};search.oninput=draw;draw();}catch(e){console.error(e);app.toast(e.message||'Filen kunne ikke åbnes');void diskPanel(app,w,panel,allGetter);}};}
 App.prototype.openUniversalResourcePicker=async function(widgetId){let widget=await widgetFor(this,widgetId);if(!this.isUniversalResourceReceiver(widget))return this.toast('Denne widget kan ikke modtage en ressource');const pid=placeholderIdOf(widget),same=pid?await siblings(this,widget):[widget],body=document.createElement('div');body.className='plan2-universal-resource-picker';const tabs=document.createElement('div');tabs.className='plan2-universal-resource-tabs';tabs.innerHTML='<button type="button" data-tab="library" class="active">Bibliotek</button><button type="button" data-tab="disk">Disk</button><button type="button" data-tab="link">Link</button><button type="button" data-tab="placeholder">Placeholder</button>';const panel=document.createElement('div');let applyAll=false;body.append(tabs,panel);if(pid){const apply=document.createElement('label');apply.className='plan2-universal-apply-all';apply.innerHTML=`<input type="checkbox" ${same.length>1?'':'disabled'}><span><b>Anvend på alle identiske placeholders</b><br><small>${same.length>1?`${same.length} widgets deler samme placeholder-id.`:'Ingen andre identiske placeholders.'}</small></span>`;apply.querySelector('input').onchange=e=>applyAll=e.target.checked;body.append(apply);}const activate=name=>tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));const library=async()=>{activate('library');panel.innerHTML='<div class="plan2-universal-resource-empty">Indlæser ressourcebiblioteket…</div>';const context=await this.resourceScopeContext('global'),seen=new Set(),items=(context.resources||[]).filter(x=>compatible(widget,x)).filter(x=>{const key=clean(x.resourceId||x.mediaId||x.url||x.id);if(!key||seen.has(key))return false;seen.add(key);return true;});panel.replaceChildren();const search=document.createElement('input'),list=document.createElement('div');search.type='search';search.className='plan2-universal-resource-search';search.placeholder='Søg i titel, filnavn, kategori og tags';search.value=placeholderTitleOf(widget);list.className='plan2-universal-resource-list';panel.append(search,list);const draw=()=>{const q=clean(search.value).toLocaleLowerCase('da-DK'),visible=items.filter(x=>!q||[x.title,x.fileName,x.category,x.type,x.tags,x.note].map(clean).join(' ').toLocaleLowerCase('da-DK').includes(q));list.replaceChildren();for(const item of visible){const row=document.createElement('article');row.className='plan2-universal-resource-row';row.innerHTML=`<span><strong>${esc(item.title||item.fileName||'Ressource')}</strong><small>${esc(item.category||item.type||'Ressource')}${item.fileName?` · ${esc(item.fileName)}`:''}</small></span><button type="button">Vælg</button>`;row.querySelector('button').onclick=async()=>{try{await bind(this,widget,item,applyAll);this.modalManager.closeAll();}catch(e){console.error(e);this.toast(e.message||'Ressourcen kunne ikke vælges');}};list.append(row);}if(!visible.length)list.innerHTML='<div class="plan2-universal-resource-empty">Ingen kompatible ressourcer matcher søgningen.</div>';};search.oninput=TN.debounce?TN.debounce(draw,100):draw;draw();setTimeout(()=>{search.focus?.();search.select?.();},30);};const placeholder=()=>{activate('placeholder');panel.innerHTML=`<div class="plan2-placeholder-form"><label><strong>Titel på det materiale, der mangler</strong></label><input type="text" value="${esc(placeholderTitleOf(widget))}" placeholder="Fx Artikel om romantikken eller Artikel.pdf"><small>Forløb, session, tavle og widget gemmes automatisk. En filendelse bruges kun som et valgfrit typehint.</small><button type="button">Gem placeholder</button></div>`;const title=panel.querySelector('input');panel.querySelector('button').onclick=async()=>{try{widget=await savePlaceholder(this,widget,title.value);this.modalManager.closeAll();}catch(e){this.toast(e.message||'Placeholderen kunne ikke gemmes');}};setTimeout(()=>title.focus(),30);};tabs.querySelector('[data-tab="library"]').onclick=()=>void library();tabs.querySelector('[data-tab="disk"]').onclick=()=>{activate('disk');void diskPanel(this,widget,panel,()=>applyAll);};tabs.querySelector('[data-tab="link"]').onclick=()=>{activate('link');void linkPanel(this,widget,panel,()=>applyAll);};tabs.querySelector('[data-tab="placeholder"]').onclick=placeholder;this.modalManager.closeAll();requestAnimationFrame(()=>this.modalManager.open({title:`${pid?'Find':'Tilføj'} ressource · ${placeholderTitleOf(widget)||widget.title||'widget'}`,body,className:'tn-modal-wide',actions:[{label:'Luk',run:()=>true}]}));await library();};
 try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN-2.0-universel-ressourcevaelger-BASELINE-2026-07-31';}catch(_){ }
 })(window.TavleNext);
