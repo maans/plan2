@@ -944,7 +944,7 @@ body.tn-window-dragging .tn-widget-header{cursor:grabbing!important}
   .tn-wheel-canvas{display:block;width:auto;height:auto;max-width:calc(100% - 8px);max-height:calc(100% - 8px);cursor:pointer;transform-origin:50% 50%;will-change:transform}
   .tn-wheel-pointer{position:absolute;top:2px;left:50%;z-index:3;width:0;height:0;transform:translateX(-50%);border-left:14px solid transparent;border-right:14px solid transparent;border-top:27px solid #f8fafc;filter:drop-shadow(0 2px 3px #0008);pointer-events:none}
   .tn-wheel-pointer-name{position:absolute;top:25px;left:50%;z-index:5;max-width:min(64%,420px);transform:translateX(-50%);padding:5px 12px;border-radius:999px;background:#0f172ae8;color:#fff;font-size:clamp(12px,1.15vw,16px);font-weight:950;line-height:1.15;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;box-shadow:0 3px 12px #0005}
-  .tn-wheel-spin{position:absolute;z-index:4;display:grid;place-items:center;width:clamp(76px,17%,124px);aspect-ratio:1;border:4px solid #f8fafc;border-radius:999px;background:#2563eb;color:#fff;font:inherit;font-size:clamp(18px,2vw,28px);font-weight:1000;box-shadow:0 7px 24px #0008;cursor:pointer}
+  .tn-wheel-spin-layer{position:absolute;inset:0;z-index:4;display:grid;place-items:center;pointer-events:none}.tn-wheel-spin{position:relative;z-index:1;display:grid;place-items:center;pointer-events:auto;width:clamp(76px,17%,124px);aspect-ratio:1;border:4px solid #f8fafc;border-radius:999px;background:#2563eb;color:#fff;font:inherit;font-size:clamp(18px,2vw,28px);font-weight:1000;box-shadow:0 7px 24px #0008;cursor:pointer}
   .tn-wheel-spin.running{background:#dc2626}.tn-wheel-spin:disabled{opacity:.52;cursor:not-allowed}
   .tn-wheel-fly{position:absolute;z-index:12;left:50%;top:50%;max-width:78%;padding:12px 20px;border-radius:16px;background:#fff;color:#0f172a;box-shadow:0 18px 56px #0009;font-size:clamp(24px,4vw,48px);font-weight:1000;line-height:1;text-align:center;overflow-wrap:anywhere;transform:translate(-50%,-50%) scale(.75);opacity:0;pointer-events:none}
   .tn-wheel-fly.show{animation:tnWheelFly 1s cubic-bezier(.2,.9,.25,1)}
@@ -1669,7 +1669,7 @@ body.tn-window-dragging .tn-widget-header{cursor:grabbing!important}
 (()=>{
   try{
     const params=new URLSearchParams(location.search);
-    if(params.get('plan_embed')==='1'||window.name==='plan-embed'){
+    if(params.get('plan_embed')==='1'||window.name==='plan-embed'||window.name.startsWith('plan-embed:')){
       document.documentElement.dataset.planEmbed='true';
     }
   }catch(_){}
@@ -3368,7 +3368,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
   'use strict';
   class StorageManager{
     constructor(){
-      this.dbName='tavle-next-v3';this.dbVersion=4;this.db=null;this.mode='indexeddb';this.writeQueue=new Map();this.flushTimer=null;this.pendingFlush=null;
+      const embeddedPlanId=window.name.startsWith('plan-embed:')?window.name.slice('plan-embed:'.length).replace(/[^a-z0-9_-]+/gi,'-').slice(0,120):'';this.dbName=embeddedPlanId?`tavle-next-v3-embedded-${embeddedPlanId}`:'tavle-next-v3';this.dbVersion=4;this.db=null;this.mode='indexeddb';this.writeQueue=new Map();this.flushTimer=null;this.pendingFlush=null;
       this.lastSaveMs=0;
     }
     async init(){
@@ -6009,6 +6009,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       destroyed = false,
       autoRunning = false,
       autoRemaining = 0,
+      autoTimer = 0,
       resizeObserver = null,
       wheelLayoutRaf = 0,
       lastTickAt = 0,
@@ -6022,7 +6023,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
           <canvas class="tn-wheel-canvas" aria-hidden="true"></canvas>
           <span class="tn-wheel-pointer" aria-hidden="true"></span>
           <div class="tn-wheel-pointer-name" data-pointer-name aria-live="polite"></div>
-          <button type="button" class="tn-wheel-spin" data-spin>Drej</button>
+          <div class="tn-wheel-spin-layer"><button type="button" class="tn-wheel-spin" data-spin>Drej</button></div>
           <div class="tn-wheel-fly" data-fly hidden></div>
         </div>
         <aside class="tn-wheel-side">
@@ -6508,6 +6509,8 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     const cancelSpin = async ({ quiet = false } = {}) => {
       if (!running && !autoRunning) return false;
       cancelAnimationFrame(raf);
+      clearTimeout(autoTimer);
+      autoTimer = 0;
       raf = 0;
       running = false;
       autoRunning = false;
@@ -6542,9 +6545,10 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       removePendingWinner();
       await persist();
       paint();
-      if (content.names.length)
-        setTimeout(() => beginSpin({ auto: false }), 130);
-      else app.toast("Puljen er tom");
+      if (content.names.length) {
+        if (content.auto) startAuto();
+        else setTimeout(() => beginSpin({ auto: false }), 130);
+      } else app.toast("Puljen er tom");
     };
     const finishSpin = async () => {
       if (!spin || destroyed) return;
@@ -6574,9 +6578,13 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       paint();
       if (isAuto) {
         autoRemaining--;
-        if (autoRunning && autoRemaining > 0 && content.names.length)
-          setTimeout(() => beginSpin({ auto: true }), 170);
-        else {
+        if (autoRunning && autoRemaining > 0 && content.names.length) {
+          clearTimeout(autoTimer);
+          autoTimer = setTimeout(() => {
+            autoTimer = 0;
+            if (autoRunning && !destroyed) beginSpin({ auto: true });
+          }, 1100);
+        } else {
           autoRunning = false;
           autoRemaining = 0;
           await persist();
@@ -7192,6 +7200,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     return () => {
       destroyed = true;
       cancelAnimationFrame(raf);
+      clearTimeout(autoTimer);
       cancelAnimationFrame(wheelLayoutRaf);
       resizeObserver?.disconnect();
       offDataset?.();
@@ -7370,7 +7379,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       };const rawDownload=async()=>{const current=await readHtmlWidgetSource(app,widget),blob=current.media?.blob||new Blob([current.html],{type:'text/html;charset=utf-8'}),name=htmlFileName(widget.content?.name||current.media?.name||widget.title),prepared=app.fileExporter.prepareBlob(blob,name,blob.type||'text/html;charset=utf-8');app.showPreparedExport(prepared,{title:isTw?'TiddlyWiki-filen er klar':'HTML-filen er klar',summary:`${isTw?'Rå single-file TiddlyWiki':'Rå HTML'} · ${TN.formatBytes(prepared.size)}`});};
       const sendFiles=async selected=>{if(!frame){app.toast('Start HTML-appen først');return;}const items=[],transfers=[];for(const file of selected){const buffer=await TN.blobArrayBuffer(file);items.push({name:file.name,type:file.type||'application/octet-stream',buffer});transfers.push(buffer);}const requestId=TN.uid('htmlfiles');frame.contentWindow.postMessage({protocol:'plan-htmlapp-v1',app:'plan',type:'IMPORT_FILES',requestId,payload:{files:items}},'*',transfers);status.textContent=`Sender ${items.length} fil${items.length===1?'':'er'} …`;};
       const teardown=()=>{fitObserver?.disconnect?.();fitObserver=null;if(frame){htmlAppRuntime.frames.delete(widget.id);frame.src='about:blank';frame.remove();frame=null;}if(frameUrl){URL.revokeObjectURL(frameUrl);frameUrl='';}};
-      const start=async()=>{if(frame)return;shell.show();status.textContent='Indlæser …';const latest=await readHtmlWidgetSource(app,widget),directPlan=isPlan&&!!widget.content?.planEmbed,legacyRemoteUrl=['plan','tjek','tavle'].includes(detectedKind)&&/^https?:\/\/(?:plan|tjek|tavle)\./i.test(String(widget.content?.githubSourceUrl||''))?widget.content.githubSourceUrl:'',remoteRuntimeUrl=String(widget.content?.remoteRuntimeUrl||legacyRemoteUrl||''),directRemote=!!remoteRuntimeUrl,remoteTargetUrl=(()=>{if(!directRemote||!isPlan)return remoteRuntimeUrl;try{const target=new URL(remoteRuntimeUrl,location.href);target.searchParams.set('plan_embed','1');return target.href;}catch(_){return remoteRuntimeUrl;}})(),sourceUrl=widget.content?.githubSourceUrl||widget.content?.sourceUrl||'',code=(directPlan||directRemote)?'':injectHtmlAppBridge(injectHtmlAppBase(latest.html,sourceUrl),widget);if(directRemote&&!widget.content?.remoteRuntimeUrl){widget.content.remoteRuntimeUrl=remoteRuntimeUrl;await app.widgetManager.update(widget,{immediate:true});}frame=document.createElement('iframe');frame.className='tn-embedded-frame';const trustedLocalApp=['tiddlywiki','skriv','tjek','txtappen','plan','tavle'].includes(detectedKind)||!!widget.content?.planEmbed;if(!directRemote)frame.setAttribute('sandbox',trustedLocalApp?'allow-scripts allow-forms allow-popups allow-downloads allow-modals allow-same-origin':'allow-scripts allow-forms allow-popups allow-downloads allow-modals');frame.setAttribute('allow','fullscreen; autoplay; clipboard-read; clipboard-write; camera; microphone');frame.setAttribute('allowusermedia','true');if(isPlan)frame.name='plan-embed';shell.content.append(frame);applyFrameZoom();let homeUrl=directRemote?remoteTargetUrl:'';htmlAppRuntime.frames.set(widget.id,{widget,app,frame,status,isTiddlyWiki:isTw,appKind:detectedKind,appLabel,pickFiles:()=>input.click(),setPlanEmbedReady:()=>{planEmbedSafeAreaHandled=true;applyFrameZoom();},goHome:()=>{if(!frame)return false;const target=homeUrl||frameUrl||remoteTargetUrl||remoteRuntimeUrl;if(!target)return false;try{frame.src=target;status.textContent=`${appLabel} · åbner startside`;return true;}catch(_){return false;}},homeLabel:`Hjem i ${appLabel}`,applyZoom:applyFrameZoom,getZoom:()=>zoomMode()==='fit'?fitZoom:fixedZoom(),getZoomMode:zoomMode});frame.onload=()=>{
+      const start=async()=>{if(frame)return;shell.show();status.textContent='Indlæser …';const latest=await readHtmlWidgetSource(app,widget),directPlan=isPlan&&!!widget.content?.planEmbed,legacyRemoteUrl=['plan','tjek','tavle'].includes(detectedKind)&&/^https?:\/\/(?:plan|tjek|tavle)\./i.test(String(widget.content?.githubSourceUrl||''))?widget.content.githubSourceUrl:'',remoteRuntimeUrl=String(widget.content?.remoteRuntimeUrl||legacyRemoteUrl||''),directRemote=!!remoteRuntimeUrl,remoteTargetUrl=(()=>{if(!directRemote||!isPlan)return remoteRuntimeUrl;try{const target=new URL(remoteRuntimeUrl,location.href);target.searchParams.set('plan_embed','1');return target.href;}catch(_){return remoteRuntimeUrl;}})(),sourceUrl=widget.content?.githubSourceUrl||widget.content?.sourceUrl||'',code=(directPlan||directRemote)?'':injectHtmlAppBridge(injectHtmlAppBase(latest.html,sourceUrl),widget);if(directRemote&&!widget.content?.remoteRuntimeUrl){widget.content.remoteRuntimeUrl=remoteRuntimeUrl;await app.widgetManager.update(widget,{immediate:true});}frame=document.createElement('iframe');frame.className='tn-embedded-frame';const trustedLocalApp=['tiddlywiki','skriv','tjek','txtappen','plan','tavle'].includes(detectedKind)||!!widget.content?.planEmbed;if(!directRemote)frame.setAttribute('sandbox',trustedLocalApp?'allow-scripts allow-forms allow-popups allow-downloads allow-modals allow-same-origin':'allow-scripts allow-forms allow-popups allow-downloads allow-modals');frame.setAttribute('allow','fullscreen; autoplay; clipboard-read; clipboard-write; camera; microphone');frame.setAttribute('allowusermedia','true');if(isPlan)frame.name=`plan-embed:${String(widget.id||'widget').replace(/[^a-z0-9_-]+/gi,'-').slice(0,120)}`;shell.content.append(frame);applyFrameZoom();let homeUrl=directRemote?remoteTargetUrl:'';htmlAppRuntime.frames.set(widget.id,{widget,app,frame,status,isTiddlyWiki:isTw,appKind:detectedKind,appLabel,pickFiles:()=>input.click(),setPlanEmbedReady:()=>{planEmbedSafeAreaHandled=true;applyFrameZoom();},goHome:()=>{if(!frame)return false;const target=homeUrl||frameUrl||remoteTargetUrl||remoteRuntimeUrl;if(!target)return false;try{frame.src=target;status.textContent=`${appLabel} · åbner startside`;return true;}catch(_){return false;}},homeLabel:`Hjem i ${appLabel}`,applyZoom:applyFrameZoom,getZoom:()=>zoomMode()==='fit'?fitZoom:fixedZoom(),getZoomMode:zoomMode});frame.onload=()=>{
           applyFrameZoom();
           requestAnimationFrame(()=>applyFrameZoom());
           setTimeout(()=>applyFrameZoom(),180);
@@ -8786,7 +8795,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     async init(){
       TN.runtime.app=this;await this.storage.init();TN.registerDefaultWidgets(this);this.registerHelp();this.registerCommands();this.bindShell();this.startBoardClock();this.router.start();this.commandRegistry.start();this.startMetrics();
       TN.on('routechange',async event=>{const route=event.detail||{};const currentS=TN.runtime.activeSession?.id,currentB=TN.runtime.activeBoard?.id;if(route.sessionId&&(route.sessionId!==currentS||route.boardId&&route.boardId!==currentB)){try{await this.loadSession(route.sessionId,route.boardId,{writeRoute:false});}catch(error){this.toast(error.message);}}});
-      let route=this.router.parse(),params=new URLSearchParams(location.search),embedMode=params.get('plan_embed')==='1'||window.name==='plan-embed',lastSessionId=localStorage.getItem('tn.v3.lastSession'),session=await this.sessionManager.get(route.sessionId||lastSessionId);
+      let route=this.router.parse(),params=new URLSearchParams(location.search),embedMode=params.get('plan_embed')==='1'||window.name==='plan-embed'||window.name.startsWith('plan-embed:'),lastSessionId=localStorage.getItem('tn.v3.lastSession'),session=await this.sessionManager.get(route.sessionId||lastSessionId);
       if(!session&&embedMode&&route.sessionId){session=await this.sessionManager.create(route.sessionId);session.title='Indlejret Plan';session.meta={...(session.meta||{}),embedded:true,createdBy:'plan-in-plan'};await this.sessionManager.update(session);route={...route,sessionId:session.id};}
       if(!session){const sessions=await this.sessionManager.list();session=sessions[0]||await this.sessionManager.create('Standard');}
       const currentHash=String(location.hash||''),lastWrittenHash=String(localStorage.getItem('tn.v3.lastWrittenRoute')||''),externalDifferentSession=!!route.sessionId&&currentHash!==lastWrittenHash&&(!lastSessionId||String(route.sessionId)!==String(lastSessionId)),skipStartup=embedMode||params.get('plan_start')==='direct'||route.action==='open'||externalDifferentSession;let startupChoice=null;if(!skipStartup){startupChoice=await this.chooseStartupTarget({fallbackSessionId:session.id});const chosen=await this.sessionManager.get(startupChoice?.sessionId);if(chosen){session=chosen;route={...route,sessionId:chosen.id,boardId:String(chosen.id)===String(route.sessionId)?route.boardId:null};}}
@@ -10955,11 +10964,11 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     requestHtmlDiskImport(){this.fileInput.accept='.html,.htm,text/html';this.fileInput.multiple=true;this.fileInput.click();}
     knownHtmlApps(){return [
       {id:'plan',title:'Plan',appKind:'plan',url:new URL('./index.html',location.href).href,remoteRuntime:true,fileName:'Plan.html',description:'Den lokale Plan-app fra samme installation.'},
-      {id:'skriv',title:'Skriv',appKind:'skriv',url:new URL('./htmlapps/Skriv.html',location.href).href,fileName:'Skriv.html',description:'Skriv, udtalelser og PDF-arbejdsgange.'},
-      {id:'tavle',title:'Tavle',appKind:'tavle',url:new URL('./htmlapps/Tavle.html',location.href).href,remoteRuntime:true,fileName:'Tavle.html',description:'Den lokale TavleApp fra Plan-installationen.'},
-      {id:'tjek',title:'Tjek',appKind:'tjek',url:new URL('./htmlapps/Tjek.html',location.href).href,remoteRuntime:true,fileName:'Tjek.html',description:'Den lokale Tjek-app fra Plan-installationen.'},
-      {id:'tiddlywiki',title:'TiddlyWiki',appKind:'tiddlywiki',url:new URL('./htmlapps/TiddlyWiki.html',location.href).href,fileName:'TiddlyWiki.html',description:'En lokal single-file wiki, som kan gemmes tilbage i Plan.'},
-      {id:'txt',title:'TxT',appKind:'txtappen',url:new URL('./htmlapps/TxT.html',location.href).href,fileName:'TxT.html',description:'Opret, gem og afspil beskedsamtaler.'}
+      {id:'skriv',title:'Skriv',appKind:'skriv',url:new URL('./htmlapps/Skriv.html',location.href).href,fallbackUrls:['https://plan2.xn--mns-ula.dk/htmlapps/Skriv.html'],fileName:'Skriv.html',description:'Skriv, udtalelser og PDF-arbejdsgange.'},
+      {id:'tavle',title:'Tavle',appKind:'tavle',url:new URL('./htmlapps/Tavle.html',location.href).href,fallbackUrls:['https://plan2.xn--mns-ula.dk/htmlapps/Tavle.html'],remoteRuntime:true,fileName:'Tavle.html',description:'Den lokale TavleApp fra Plan-installationen.'},
+      {id:'tjek',title:'Tjek',appKind:'tjek',url:new URL('./htmlapps/Tjek.html',location.href).href,fallbackUrls:['https://plan2.xn--mns-ula.dk/htmlapps/Tjek.html'],remoteRuntime:true,fileName:'Tjek.html',description:'Den lokale Tjek-app fra Plan-installationen.'},
+      {id:'tiddlywiki',title:'TiddlyWiki',appKind:'tiddlywiki',url:new URL('./htmlapps/TiddlyWiki.html',location.href).href,fallbackUrls:['https://plan2.xn--mns-ula.dk/htmlapps/TiddlyWiki.html'],fileName:'TiddlyWiki.html',description:'En lokal single-file wiki, som kan gemmes tilbage i Plan.'},
+      {id:'txt',title:'TxT',appKind:'txtappen',url:new URL('./htmlapps/TxT.html',location.href).href,fallbackUrls:['https://plan2.xn--mns-ula.dk/htmlapps/TxT.html'],fileName:'TxT.html',description:'Opret, gem og afspil beskedsamtaler.'}
     ];}
     async addKnownHtmlApp(id){const item=this.knownHtmlApps().find(entry=>entry.id===id);if(!item){this.toast('HTML-appen blev ikke fundet');return null;}this.toast(item.remoteRuntime?`Åbner ${item.title} …`:`Henter ${item.title} …`);try{return await this.importHtmlAppFromUrl({...item,appKindFixed:true,source:'known-app'},item.url.replace(/[^/]+$/,''));}catch(error){console.error(error);this.toast(`${item.title} kunne ikke hentes · ${error?.message||String(error)}`);return null;}}
     htmlAppFileTitle(value){let name=String(value||'HTML-app').split(/[?#]/)[0].split('/').pop()||'HTML-app';try{name=decodeURIComponent(name);}catch(_){}return name.replace(/\.html?$/i,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim()||'HTML-app';}
@@ -11117,7 +11126,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       const categoryOf=item=>{const explicit=normalizeCategoryId(item.category);if(categoryDefs.some(entry=>entry.id===explicit))return explicit;const hay=` ${normalize(item.subject)} ${normalize((item.tags||[]).join(' '))} `;if(/(dansk|danish)/.test(hay))return'dansk';if(/(engelsk|english)/.test(hay))return'engelsk';if(/(matematik|mathematics|math)/.test(hay))return'matematik';if(/(science|naturfag|fysik|kemi)/.test(hay))return'science';if(/(tysk|german)/.test(hay))return'tysk';if(/(musik|music)/.test(hay)&&categoryDefs.some(entry=>entry.id==='musik'))return'musik';if(/(historie|history)/.test(hay)&&categoryDefs.some(entry=>entry.id==='historie'))return'historie';if(/(biologi|biology)/.test(hay)&&categoryDefs.some(entry=>entry.id==='biologi'))return'biologi';if(/(geografi|geography)/.test(hay)&&categoryDefs.some(entry=>entry.id==='geografi'))return'geografi';if(/(samfundsfag|civics)/.test(hay)&&categoryDefs.some(entry=>entry.id==='samfundsfag'))return'samfundsfag';if(/(kristendom|religion)/.test(hay)&&categoryDefs.some(entry=>entry.id==='kristendom'))return'kristendom';if(/(idraet|idræt|gymnastik)/.test(hay)&&categoryDefs.some(entry=>entry.id==='idraet-gymnastik'))return'idraet-gymnastik';if(/(samfundsfag|idraet|idræt|gymnastik|kristendom|religion|haandvaerk|håndværk|design|madkundskab|billedkunst)/.test(hay))return'andre-9';return'andre';};
       let catalog=null,activeCategory='all';
       const buildCategories=()=>{categories.replaceChildren();for(const def of categoryDefs){const count=catalog?catalog.items.filter(item=>def.id==='all'||categoryOf(item)===def.id).length:0,button=document.createElement('button');button.type='button';button.className=`tn-library-category${activeCategory===def.id?' active':''}`;button.innerHTML=`<strong>${TN.escapeHtml(def.label)}</strong><small>${TN.escapeHtml(def.description)}${catalog?` · ${count}`:''}</small>`;button.onclick=()=>{activeCategory=def.id;buildCategories();paint();};categories.append(button);}};
-      const paint=()=>{if(!catalog)return;const q=filters.querySelector('[data-library-search]').value.trim().toLocaleLowerCase('da-DK'),kind=filters.querySelector('[data-library-kind]').value,grade=filters.querySelector('[data-library-grade]').value;grid.replaceChildren();const items=catalog.items.filter(item=>(activeCategory==='all'||categoryOf(item)===activeCategory)&&(kind==='all'||item.kind===kind)&&(grade==='all'||item.gradeLevels.includes(grade))&&(!q||`${item.title} ${item.subject} ${item.description} ${item.tags.join(' ')}`.toLocaleLowerCase('da-DK').includes(q)));const activeDef=categoryDefs.find(entry=>entry.id===activeCategory)||categoryDefs[0];sectionTitle.querySelector('h3').textContent=activeDef.label;sectionTitle.querySelector('[data-library-count]').textContent=`${items.length} forløb`;for(const item of items){const card=document.createElement('article');card.className=`tn-library-card${item.status!=='published'?' is-coming':''}`;const categoryLabel=(categoryDefs.find(entry=>entry.id===categoryOf(item))||categoryDefs.at(-1)).label,meta=[categoryLabel,item.subject,item.schoolYear,...item.gradeLevels.map(value=>`${value}. klasse`),item.version?`v${item.version}`:'',item.sizeBytes?TN.formatBytes(item.sizeBytes):''].filter(Boolean),tags=item.tags.slice(0,6);card.innerHTML=`${item.thumbnailUrl?`<img class="tn-library-cover" src="${TN.escapeHtml(item.thumbnailUrl)}" alt="">`:''}<div class="tn-library-card-head"><h3>${TN.escapeHtml(item.title)}</h3><span class="tn-library-kind ${item.kind}">${item.kind==='demo'?'Demo':item.kind==='guide'?'Guide':item.kind==='migration'?'Migration':'Skabelon'}</span></div><p>${TN.escapeHtml(item.description||'Ingen beskrivelse endnu.')}</p><div class="tn-library-actions"><button data-preview class="${item.status==='published'?'primary':''}">${item.status==='published'?'Se og brug':'På vej'}</button></div><div class="tn-library-meta">${meta.map(value=>`<span>${TN.escapeHtml(value)}</span>`).join('')}</div><div class="tn-library-tags">${tags.map(value=>`<span>${TN.escapeHtml(value)}</span>`).join('')}</div>`;card.querySelector('.tn-library-cover')?.addEventListener('error',event=>event.currentTarget.remove());const button=card.querySelector('[data-preview]');button.disabled=item.status!=='published';button.onclick=()=>this.showLibraryItemPreview(item,catalog);grid.append(card);}if(!items.length)grid.innerHTML='<div class="tn-library-empty">Ingen guides, demoer eller skabeloner matcher den valgte kategori og filtrene.</div>';};
+      const paint=()=>{if(!catalog)return;const q=filters.querySelector('[data-library-search]').value.trim().toLocaleLowerCase('da-DK'),kind=filters.querySelector('[data-library-kind]').value,grade=filters.querySelector('[data-library-grade]').value;grid.replaceChildren();const items=catalog.items.filter(item=>(activeCategory==='all'||categoryOf(item)===activeCategory)&&(kind==='all'||item.kind===kind)&&(grade==='all'||item.gradeLevels.includes(grade))&&(!q||`${item.title} ${item.subject} ${item.description} ${item.tags.join(' ')}`.toLocaleLowerCase('da-DK').includes(q)));const activeDef=categoryDefs.find(entry=>entry.id===activeCategory)||categoryDefs[0];sectionTitle.querySelector('h3').textContent=activeDef.label;sectionTitle.querySelector('[data-library-count]').textContent=`${items.length} forløb`;for(const item of items){const card=document.createElement('article');card.className=`tn-library-card${item.status!=='published'?' is-coming':''}`;const categoryLabel=(categoryDefs.find(entry=>entry.id===categoryOf(item))||categoryDefs.at(-1)).label,grades=(item.gradeLevels||[]).map(String).filter(Boolean),gradeLabel=grades.length>1?`${grades[0]}.–${grades.at(-1)}. klasse`:grades.length?`${grades[0]}. klasse`:'',subjectLabel=String(item.subject||'').trim(),summary=[subjectLabel&&normalize(subjectLabel)!==normalize(categoryLabel)?subjectLabel:categoryLabel,gradeLabel,item.sizeBytes?TN.formatBytes(item.sizeBytes):''].filter(Boolean);card.innerHTML=`${item.thumbnailUrl?`<img class="tn-library-cover" src="${TN.escapeHtml(item.thumbnailUrl)}" alt="">`:''}<div class="tn-library-card-head"><h3>${TN.escapeHtml(item.title)}</h3><span class="tn-library-kind ${item.kind}">${item.kind==='demo'?'Demo':item.kind==='guide'?'Guide':item.kind==='migration'?'Migration':'Skabelon'}</span></div><p>${TN.escapeHtml(item.description||'Ingen beskrivelse endnu.')}</p><div class="tn-library-actions"><button data-preview class="${item.status==='published'?'primary':''}">${item.status==='published'?'Se og brug':'På vej'}</button></div><div class="tn-library-meta">${summary.map(value=>`<span>${TN.escapeHtml(value)}</span>`).join('<i aria-hidden="true">·</i>')}</div>`;card.querySelector('.tn-library-cover')?.addEventListener('error',event=>event.currentTarget.remove());const button=card.querySelector('[data-preview]');button.disabled=item.status!=='published';button.onclick=()=>this.showLibraryItemPreview(item,catalog);grid.append(card);}if(!items.length)grid.innerHTML='<div class="tn-library-empty">Ingen guides, demoer eller skabeloner matcher den valgte kategori og filtrene.</div>';};
       const showRetry=(error)=>{console.error(error);status.innerHTML='<strong>Biblioteket er midlertidigt utilgængeligt.</strong><span>Kontrollér internetforbindelsen, og prøv igen.</span><button type="button" data-library-retry>Prøv igen</button>';status.querySelector('[data-library-retry]').onclick=()=>load(true);buildCategories();grid.innerHTML='<div class="tn-library-empty"><b>Forløbene kunne ikke åbnes lige nu.</b><br>Du kan stadig bruge <b>Åbn forløb fra disk…</b> ovenfor.</div>';};
       const load=async(force=false)=>{status.innerHTML='<strong>Åbner biblioteket …</strong><span>Et øjeblik</span>';grid.replaceChildren();try{catalog=await this.libraryManager.loadCatalog({force});rebuildCategoryDefs();if(!categoryDefs.some(entry=>entry.id===activeCategory))activeCategory='all';catalog.items.forEach(item=>item.categoryId=categoryOf(item));const grades=[...new Set(catalog.items.flatMap(item=>item.gradeLevels||[]).map(String).filter(Boolean))].sort((a,b)=>Number(a)-Number(b)||a.localeCompare(b,'da')),select=filters.querySelector('[data-library-grade]'),old=select.value;select.innerHTML='<option value="all">Alle klassetrin</option>'+grades.map(value=>`<option value="${TN.escapeHtml(value)}">${TN.escapeHtml(value)}. klasse</option>`).join('');if([...select.options].some(option=>option.value===old))select.value=old;const published=catalog.items.filter(item=>item.status==='published').length,coming=catalog.items.length-published;status.innerHTML=`<strong>${TN.escapeHtml(catalog.title)}</strong><span>${published} forløb klar${coming?` · ${coming} på vej`:''}</span>${catalog.stale?'<span>Viser den senest hentede oversigt</span>':''}`;buildCategories();paint();}catch(error){showRetry(error);}};
       filters.querySelector('[data-library-search]').oninput=TN.debounce(paint,90);filters.querySelector('[data-library-kind]').onchange=paint;filters.querySelector('[data-library-grade]').onchange=paint;filters.querySelector('[data-library-local]').onclick=()=>{this.modalManager.closeAll();this.requestCoursePackageImport();};buildCategories();await load(false);
@@ -11917,6 +11926,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
     const hasExplicitScope=widget=>{
       const mode=modeOf(widget);
       if(['all','group','fixed','rows','selection','explicit'].includes(mode))return true;
+      if(clean(widget?.type)==='student-card'&&clean(widget?.content?.datasetId)&&clean(widget?.content?.rowKey))return true;
       return !!(widget?.content?.studentScope?.kind&&widget.content.studentScope.kind!=='inherit');
     };
     const needsBoardScope=widget=>scopeSensitiveTypes.has(clean(widget?.type))&&!hasExplicitScope(widget);
@@ -51593,8 +51603,8 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
       this.allowedCache.set(cacheKey,result);
       return result;
     }
-    async filterEntries(entries,{rowKey=e=>e?.rowKey,name=e=>e?.title,object=e=>e?.object||{},sourceId=''}={}){
-      const active=await this.effective();
+    async filterEntries(entries,{rowKey=e=>e?.rowKey,name=e=>e?.title,object=e=>e?.object||{},sourceId='',scope=null}={}){
+      const active=scope||await this.effective();
       if(active.kind!=='group')return entries||[];
       const allowed=await this.allowed(active);
       if(!allowed)return entries||[];
@@ -63863,13 +63873,16 @@ async function resolveScope(app,groupId='',preferredSource=''){
   const all=app.relationManager.studentRows(source)||[];
   let entries=all;
   if(group){
-    const wanted=new Set((group.meta?.elevIds||[]).map(String));
-    const groupRows=app.relationManager.studentRows(group)||[];
-    const rowIds=new Set(groupRows.map(item=>String(item.rowKey)));
-    const names=new Set(groupRows.map(item=>clean(item.title).toLocaleLowerCase('da')));
-    entries=all.filter(item=>wanted.has(String(item.rowKey))||rowIds.has(String(item.rowKey))||names.has(clean(item.title).toLocaleLowerCase('da')));
+    const explicitScope={kind:'group',id:String(group.id||''),label:app.studentScope?.shortName?.(group)||group.name||'Hold',group};
+    entries=await app.studentScope?.filterEntries?.(all,{sourceId:source.id,scope:explicitScope})||[];
   }
-  return {group,source,entries,label:group?.name||'Alle elever'};
+  const unique=[],seen=new Set();
+  for(const entry of entries){
+    const key=String(entry?.rowKey??'');
+    if(!key||seen.has(key))continue;
+    seen.add(key);unique.push(entry);
+  }
+  return {group,source,entries:unique,label:group?.name||'Alle elever'};
 }
 
 async function saveCard(app,widget,scope,entry){
@@ -70401,6 +70414,109 @@ App.prototype.closeWidgetView=async function(id){
 TN.version='0.11.7-student-card-note-close-phase2';
 })(window.TavleNext);
 </script>
+
+
+<!-- Plan 2.0 · Elevkort fase 3: elevnotat gemmes uden global rerender · 2026-08-01 -->
+<script id="plan2-student-card-note-editor-phase3">
+(function(TN){
+'use strict';
+if(!TN || window.__plan2StudentCardNoteEditorPhase3) return;
+window.__plan2StudentCardNoteEditorPhase3=true;
+
+function install(app){
+  const manager=app?.widgetManager;
+  if(!manager || manager.__plan2StudentCardNoteEditorPhase3Installed) return false;
+  const original=manager.definition?.('note');
+  if(!original?.mount) return false;
+  manager.__plan2StudentCardNoteEditorPhase3Installed=true;
+
+  manager.register('note',{
+    ...original,
+    async mount(context){
+      const {widget,body,app}=context;
+      if(widget?.content?.closeMode!=='student-card-view') return original.mount(context);
+
+      const dataset=await app.dataManager.get(widget.content.notesDatasetId);
+      const row=dataset?.rows?.find(entry=>String(entry?.[0])===String(widget.content.noteId));
+      if(!dataset || !row){
+        body.innerHTML='<div class="tn-empty">Noten findes ikke længere.</div>';
+        return;
+      }
+
+      const root=document.createElement('div');
+      root.className='tn-note-editor';
+      const title=document.createElement('input');
+      const text=document.createElement('textarea');
+      title.value=row[4]||widget.title||'Note';
+      title.placeholder='Notetitel';
+      text.value=row[5]||'';
+      text.placeholder='Skriv note …';
+      root.append(title,text);
+      body.append(root);
+
+      let disposed=false;
+      const persist=async()=>{
+        if(disposed)return;
+        row[4]=title.value.trim()||'Note';
+        row[5]=text.value;
+        row[3]=TN.now();
+        dataset.updatedAt=TN.now();
+        widget.title=row[4];
+        widget.content=widget.content||{};
+        widget.content.title=row[4];
+        widget.updatedAt=TN.now();
+
+        /* Direkte persistens er bevidst: dataManager.update og
+           widgetManager.update udsender globale events, der ellers genmonterer
+           editoren og elevkortet under indtastning. */
+        await app.storage.put('datasets',dataset);
+        await app.storage.put('widgets',widget);
+
+        const frame=body.closest?.('[data-widget-id],.tn-widget');
+        const heading=frame?.querySelector?.('[data-widget-title],.tn-widget-title strong,.tn-widget-title');
+        if(heading && !heading.contains(title)) heading.textContent=widget.title;
+      };
+      const save=TN.debounce(()=>persist().catch(console.error),300);
+      title.addEventListener('input',save);
+      text.addEventListener('input',save);
+
+      return()=>{
+        disposed=true;
+        title.removeEventListener('input',save);
+        text.removeEventListener('input',save);
+        /* Gem den sidste værdi ved afmontering uden at udsende render-events. */
+        row[4]=title.value.trim()||'Note';
+        row[5]=text.value;
+        row[3]=TN.now();
+        dataset.updatedAt=TN.now();
+        widget.title=row[4];
+        widget.content=widget.content||{};
+        widget.content.title=row[4];
+        widget.updatedAt=TN.now();
+        Promise.all([
+          app.storage.put('datasets',dataset),
+          app.storage.put('widgets',widget)
+        ]).catch(console.error);
+      };
+    }
+  });
+  return true;
+}
+
+const previousRegisterDefaultWidgets=TN.registerDefaultWidgets;
+if(typeof previousRegisterDefaultWidgets==='function'){
+  TN.registerDefaultWidgets=function(app){
+    const result=previousRegisterDefaultWidgets.call(this,app);
+    install(app);
+    return result;
+  };
+}
+if(TN.runtime?.app) install(TN.runtime.app);
+try{TN.version='0.11.8-student-card-note-editor-phase3';}catch(_error){}
+})(window.TavleNext);
+</script>
+
+
 </body></html>`;
 }
 
@@ -78087,3 +78203,47 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
   catch(_error){}
 })(window.TavleNext);
 </script>
+<!-- Plan 2.0 · enkel bibliotekskort-test · 2026-08-02 -->
+<style id="plan-library-cards-simple-test-style">
+.tn-library-card{grid-template-rows:auto auto auto;gap:10px;padding:15px}
+.tn-library-card h3{font-size:19px;line-height:1.18}
+.tn-library-card p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;min-height:4.2em}
+.tn-library-card .tn-library-tags{display:none!important}
+.tn-library-card[data-library-openable="true"] .tn-library-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding-right:38px;color:var(--tn-muted);font-size:12px}
+.tn-library-card[data-library-openable="true"] .tn-library-meta span{padding:0;border:0;border-radius:0;background:transparent}
+.tn-library-card .tn-library-meta i{font-style:normal;opacity:.65}
+</style>
+<!-- Plan 2.0 · kompakte bibliotekskort-test · 2026-08-02 -->
+<style id="plan-library-cards-compact-test-style">
+.tn-library-grid{gap:10px}
+.tn-library-card{
+  grid-template-rows:auto auto auto;
+  gap:7px;
+  padding:12px 13px;
+}
+.tn-library-card h3{
+  font-size:18px;
+  line-height:1.16;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+}
+.tn-library-card p{
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:1;
+  overflow:hidden;
+  min-height:1.45em;
+  line-height:1.45;
+  white-space:normal;
+}
+.tn-library-card[data-library-openable="true"] .tn-library-meta{
+  min-height:1.2em;
+  padding-right:38px;
+}
+.tn-library-card .tn-library-meta span:not(:last-of-type),
+.tn-library-card .tn-library-meta i{
+  display:none!important;
+}
+</style>
