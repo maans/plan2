@@ -8,7 +8,15 @@
 
 **Plan 2.0 er lærerens arbejdsplads gennem skoleåret.**
 
-Åbn Plan 2.0 direkte i browseren. Der er ingen app, der skal installeres eller hentes. Her kan du samle forløb, undervisningsgange, tavler, materialer, aktiviteter, elevdata og kalenderkoblinger — og fortsætte arbejdet næste gang.
+Plan 2.0 kan åbnes direkte i browseren eller installeres som desktopudgave. Her kan du samle forløb, undervisningsgange, tavler, materialer, aktiviteter, elevdata og kalenderkoblinger — og fortsætte arbejdet næste gang.
+
+## Plan 2.0 til computer
+
+Desktopudgaven kan bruges offline, når programmet er installeret. Den opretter de samme Plan-filer som browserudgaven, så du kan begynde arbejdet ét sted og fortsætte det et andet.
+
+Du skal være online for at hente eller opdatere programmet og for at bruge indhold, der ligger på nettet.
+
+[**Hent eller opdatér desktopudgaven**](https://github.com/maans/plan2-desktop/releases/latest)
 
 ## Fra skoleår til tavle
 

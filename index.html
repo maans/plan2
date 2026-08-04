@@ -10269,6 +10269,9 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
 
 
+
+
+
 </body></html>`;
       return this.addWidget('html',{title:'Plan · indlejret',content:{html:wrapper,mediaId:null,source:'inline',trusted:true,planEmbed:true,appKind:'plan',name:'Plan-indlejret.html',embeddedSessionId:sessionId,planUrl:url.href},geometry:{width:860,height:600}});
     }
@@ -10660,7 +10663,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     }
     showHelp(){
       const controller=new AbortController(),signal=controller.signal,body=document.createElement('div');body.className='tn-help tn-plan-help';
-      body.innerHTML=`<section class="tn-plan-help-hero"><div class="tn-plan-help-hero-head"><div class="tn-plan-help-kicker">PLAN 2.0 · LÆRERENS ARBEJDSPLADS GENNEM SKOLEÅRET</div><button type="button" class="tn-plan-help-readme" data-help-readme title="Åbn Plans README på GitHub"><span aria-hidden="true">↗</span> README</button></div><h3>Hvad skal du gøre lige nu?</h3><p><b>Åbn den undervisning, du skal bruge i dag, eller vælg en opgave nedenfor.</b> Hjælpen giver korte svar og fører videre til det relevante værktøj.</p><div class="tn-plan-help-line">Plan 2.0 åbnes direkte i browseren. Dit arbejde gemmes løbende lokalt.</div></section>
+      body.innerHTML=`<section class="tn-plan-help-hero"><div class="tn-plan-help-hero-head"><div class="tn-plan-help-kicker">PLAN 2.0 · LÆRERENS ARBEJDSPLADS GENNEM SKOLEÅRET</div><button type="button" class="tn-plan-help-readme" data-help-readme title="Åbn Plans README"><span aria-hidden="true">↗</span> README</button></div><h3>Hvad skal du gøre lige nu?</h3><p><b>Åbn den undervisning, du skal bruge i dag, eller vælg en opgave nedenfor.</b> Hjælpen giver korte svar og fører videre til det relevante værktøj.</p><div class="tn-plan-help-line">Plan 2.0 åbnes direkte i browseren. Dit arbejde gemmes løbende lokalt.</div></section>
       <section class="tn-plan-help-quick"><article><b>1. Åbn dagens undervisning</b><span>Fortsæt seneste forløb, vælg næste session eller find en tavle.</span></article><article><b>2. Saml det, du skal bruge</b><span>Læg opgaver, links, filer, aktiviteter og elevdata på de relevante tavler.</span></article><article><b>3. Arbejd med eleverne</b><span>Åbn elevkort, faghold, grupper, fagsamtaler og standpunkter efter behov.</span></article><article><b>4. Tag backup</b><span>Gem en fil med hele Plan eller det aktuelle undervisningsforløb.</span></article></section>
       <section class="tn-plan-help-intents"><h3>Jeg vil …</h3><p>Vælg det, du står med. Plan åbner det relevante afsnit.</p><div><button data-help-jump="startup">Planlægge et undervisningsforløb</button><button data-help-jump="boards">Finde eller oprette en tavle</button><button data-help-jump="widgets">Lægge indhold på tavlen</button><button data-help-jump="zoom-focus">Præsentere én opgave tydeligt</button><button data-help-jump="data">Importere lister, Excel eller elevdata</button><button data-help-jump="students">Oprette Elevkort og bruge Elevstamdata</button><button data-help-jump="danish-workflow">Arbejde med dansk fra elevsvar til karakterer</button><button data-help-jump="leveling">Oprette faghold eller bruge niveaudeling</button><button data-help-jump="subject-conversations">Forberede og gennemføre fagsamtaler</button><button data-help-jump="danish-grades">Give standpunktskarakterer</button><button data-help-jump="groups">Danne arbejdsgrupper og gruppetavler</button><button data-help-jump="media">Samle billeder, video eller lyd</button><button data-help-jump="games">Bruge Timer, KaPardy eller Lykkehjul</button><button data-help-jump="web-html">Åbne web eller en HTML-app</button><button data-help-jump="course-backup">Tage Backup++, Backup+ eller dele en skabelon</button><button data-help-jump="storage">Frigøre plads eller redde en gemning</button><button data-help-jump="subject-courses">Opsætte et fagforløb (avanceret)</button></div></section>
       <div class="tn-plan-help-note"><b>Haubro Efterskole er en fiktiv demo.</b> Brug den til at undersøge elevkort, faghold, grupper, fagsamtaler, standpunkter, kalender, materialer og aktiviteter uden at arbejde med virkelige elevdata.</div>
@@ -10725,7 +10728,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       dialog=this.modalManager.open({title:'Hjælp til Plan',body,className:'tn-modal-wide tn-help-modal-shell',actions:[{label:'Skift tema · B',run:()=>{this.themeManager.cycle();return false;}}],onClose:()=>controller.abort()});dialog.modal.tabIndex=-1;
       bindRendered({openInitial:true});
       input.addEventListener('input',renderSearch,{signal});
-      body.addEventListener('click',event=>{const readme=event.target.closest('[data-help-readme]');if(readme){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();const url='https://github.com/maans/Plan2/blob/main/README.md';try{window.location.href=url;}catch(_){try{window.location.assign(url);}catch(__){this.toast(`README: ${url}`);}}return;}const jump=event.target.closest('[data-help-jump]');if(jump){event.preventDefault();jumpTo(jump.dataset.helpJump||jump.textContent);return;}const action=event.target.closest('[data-help-action]');if(action){event.preventDefault();launchAction(action.dataset.helpAction);return;}if(event.target.closest('[data-help-prev]')){event.preventDefault();move(-1);return;}if(event.target.closest('[data-help-next]')){event.preventDefault();move(1);}}, {signal});
+      body.addEventListener('click',event=>{const readme=event.target.closest('[data-help-readme]');if(readme){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();if(typeof TN.openPlanReadme==='function'){void TN.openPlanReadme(this);}else{const url='https://github.com/maans/Plan2/blob/main/README.md';try{window.location.href=url;}catch(_){try{window.location.assign(url);}catch(__){this.toast(`README: ${url}`);}}}return;}const jump=event.target.closest('[data-help-jump]');if(jump){event.preventDefault();jumpTo(jump.dataset.helpJump||jump.textContent);return;}const action=event.target.closest('[data-help-action]');if(action){event.preventDefault();launchAction(action.dataset.helpAction);return;}if(event.target.closest('[data-help-prev]')){event.preventDefault();move(-1);return;}if(event.target.closest('[data-help-next]')){event.preventDefault();move(1);}}, {signal});
       document.addEventListener('keydown',event=>{if(!topIsHelp())return;const typing=event.target===input||TN.isTypingTarget(event.target);if(typing){if(event.key==='ArrowDown'){event.preventDefault();event.stopPropagation();input.blur();mark();scrollSection(sections[currentIndex]);}else if(event.key==='Enter'){event.preventDefault();event.stopPropagation();const sec=sections[currentIndex];if(sec){sec.open=true;mark();scrollSection(sec);}}return;}if(!event.ctrlKey&&!event.metaKey&&!event.altKey&&!event.shiftKey&&String(event.key||'').toLocaleLowerCase('da')==='b'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();this.themeManager.cycle();return;}if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();const box=scrollBox(),amount=Math.max(60,Math.round((box?.clientHeight||500)*.32));box?.scrollTo({top:Math.max(0,(box.scrollTop||0)+(event.key==='ArrowDown'?amount:-amount)),behavior:'auto'});return;}if(event.key==='ArrowRight'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();const sec=sections[currentIndex];if(sec&&!sec.open){sec.open=true;mark();scrollSection(sec);}else move(1);return;}if(event.key==='ArrowLeft'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();const leaving=sections[currentIndex];if(leaving)leaving.open=false;if(currentIndex>0){currentIndex--;mark();scrollSection(sections[currentIndex],currentIndex===0?'top':'bottom');}else{mark();const box=scrollBox();box?.scrollTo({top:0,behavior:'auto'});}return;}if(event.key==='Enter'){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();const sec=sections[currentIndex];if(sec){sec.open=!sec.open;mark();scrollSection(sec);}return;}if(event.key==='Home'){event.preventDefault();currentIndex=0;sections[0]&&(sections[0].open=true);mark();scrollSection(sections[0]);return;}if(event.key==='End'){event.preventDefault();currentIndex=Math.max(0,sections.length-1);sections[currentIndex]&&(sections[currentIndex].open=true);mark();scrollSection(sections[currentIndex]);}}, {capture:true,signal});
       requestAnimationFrame(()=>{try{dialog.modal.focus({preventScroll:true});}catch(_){dialog.modal.focus();}mark();});
     }
@@ -44148,7 +44151,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
 <!-- index32_huskekort_slet_kun_i_matrix_SAFE: removes single-card delete button/shortcut from Træn view; deletion remains via Vælg/Slet multi-select in Huskekortmatrix overview. -->
 <!-- index33_huskekort_slet_i_rediger_modal_SAFE: adds safe Slet kort action inside Redigér/berig modal and stabilizes the editor modal layer on iPad/Safari. -->
 <script id="plan-pdf-manual-catalog-safe">
-/* index38_pdf_manual_catalog_VIEWER_SAFE: PDF-manual via catalog.json + built-in reader. No file:// PDF loading. */
+/* Plan 2.0 lærerhåndbog via catalog.json og indbygget PDF-læser. Lokal-først med online fallback. */
 (function(TN){
   'use strict';
   if(!TN || window.__planPdfManualCatalogViewerSafeApplied) return;
@@ -44178,9 +44181,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   function catalogCandidates(){
     const list=[];
     const add=url=>{ url=clean(url); if(url && !list.includes(url)) list.push(url); };
-    if(!isFileMode()){
-      try{ add(new URL('manualer/catalog.json', document.baseURI).href); }catch(_){ }
-    }
+    try{ add(new URL('manualer/catalog.json', document.baseURI).href); }catch(_){ }
     CATALOG_URLS.forEach(add);
     return list;
   }
@@ -44220,7 +44221,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
         if(urls.length) return {urls, title:clean(entry?.title) || DEFAULT_TITLE, catalogUrl:res.url || url};
       }catch(error){ lastError = error; }
     }
-    if(lastError) console.warn('Plan PDF-manual: katalog kunne ikke hentes, bruger fallback.', lastError);
+    if(lastError) console.warn('Plan Lærerhåndbog: katalog kunne ikke hentes, bruger fallback.', lastError);
     return null;
   }
 
@@ -44228,7 +44229,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     if(resolvedManualPromise) return resolvedManualPromise;
     resolvedManualPromise = (async()=>{
       const fromCatalog = await resolveFromCatalog();
-      const urls = fromCatalog?.urls?.length ? fromCatalog.urls : (isFileMode() ? DEFAULT_WEB_URLS : [localUrl(DEFAULT_RELATIVE_URL), ...DEFAULT_WEB_URLS]);
+      const urls = fromCatalog?.urls?.length ? fromCatalog.urls : [localUrl(DEFAULT_RELATIVE_URL), ...DEFAULT_WEB_URLS];
       const picked = await firstReachable(urls);
       return {url:picked.url || urls[0], title:fromCatalog?.title || DEFAULT_TITLE, catalogUrl:fromCatalog?.catalogUrl || null, bytes:picked.bytes};
     })();
@@ -44273,7 +44274,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     if(!instance?.addWidget){ window.open(manual.url, '_blank', 'noopener'); return; }
     instance.modalManager?.closeAll?.();
     instance.addWidget('pdf',{
-      title:'PDF-manual',
+      title:'Lærerhåndbog',
       content:{mediaId:null,url:manual.url,name:'Plan – Lærerhåndbog',page:1,scrollTop:0,scrollLeft:0,pageScroll:{},formData:{},scale:'page-width',viewer:'pdfjs'},
       geometry:{x:60,y:45,width:1040,height:720}
     });
@@ -44308,7 +44309,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
 
   async function renderManualInto(container, manual){
     const pdfjs = await loadPdfRuntime();
-    container.innerHTML = '<div class="tn-plan-manual-loading">Åbner manualen ...</div>';
+    container.innerHTML = '<div class="tn-plan-manual-loading">Åbner lærerhåndbogen ...</div>';
     const source = manual.bytes ? {data:manual.bytes.slice(0)} : {url:manual.url};
     const pdf = await pdfjs.getDocument(source).promise;
     const viewer = document.createElement('div');
@@ -44361,7 +44362,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
           });
           pageDiv.append(button);
         }
-      }catch(error){ console.warn('Plan PDF-manual: links kunne ikke læses på side '+pageNumber, error); }
+      }catch(error){ console.warn('Plan Lærerhåndbog: links kunne ikke læses på side '+pageNumber, error); }
     }
 
     for(let pageNumber=1; pageNumber<=pdf.numPages; pageNumber++){
@@ -44375,7 +44376,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     ensureStyle();
     const body=document.createElement('div');
     body.className='tn-plan-manual-view';
-    body.innerHTML = '<div class="tn-plan-manual-frame"><div class="tn-plan-manual-loading">Åbner manualen ...</div></div>';
+    body.innerHTML = '<div class="tn-plan-manual-frame"><div class="tn-plan-manual-loading">Åbner lærerhåndbogen ...</div></div>';
     const frame=body.querySelector('.tn-plan-manual-frame');
     const modalRef = instance.modalManager.open({
       title:DEFAULT_TITLE,
@@ -44461,7 +44462,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
       if(browserLink) browserLink.href=manual.url;
       return renderManualInto(frame, manual);
     }).catch(error=>{
-      console.error('Plan PDF-manual kunne ikke åbnes', error);
+      console.error('Plan Lærerhåndbog kunne ikke åbnes', error);
       if(frame) frame.innerHTML='<div class="tn-plan-manual-loading">Lærerhåndbogen kunne ikke hentes fra nettet. Tjek internetforbindelsen, og prøv igen.</div>';
     });
   }
@@ -44479,17 +44480,17 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     if(!instance?.helpRegistry || instance.__planPdfManualCatalogHelpPatched) return;
     instance.__planPdfManualCatalogHelpPatched=true;
     ensureStyle();
-    setEntry(instance,'pdf-manualer','PDF-manualer','Åbn lærermanualen uden at ændre tavlen',
+    setEntry(instance,'pdf-manualer','Lærerhåndbog','Åbn lærerhåndbogen uden at ændre tavlen',
       '<div class="tn-help-manual-box">'+
-        '<h4>PDF-manual til læreren</h4>'+ 
+        '<h4>Plan 2.0 · Lærerhåndbog</h4>'+ 
         '<p>Brug manualen som rolig læsehjælp ved siden af tavlen. Den kan også lægges på tavlen, hvis du vil bruge den i en introduktion eller et kursus.</p>'+ 
         '<div class="tn-plan-manual-actions">'+
-          '<button type="button" class="primary" data-plan-manual-open="overlay">Åbn PDF-manual</button>'+ 
-          '<button type="button" data-plan-manual-open="widget">Læg manual på tavlen</button>'+ 
+          '<button type="button" class="primary" data-plan-manual-open="overlay">Åbn lærerhåndbogen</button>'+ 
+          '<button type="button" data-plan-manual-open="widget">Læg lærerhåndbogen på tavlen</button>'+ 
         '</div>'+ 
       '</div>',
-      'pdf manual lærermanual kapardy huskekort hjælp tavlen');
-    const wanted=['overview','startup','library','first-course','course-navigation','calendar','boards','widgets','windows','zoom-focus','shortcuts','tools','pdf-manualer','import','data','datacenter','students','danish-workflow','leveling','my-danish-hold','groups','cards','subject-conversations','danish-grades','games','media','picture-flip','pdf','web-html','course-backup','storage','trash','appearance','heavy','subject-courses','rescue-recipe'];
+      'lærerhåndbog manual pdf hjælp tavlen arbejdsgange');
+    const wanted=['overview','startup','library','first-course','course-navigation','calendar','boards','widgets','windows','zoom-focus','shortcuts','tools','desktop','pdf-manualer','import','data','datacenter','students','danish-workflow','leveling','my-danish-hold','groups','cards','subject-conversations','danish-grades','games','media','picture-flip','pdf','web-html','course-backup','storage','trash','appearance','heavy','subject-courses','rescue-recipe'];
     const order=new Map(wanted.map((id,index)=>[id,index]));
     instance.helpRegistry.entries.sort((a,b)=>(order.has(a.id)?order.get(a.id):9999)-(order.has(b.id)?order.get(b.id):9999));
   }
@@ -44514,7 +44515,7 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
         top.type='button';
         top.className='tn-plan-help-readme tn-plan-help-pdf-top';
         top.dataset.planManualOpen='overlay';
-        top.innerHTML='<span aria-hidden="true">↗</span> PDF-manual';
+        top.innerHTML='<span aria-hidden="true">↗</span> Lærerhåndbog';
         actions.appendChild(top);
       }
     }
@@ -44524,12 +44525,12 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
       const overlay=document.createElement('button');
       overlay.type='button';
       overlay.dataset.planManualOpen='overlay';
-      overlay.textContent='Åbn PDF-manual';
+      overlay.textContent='Åbn lærerhåndbogen';
       grid.appendChild(overlay);
       const widget=document.createElement('button');
       widget.type='button';
       widget.dataset.planManualOpen='widget';
-      widget.textContent='Læg manual på tavlen';
+      widget.textContent='Læg lærerhåndbogen på tavlen';
       grid.appendChild(widget);
     }
   }
@@ -47816,7 +47817,7 @@ async function activateGuideShortcut(app,key){
   }
   await openGuideFromLibrary(app,definition);
 }
-const ENTRIES=[["overview","Kom godt i gang","<p>Begynd med den undervisning, der ligger nærmest. Vælg et forløb, fortsæt til en session og åbn den tavle, du skal bruge.</p><div class='tn-help-see'><b>Se også:</b><button data-help-jump='planoverview'>Planoversigt</button><button data-help-jump='course-structure'>Fire niveauer</button></div>","start første gang"],["course-structure","Fire niveauer","<p><b>Undervisningsforløb → Sessioner → Tavler → Widgets.</b> Den øverste sti viser, hvor du arbejder lige nu.</p><div class='tn-help-key-grid'><div><b>Forløb</b><span>Fag, skoleår eller længere emne.</span></div><div><b>Session</b><span>Periode eller undervisningsgang.</span></div><div><b>Tavle</b><span>Arbejdsfladen.</span></div><div><b>Widget</b><span>Indholdet på tavlen.</span></div></div>","forløb session tavle widget"],["planoverview","Planoversigt","<p>Oversigtsikonet i den øverste værktøjslinje åbner Planoversigt. Vælg et område i den foldbare menu.</p><ul class='tn-help-list'><li><b>Mit arbejde:</b> Forløb, Bibliotek og Sessioner.</li><li><b>Elever og fælles grundlag:</b> Fælles data, Datakilder og Sammenhænge.</li><li><b>Materialer og data:</b> Sessionsdata, Bearbejd data og Medier.</li><li><b>Backup og sikkerhed:</b> Gendan samt Lager og sikkerhed.</li></ul><p>Luk med titlen <b>Planoversigt</b> eller ×.</p>","planoversigt områder menu"],["course-planning","Forløb og sessioner","<p><b>Forløb</b> er indgangen til undervisningsforløbene. Vælg et forløb, fortsæt til dets sessioner og åbn en tavle.</p><p><b>Sessioner</b> viser de enkelte arbejdsperioder og undervisningsgange.</p>","forløb sessioner"],["library","Bibliotek","<p>Bibliotek ligger under Mit arbejde. Hent et forløb eller materiale som en lokal kopi, og arbejd videre uden at ændre kilden i Bibliotek.</p>","bibliotek lokal kopi"],["data","Fælles data og datakilder","<p><b>Fælles data</b> bruges på tværs af sessioner. <b>Datakilder</b> viser de importerede datasæt og giver adgang til visning, bearbejdning og eksport.</p>","fælles data datakilder"],["relations","Sammenhænge","<p>Sammenhænge viser antal datasæt og forbindelser mellem data, sessioner, tavler og widgets.</p><ul class='tn-help-list'><li>Vælg et datasæt for at åbne det.</li><li>Vælg en forbindelse for at gå til den relevante tavle eller widget.</li><li>0 forbindelser betyder, at datasættet ikke bruges på en tavle eller i en widget.</li></ul>","sammenhænge forbindelser datasæt"],["rename-data","Omdøb et datasæt i Plan","<p>Brug Omdøb, når et importeret navn er uklart, for langt eller viser danske tegn forkert. Navnet ændres i Plan; den oprindelige fil på computeren eller i skyen beholder sit navn.</p>","omdøb datasæt navn"],["materials","Sessionsdata, bearbejdning og medier","<p><b>Sessionsdata</b> hører til den aktuelle session. <b>Bearbejd data</b> laver en ny visning eller kopi uden at ændre kilden. <b>Medier</b> samler PDF, billeder, lyd og video.</p>","sessionsdata bearbejd data medier"],["calendar","Planlæg med kalenderen","<p>Kalendere importeres som Fælles data. Sessioner og tavler kan knyttes til de datoer, hvor de skal bruges. <b>K</b> åbner eller lukker kalenderen på tavlen.</p>","kalender ics kobling"],["students","Elever og fælles oplysninger","<p>Elevstamdata gemmes normalt som Fælles data, så de kan bruges i hold, elevkort, samtaler og vurderinger på tværs af sessioner.</p>","elevstamdata elever"],["leveling","Niveaudeling, hold og grupper","<p>Elevens besvarelser og lærerens vurderinger samles uden at blive blandet sammen. Niveauhold opdaterer de visninger, der bruger dem; arbejdsgrupper kan dannes uden at ændre niveauholdene.</p>","niveaudeling hold grupper"],["conversations","Elevsamtaler og karakterer","<p>Elevens importerede svar bevares, mens lærerens noter og vurderinger gemmes særskilt. Op/ned skifter elev; venstre/højre skifter fane eller termin.</p>","elevsamtale karakterer"],["games","Huskekort og KaPardy","<p>Huskekort kan vises som matrix eller ét ad gangen. KaPardy kan åbnes fra et gemt spil eller oprettes fra en spørgsmålsbank.</p>","huskekort kapardy"],["backup","Gem og gendan","<p><b>Gendan</b> viser gendannelsespunkter. Åbn et punkt som kopi, når det aktive arbejde skal bevares. <b>Lager og sikkerhed</b> samler backup, pladsforbrug og sikker oprydning.</p>","backup gendan lager sikkerhed"],["share","Del og genbrug","<p>Et undervisningsforløb kan pakkes, flyttes eller deles. Biblioteksindhold og tidligere forløb åbnes som lokale kopier, som kan tilpasses til et nyt skoleår.</p>","del genbrug"],["shortcuts","Tastaturgenveje","<div class='tn-help-key-grid'><div><b>Venstre / højre</b><span>Skift tavle</span></div><div><b>Shift + venstre / højre</b><span>Skift session</span></div><div><b>K</b><span>Kalender</span></div><div><b>P eller R</b><span>Præsentation</span></div><div><b>F</b><span>Fokus</span></div><div><b>Cmd/Ctrl + G</b><span>Gem nu</span></div></div><details class='tn-help-shortcut-details'><summary>Vis alle registrerede tastaturgenveje</summary><div id='tnShortcutHelp'></div></details>","tastatur genvej"],["troubleshoot","Når noget ser forkert ud","<p>Åbn datasættet igen fra Planoversigt, brug Redningsbæltet til skjulte vinduer, eller vælg et gendannelsespunkt. Nulstil kun lageret, når det nødvendige er sikkerhedskopieret.</p>","fejl redning lager"]];
+const ENTRIES=[["overview","Kom godt i gang","<p>Begynd med den undervisning, der ligger nærmest. Vælg et forløb, fortsæt til en session og åbn den tavle, du skal bruge.</p><div class='tn-help-see'><b>Se også:</b><button data-help-jump='planoverview'>Planoversigt</button><button data-help-jump='course-structure'>Fire niveauer</button></div>","start første gang"],["course-structure","Fire niveauer","<p><b>Undervisningsforløb → Sessioner → Tavler → Widgets.</b> Den øverste sti viser, hvor du arbejder lige nu.</p><div class='tn-help-key-grid'><div><b>Forløb</b><span>Fag, skoleår eller længere emne.</span></div><div><b>Session</b><span>Periode eller undervisningsgang.</span></div><div><b>Tavle</b><span>Arbejdsfladen.</span></div><div><b>Widget</b><span>Indholdet på tavlen.</span></div></div>","forløb session tavle widget"],["planoverview","Planoversigt","<p>Oversigtsikonet i den øverste værktøjslinje åbner Planoversigt. Vælg et område i den foldbare menu.</p><ul class='tn-help-list'><li><b>Mit arbejde:</b> Forløb, Bibliotek og Sessioner.</li><li><b>Elever og fælles grundlag:</b> Fælles data, Datakilder og Sammenhænge.</li><li><b>Materialer og data:</b> Sessionsdata, Bearbejd data og Medier.</li><li><b>Backup og sikkerhed:</b> Gendan samt Lager og sikkerhed.</li></ul><p>Luk med titlen <b>Planoversigt</b> eller ×.</p>","planoversigt områder menu"],["course-planning","Forløb og sessioner","<p><b>Forløb</b> er indgangen til undervisningsforløbene. Vælg et forløb, fortsæt til dets sessioner og åbn en tavle.</p><p><b>Sessioner</b> viser de enkelte arbejdsperioder og undervisningsgange.</p>","forløb sessioner"],["library","Bibliotek","<p>Bibliotek ligger under Mit arbejde. Hent et forløb eller materiale som en lokal kopi, og arbejd videre uden at ændre kilden i Bibliotek.</p>","bibliotek lokal kopi"],["data","Fælles data og datakilder","<p><b>Fælles data</b> bruges på tværs af sessioner. <b>Datakilder</b> viser de importerede datasæt og giver adgang til visning, bearbejdning og eksport.</p>","fælles data datakilder"],["relations","Sammenhænge","<p>Sammenhænge viser antal datasæt og forbindelser mellem data, sessioner, tavler og widgets.</p><ul class='tn-help-list'><li>Vælg et datasæt for at åbne det.</li><li>Vælg en forbindelse for at gå til den relevante tavle eller widget.</li><li>0 forbindelser betyder, at datasættet ikke bruges på en tavle eller i en widget.</li></ul>","sammenhænge forbindelser datasæt"],["rename-data","Omdøb et datasæt i Plan","<p>Brug Omdøb, når et importeret navn er uklart, for langt eller viser danske tegn forkert. Navnet ændres i Plan; den oprindelige fil på computeren eller i skyen beholder sit navn.</p>","omdøb datasæt navn"],["materials","Sessionsdata, bearbejdning og medier","<p><b>Sessionsdata</b> hører til den aktuelle session. <b>Bearbejd data</b> laver en ny visning eller kopi uden at ændre kilden. <b>Medier</b> samler PDF, billeder, lyd og video.</p>","sessionsdata bearbejd data medier"],["calendar","Planlæg med kalenderen","<p>Kalendere importeres som Fælles data. Sessioner og tavler kan knyttes til de datoer, hvor de skal bruges. <b>K</b> åbner eller lukker kalenderen på tavlen.</p>","kalender ics kobling"],["students","Elever og fælles oplysninger","<p>Elevstamdata gemmes normalt som Fælles data, så de kan bruges i hold, elevkort, samtaler og vurderinger på tværs af sessioner.</p>","elevstamdata elever"],["leveling","Niveaudeling, hold og grupper","<p>Elevens besvarelser og lærerens vurderinger samles uden at blive blandet sammen. Niveauhold opdaterer de visninger, der bruger dem; arbejdsgrupper kan dannes uden at ændre niveauholdene.</p>","niveaudeling hold grupper"],["conversations","Elevsamtaler og karakterer","<p>Elevens importerede svar bevares, mens lærerens noter og vurderinger gemmes særskilt. Op/ned skifter elev; venstre/højre skifter fane eller termin.</p>","elevsamtale karakterer"],["games","Huskekort og KaPardy","<p>Huskekort kan vises som matrix eller ét ad gangen. KaPardy kan åbnes fra et gemt spil eller oprettes fra en spørgsmålsbank.</p>","huskekort kapardy"],["backup","Gem og gendan","<p><b>Gendan</b> viser gendannelsespunkter. Åbn et punkt som kopi, når det aktive arbejde skal bevares. <b>Lager og sikkerhed</b> samler backup, pladsforbrug og sikker oprydning.</p>","backup gendan lager sikkerhed"],["share","Del og genbrug","<p>Et undervisningsforløb kan pakkes, flyttes eller deles. Biblioteksindhold og tidligere forløb åbnes som lokale kopier, som kan tilpasses til et nyt skoleår.</p>","del genbrug"],["shortcuts","Tastaturgenveje","<div class='tn-help-key-grid'><div><b>Venstre / højre</b><span>Skift tavle</span></div><div><b>Shift + venstre / højre</b><span>Skift session</span></div><div><b>K</b><span>Kalender</span></div><div><b>P eller R</b><span>Præsentation</span></div><div><b>F</b><span>Fokus</span></div><div><b>Cmd/Ctrl + G</b><span>Gem nu</span></div></div><details class='tn-help-shortcut-details'><summary>Vis alle registrerede tastaturgenveje</summary><div id='tnShortcutHelp'></div></details>","tastatur genvej"],["desktop","Plan 2.0 til computer","<p><b>Desktopudgaven kan bruges offline, når den er installeret.</b> Du kan derfor åbne Plan, arbejde med tavler og gemme dit arbejde uden internetforbindelse.</p><ul class='tn-help-list'><li><b>Samme Plan-filer:</b> Filer fra desktopudgaven genkendes af systemet og kan åbnes i browserudgaven – og omvendt.</li><li><b>Fortsæt på tværs:</b> Begynd i browseren og fortsæt på computeren, eller flyt arbejdet den anden vej.</li><li><b>Internet bruges kun efter behov:</b> Du skal være online for at hente eller opdatere programmet og for at åbne indhold, der ligger på nettet.</li></ul><div class='tn-plan-manual-actions'><button type='button' class='primary' data-plan-desktop-download>Hent eller opdatér desktopudgaven</button></div>","desktop computer offline plan-filer browser download opdatering"],["troubleshoot","Når noget ser forkert ud","<p>Åbn datasættet igen fra Planoversigt, brug Redningsbæltet til skjulte vinduer, eller vælg et gendannelsespunkt. Nulstil kun lageret, når det nødvendige er sikkerhedskopieret.</p>","fejl redning lager"]];
 function replaceHelp(app){
   const reg=app && app.helpRegistry;
   if(!reg || !Array.isArray(reg.entries)) return false;
@@ -47853,7 +47854,7 @@ function decorate(){
       const links=[["course-planning","Planlæg skoleåret"],["planoverview","Planoversigt"],["library","Bibliotek"],["data","Fælles data og datakilder"],["relations","Sammenhænge"],["leveling","Niveaudeling, hold og grupper"],["conversations","Elevsamtaler"],["rename-data","Omdøb et datasæt"],["games","Huskekort og KaPardy"],["share","Del og genbrug"],["backup","Gem og gendan"],["troubleshoot","Når noget ser forkert ud"]];
       grid.innerHTML=links.map(function(pair){return '<button type="button" data-help-jump="'+pair[0]+'">'+pair[1]+'</button>';}).join('')+
         '<button type="button" class="tn-help-guide-action onboarding" data-guide-action="onboarding"><span><b>Kom godt i gang med Plan 2.0</b><small>Åbn eller hent onboarding-guiden</small></span></button>'+
-        '<button type="button" class="tn-help-guide-action migration" data-guide-action="migration"><span><b>Gør Haubro-demoen til dit eget</b><small>Åbn eller hent migrationsguiden</small></span></button>';
+        '<button type="button" class="tn-help-guide-action migration" data-help-jump="desktop"><span><b>Hent Plan 2.0 til computer</b><small>Offline og kompatible Plan-filer</small></span></button>';
       grid.querySelectorAll('[data-guide-action]').forEach(function(button){
         button.onclick=function(event){
           event.preventDefault();event.stopPropagation();
@@ -66458,11 +66459,16 @@ try{document.title='index-sikkerhed-fase4b-v6-planpakkeimport-repareret'}catch{}
   if(!App||App.prototype.__plan101CenteredSwitchers)return;
   App.prototype.__plan101CenteredSwitchers=true;
 
-  function triggerFor(kind){
-    const raw=kind==='sessions'
-      ? (document.getElementById('tnSessionTitle')||document.querySelector('.tn-topbar [data-action="sessions"]')||document.querySelector('[data-action="sessions"]'))
-      : (document.getElementById('tnBoardTitle')||document.getElementById('tnBoardPosition')||document.querySelector('.tn-topbar [data-action="boards"]')||document.querySelector('[data-action="boards"]'));
-    return raw?.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
+  function triggerTargets(kind){
+    const selector=kind==='sessions'
+      ? '#tnSessionTitle,.tn-topbar [data-action="sessions"],.tn-toolbar [data-action="sessions"]'
+      : '#tnBoardTitle,#tnBoardPosition,.tn-topbar [data-action="boards"],.tn-toolbar [data-action="boards"],.tn-mobile-board-nav [data-action="boards"]';
+    const targets=[];
+    for(const raw of document.querySelectorAll(selector)){
+      const target=raw.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
+      if(target&&!targets.includes(target))targets.push(target);
+    }
+    return targets;
   }
 
   function closeSwitcher(){
@@ -66472,8 +66478,8 @@ try{document.title='index-sikkerhed-fase4b-v6-planpakkeimport-repareret'}catch{}
   }
 
   function isTriggerTarget(target){
-    const s=triggerFor('sessions'),b=triggerFor('boards');
-    return !!((s&&(s===target||s.contains?.(target)))||(b&&(b===target||b.contains?.(target))));
+    return [...triggerTargets('sessions'),...triggerTargets('boards')]
+      .some(trigger=>trigger===target||trigger.contains?.(target));
   }
 
   function bindDismiss(pop){
@@ -70280,6 +70286,7 @@ function finalPlanVisitCard(manifest={}){
  const categories=resources.categories||{};
  const categoryRows=Object.entries(categories).sort((a,b)=>a[0].localeCompare(b[0],'da')).map(([name,count])=>`<tr><th>${escHtml(name)}</th><td>${Number(count)||0}</td></tr>`).join('')||'<tr><th>Kategorier</th><td>Ingen</td></tr>';
  return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${escHtml(title)} · Plan 2.0</title><style>:root{color-scheme:light dark;--bg:#091221;--panel:#14233a;--panel2:#1d304c;--ink:#f4f7fb;--muted:#a9b6c8;--line:#304867;--accent:#27c2df}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(960px,calc(100% - 28px));margin:28px auto}.hero,.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:24px}.hero h1{margin:4px 0 8px;line-height:1.08}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:13px}.stat b{display:block;font-size:1.45rem}.stat span{color:var(--muted);font-size:.9rem}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel h2{margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{padding:8px 0;border-bottom:1px solid var(--line);text-align:left}td{text-align:right;font-weight:800}.status{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;background:var(--panel2)}a{color:var(--accent)}@media(max-width:700px){.columns{grid-template-columns:1fr}}</style></head><body><main class="shell"><section class="hero"><div class="eyebrow">${escHtml(typeLabel)}</div><h1>${escHtml(title)}</h1><p class="muted">Dette visitkort er genereret fra pakkens endelige manifest efter samling af Plan-state og ressourcer.</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(plan.datasets)||0}</b><span>datasæt i Plan-state</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer i alt</span></div><div class="stat"><b>${Number(resources.mediaFiles)||0}</b><span>almindelige lokale filer</span></div><div class="stat"><b>${Number(resources.webResources)||0}</b><span>internetressourcer</span></div><div class="stat"><b>${Number(resources.studentPortraits)||0}</b><span>elevbilleder</span></div><div class="stat"><b>${Number(resources.activeDatasources||resources.studentDatasets)||0}</b><span>datakilder</span></div></div><span class="status">Elevdata: <b>${includesStudentData?'medtaget':'ikke medtaget'}</b> · Elevbilleder: <b>${includesPortraits?'medtaget':'ikke medtaget'}</b> · Ressourcer: <b>${includesResources?'medtaget':'ikke medtaget'}</b></span></section><div class="columns"><section class="panel"><h2>Pakkens deklarerede indhold</h2><table><tr><th>Backup-type</th><td>${escHtml(typeLabel)}</td></tr><tr><th>Ressourceomfang</th><td>${escHtml(manifest.resourceScopeLabel||manifest.resourceScope||'—')}</td></tr><tr><th>Advarsler</th><td>${Number(resources.warnings)||0}</td></tr><tr><th>Oprettet</th><td>${escHtml(created||'—')}</td></tr></table></section><section class="panel"><h2>Ressourcekategorier</h2><table>${categoryRows}</table></section></div><section class="panel" style="margin-top:14px"><h2>Import</h2><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcernes detaljer findes også i <code>resources/manifest.json</code>.</p><p><a href="https://plan2.måns.dk/">Åbn Plan 2.0</a></p></section></main>
+
 
 
 </body></html>`;
@@ -75447,11 +75454,16 @@ if(!install()){
   if(!App||App.prototype.__plan102FocusedSwitchers)return;
   App.prototype.__plan102FocusedSwitchers=true;
 
-  function triggerFor(kind){
-    const raw=kind==='sessions'
-      ? (document.getElementById('tnSessionTitle')||document.querySelector('.tn-topbar [data-action="sessions"]')||document.querySelector('[data-action="sessions"]'))
-      : (document.getElementById('tnBoardTitle')||document.getElementById('tnBoardPosition')||document.querySelector('.tn-topbar [data-action="boards"]')||document.querySelector('[data-action="boards"]'));
-    return raw?.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
+  function triggerTargets(kind){
+    const selector=kind==='sessions'
+      ? '#tnSessionTitle,.tn-topbar [data-action="sessions"]'
+      : '#tnBoardTitle,#tnBoardPosition,.tn-topbar [data-action="boards"],.tn-mobile-board-nav [data-action="boards"]';
+    const targets=[];
+    for(const raw of document.querySelectorAll(selector)){
+      const target=raw.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
+      if(target&&!targets.includes(target))targets.push(target);
+    }
+    return targets;
   }
 
   function closeSwitcher(){
@@ -75462,8 +75474,8 @@ if(!install()){
   }
 
   function isTriggerTarget(target){
-    const s=triggerFor('sessions'),b=triggerFor('boards');
-    return !!((s&&(s===target||s.contains?.(target)))||(b&&(b===target||b.contains?.(target))));
+    return [...triggerTargets('sessions'),...triggerTargets('boards')]
+      .some(trigger=>trigger===target||trigger.contains?.(target));
   }
 
   function bindTap(button,handler){
@@ -75493,6 +75505,8 @@ if(!install()){
   function mount(pop){
     const scrim=document.createElement('div');
     scrim.className='tn-switcher-scrim';
+    const topbar=document.querySelector('#tavleNextApp .tn-topbar');
+    if(topbar) scrim.style.top=Math.ceil(topbar.getBoundingClientRect().bottom)+'px';
     document.body.append(scrim,pop);
     pop.style.left='50%';
     pop.style.top=matchMedia('(max-width:700px)').matches?'145px':'160px';
@@ -78288,3 +78302,190 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
   display:none!important;
 }
 </style>
+<!-- Plan 2.0 · Dokumentationslag: lokal README og desktopafsnit · 2026-08-04 -->
+<script id="plan2-documentation-local-readme-desktop-v1">
+(function(TN){
+  'use strict';
+  if(!TN || window.__plan2DocumentationLocalReadmeDesktopV1)return;
+  window.__plan2DocumentationLocalReadmeDesktopV1=true;
+  const README_ONLINE='https://raw.githubusercontent.com/maans/Plan2/main/README.md';
+  const DESKTOP_RELEASE='https://github.com/maans/plan2-desktop/releases/latest';
+  const clean=value=>String(value??'').trim();
+  const esc=value=>TN.escapeHtml?TN.escapeHtml(String(value??'')):String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  function readmeCandidates(){
+    const urls=[];
+    const add=url=>{url=clean(url);if(url&&!urls.includes(url))urls.push(url);};
+    try{add(new URL('README.md',document.baseURI).href);}catch(_){add('README.md');}
+    add(README_ONLINE);
+    return urls;
+  }
+  function inlineMarkdown(text){
+    return esc(text)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_m,label,url)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>')
+      .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/`([^`]+)`/g,'<code>$1</code>');
+  }
+  function markdownToHtml(markdown){
+    const lines=String(markdown||'').replace(/\r/g,'').split('\n');
+    const out=[];let list=null;
+    const closeList=()=>{if(list){out.push('</'+list+'>');list=null;}};
+    for(const raw of lines){
+      const line=raw.trimEnd();
+      if(!line.trim()){closeList();continue;}
+      let m=line.match(/^(#{1,4})\s+(.+)$/);
+      if(m){closeList();const n=m[1].length;out.push('<h'+n+'>'+inlineMarkdown(m[2])+'</h'+n+'>');continue;}
+      m=line.match(/^[-*]\s+(.+)$/);
+      if(m){if(list!=='ul'){closeList();list='ul';out.push('<ul>');}out.push('<li>'+inlineMarkdown(m[1])+'</li>');continue;}
+      m=line.match(/^\d+[.)]\s+(.+)$/);
+      if(m){if(list!=='ol'){closeList();list='ol';out.push('<ol>');}out.push('<li>'+inlineMarkdown(m[1])+'</li>');continue;}
+      if(/^>\s?/.test(line)){closeList();out.push('<blockquote>'+inlineMarkdown(line.replace(/^>\s?/,''))+'</blockquote>');continue;}
+      if(/^<[^>]+>/.test(line)){continue;}
+      closeList();out.push('<p>'+inlineMarkdown(line.trim())+'</p>');
+    }
+    closeList();return out.join('');
+  }
+  async function fetchReadme(){
+    let lastError=null;
+    for(const url of readmeCandidates()){
+      try{
+        const response=await fetch(url,{cache:'no-store',headers:{Accept:'text/markdown,text/plain;q=0.9,*/*;q=0.1'}});
+        if(!response.ok)throw new Error('Serveren svarede '+response.status);
+        return {text:await response.text(),url:response.url||url,local:url!==README_ONLINE};
+      }catch(error){lastError=error;}
+    }
+    throw lastError||new Error('README kunne ikke åbnes');
+  }
+  TN.openPlanReadme=async function(instance=TN.runtime?.app){
+    if(!instance?.modalManager){window.open(README_ONLINE,'_blank','noopener');return;}
+    const body=document.createElement('div');
+    body.className='tn-plan-readme-view';
+    body.innerHTML='<div class="tn-plan-manual-loading">Åbner README ...</div>';
+    instance.modalManager.open({title:'Plan 2.0 · README',body,className:'tn-modal-wide',actions:[]});
+    try{
+      const result=await fetchReadme();
+      body.innerHTML='<article class="tn-plan-readme-article">'+markdownToHtml(result.text)+'</article>';
+    }catch(error){
+      console.error('Plan README kunne ikke åbnes',error);
+      body.innerHTML='<div class="tn-plan-help-note"><b>README kunne ikke åbnes.</b> Den lokale fil blev ikke fundet, og onlineudgaven kunne ikke hentes. Hjælp kan fortsat bruges.</div>';
+    }
+  };
+  function openDesktopDownload(){
+    try{window.open(DESKTOP_RELEASE,'_blank','noopener');}
+    catch(_){try{window.location.href=DESKTOP_RELEASE;}catch(__){TN.runtime?.app?.toast?.('Download: '+DESKTOP_RELEASE);}}
+  }
+  document.addEventListener('click',event=>{
+    const download=event.target.closest?.('[data-plan-desktop-download]');
+    if(!download)return;
+    event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();
+    openDesktopDownload();
+  },true);
+  if(!document.getElementById('plan2DocumentationLocalReadmeDesktopStyle')){
+    const style=document.createElement('style');
+    style.id='plan2DocumentationLocalReadmeDesktopStyle';
+    style.textContent='.tn-plan-readme-view{padding:4px}.tn-plan-readme-article{max-width:900px;margin:0 auto;line-height:1.58}.tn-plan-readme-article h1,.tn-plan-readme-article h2,.tn-plan-readme-article h3{line-height:1.2;margin:1.1em 0 .45em}.tn-plan-readme-article p{margin:.7em 0}.tn-plan-readme-article li{margin:.35em 0}.tn-plan-readme-article blockquote{margin:1em 0;padding:10px 14px;border-left:5px solid var(--tn-accent);background:var(--tn-panel2);border-radius:10px}.tn-plan-readme-article code{padding:1px 5px;border-radius:5px;background:var(--tn-panel2)}';
+    document.head.appendChild(style);
+  }
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · Hjælp-handlingslinks + sikker toggle · ommer 3 -->
+<style id="plan2-help-actions-toggle-v3-style">
+.tn-switcher-scrim{top:var(--plan2-topbar-bottom,0px)!important;inset-inline:0!important;bottom:var(--plan2-toolbar-height,0px)!important;}
+.tn-help-inline-open{display:inline;border:0;padding:0;background:none;color:var(--tn-accent,#60a5fa);font:inherit;font-weight:850;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;cursor:pointer}
+.tn-help-inline-open:hover,.tn-help-inline-open:focus-visible{text-decoration-thickness:2px;outline:none}
+</style>
+<script id="plan2-help-actions-toggle-v3">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2HelpActionsToggleV3)return;
+window.__plan2HelpActionsToggleV3=true;
+const App=TN.TavleNextApp;
+if(!App?.prototype)return;
+
+const HELP_LABELS=[
+ ['Backup og sikkerhed','storage'],['Hent arbejde tilbage','storage:restore'],['Gendannelsespunkter','storage:restore'],
+ ['Ryd op','storage:cleanup'],['Start forfra','storage:reset'],['Gem en kopi','storage:copy'],
+ ['Elevadministration','elev-admin'],['Tavleoversigten','boards'],['Tavleoversigt','boards'],
+ ['Planoversigten','common'],['Planoversigt','common'],['Fælles data','common'],['Datakilder','sources'],
+ ['Sammenhænge','relations'],['Sessionsdata','session'],['Bearbejd data','remix'],['Ressourcer','resources'],
+ ['Mine hold','my-holds'],['Papirkurven','trash'],['Papirkurv','trash'],['Redningsbæltet','rescue'],['Redningsbælte','rescue'],
+ ['Sessioner','sessions'],['Tavler','boards']
+];
+const targetMap=new Map(HELP_LABELS);
+const esc=v=>String(v).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const matcher=new RegExp('('+HELP_LABELS.map(([label])=>esc(label)).join('|')+')','g');
+function decorate(html){
+ const t=document.createElement('template');t.innerHTML=String(html||'');
+ const walker=document.createTreeWalker(t.content,NodeFilter.SHOW_TEXT);const nodes=[];
+ while(walker.nextNode())nodes.push(walker.currentNode);
+ for(const node of nodes){
+  if(node.parentElement?.closest('button,a,input,select,textarea,code,pre,[data-help-open],[data-help-action],[data-help-jump]'))continue;
+  const value=node.nodeValue||'';matcher.lastIndex=0;if(!matcher.test(value))continue;matcher.lastIndex=0;
+  const frag=document.createDocumentFragment();
+  for(const part of value.split(matcher)){
+   const target=targetMap.get(part);
+   if(!target){frag.append(document.createTextNode(part));continue;}
+   const b=document.createElement('button');b.type='button';b.className='tn-help-inline-open';b.dataset.helpOpen=target;b.textContent=part;b.title='Åbn '+part;frag.append(b);
+  }
+  node.replaceWith(frag);
+ }
+ return t.innerHTML;
+}
+function patchHelp(app){
+ if(!app?.helpRegistry?.entries)return;
+ for(const entry of app.helpRegistry.entries){
+  if(!entry||entry.__plan2ActionLinksV3)continue;
+  entry.body=decorate(entry.body);entry.__plan2ActionLinksV3=true;TN.registry?.help?.set?.(entry.id,entry);
+ }
+}
+const originalShowHelp=App.prototype.showHelp;
+App.prototype.showHelp=function(...args){patchHelp(this);return originalShowHelp.apply(this,args);};
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function waitFor(fn,tries=60){for(let i=0;i<tries;i++){const v=fn();if(v)return v;await sleep(35);}return null;}
+async function openOverview(app,tab,subpage){
+ app.modalManager?.closeAll?.();await sleep(60);
+ await app.showDataCenter?.(tab);
+ const root=await waitFor(()=>document.querySelector('.tn-datacenter'));
+ if(!root)return;
+ const nav=await waitFor(()=>root.querySelector(`[data-plan-target="${tab}"]`)||root.querySelector(`[data-tab="${tab}"]`),20);
+ if(nav&&!nav.classList.contains('active'))nav.click();
+ if(subpage){
+  await waitFor(()=>root.dataset.planActiveTab===tab||root.querySelector(`[data-page="${subpage}"]`),40);
+  const card=await waitFor(()=>root.querySelector(`[data-page="${subpage}"]`),40);card?.click?.();
+ }
+}
+async function openTarget(app,target){
+ if(target==='sessions'){app.modalManager?.closeAll?.();await sleep(45);return app.showSessions?.();}
+ if(target==='boards'){app.modalManager?.closeAll?.();await sleep(45);return app.showBoards?.();}
+ if(target==='trash'){app.modalManager?.closeAll?.();await sleep(45);return app.showTrash?.();}
+ if(target==='rescue'){app.modalManager?.closeAll?.();await sleep(45);return app.showRescueBelt?.();}
+ if(target==='elev-admin'){await openOverview(app,'sources');const root=await waitFor(()=>document.querySelector('.tn-datacenter'));return window.PlanElevadministration?.render?.(root);}
+ if(target==='my-holds'){await openOverview(app,'sessions');const root=await waitFor(()=>document.querySelector('.tn-datacenter'));return app.showMyHoldsInOverview?.(root);}
+ const [tab,subpage]=String(target).split(':');return openOverview(app,tab,subpage);
+}
+document.addEventListener('click',event=>{
+ const button=event.target.closest?.('.tn-plan-help [data-help-open]');if(!button)return;
+ event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();
+ const app=TN.runtime?.app||window.tavleNextApp;if(!app)return;
+ openTarget(app,button.dataset.helpOpen).catch(err=>{console.error(err);app.toast?.('Visningen kunne ikke åbnes');});
+},true);
+
+function alignScrim(){
+ const topbar=document.querySelector('#tavleNextApp .tn-topbar');
+ const toolbar=document.querySelector('#tavleNextApp .tn-toolbar');
+ const scrim=document.querySelector('.tn-switcher-scrim');
+ if(!topbar||!scrim)return;
+ const top=Math.ceil(topbar.getBoundingClientRect().bottom);
+ const toolbarRect=toolbar?.getBoundingClientRect?.();
+ const bottom=toolbarRect&&toolbarRect.height>0&&toolbarRect.top<innerHeight?Math.max(0,Math.ceil(innerHeight-toolbarRect.top)):0;
+ scrim.style.top=top+'px';scrim.style.bottom=bottom+'px';
+ document.documentElement.style.setProperty('--plan2-topbar-bottom',top+'px');
+ document.documentElement.style.setProperty('--plan2-toolbar-height',bottom+'px');
+}
+new MutationObserver(m=>{if(m.some(x=>[...x.addedNodes].some(n=>n.nodeType===1&&(n.matches?.('.tn-switcher-scrim')||n.querySelector?.('.tn-switcher-scrim')))))requestAnimationFrame(alignScrim);}).observe(document.documentElement,{subtree:true,childList:true});
+window.addEventListener('resize',alignScrim,{passive:true});
+const install=()=>patchHelp(TN.runtime?.app||window.tavleNextApp);install();window.addEventListener('load',install,{once:true});
+let n=0,t=setInterval(()=>{install();if(TN.runtime?.app||++n>100)clearInterval(t)},100);
+})(window.TavleNext);
+</script>
