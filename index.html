@@ -66459,16 +66459,11 @@ try{document.title='index-sikkerhed-fase4b-v6-planpakkeimport-repareret'}catch{}
   if(!App||App.prototype.__plan101CenteredSwitchers)return;
   App.prototype.__plan101CenteredSwitchers=true;
 
-  function triggerTargets(kind){
-    const selector=kind==='sessions'
-      ? '#tnSessionTitle,.tn-topbar [data-action="sessions"],.tn-toolbar [data-action="sessions"]'
-      : '#tnBoardTitle,#tnBoardPosition,.tn-topbar [data-action="boards"],.tn-toolbar [data-action="boards"],.tn-mobile-board-nav [data-action="boards"]';
-    const targets=[];
-    for(const raw of document.querySelectorAll(selector)){
-      const target=raw.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
-      if(target&&!targets.includes(target))targets.push(target);
-    }
-    return targets;
+  function triggerFor(kind){
+    const raw=kind==='sessions'
+      ? (document.getElementById('tnSessionTitle')||document.querySelector('.tn-topbar [data-action="sessions"]')||document.querySelector('[data-action="sessions"]'))
+      : (document.getElementById('tnBoardTitle')||document.getElementById('tnBoardPosition')||document.querySelector('.tn-topbar [data-action="boards"]')||document.querySelector('[data-action="boards"]'));
+    return raw?.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
   }
 
   function closeSwitcher(){
@@ -66478,8 +66473,8 @@ try{document.title='index-sikkerhed-fase4b-v6-planpakkeimport-repareret'}catch{}
   }
 
   function isTriggerTarget(target){
-    return [...triggerTargets('sessions'),...triggerTargets('boards')]
-      .some(trigger=>trigger===target||trigger.contains?.(target));
+    const s=triggerFor('sessions'),b=triggerFor('boards');
+    return !!((s&&(s===target||s.contains?.(target)))||(b&&(b===target||b.contains?.(target))));
   }
 
   function bindDismiss(pop){
@@ -75454,16 +75449,11 @@ if(!install()){
   if(!App||App.prototype.__plan102FocusedSwitchers)return;
   App.prototype.__plan102FocusedSwitchers=true;
 
-  function triggerTargets(kind){
-    const selector=kind==='sessions'
-      ? '#tnSessionTitle,.tn-topbar [data-action="sessions"]'
-      : '#tnBoardTitle,#tnBoardPosition,.tn-topbar [data-action="boards"],.tn-mobile-board-nav [data-action="boards"]';
-    const targets=[];
-    for(const raw of document.querySelectorAll(selector)){
-      const target=raw.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
-      if(target&&!targets.includes(target))targets.push(target);
-    }
-    return targets;
+  function triggerFor(kind){
+    const raw=kind==='sessions'
+      ? (document.getElementById('tnSessionTitle')||document.querySelector('.tn-topbar [data-action="sessions"]')||document.querySelector('[data-action="sessions"]'))
+      : (document.getElementById('tnBoardTitle')||document.getElementById('tnBoardPosition')||document.querySelector('.tn-topbar [data-action="boards"]')||document.querySelector('[data-action="boards"]'));
+    return raw?.closest?.('button,[role="button"],.tn-topbar-item,.tn-crumb,.tn-top-crumb')||raw;
   }
 
   function closeSwitcher(){
@@ -75474,8 +75464,8 @@ if(!install()){
   }
 
   function isTriggerTarget(target){
-    return [...triggerTargets('sessions'),...triggerTargets('boards')]
-      .some(trigger=>trigger===target||trigger.contains?.(target));
+    if(!(target instanceof Element))return false;
+    return !!target.closest('#tnSessionTitle,#tnBoardTitle,#tnBoardPosition,.tn-toolbar [data-action="sessions"],.tn-toolbar [data-action="boards"],.tn-topbar [data-action="sessions"],.tn-topbar [data-action="boards"]');
   }
 
   function bindTap(button,handler){
@@ -75505,8 +75495,15 @@ if(!install()){
   function mount(pop){
     const scrim=document.createElement('div');
     scrim.className='tn-switcher-scrim';
-    const topbar=document.querySelector('#tavleNextApp .tn-topbar');
-    if(topbar) scrim.style.top=Math.ceil(topbar.getBoundingClientRect().bottom)+'px';
+    const visualShade=document.createElement('div');
+    visualShade.className='tn-switcher-visual-shade';
+    const visibleTopbar=[...document.querySelectorAll('#tavleNextApp .tn-topbar')].find(node=>{
+      const rect=node.getBoundingClientRect();
+      const style=getComputedStyle(node);
+      return rect.width>0&&rect.height>0&&style.display!=='none'&&style.visibility!=='hidden';
+    });
+    visualShade.style.top=Math.max(0,Math.ceil(visibleTopbar?.getBoundingClientRect?.().bottom||0))+'px';
+    scrim.appendChild(visualShade);
     document.body.append(scrim,pop);
     pop.style.left='50%';
     pop.style.top=matchMedia('(max-width:700px)').matches?'145px':'160px';
@@ -78390,7 +78387,8 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
 
 <!-- Plan 2.0 · Hjælp-handlingslinks + sikker toggle · ommer 3 -->
 <style id="plan2-help-actions-toggle-v3-style">
-.tn-switcher-scrim{top:var(--plan2-topbar-bottom,0px)!important;inset-inline:0!important;bottom:var(--plan2-toolbar-height,0px)!important;}
+.tn-switcher-scrim{top:0!important;inset-inline:0!important;bottom:0!important;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
+.tn-switcher-visual-shade{position:fixed;left:0;right:0;bottom:0;z-index:0;background:rgba(2,8,23,.58);-webkit-backdrop-filter:blur(10px) saturate(.82);backdrop-filter:blur(10px) saturate(.82);pointer-events:none;}
 .tn-help-inline-open{display:inline;border:0;padding:0;background:none;color:var(--tn-accent,#60a5fa);font:inherit;font-weight:850;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;cursor:pointer}
 .tn-help-inline-open:hover,.tn-help-inline-open:focus-visible{text-decoration-thickness:2px;outline:none}
 </style>
@@ -78471,20 +78469,6 @@ document.addEventListener('click',event=>{
  openTarget(app,button.dataset.helpOpen).catch(err=>{console.error(err);app.toast?.('Visningen kunne ikke åbnes');});
 },true);
 
-function alignScrim(){
- const topbar=document.querySelector('#tavleNextApp .tn-topbar');
- const toolbar=document.querySelector('#tavleNextApp .tn-toolbar');
- const scrim=document.querySelector('.tn-switcher-scrim');
- if(!topbar||!scrim)return;
- const top=Math.ceil(topbar.getBoundingClientRect().bottom);
- const toolbarRect=toolbar?.getBoundingClientRect?.();
- const bottom=toolbarRect&&toolbarRect.height>0&&toolbarRect.top<innerHeight?Math.max(0,Math.ceil(innerHeight-toolbarRect.top)):0;
- scrim.style.top=top+'px';scrim.style.bottom=bottom+'px';
- document.documentElement.style.setProperty('--plan2-topbar-bottom',top+'px');
- document.documentElement.style.setProperty('--plan2-toolbar-height',bottom+'px');
-}
-new MutationObserver(m=>{if(m.some(x=>[...x.addedNodes].some(n=>n.nodeType===1&&(n.matches?.('.tn-switcher-scrim')||n.querySelector?.('.tn-switcher-scrim')))))requestAnimationFrame(alignScrim);}).observe(document.documentElement,{subtree:true,childList:true});
-window.addEventListener('resize',alignScrim,{passive:true});
 const install=()=>patchHelp(TN.runtime?.app||window.tavleNextApp);install();window.addEventListener('load',install,{once:true});
 let n=0,t=setInterval(()=>{install();if(TN.runtime?.app||++n>100)clearInterval(t)},100);
 })(window.TavleNext);
