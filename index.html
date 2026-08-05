@@ -2274,6 +2274,39 @@ html[data-plan-embed="true"] #tavleNextApp .tn-board-utility-button[data-clock-v
   .tn-data-source-picker-modal{max-height:calc(100dvh - 170px)!important;}
 }
 </style>
+
+<style id="plan2-my-holds-compact-grid-owner">
+/* Plan 2.0 · Mine hold · kompakt oversigtsgrid
+   Valgte hold sorteres fortsat øverst af den eksisterende renderer. */
+.tn-my-holds-native-list{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+.tn-my-holds-native-row{
+  min-width:0;
+  padding:10px 11px;
+  gap:9px;
+  align-content:center;
+}
+.tn-my-holds-native-row > span:not(.tn-my-holds-row-actions){min-width:0}
+.tn-my-holds-native-row b{
+  overflow-wrap:anywhere;
+  line-height:1.2;
+}
+.tn-my-holds-native-row small{line-height:1.2}
+@media (max-width:1180px){
+  .tn-my-holds-native-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .tn-my-holds-native-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .tn-my-holds-native-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:430px){
+  .tn-my-holds-native-list{grid-template-columns:1fr}
+}
+</style>
 </head>
 <style id="plan-093c-runtime-minimized-css">
 .tn-widget.tn-runtime-minimized{visibility:hidden!important;opacity:0!important;pointer-events:none!important;user-select:none!important}
@@ -8900,7 +8933,10 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         boardInput.longPressTimer=setTimeout(()=>{
           if(boardInput.mode!=='pending'||boardInput.primaryId!==token.id||boardInput.points.size!==1)return;
           boardInput.mode='longpress';boardInput.suppressClickUntil=Date.now()+900;this.swipeStart=null;
-          this.selectWidget(null);this.showBoardMenu(null,{x:token.x,y:token.y});
+          this.selectWidget(null);
+          const addPalette=window.Plan2?.addPalette;
+          if(addPalette?.open)addPalette.open({x:token.x,y:token.y});
+          else this.viewport.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:token.x,clientY:token.y,button:2}));
           boardAddOpenedAt=Date.now();navigator.vibrate?.(18);
         },650);
       };
@@ -10007,7 +10043,33 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         await TN.openDatasetEditor({dataset,app:this,widget});
       });
       const swapOn=this.isWindowSwapEnabled();add('⇄',`Byt vinduer ved træk: ${swapOn?'Til':'Fra'}`,()=>this.toggleWindowSwapEnabled());
-      if(widget.type==='card-matrix'&&(widget.content?.kind||'student')==='student')add('✉','Forældremail (Bcc)',()=>{this.closeLayoutPopover();this.parentMail.open({datasetId:widget.content.datasetId,rowKeys:[...(widget.content.rowKeys||[])],title:widget.title});});
+      if(widget.type==='card-matrix'&&(widget.content?.kind||'student')==='student')add('✉','Forældremail (Bcc)',async()=>{
+        this.closeLayoutPopover();
+        const dataset=await this.dataManager.get(widget.content?.datasetId);
+        if(!dataset)return this.toast('Elevlisten findes ikke længere');
+        const all=this.relationManager.studentRows(dataset)||[];
+        let selected=all;
+        if(this.studentScope){
+          const mode=String(widget.content?.studentScopeMode||widget.content?.groupSelectionKind||'inherit').trim().toLowerCase();
+          let scope=null;
+          if(mode==='group'&&widget.content?.studentScopeGroupId){
+            const groups=await this.studentScope.groups?.().catch(()=>[])||[];
+            const group=groups.find(item=>String(item?.id||'')===String(widget.content.studentScopeGroupId));
+            if(group)scope={kind:'group',id:String(group.id),label:this.studentScope.shortName?.(group)||group.name||widget.title||'Valgt hold',group,origin:'widget'};
+          }else if(mode==='inherit'){
+            scope=await this.studentScope.effective();
+          }
+          if(mode==='all'){
+            selected=all;
+          }else if(scope?.kind==='group'){
+            selected=await this.studentScope.filterEntries(all,{rowKey:item=>item.rowKey,name:item=>item.title,sourceId:dataset.id,scope});
+          }else if(['fixed','rows','selection'].includes(mode)&&Array.isArray(widget.content?.rowKeys)&&widget.content.rowKeys.length){
+            const allowed=new Set(widget.content.rowKeys.map(String));
+            selected=all.filter(item=>allowed.has(String(item.rowKey)));
+          }
+        }
+        return this.parentMail.open({datasetId:dataset.id,rowKeys:selected.map(item=>item.rowKey),title:widget.title});
+      });
       if(['pdf','image','audio','video','link','iframe'].includes(widget.type)){
         add('⇧','Udskift indhold …',()=>{this.closeLayoutPopover();this.replaceWidgetContent(id).catch(error=>this.toast(error.message||'Indholdet kunne ikke udskiftes'));});
       }
@@ -45445,11 +45507,11 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
 #plan2AddPalette[data-open="true"]{display:flex}
 .plan2-add-panel{--plan2-drag-x:0px;--plan2-drag-y:0px;position:relative;transform:translate(var(--plan2-drag-x),var(--plan2-drag-y));width:min(920px,calc(100vw - 28px));max-height:min(780px,calc(100vh - 34px));display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;border:1px solid var(--tn-line,#41506a);border-radius:20px;background:color-mix(in srgb,var(--tn-panel,#101a2b) 96%,black);box-shadow:0 30px 90px rgb(0 0 0/.5);color:var(--tn-ink,#f8fafc);transition:width .18s ease,max-height .18s ease}
 #plan2AddPalette[data-expanded="true"] .plan2-add-panel{width:min(1120px,calc(100vw - 28px));max-height:min(880px,calc(100vh - 28px))}
-.plan2-add-head{display:flex;align-items:center;gap:12px;padding:15px 17px 10px;cursor:grab;touch-action:none;user-select:none}.plan2-add-head:active{cursor:grabbing}.plan2-add-head-copy{display:grid;gap:2px;min-width:0;flex:1}.plan2-add-head strong{font-size:20px}.plan2-add-head small{color:var(--tn-muted,#a8b3c5);font-weight:700}.plan2-add-close{width:38px;height:38px;border:1px solid var(--tn-line);border-radius:10px;background:var(--tn-panel2,#172237);color:inherit;font-size:22px;cursor:pointer}
+.plan2-add-head{display:flex;align-items:center;gap:12px;padding:15px 17px 10px;cursor:grab;touch-action:none;user-select:none}.plan2-add-head:active{cursor:grabbing}.plan2-add-head-copy{display:grid;gap:2px;min-width:0;flex:1}.plan2-add-head strong{font-size:20px}.plan2-add-head small{color:var(--tn-muted,#a8b3c5);font-weight:700}.plan2-add-close{touch-action:manipulation;-webkit-tap-highlight-color:transparent;width:38px;height:38px;border:1px solid var(--tn-line);border-radius:10px;background:var(--tn-panel2,#172237);color:inherit;font-size:22px;cursor:pointer}
 .plan2-add-search-wrap{padding:0 17px 12px}.plan2-add-search{width:100%;height:44px;box-sizing:border-box;padding:0 14px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2,#172237);color:inherit;font:inherit;font-size:16px;outline:none}.plan2-add-search:focus{border-color:var(--tn-accent,#5ea2ff);box-shadow:0 0 0 3px color-mix(in srgb,var(--tn-accent,#5ea2ff) 22%,transparent)}
 .plan2-add-content{overflow:auto;padding:4px 17px 16px;overscroll-behavior:contain;display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));align-content:start;gap:9px}.plan2-add-section,.plan2-add-grid{display:contents}.plan2-add-section[hidden],.plan2-add-item[hidden]{display:none!important}.plan2-add-section h3{display:none}.plan2-add-item{min-width:0;min-height:62px;display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel2,#172237);color:inherit;text-align:left;cursor:pointer}.plan2-add-item:hover,.plan2-add-item:focus-visible{border-color:var(--tn-accent,#5ea2ff);background:color-mix(in srgb,var(--tn-accent,#5ea2ff) 12%,var(--tn-panel2,#172237));outline:none}.plan2-add-item .icon{display:grid;place-items:center;width:30px;height:30px;font-size:20px;text-align:center}.plan2-add-item strong{min-width:0;font-size:13px;line-height:1.18;overflow-wrap:anywhere}.plan2-add-item small{display:none}.plan2-add-empty{display:none;grid-column:1/-1;padding:30px;text-align:center;color:var(--tn-muted)}
 #plan2AddPalette[data-searching="true"] .plan2-add-content{padding-top:8px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}#plan2AddPalette[data-searching="true"] .plan2-add-item{min-height:62px}
-.plan2-add-foot{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:10px 17px;border-top:1px solid var(--tn-line);background:color-mix(in srgb,var(--tn-panel2,#172237) 82%,transparent)}.plan2-add-foot small{color:var(--tn-muted)}.plan2-add-foot-actions{display:flex;align-items:center;gap:18px}.plan2-add-customize,.plan2-add-toggle{height:38px;padding:0 4px;border:0;background:transparent;color:inherit;font-weight:800;cursor:pointer;white-space:nowrap}.plan2-add-customize:hover,.plan2-add-customize:focus-visible,.plan2-add-toggle:hover,.plan2-add-toggle:focus-visible{color:var(--tn-accent,#5ea2ff);outline:none}#plan2AddPalette[data-no-quick="true"] .plan2-add-panel{width:min(430px,calc(100vw - 28px));max-height:none;grid-template-rows:auto auto}#plan2AddPalette[data-no-quick="true"] .plan2-add-head{padding-bottom:14px}#plan2AddPalette[data-no-quick="true"] .plan2-add-head-copy small,#plan2AddPalette[data-no-quick="true"] .plan2-add-search-wrap,#plan2AddPalette[data-no-quick="true"] .plan2-add-content,#plan2AddPalette[data-no-quick="true"] .plan2-add-foot small{display:none}#plan2AddPalette[data-no-quick="true"] .plan2-add-foot{grid-template-columns:1fr;justify-items:end;border-top:1px solid var(--tn-line)}
+.plan2-add-foot{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:10px 17px;border-top:1px solid var(--tn-line);background:color-mix(in srgb,var(--tn-panel2,#172237) 82%,transparent)}.plan2-add-foot small{color:var(--tn-muted)}.plan2-add-foot-actions{display:flex;align-items:center;gap:18px}.plan2-add-customize,.plan2-add-toggle{touch-action:manipulation;-webkit-tap-highlight-color:transparent;height:38px;padding:0 4px;border:0;background:transparent;color:inherit;font-weight:800;cursor:pointer;white-space:nowrap}.plan2-add-customize:hover,.plan2-add-customize:focus-visible,.plan2-add-toggle:hover,.plan2-add-toggle:focus-visible{color:var(--tn-accent,#5ea2ff);outline:none}#plan2AddPalette[data-no-quick="true"] .plan2-add-panel{width:min(430px,calc(100vw - 28px));max-height:none;grid-template-rows:auto auto}#plan2AddPalette[data-no-quick="true"] .plan2-add-head{padding-bottom:14px}#plan2AddPalette[data-no-quick="true"] .plan2-add-head-copy small,#plan2AddPalette[data-no-quick="true"] .plan2-add-search-wrap,#plan2AddPalette[data-no-quick="true"] .plan2-add-content,#plan2AddPalette[data-no-quick="true"] .plan2-add-foot small{display:none}#plan2AddPalette[data-no-quick="true"] .plan2-add-foot{grid-template-columns:1fr;justify-items:end;border-top:1px solid var(--tn-line)}
 #tavleNextApp.presentation-mode~#plan2AddPalette,#tavleNextApp.focus-mode~#plan2AddPalette{display:none!important}
 @media(max-width:900px){.plan2-add-content{grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}}
 @media(max-width:620px){#plan2AddPalette{padding:8px}.plan2-add-panel,#plan2AddPalette[data-expanded="true"] .plan2-add-panel{width:100%;max-height:calc(100vh - 16px);border-radius:16px}.plan2-add-content{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding-inline:10px}.plan2-add-item{min-height:58px}.plan2-add-foot small{display:none}.plan2-add-toggle{min-width:0}}
@@ -45540,8 +45602,23 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
   function open(point){ensure();const host=document.getElementById('tavleNextApp');if(host?.classList.contains('presentation-mode')||host?.classList.contains('focus-mode'))return;previousFocus=document.activeElement;lastPoint=point||null;search.value='';expanded=false;applyView();const panel=layer.querySelector('.plan2-add-panel');if(panel){panel.style.setProperty('--plan2-drag-x','0px');panel.style.setProperty('--plan2-drag-y','0px');}layer.dataset.open='true';requestAnimationFrame(()=>search.focus());Plan2.events?.emit?.('addpaletteopen',{point:lastPoint});}
   function close(){if(!layer)return;layer.dataset.open='false';lastPoint=null;previousFocus?.focus?.({preventScroll:true});previousFocus=null;Plan2.events?.emit?.('addpaletteclose',{});}
   async function launch(id){const instance=app();const item=allItems().find(entry=>entry.id===id);if(!instance||!item)return;close();try{await item.run(instance,lastPoint);}catch(error){console.error('[Plan2 add palette]',error);instance.toast?.(error?.message||'Indholdet kunne ikke tilføjes');}}
+  function activateChromeControl(target,event){
+    if(!target)return false;
+    if(target===layer||target.closest('.plan2-add-close')){event?.preventDefault?.();event?.stopPropagation?.();close();return true;}
+    if(target.closest('.plan2-add-customize')){event?.preventDefault?.();event?.stopPropagation?.();close();openWidgetLibrary();return true;}
+    if(target.closest('.plan2-add-toggle')){event?.preventDefault?.();event?.stopPropagation?.();expanded=!expanded;applyView();requestAnimationFrame(()=>layer.querySelector('.plan2-add-content')?.scrollTo({top:0,behavior:'smooth'}));return true;}
+    return false;
+  }
   function bind(){
-    layer.addEventListener('click',event=>{if(event.target===layer||event.target.closest('.plan2-add-close'))return close();const item=event.target.closest('.plan2-add-item');if(item){event.preventDefault();void launch(item.dataset.item);return;}if(event.target.closest('.plan2-add-customize')){event.preventDefault();close();openWidgetLibrary();return;}if(event.target.closest('.plan2-add-toggle')){expanded=!expanded;applyView();requestAnimationFrame(()=>layer.querySelector('.plan2-add-content')?.scrollTo({top:0,behavior:'smooth'}));return;}});
+    let lastTouchChromeAt=0;
+    layer.addEventListener('pointerup',event=>{
+      if(event.pointerType!=='touch')return;
+      if(!event.target.closest('.plan2-add-close,.plan2-add-customize,.plan2-add-toggle'))return;
+      lastTouchChromeAt=Date.now();
+      event.stopImmediatePropagation();
+      activateChromeControl(event.target,event);
+    },true);
+    layer.addEventListener('click',event=>{if(Date.now()-lastTouchChromeAt<700&&event.target.closest('.plan2-add-close,.plan2-add-customize,.plan2-add-toggle')){event.preventDefault();event.stopImmediatePropagation();return;}if(activateChromeControl(event.target,event))return;const item=event.target.closest('.plan2-add-item');if(item){event.preventDefault();void launch(item.dataset.item);return;}});
     const head=layer.querySelector('.plan2-add-head'),panel=layer.querySelector('.plan2-add-panel');let move=null;
     head.addEventListener('pointerdown',event=>{if(event.target.closest('button,input'))return;const rect=panel.getBoundingClientRect();move={id:event.pointerId,startX:event.clientX,startY:event.clientY,baseX:parseFloat(getComputedStyle(panel).getPropertyValue('--plan2-drag-x'))||0,baseY:parseFloat(getComputedStyle(panel).getPropertyValue('--plan2-drag-y'))||0,width:rect.width,height:rect.height};try{head.setPointerCapture(event.pointerId)}catch{}event.preventDefault();event.stopPropagation();});
     head.addEventListener('pointermove',event=>{if(!move||move.id!==event.pointerId)return;let x=move.baseX+(event.clientX-move.startX),y=move.baseY+(event.clientY-move.startY);const maxX=Math.max(0,(innerWidth-move.width)/2-8),maxY=Math.max(0,(innerHeight-move.height)/2-8);x=Math.max(-maxX,Math.min(maxX,x));y=Math.max(-maxY,Math.min(maxY,y));panel.style.setProperty('--plan2-drag-x',`${x}px`);panel.style.setProperty('--plan2-drag-y',`${y}px`);event.preventDefault();event.stopPropagation();});
@@ -45588,8 +45665,8 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
     document.addEventListener('click',event=>{const button=event.target.closest('.tn-toolbar.plan2-workspace-toolbar [data-action="add"]');if(!button)return;event.preventDefault();event.stopImmediatePropagation();open();},true);
     document.addEventListener('contextmenu',event=>{const viewport=event.target.closest('#tnViewport,#tnBoardLayer,#tnBoardCamera');if(!viewport||event.target.closest('.tn-widget,[role="dialog"],button,input,textarea,select,a'))return;event.preventDefault();event.stopImmediatePropagation();open({x:event.clientX,y:event.clientY});},true);
     const instance=app();if(instance&&typeof instance.showAddWidget==='function'&&!instance.showAddWidget.__plan2Palette){legacyShowAddWidget=instance.showAddWidget.bind(instance);const replacement=()=>open();replacement.__plan2Palette=true;instance.showAddWidget=replacement;}
-    Plan2.addPalette={installed:true,version:'2.0.0-add-palette.9',open,close,openWidgetLibrary,toggleAll(){expanded=!expanded;applyView();},legacyShowAddWidget};
-    Plan2.events?.emit?.('addpaletteready',{version:'2.0.0-add-palette.9'});
+    Plan2.addPalette={installed:true,version:'2.0.0-add-palette.10',open,close,openWidgetLibrary,toggleAll(){expanded=!expanded;applyView();},legacyShowAddWidget};
+    Plan2.events?.emit?.('addpaletteready',{version:'2.0.0-add-palette.10'});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
@@ -65605,7 +65682,15 @@ async function openCourseScopePicker(app){
   const add=(label,detail,scope,selected)=>{
     const row=document.createElement('article');row.className='tn-subject-admin-card';
     row.innerHTML=`<div><strong>${TN.escapeHtml(label)}</strong><small>${TN.escapeHtml(detail)}</small></div><div class="tn-subject-admin-actions"><button type="button" class="${selected?'primary':''}">${selected?'Valgt':'Vælg'}</button></div>`;
-    row.querySelector('button').onclick=async()=>{await controller.select(scope,{level:'course'});app.modalManager.closeAll();app.toast?.(`${label} er nu forløbets standardhold`);};
+    row.querySelector('button').onclick=async()=>{
+      await controller.select(scope,{level:'course'});
+      const visibleLabel=document.querySelector('[data-course-student-scope-label]');
+      const visibleButton=visibleLabel?.closest?.('[data-course-student-scope]');
+      if(visibleLabel)visibleLabel.textContent=label;
+      if(visibleButton)visibleButton.title=`${label} · bruges af tavler uden eget holdvalg`;
+      app.modalManager.closeAll();
+      app.toast?.(`${label} er nu forløbets standardhold`);
+    };
     body.append(row);
   };
   add('Alle elever','Standard for tavler uden eget hold',{kind:'all'},current?.kind==='all');
@@ -66620,7 +66705,13 @@ const widgetLabel=widget=>({
 }[widget?.type]||(isHoldmatrix(widget)?'Holdmatrix':'Elevwidget'));
 
 async function groups(app){
-  try{return await app.studentScope?.groups?.()||[];}catch(_){return [];}
+  try{
+    const all=await app.studentScope?.groups?.()||[];
+    const favourites=new Set((app.studentScope?.favouriteIds?.()||[]).map(String));
+    return all.map((group,index)=>({group,index,favourite:favourites.has(String(group?.id||''))}))
+      .sort((a,b)=>Number(b.favourite)-Number(a.favourite)||a.index-b.index)
+      .map(item=>item.group);
+  }catch(_){return [];}
 }
 async function inherited(app){
   try{return await app.studentScope?.effective?.()||{kind:'all',id:'',label:'Alle elever'};}
@@ -67452,10 +67543,29 @@ const clean=v=>String(v??'').trim();
 const norm=v=>clean(v).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const FIELD_DEFS=[
  {kind:'team',label:'Teams',aliases:['Kontaktgruppe','Kontaktgruppe/Team','Kontaktteam','Team']},
- {kind:'residence',label:'Bosteder',aliases:['Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']}
+ {kind:'residence',label:'Bosteder',aliases:['Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']},
+ {kind:'custom',label:'Grupper',aliases:['Grupper','Gruppe','Elevgrupper','Elevgruppe'],multi:true}
 ];
+function fieldValues(value,def){
+ const text=clean(value);if(!text)return[];
+ if(!def?.multi)return[text];
+ // Flerlinjefelter i stamdata bruger kun reelle linjeskift som separator.
+ // Tegn som /, +, komma og semikolon er en del af gruppenavnet.
+ return [...new Set(text.split(/\r?\n/).map(clean).filter(Boolean))];
+}
 const rawGet=TN.DataManager?.prototype?.get;
-function colIndex(dataset,aliases){const keys=new Set(aliases.map(norm));return (dataset?.columns||[]).findIndex(c=>keys.has(norm(c)));}
+/* Aliasrækkefølgen er autoritativ. Viggo-ark kan både have en enkeltværdi-
+   kolonne 'Gruppe' tidligt i arket og den egentlige flerlinjekolonne
+   'Grupper' senere. Derfor søges først efter hele kolonnen 'Grupper' og
+   først derefter efter fallback-aliaset 'Gruppe'. */
+function colIndex(dataset,aliases){
+ const columns=dataset?.columns||[];
+ for(const alias of aliases||[]){
+  const wanted=norm(alias),index=columns.findIndex(column=>norm(column)===wanted);
+  if(index>=0)return index;
+ }
+ return -1;
+}
 function cell(row,index,column){return Array.isArray(row)?row[index]:row?.[column];}
 function stableId(sourceId,kind,value){return `derived-student-group-${clean(sourceId)}-${kind}-${norm(value)}`;}
 function sourceScore(dataset){
@@ -67481,14 +67591,15 @@ async function syncDerived(app){
   const keep=new Set();let changed=0;
   for(const def of FIELD_DEFS){
    const index=colIndex(source,def.aliases);if(index<0)continue;
-   const column=source.columns[index],values=[...new Set(source.rows.map(row=>clean(cell(row,index,column))).filter(Boolean))]
+   const column=source.columns[index],values=[...new Set(source.rows.flatMap(row=>fieldValues(cell(row,index,column),def)))]
     .sort((a,b)=>a.localeCompare(b,'da',{numeric:true}));
    for(const value of values){
-    const memberCount=source.rows.reduce((count,row)=>count+(clean(cell(row,index,column))===value?1:0),0);
+    const hasValue=row=>fieldValues(cell(row,index,column),def).some(item=>item===value);
+    const memberCount=source.rows.reduce((count,row)=>count+(hasValue(row)?1:0),0);
     const id=stableId(source.id,def.kind,value);keep.add(id);
     const old=existing.find(g=>String(g.id)===id)||existing.find(g=>String(g.meta?.sourceDatasetId||'')===String(source.id)&&g.meta?.derivedCategory===def.kind&&clean(g.meta?.filterValue)===value)||existing.find(g=>g.meta?.derivedCategory===def.kind&&clean(g.meta?.filterValue)===value);
     const idIndex=(source.columns||[]).findIndex(c=>/^(elevid|elev-id|unilogin|id)$/i.test(clean(c).replace(/\s+/g,'')));
-    const elevIds=(source.rows||[]).map((row,rowIndex)=>({row,rowIndex})).filter(item=>clean(cell(item.row,index,column))===value).map(item=>clean(cell(item.row,idIndex,source.columns?.[idIndex]))||String(item.rowIndex));
+    const elevIds=(source.rows||[]).map((row,rowIndex)=>({row,rowIndex})).filter(item=>hasValue(item.row)).map(item=>clean(cell(item.row,idIndex,source.columns?.[idIndex]))||String(item.rowIndex));
     const raw={...(old||{}),id:old?.id||id,type:'subject-group',scope:'common',sessionId:null,schemaVersion:1,name:value,columns:[],rows:[],createdAt:old?.createdAt||TN.now(),updatedAt:TN.now(),meta:{...(old?.meta||{}),managedBy:'SubjectGroupManager',selectionKind:'field-value',sourceDatasetId:source.id,filterField:column,filterValue:value,derivedCategory:def.kind,derivedCategoryLabel:def.label,memberCount,elevIds,live:true,readOnly:true,derived:true,immutableSource:true,updatedAt:TN.now()}};
     const signature=JSON.stringify([old?.name,old?.meta?.sourceDatasetId,old?.meta?.filterField,old?.meta?.filterValue,old?.meta?.derivedCategory,Number(old?.meta?.memberCount||0)]);
     const nextSignature=JSON.stringify([raw.name,raw.meta.sourceDatasetId,raw.meta.filterField,raw.meta.filterValue,raw.meta.derivedCategory,Number(raw.meta.memberCount||0)]);
@@ -67508,7 +67619,8 @@ Manager.prototype.resolve=async function(raw){
   if(!source)return {...TN.deepClone(raw),columns:[],rows:[],meta:{...(raw.meta||{}),resolvedCount:0,resolveError:'Kildedata mangler'}};
   const index=colIndex(source,[raw.meta?.filterField]);
   const wanted=clean(raw.meta?.filterValue),column=source.columns?.[index];
-  const rows=index<0?[]:(source.rows||[]).filter(row=>clean(cell(row,index,column))===wanted).map(TN.deepClone);
+  const def=FIELD_DEFS.find(item=>item.kind===raw.meta?.derivedCategory)||null;
+  const rows=index<0?[]:(source.rows||[]).filter(row=>fieldValues(cell(row,index,column),def).some(value=>value===wanted)).map(TN.deepClone);
   return {...TN.deepClone(raw),columns:TN.deepClone(source.columns||[]),rows,meta:{...(raw.meta||{}),resolvedCount:rows.length,memberCount:rows.length,resolvedAt:TN.now(),sourceName:source.name,virtual:true,live:true,readOnly:true,derived:true}};
  }
  return previousResolve.call(this,raw);
@@ -67547,7 +67659,7 @@ App.prototype.showMyHoldsInOverview=async function(...args){
   const group=catalogue.find(g=>this.studentScope.shortName(g)===title);
   const small=row.querySelector('small');
   if(!group||!small)return;
-  const category=group.meta?.derivedCategory==='residence'?'Bosted':group.meta?.derivedCategory==='team'?'Team':(group.meta?.selectionKind==='direct-roster'&&!group.meta?.immutableSource?'Egen gruppe':'Faghold');
+  const category=group.meta?.derivedCategory==='residence'?'Bosted':group.meta?.derivedCategory==='team'?'Team':group.meta?.derivedCategory==='custom'?'Gruppe':(group.meta?.selectionKind==='direct-roster'&&!group.meta?.immutableSource?'Egen gruppe':'Faghold');
   small.textContent=`${category} · ${Number(group.meta?.memberCount||group.rows?.length||0)} elever`;
   row.dataset.groupCategory=group.meta?.derivedCategory||'other';
  });
@@ -69956,12 +70068,12 @@ window.PlanElevadministration=window.PlanElevadministration||{};window.PlanEleva
 </script>
 <!-- Compact elevadministration datakilder: funktionel kobling -->
 <style id="plan-elevadmin-compact-sources-v3-style">
-.tn-ea-compact{display:grid;gap:12px}.tn-ea-source-list{display:grid;gap:8px}.tn-ea-source-row{display:grid;grid-template-columns:minmax(130px,190px) minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}
-.tn-ea-source-label{font-weight:850;display:flex;align-items:center;gap:7px}.tn-ea-download{appearance:none;border:0!important;background:transparent!important;color:var(--tn-muted);padding:2px!important;min-width:24px!important;min-height:24px!important;width:24px!important;height:24px!important;border-radius:6px;cursor:pointer;font-size:16px;line-height:1}.tn-ea-download:hover{color:var(--tn-accent);background:color-mix(in srgb,var(--tn-accent) 12%,transparent)!important}.tn-ea-download:disabled{opacity:.3;cursor:default}.tn-ea-source-select{width:100%;min-width:0;padding:9px 34px 9px 10px;border:1px solid var(--tn-line);border-radius:9px;background:var(--tn-panel);color:var(--tn-ink);font:inherit}
+.tn-ea-compact{display:grid;gap:12px}.tn-ea-source-list{display:grid;gap:8px}.tn-ea-source-row{display:grid;grid-template-columns:minmax(130px,190px) minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--tn-line);border-radius:11px;background:var(--tn-panel2)}
+.tn-ea-source-label{font-weight:850;display:flex;align-items:center;gap:7px}.tn-ea-download{appearance:none;border:0!important;background:transparent!important;color:var(--tn-muted);padding:2px!important;min-width:24px!important;min-height:24px!important;width:24px!important;height:24px!important;border-radius:6px;cursor:pointer;font-size:16px;line-height:1}.tn-ea-download:hover{color:var(--tn-accent);background:color-mix(in srgb,var(--tn-accent) 12%,transparent)!important}.tn-ea-download:disabled{opacity:.3;cursor:default}.tn-ea-source-select{width:100%;min-width:0;padding:9px 34px 9px 10px;border:1px solid var(--tn-line);border-radius:9px;background:var(--tn-panel);color:var(--tn-ink);font:inherit}.tn-ea-import-source{min-height:40px;padding:8px 12px!important;white-space:nowrap;font-weight:800}
 .tn-ea-light{appearance:none!important;width:12px!important;height:12px!important;min-width:12px!important;min-height:12px!important;max-width:12px!important;max-height:12px!important;inline-size:12px!important;block-size:12px!important;flex:0 0 12px!important;border-radius:50%;border:0!important;padding:0!important;margin:0 5px!important;cursor:pointer;box-shadow:0 0 0 1px color-mix(in srgb,currentColor 35%,transparent)}.tn-ea-light.tn-health-green{color:#239a55;background:#239a55}.tn-ea-light.tn-health-yellow{color:#c68a14;background:#c68a14}.tn-ea-light.tn-health-red{color:#c93f43;background:#c93f43}
 .tn-ea-image-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tn-ea-image-actions button{min-height:52px;padding:11px 13px;border:1px dashed var(--tn-line);border-radius:11px;background:var(--tn-panel2);color:var(--tn-ink);font:inherit;text-align:left;cursor:pointer}.tn-ea-image-actions button:hover{border-color:var(--tn-accent)}.tn-ea-image-actions b,.tn-ea-image-actions span{display:block}.tn-ea-image-actions span{margin-top:3px;color:var(--tn-muted);font-size:12px;line-height:1.35}
 .tn-ea-clean-list{display:grid;gap:8px;margin-top:12px}.tn-ea-clean-list label{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--tn-line);border-radius:9px}.tn-ea-clean-list label span,.tn-ea-clean-list small{display:block}.tn-ea-clean-list small{margin-top:2px;color:var(--tn-muted)}
-@media(max-width:700px){.tn-ea-source-row{grid-template-columns:1fr auto}.tn-ea-source-label{grid-column:1/-1}.tn-ea-image-actions{grid-template-columns:1fr}}
+@media(max-width:700px){.tn-ea-source-row{grid-template-columns:minmax(0,1fr) auto auto}.tn-ea-source-label{grid-column:1/-1}.tn-ea-source-select{grid-column:1/2}.tn-ea-image-actions{grid-template-columns:1fr}}
 </style>
 <script id="plan-elevadmin-compact-sources-v3">
 (function(){
@@ -70034,11 +70146,19 @@ async function waitForImportedDataset(app,key,beforeIds,root){
  const timer=setInterval(async()=>{
   try{
    const all=(await app.dataManager.listAvailable(window.TavleNext?.runtime?.activeSession?.id)||[]).filter(ds=>Array.isArray(ds.rows)&&Array.isArray(ds.columns));
-   const fresh=compatible(all,key).filter(ds=>!beforeIds.has(clean(ds.id)));
+   /* Importen er startet fra en bestemt rolle i Elevadministrationen. Find derfor
+      først det faktiske nye datasæt og mærk det derefter med rollen. Den tidligere
+      rækkefølge krævede, at datasættet allerede kunne genkendes som rollen, før
+      Elevadministrationen fik mulighed for at registrere den. */
+   const fresh=all.filter(ds=>!beforeIds.has(clean(ds.id)));
    if(fresh.length){
     clearInterval(timer);
-    fresh.sort((a,b)=>String(b?.meta?.createdAt||b?.updatedAt||'').localeCompare(String(a?.meta?.createdAt||a?.updatedAt||'')));
-    let ds=fresh[0];ds=await renameImportedVersion(app,key,ds,all);const roles=load();
+    fresh.sort((a,b)=>String(b?.meta?.importedAt||b?.meta?.createdAt||b?.updatedAt||'').localeCompare(String(a?.meta?.importedAt||a?.meta?.createdAt||a?.updatedAt||'')));
+    let ds=fresh[0];
+    ds.meta={...(ds.meta||{}),dataRole:key,managedBy:'Elevadministration',selectedImportRole:key,selectedImportAt:new Date().toISOString()};
+    if(key==='students'&&!/student-master/i.test(clean(ds.type)))ds.meta.sourceType='student-master';
+    try{await app.dataManager.update(ds)}catch(error){console.warn('Kunne ikke registrere den importerede datakildes rolle',error)}
+    ds=await renameImportedVersion(app,key,ds,all);const roles=load();
     if(roles[key]&&roles[key]!==ds.id)rememberPrevious(key,roles[key]);
     roles[key]=ds.id;save(roles);app.toast(`${models[key].label}: ${ds.name} er nu valgt. Den tidligere version er stadig tilgængelig i listen.`);render(root);
    }else if(Date.now()-started>120000)clearInterval(timer);
@@ -70047,9 +70167,28 @@ async function waitForImportedDataset(app,key,beforeIds,root){
 }
 function importReplacement(app,key,all,root){
  const beforeIds=new Set(all.map(ds=>clean(ds.id)));
- app.toast(`Hent et nyt ${models[key].label.toLocaleLowerCase('da-DK')}. Det bliver valgt automatisk efter import.`);
- waitForImportedDataset(app,key,beforeIds,root);
- app.requestDataImport?.();
+ const input=document.createElement('input');
+ input.type='file';
+ input.accept='.xlsx,.csv,.tsv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv,text/tab-separated-values,text/plain';
+ input.multiple=false;
+ input.hidden=true;
+ document.body.append(input);
+ input.onchange=async()=>{
+  const file=input.files?.[0]||null;
+  input.remove();
+  if(!file)return;
+  waitForImportedDataset(app,key,beforeIds,root);
+  try{
+   // Brug Plans etablerede CSV/Excel-importer. Den opretter et egentligt
+   // datasæt i DataManager og viser det eksisterende preview før lagring.
+   await app.previewDataImport(file);
+  }catch(error){
+   console.error('Datakilden kunne ikke åbnes i dataimporten',error);
+   app.toast(error?.message||'Datakilden kunne ikke importeres');
+  }
+ };
+ input.addEventListener('cancel',()=>input.remove(),{once:true});
+ input.click();
 }
 function objects(ds){return (ds.rows||[]).map(row=>Object.fromEntries((ds.columns||[]).map((c,i)=>[c,Array.isArray(row)?row[i]:row?.[c]])))}
 function studentKeys(ds){const set=new Set();for(const o of objects(ds)){for(const key of ['ElevID','ID','UniLogin','Navn','Fulde navn','Fornavn']){const v=lower(o[key]);if(v)set.add(v.replace(/\.[^.]+$/,''));}}return set}
@@ -70121,20 +70260,19 @@ async function render(root){
  const all=(await app.dataManager.listAvailable(window.TavleNext?.runtime?.activeSession?.id)||[]).filter(ds=>Array.isArray(ds.rows)&&Array.isArray(ds.columns)),roles=load(),active={};
  for(const key of Object.keys(models))active[key]=chosen(all,key,roles);
  const statuses=Object.fromEntries(Object.keys(models).map(k=>[k,status(active[k],k)]));
- content.innerHTML=`<div class="tn-dc-page-heading"><strong>🎓 Elevadministration</strong><span>Hver rullemenu styrer den datakilde, som det tilsvarende værktøj åbner.</span></div><div class="tn-ea-compact"><section class="tn-ea-source-list">${Object.entries(models).map(([key,m])=>`<div class="tn-ea-source-row"><span class="tn-ea-source-label">${m.label}<button type="button" class="tn-ea-download" data-download-key="${key}" aria-label="Hent aktiv ${m.label.toLocaleLowerCase('da-DK')}" title="Hent aktiv datakilde">⇩</button></span><select class="tn-ea-source-select" data-source-key="${key}" aria-label="${m.label}"></select><button type="button" class="tn-ea-light tn-health-${statuses[key].level}" data-light-key="${key}" title="${statuses[key].title}"></button></div>`).join('')}</section><section class="tn-elevadmin-tools"><button type="button" data-leveling><b>Niveaudeling</b><span>Åbn niveaudelingsmatrixen med den valgte niveaudelingskilde.</span></button><button type="button" data-groups><b>Grupper</b><span>Vis levende grupper, hold, teams og bosteder afledt af de valgte elevstamdata.</span></button><button type="button" data-boards><b>Elevtavler</b><span>Opret én tavle pr. elev fra de valgte elevstamdata.</span></button><button type="button" data-grades><b>Karakterer</b><span>Åbn karakterarbejdet med det valgte karakterark.</span></button><button type="button" data-conversations><b>Fagsamtaler</b><span>Åbn samtaler med det valgte fagsamtaleark.</span></button><button type="button" data-source-tools><b>Elevstamdata og øvrige værktøjer</b><span>Åbn værktøjskassen for de valgte elevstamdata.</span></button></section><section class="tn-ea-image-actions"><button type="button" data-import-portraits><b>Hent nyt sæt elevbilleder</b><span>Importér billeder til ressourcebiblioteket og knyt dem til de valgte stamdata.</span></button><button type="button" data-clean-portraits><b>Ryd op i datakilder…</b><span>Slet tidligere eller aktive datakilder og deres tilknyttede data.</span></button></section></div>`;
+ content.innerHTML=`<div class="tn-dc-page-heading"><strong>🎓 Elevadministration</strong><span>Vælg en importeret datakilde i rullemenuen, eller hent en ny fil med knappen ved siden af.</span></div><div class="tn-ea-compact"><section class="tn-ea-source-list">${Object.entries(models).map(([key,m])=>`<div class="tn-ea-source-row"><span class="tn-ea-source-label">${m.label}<button type="button" class="tn-ea-download" data-download-key="${key}" aria-label="Hent aktiv ${m.label.toLocaleLowerCase('da-DK')}" title="Hent aktiv datakilde">⇩</button></span><select class="tn-ea-source-select" data-source-key="${key}" aria-label="${m.label}"></select><button type="button" class="tn-ea-import-source" data-import-key="${key}" aria-label="Hent nyt ${m.label.toLocaleLowerCase('da-DK')} fra disk">Hent…</button><button type="button" class="tn-ea-light tn-health-${statuses[key].level}" data-light-key="${key}" title="${statuses[key].title}"></button></div>`).join('')}</section><section class="tn-elevadmin-tools"><button type="button" data-leveling><b>Niveaudeling</b><span>Åbn niveaudelingsmatrixen med den valgte niveaudelingskilde.</span></button><button type="button" data-groups><b>Grupper</b><span>Vis levende grupper, hold, teams og bosteder afledt af de valgte elevstamdata.</span></button><button type="button" data-boards><b>Elevtavler</b><span>Opret én tavle pr. elev fra de valgte elevstamdata.</span></button><button type="button" data-grades><b>Karakterer</b><span>Åbn karakterarbejdet med det valgte karakterark.</span></button><button type="button" data-conversations><b>Fagsamtaler</b><span>Åbn samtaler med det valgte fagsamtaleark.</span></button><button type="button" data-source-tools><b>Elevstamdata og øvrige værktøjer</b><span>Åbn værktøjskassen for de valgte elevstamdata.</span></button></section><section class="tn-ea-image-actions"><button type="button" data-import-portraits><b>Hent nyt sæt elevbilleder</b><span>Importér billeder til ressourcebiblioteket og knyt dem til de valgte stamdata.</span></button><button type="button" data-clean-portraits><b>Ryd op i datakilder…</b><span>Slet tidligere eller aktive datakilder og deres tilknyttede data.</span></button></section></div>`;
  for(const [key,m] of Object.entries(models)){
   const sel=content.querySelector(`[data-source-key="${key}"]`),items=compatible(all,key);
   const none=document.createElement('option');none.value='';none.textContent=items.length?'Vælg datakilde…':'Ingen relevante datakilder fundet';sel.append(none);
   for(const ds of items){const o=document.createElement('option');o.value=ds.id;o.textContent=ds.name;sel.append(o)}
-  const importOption=document.createElement('option');importOption.value=IMPORT;importOption.textContent=`Hent nyt ${m.label.toLocaleLowerCase('da-DK')} fra disk…`;sel.append(importOption);
   if(active[key])sel.value=active[key].id;
   sel.onchange=()=>{
-   if(sel.value===IMPORT){importReplacement(app,key,all,root);sel.value=active[key]?.id||'';return}
    const current=load();
    if(current[key]&&current[key]!==sel.value)rememberPrevious(key,current[key]);
    if(sel.value)current[key]=sel.value;else delete current[key];save(current);render(root);
   };
  }
+ content.querySelectorAll('[data-import-key]').forEach(button=>{button.onclick=()=>{const key=button.dataset.importKey;importReplacement(app,key,all,root)}});
  content.querySelectorAll('[data-light-key]').forEach(b=>b.onclick=()=>{const key=b.dataset.lightKey;showStatus(app,key,statuses[key],active[key])});
  content.querySelectorAll('[data-download-key]').forEach(b=>{const key=b.dataset.downloadKey;b.disabled=!active[key];b.onclick=async()=>{await downloadDataset(app,active[key])}});
  const invoke=async(key,fn)=>{const ds=active[key];if(!ds)return app.toast(`Vælg ${models[key].label.toLocaleLowerCase('da-DK')} først`);try{app.modalManager?.closeAll?.();await fn(ds)}catch(e){console.error(e);app.toast(e?.message||'Værktøjet kunne ikke åbnes')}};
@@ -70284,6 +70422,154 @@ function finalPlanVisitCard(manifest={}){
 
 
 
+
+
+<!-- Plan 2.0 · Opgave 1: isolér den valgte importerede elevstamdatakilde · 2026-08-05 -->
+<script id="plan2-student-master-selected-source-isolation-v1">
+(function(TN){
+  'use strict';
+  if(!TN || window.__plan2StudentMasterSelectedSourceIsolationV1)return;
+  window.__plan2StudentMasterSelectedSourceIsolationV1=true;
+
+  const Manager=TN.StudentMasterLinkManager;
+  if(!Manager?.prototype || typeof Manager.prototype.refresh!=='function')return;
+
+  const ROLE_KEY='plan:elevadmin:active-models:v1';
+  const clean=value=>String(value??'').trim();
+  const readSelectedId=()=>{
+    try{return clean((JSON.parse(localStorage.getItem(ROLE_KEY)||'{}')||{}).students);}
+    catch(_error){return'';}
+  };
+
+  const previousRefresh=Manager.prototype.refresh;
+  Manager.prototype.refresh=async function(){
+    const selectedId=readSelectedId();
+    if(!selectedId)return previousRefresh.call(this);
+
+    /*
+     * Elevadministrationens udtrykkelige valg er den autoritative stamdatakilde.
+     * Valget accepteres kun, når datasættet stadig findes og stadig består
+     * kandidatkontrollen. Dermed kan et spørgeskema, karakterark eller et andet
+     * importeret elevlignende datasæt ikke overtage stamdataejerskabet.
+     */
+    let selected=null;
+    try{selected=await this.app.dataManager.get(selectedId);}catch(_error){selected=null;}
+    let valid=false;
+    if(selected){
+      try{valid=Number.isFinite(this.candidateScore(selected));}
+      catch(_error){valid=false;}
+    }
+    if(!valid)return previousRefresh.call(this);
+
+    this.master=selected;
+    this.index=this.buildIndex(selected);
+    return selected;
+  };
+
+  /*
+   * Når brugeren skifter Elevstamdata i Elevadministrationen, skal den gamle
+   * cache straks frigives. Den eksisterende manager ejer fortsat genberegning
+   * og genmontering; denne blok ændrer kun kildevalget.
+   */
+  document.addEventListener('change',event=>{
+    const select=event.target?.closest?.('select[data-source], select[data-source-key="students"]');
+    if(!select)return;
+    queueMicrotask(async()=>{
+      const app=TN.runtime?.app;
+      const manager=app?.studentMasterLink;
+      if(!manager)return;
+      manager.master=null;
+      manager.index=null;
+      manager.readyPromise=null;
+      try{
+        await manager.ensureReady();
+        await manager.refreshStudentViews?.();
+      }catch(error){console.warn('Den valgte elevstamdatakilde kunne ikke aktiveres',error);}
+    });
+  },true);
+
+  try{TN.version='0.14.22-student-master-selected-source-isolation-v1';}
+  catch(_error){}
+})(window.TavleNext);
+</script>
+
+
+<!-- Plan 2.0 · Importmodal foran Planoversigt med sikker gendannelse · 2026-08-05 -->
+<script id="plan2-data-import-overview-lifecycle-v2">
+(function(TN){
+  'use strict';
+  if(!TN || window.__plan2DataImportOverviewLifecycleV2)return;
+  window.__plan2DataImportOverviewLifecycleV2=true;
+
+  const App=TN.TavleNextApp;
+  if(!App?.prototype || typeof App.prototype.previewDataImport!=='function')return;
+
+  const previousPreviewDataImport=App.prototype.previewDataImport;
+  App.prototype.previewDataImport=async function(file){
+    const overviewLayer=[...document.querySelectorAll('#tnModalRoot > .tn-modal-layer')]
+      .find(layer=>layer.querySelector('.tn-datacenter'));
+
+    if(!overviewLayer){
+      return previousPreviewDataImport.call(this,file);
+    }
+
+    const overviewRoot=overviewLayer.querySelector('.tn-datacenter');
+    const content=overviewRoot?.querySelector('.tn-data-center-content');
+    const savedTab=String(overviewRoot?.dataset?.planActiveTab||'elev-admin');
+    const savedScrollTop=Number(content?.scrollTop||0);
+    const modalManager=this.modalManager;
+    let restored=false;
+
+    const restoreOverview=()=>{
+      if(restored)return;
+      restored=true;
+      setTimeout(()=>{
+        try{this.showDataCenter(savedTab);}catch(error){console.warn('Planoversigten kunne ikke genåbnes efter dataimport',error);return;}
+        let attempts=0;
+        const timer=setInterval(()=>{
+          const root=[...document.querySelectorAll('.tn-datacenter')]
+            .find(node=>String(node.dataset?.planActiveTab||'')===savedTab)||document.querySelector('.tn-datacenter');
+          if(root){
+            const nextContent=root.querySelector('.tn-data-center-content');
+            if(nextContent)nextContent.scrollTop=savedScrollTop;
+            clearInterval(timer);
+          }else if(++attempts>40){
+            clearInterval(timer);
+          }
+        },50);
+      },180);
+    };
+
+    /* Filen er nu valgt i systemdialogen. Først her lukkes Planoversigten. */
+    modalManager.close(overviewLayer);
+
+    /* Knyt gendannelsen til den importmodal, som den eksisterende importer åbner. */
+    const originalOpen=modalManager.open;
+    let importModalCaptured=false;
+    modalManager.open=function(options={}){
+      if(!importModalCaptured){
+        importModalCaptured=true;
+        const priorOnClose=options.onClose;
+        options={...options,onClose:()=>{
+          try{priorOnClose?.();}finally{restoreOverview();}
+        }};
+      }
+      return originalOpen.call(this,options);
+    };
+
+    try{
+      const result=await previousPreviewDataImport.call(this,file);
+      if(!importModalCaptured)restoreOverview();
+      return result;
+    }catch(error){
+      if(!importModalCaptured)restoreOverview();
+      throw error;
+    }finally{
+      modalManager.open=originalOpen;
+    }
+  };
+})(window.TavleNext);
+</script>
 </body></html>`;
 }
 
@@ -78471,5 +78757,64 @@ document.addEventListener('click',event=>{
 
 const install=()=>patchHelp(TN.runtime?.app||window.tavleNextApp);install();window.addEventListener('load',install,{once:true});
 let n=0,t=setInterval(()=>{install();if(TN.runtime?.app||++n>100)clearInterval(t)},100);
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · Stamdata-note: lokal udvidelse af eksisterende noteejer · 2026-08-05 -->
+<script id="plan2-student-master-note-local-owner-v1">
+(function(TN){
+'use strict';
+if(!TN || window.__plan2StudentMasterNoteLocalOwnerV1)return;
+window.__plan2StudentMasterNoteLocalOwnerV1=true;
+const Focus=TN.StudentFocusManager;
+const Relations=TN.RelationManager;
+if(!Focus?.prototype || !Relations?.prototype)return;
+const clean=value=>String(value??'').trim();
+const key=value=>clean(value).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'');
+const noteColumnIndex=dataset=>{
+ const columns=Array.isArray(dataset?.columns)?dataset.columns:[];
+ for(const alias of ['note','notat']){
+  const index=columns.findIndex(column=>key(column)===alias);
+  if(index>=0)return index;
+ }
+ return -1;
+};
+const masterNoteId=(datasetId,rowKey)=>`student-master-note:${String(datasetId)}:${String(rowKey)}`;
+const previousNotesFor=Relations.prototype.notesFor;
+Relations.prototype.notesFor=async function(sessionId,entityType,entityId){
+ const result=await previousNotesFor.call(this,sessionId,entityType,entityId);
+ if(entityType==='student' && Array.isArray(result?.notes)){
+  result.notes.sort((a,b)=>{
+   const aMaster=String(a?.id||'').startsWith('student-master-note:');
+   const bMaster=String(b?.id||'').startsWith('student-master-note:');
+   if(aMaster!==bMaster)return aMaster?-1:1;
+   return String(b?.date||'').localeCompare(String(a?.date||''));
+  });
+ }
+ return result;
+};
+const previousRenderNotes=Focus.prototype.renderNotes;
+Focus.prototype.renderNotes=async function(container){
+ const state=this.current;
+ const item=typeof this.currentItem==='function'?this.currentItem():null;
+ const dataset=state?.dataset;
+ const sessionId=TN.runtime?.activeSession?.id;
+ if(state && item && dataset && sessionId){
+  const columnIndex=noteColumnIndex(dataset);
+  const sourceText=columnIndex>=0?clean(Array.isArray(item.row)?item.row[columnIndex]:item.object?.[dataset.columns[columnIndex]]):'';
+  if(sourceText){
+   const found=await this.app.relationManager.notesFor(sessionId,'student',item.rowKey);
+   const id=masterNoteId(dataset.id,item.rowKey);
+   const exists=(found.dataset?.rows||[]).some(row=>String(row?.[0])===id);
+   if(!exists){
+    found.dataset.rows.push([id,'student',String(item.rowKey),dataset.updatedAt||dataset.createdAt||TN.now(),'Stamdata-note',sourceText]);
+    found.dataset.updatedAt=TN.now();
+    await this.app.storage.put('datasets',found.dataset);
+   }
+  }
+ }
+ return previousRenderNotes.call(this,container);
+};
+try{TN.version='0.14.31-student-master-note-local-owner';}catch(_error){}
 })(window.TavleNext);
 </script>
