@@ -198,7 +198,7 @@
       let owner=dataset,guard=0;
       while(owner&&!Array.isArray(owner.meta?.portraitRefs)&&owner.meta?.sourceDatasetId&&guard++<5)owner=await app.dataManager.get(owner.meta.sourceDatasetId);
       const byFile=new Map(),byName=new Map();
-      for(const ref of owner?.meta?.portraitRefs||[]){const file=clean(ref?.fileName).split(/[\\/]/).pop(),id=clean(ref?.mediaId);if(file)byFile.set(norm(file),id);if(file)byName.set(norm(file.replace(/\.[^.]+$/,'')),id);}
+      for(const ref of owner?.meta?.portraitRefs||[]){const file=clean(ref?.fileName).split(/[\\/]/).pop(),id=clean(ref?.mediaId),studentName=clean(ref?.studentName||ref?.name||ref?.title);if(file)byFile.set(norm(file),id);if(file)byName.set(norm(file.replace(/\.[^.]+$/,'')),id);if(studentName)byName.set(norm(studentName),id);}
       return{byFile,byName};
     })());
     return portraitIndexCache.get(key);
@@ -51862,7 +51862,7 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
       return this.studentScope.shortName(a).localeCompare(this.studentScope.shortName(b),'da',{numeric:true,sensitivity:'base'});
     });
     content.scrollTop=0;
-    content.innerHTML='<div class="tn-dc-page-heading"><strong>★ Mine hold</strong><span>Saml faghold og egne elevgrupper, som skal være tilgængelige i toppanelet. Egne grupper oprettes fra stamdata og kan matches manuelt.</span></div><div class="tn-sg6-toolbar tn-my-holds-toolbar"><button data-refresh-my-holds>Find eksisterende hold</button><button class="primary" data-create-my-hold>Opret elevgruppe</button><div class="tn-my-holds-selected-summary" data-selected-holds aria-live="polite"></div></div><div class="tn-my-holds-native-list"></div>';
+    content.innerHTML='<div class="tn-dc-page-heading"><strong>★ Mine hold</strong><span>Saml faghold og egne elevgrupper, som skal være tilgængelige i toppanelet. Egne grupper oprettes fra stamdata og kan matches manuelt.</span></div><div class="tn-sg6-toolbar tn-my-holds-toolbar"><input type="search" data-filter-my-holds placeholder="Søg hold, team, fag, hus…" autocomplete="off" aria-label="Filtrér valgmuligheder i Mine hold" style="flex:1 1 320px;min-width:220px"><button class="primary" data-create-my-hold>Opret elevgruppe</button><div class="tn-my-holds-selected-summary" data-selected-holds aria-live="polite"></div></div><div class="tn-my-holds-native-list"></div>';
     const selectedSummary=content.querySelector('[data-selected-holds]');
     const renderSelectedSummary=()=>{
       const chosen=orderedGroups.filter(group=>selected.has(String(group.id)));
@@ -51872,7 +51872,7 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
     };
     renderSelectedSummary();
     content.querySelector('[data-create-my-hold]').onclick=()=>this.showStudentGroupEditorInOverview?.(root,null,{returnTo:'my-holds'});
-    content.querySelector('[data-refresh-my-holds]').onclick=async event=>{const button=event.currentTarget;if(button.disabled)return;button.disabled=true;const old=button.textContent;button.textContent='Finder hold…';try{this.ensureSubjectGroupsV6?.();const result=await this.discoverExistingStudentGroups?.();this.studentScope.invalidateGroups?.();await this.showMyHoldsInOverview?.(root);this.toast?.(result.created?`${result.created} eksisterende hold blev fundet og tilføjet`:'Der blev ikke fundet nye elevhold');}catch(error){console.error(error);this.toast?.(error?.message||'Kunne ikke finde eksisterende hold')}finally{button.disabled=false;button.textContent=old}};
+    const filterInput=content.querySelector('[data-filter-my-holds]');
     const list=content.querySelector('.tn-my-holds-native-list');
     if(!orderedGroups.length){list.innerHTML='<div class="tn-empty">Der findes endnu ingen elevgrupper. Opret en gruppe fra stamdata eller genfind eksisterende faghold.</div>';return root;}
     for(const group of orderedGroups){
@@ -51907,8 +51907,24 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
         };
         actions.append(edit,remove);label.append(actions);
       }
+      label.dataset.holdSearch=[this.studentScope.shortName(group),kind,Number(group.rows?.length||group.meta?.memberCount||0)+' elever'].join(' ').toLocaleLowerCase('da-DK');
       list.append(label);
     }
+    const rows=[...list.querySelectorAll('.tn-my-holds-native-row')];
+    const empty=document.createElement('div');empty.className='tn-empty';empty.hidden=true;list.append(empty);
+    const applyHoldFilter=()=>{
+      const raw=String(filterInput?.value||'').trim();
+      const query=raw.toLocaleLowerCase('da-DK');
+      let visible=0;
+      for(const row of rows){
+        const show=!query||String(row.dataset.holdSearch||'').includes(query);
+        row.style.display=show?'':'none';
+        if(show)visible++;
+      }
+      empty.hidden=visible>0||!query;
+      if(!empty.hidden)empty.textContent=`Ingen hold matcher “${raw}”`;
+    };
+    filterInput?.addEventListener('input',applyHoldFilter,{passive:true});
     return root;
   };
 
@@ -70078,6 +70094,7 @@ window.PlanElevadministration=window.PlanElevadministration||{};window.PlanEleva
 <script id="plan-elevadmin-compact-sources-v3">
 (function(){
 'use strict';
+const TN=window.TavleNext;
 const ROLE_KEY='plan:elevadmin:active-models:v1',HISTORY_KEY='plan:elevadmin:model-history:v3',IMPORT='__plan_import_new__';
 const clean=v=>String(v??'').trim(),lower=v=>clean(v).toLocaleLowerCase('da-DK');
 const models={
@@ -70191,8 +70208,157 @@ function importReplacement(app,key,all,root){
  input.click();
 }
 function objects(ds){return (ds.rows||[]).map(row=>Object.fromEntries((ds.columns||[]).map((c,i)=>[c,Array.isArray(row)?row[i]:row?.[c]])))}
-function studentKeys(ds){const set=new Set();for(const o of objects(ds)){for(const key of ['ElevID','ID','UniLogin','Navn','Fulde navn','Fornavn']){const v=lower(o[key]);if(v)set.add(v.replace(/\.[^.]+$/,''));}}return set}
-async function importPortraits(app,ds,rerender){if(!ds)return app.toast('Vælg elevstamdata først');const input=document.createElement('input');input.type='file';input.accept='image/*';input.multiple=true;input.hidden=true;document.body.append(input);input.onchange=async()=>{const files=[...(input.files||[])];input.remove();if(!files.length)return;const results=await app.mediaManager.importFiles(files,{optimize:true,maxDimension:1200,quality:.86,keepOriginal:false});const refs=[...(ds.meta?.portraitRefs||[])],byFile=new Map(refs.map(r=>[lower(r.fileName),r]));for(let i=0;i<files.length;i++){const media=results[i]?.media||results[i];if(!media?.id)continue;byFile.set(lower(files[i].name),{fileName:files[i].name,mediaId:media.id,importedAt:new Date().toISOString()});}ds.meta={...(ds.meta||{}),portraitRefs:[...byFile.values()],portraitSource:'Elevadministration'};await app.dataManager.update(ds);app.toast(`${files.length} elevbillede${files.length===1?'':'r'} lagt i ressourcebiblioteket`);rerender()};input.click()}
+function portraitMatchKey(value){return clean(value).replace(/\.[^.]+$/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('da-DK').replace(/[^a-z0-9æøå]+/g,'')}
+function portraitStudentIndex(app,ds){
+ const index=new Map(),students=app.relationManager?.studentRows?.(ds)||[];
+ const add=(value,student,kind)=>{const key=portraitMatchKey(value);if(!key)return;const list=index.get(key)||[];if(!list.some(item=>clean(item.student.rowKey)===clean(student.rowKey)))list.push({student,kind});index.set(key,list)};
+ for(const student of students){
+  const object=student.object||{};
+  for(const key of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID'])add(object[key],student,/login|id/i.test(key)?'id':'felt');
+  for(const key of ['Navn','Fulde navn','Elevnavn','Fornavn'])add(object[key],student,'navn');
+  add(student.title,student,'navn');
+ }
+ return index;
+}
+function uniquePortraitMatch(index,fileName){
+ const key=portraitMatchKey(clean(fileName).split(/[\\/]/).pop());
+ const hits=index.get(key)||[];
+ return hits.length===1?hits[0]:null;
+}
+function ensurePortraitMatcherStyle(){
+ if(document.getElementById('plan2-portrait-matcher-style-v1'))return;
+ const style=document.createElement('style');style.id='plan2-portrait-matcher-style-v1';style.textContent=`
+ .plan2-pm{display:grid;grid-template-rows:auto minmax(0,1fr);gap:10px;min-height:min(72dvh,760px)}
+ .plan2-pm-tools{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(135px,.8fr) minmax(165px,1fr) auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel)}
+ .plan2-pm-tools input,.plan2-pm-tools select{width:100%;min-width:0}.plan2-pm-count{font-weight:800;color:var(--tn-muted);white-space:nowrap}
+ .plan2-pm-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-content:start;overflow:auto;padding:2px 3px 14px}
+ .plan2-pm-card{display:grid;grid-template-columns:minmax(86px,.85fr) minmax(120px,1.15fr);gap:9px;padding:9px;border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel2);min-width:0}
+ .plan2-pm-card[data-state="unmatched"]{border-color:#ef444477}.plan2-pm-card[data-state="conflict"]{border-color:#f59e0b}.plan2-pm-card[data-state="matched"]{border-color:#22c55e88}
+ .plan2-pm-image{display:grid;gap:6px;min-width:0}.plan2-pm-image img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;background:#0f172a}.plan2-pm-image input{width:100%;min-width:0;font-weight:800}.plan2-pm-file{font-size:11px;color:var(--tn-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .plan2-pm-fields{display:grid;align-content:start;gap:7px;min-width:0}.plan2-pm-fields label{display:grid;gap:4px;font-size:12px;color:var(--tn-muted)}.plan2-pm-fields select{width:100%;min-width:0}.plan2-pm-state{font-size:12px;font-weight:850}.plan2-pm-unlink{justify-self:start;padding:6px 9px!important;font-size:12px!important}.plan2-pm-empty{grid-column:1/-1;padding:28px;text-align:center;color:var(--tn-muted);border:1px dashed var(--tn-line);border-radius:12px}
+ @media(max-width:1250px){.plan2-pm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:900px){.plan2-pm-tools{grid-template-columns:1fr 1fr}.plan2-pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.plan2-pm-grid{grid-template-columns:1fr}.plan2-pm-card{grid-template-columns:105px minmax(0,1fr)}}`;
+ document.head.append(style);
+}
+function matcherOverviewHost(){
+ const center=document.querySelector('.tn-datacenter');
+ return center?.closest?.('.tn-modal-layer')||center?.closest?.('.tn-modal')?.parentElement||null;
+}
+function hideOverviewForMatcher(){
+ const host=matcherOverviewHost();if(!host)return()=>{};
+ const previous={visibility:host.style.visibility,pointerEvents:host.style.pointerEvents};host.style.visibility='hidden';host.style.pointerEvents='none';
+ let restored=false;return()=>{if(restored)return;restored=true;host.style.visibility=previous.visibility;host.style.pointerEvents=previous.pointerEvents};
+}
+function mediaBlob(media){return media?.blob instanceof Blob?media.blob:media?.originalBlob instanceof Blob?media.originalBlob:null}
+function studentAliases(student){
+ const values=[student?.rowKey,student?.title],object=student?.object||{};
+ for(const name of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID','Navn','Fulde navn','Elevnavn','Fornavn'])values.push(object[name]);
+ return values.map(portraitMatchKey).filter(Boolean);
+}
+async function matcherGroups(app,ds,students){
+ // Matcheren viser kun de grupper, brugeren aktivt har valgt under Mine hold.
+ // Hele gruppekataloget hører til administrationsvisningen, ikke denne arbejdsvælger.
+ let groups=[];try{groups=await app.studentScope?.favouriteGroups?.()||[]}catch(_error){}
+ const result=[];
+ for(const group of groups){
+  const source=clean(group?.meta?.sourceDatasetId);if(source&&source!==clean(ds.id))continue;
+  const members=new Set((group?.meta?.elevIds||group?.meta?.members||[]).map(portraitMatchKey).filter(Boolean));if(!members.size)continue;
+  const rowKeys=new Set();for(const student of students){if(studentAliases(student).some(alias=>members.has(alias)))rowKeys.add(clean(student.rowKey))}
+  if(rowKeys.size)result.push({id:clean(group.id||group.name),title:clean(group.name||group.title||group.meta?.filterValue||'Hold'),rowKeys});
+ }
+ return result.sort((a,b)=>a.title.localeCompare(b.title,'da',{numeric:true,sensitivity:'base'}));
+}
+async function openPortraitMatcher(app,preferredDataset=null){
+ ensurePortraitMatcherStyle();
+ const roles=load(),all=await app.dataManager.listAvailable(TN?.runtime?.activeSession?.id),datasets=(all||[]).filter(ds=>Array.isArray(ds.rows)&&Array.isArray(ds.columns));
+ const ds=preferredDataset||datasets.find(item=>clean(item.id)===clean(roles.students))||compatible(datasets,'students')[0];
+ if(!ds)return app.toast('Vælg elevstamdata før billederne matches');
+ const students=app.relationManager?.studentRows?.(ds)||[];if(!students.length)return app.toast('Elevstamdata indeholder ingen elever');
+ const mediaItems=(await app.storage.getAll('media')).filter(item=>{const mime=lower(item?.mimeType||item?.mime||item?.blob?.type||item?.type);return mime.startsWith('image/')||/\.(png|jpe?g|webp|gif|heic)$/i.test(item?.name||item?.fileName||'')});
+ if(!mediaItems.length)return app.toast('Der er ingen billeder i Ressourcer at matche');
+ const refs=[...(ds.meta?.portraitRefs||[])],refByMedia=new Map(refs.map(ref=>[clean(ref?.mediaId),ref])),studentIndex=portraitStudentIndex(app,ds),groups=await matcherGroups(app,ds,students),urls=[];
+ const drafts=[];
+ for(const media of mediaItems){
+  const blob=mediaBlob(media);if(!blob)continue;const url=URL.createObjectURL(blob);urls.push(url);
+  const previous=refByMedia.get(clean(media.id));const suggestion=previous?null:uniquePortraitMatch(studentIndex,media.name||media.fileName||media.title||'');
+  drafts.push({media,url,title:clean(media.title||media.name||media.fileName||'Billede'),rowKey:clean(previous?.rowKey||media.studentRowKey||suggestion?.student?.rowKey),manual:!!previous||!!media.studentRowKey,suggested:!!suggestion&&!previous,matchedBy:previous?.matchedBy||suggestion?.kind||''});
+ }
+ if(!drafts.length){urls.forEach(URL.revokeObjectURL);return app.toast('Billederne kunne ikke læses fra Ressourcer')}
+ const body=document.createElement('div');body.className='plan2-pm';body.innerHTML=`<div class="plan2-pm-tools"><input type="search" data-search placeholder="Søg i titel, filnavn eller elev"><select data-status><option value="all">Alle billeder</option><option value="attention">Kræver opmærksomhed</option><option value="unmatched">Umatchede</option><option value="matched">Matchede</option><option value="conflict">Konflikter</option></select><select data-group><option value="">Alle hold og grupper</option>${groups.map(group=>`<option value="${TN.escapeHtml(group.id)}">${TN.escapeHtml(group.title)} · ${group.rowKeys.size}</option>`).join('')}</select><div class="plan2-pm-count" data-count></div></div><div class="plan2-pm-grid" data-grid></div>`;
+ const search=body.querySelector('[data-search]'),status=body.querySelector('[data-status]'),groupSelect=body.querySelector('[data-group]'),count=body.querySelector('[data-count]'),grid=body.querySelector('[data-grid]');
+ const studentByKey=new Map(students.map(student=>[clean(student.rowKey),student]));
+ const conflicts=()=>{const seen=new Map();for(const draft of drafts)if(draft.rowKey)seen.set(draft.rowKey,(seen.get(draft.rowKey)||0)+1);return new Set([...seen].filter(([,n])=>n>1).map(([key])=>key))};
+ const stateOf=(draft,conflict)=>draft.rowKey?(conflict.has(draft.rowKey)?'conflict':'matched'):'unmatched';
+ const saving=new Set();
+ async function saveDraft(draft,nextRowKey=draft.rowKey){
+  const mediaId=clean(draft?.media?.id);if(!mediaId||saving.has(mediaId))return false;
+  nextRowKey=clean(nextRowKey);
+  const duplicate=nextRowKey&&drafts.find(item=>item!==draft&&clean(item.rowKey)===nextRowKey);
+  if(duplicate){app.toast('Eleven har allerede et billede i matcheren. Brug Reset dér først.');return false}
+  const previousRowKey=clean(draft.rowKey),previousTitle=draft.media?.title;
+  saving.add(mediaId);
+  try{
+   const media=await app.storage.get('media',mediaId)||draft.media;
+   media.title=clean(draft.title)||media.name||media.fileName||'Billede';
+   media.updatedAt=TN.now();
+   let currentRefs=[...(ds.meta?.portraitRefs||[])].filter(ref=>clean(ref?.mediaId)!==mediaId);
+   if(nextRowKey){
+    const student=studentByKey.get(nextRowKey);if(!student)throw new Error('Den valgte elev findes ikke længere');
+    const replaced=currentRefs.filter(ref=>clean(ref?.rowKey)===nextRowKey);
+    currentRefs=currentRefs.filter(ref=>clean(ref?.rowKey)!==nextRowKey);
+    for(const ref of replaced){
+     const oldId=clean(ref?.mediaId);if(!oldId||oldId===mediaId)continue;
+     const oldMedia=await app.storage.get('media',oldId);if(!oldMedia)continue;
+     oldMedia.category='Medier';oldMedia.studentPortrait=false;delete oldMedia.studentRowKey;delete oldMedia.studentName;delete oldMedia.sourceDatasetId;if(oldMedia.source==='student-portrait')delete oldMedia.source;oldMedia.updatedAt=TN.now();
+     await app.storage.put('media',oldMedia);TN.emit?.('mediachange',{kind:'update',media:oldMedia});
+     const oldDraft=drafts.find(item=>clean(item.media?.id)===oldId);if(oldDraft){oldDraft.rowKey='';oldDraft.manual=true;oldDraft.suggested=false}
+    }
+    media.category='Elevbilleder';media.studentPortrait=true;media.studentRowKey=nextRowKey;media.studentName=student.title||'';media.sourceDatasetId=clean(ds.id);media.source='student-portrait';
+    currentRefs.push({mediaId:media.id,fileName:media.name||media.fileName||'',rowKey:nextRowKey,rowIndex:Number(student.index),studentName:student.title||'',matchedBy:'manual',sourceDatasetId:clean(ds.id),title:media.title,mimeType:media.mimeType||media.mime||media.blob?.type||'image/*',importedAt:new Date().toISOString()});
+   }else{
+    media.category='Medier';media.studentPortrait=false;delete media.studentRowKey;delete media.studentName;delete media.sourceDatasetId;if(media.source==='student-portrait')delete media.source;
+   }
+   await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});
+   const matchedCount=drafts.reduce((sum,item)=>sum+(item===draft?(nextRowKey?1:0):(item.rowKey?1:0)),0);
+   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:5,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount}};
+   await app.dataManager.update(ds);
+   draft.media=media;draft.rowKey=nextRowKey;draft.manual=true;draft.suggested=false;
+   app.toast(nextRowKey?'Elevbilledet er gemt':'Billedet er nulstillet til Medie');
+   return true;
+  }catch(error){
+   console.error('Elevbilledmatch kunne ikke gemmes',error);draft.rowKey=previousRowKey;if(previousTitle!==undefined)draft.media.title=previousTitle;app.toast(error?.message||'Matchningen kunne ikke gemmes');return false;
+  }finally{saving.delete(mediaId)}
+ }
+ function draw(){
+  const q=lower(search.value),wanted=status.value,group=groups.find(item=>item.id===groupSelect.value),conflict=conflicts();grid.replaceChildren();
+  let matched=0,unmatched=0,conflictCount=0;for(const draft of drafts){const st=stateOf(draft,conflict);if(st==='matched')matched++;else if(st==='conflict')conflictCount++;else unmatched++}count.textContent=`${drafts.length} billeder · ${matched} matchet · ${unmatched} uafklarede · ${conflictCount} konflikter`;
+  const visible=drafts.filter(draft=>{const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),text=lower([draft.title,draft.media.name,draft.media.fileName,student?.title].filter(Boolean).join(' '));const statusOk=wanted==='all'||(wanted==='attention'&&(st==='unmatched'||st==='conflict'))||wanted===st;const groupOk=!group||(draft.rowKey&&group.rowKeys.has(draft.rowKey));return statusOk&&groupOk&&(!q||text.includes(q))});
+  for(const draft of visible){const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),card=document.createElement('article');card.className='plan2-pm-card';card.dataset.state=st;card.innerHTML=`<div class="plan2-pm-image"><img src="${draft.url}" alt=""><input type="text" value="${TN.escapeHtml(draft.title)}" aria-label="Titel"><div class="plan2-pm-file">${TN.escapeHtml(draft.media.name||draft.media.fileName||'')}</div></div><div class="plan2-pm-fields"><label>Elev<select data-student><option value="">Ikke knyttet · Medie</option>${students.map(item=>`<option value="${TN.escapeHtml(clean(item.rowKey))}" ${clean(item.rowKey)===draft.rowKey?'selected':''}>${TN.escapeHtml(item.title)}</option>`).join('')}</select></label><div class="plan2-pm-state">${st==='conflict'?'Konflikt: flere billeder til samme elev':st==='matched'?(draft.suggested?'Automatisk forslag':'Matchet'):'Ikke matchet · forbliver Medie'}</div><button type="button" class="plan2-pm-unlink" data-unlink ${draft.rowKey?'':'disabled'}>Reset</button></div>`;
+   const titleInput=card.querySelector('input'),studentSelect=card.querySelector('select'),resetButton=card.querySelector('[data-unlink]');
+   titleInput.oninput=event=>{draft.title=event.target.value};
+   titleInput.onblur=async()=>{await saveDraft(draft,draft.rowKey)};
+   studentSelect.onchange=async event=>{const previous=draft.rowKey,next=event.target.value;studentSelect.disabled=true;resetButton.disabled=true;const ok=await saveDraft(draft,next);if(!ok)draft.rowKey=previous;draw()};
+   resetButton.onclick=async()=>{studentSelect.disabled=true;resetButton.disabled=true;await saveDraft(draft,'');draw()};grid.append(card);
+  }
+  if(!visible.length)grid.innerHTML='<div class="plan2-pm-empty">Ingen billeder matcher de valgte filtre.</div>';
+ }
+ search.oninput=TN.debounce?TN.debounce(draw,80):draw;status.onchange=draw;groupSelect.onchange=draw;draw();
+ const restore=hideOverviewForMatcher();
+ const matcherModal=app.modalManager.open({title:`Match elevbilleder · ${drafts.length} billeder`,body,className:'tn-modal-wide plan2-pm-modal',onClose:()=>{urls.forEach(URL.revokeObjectURL);restore()},actions:[]});
+ matcherModal.layer.classList.add('plan2-pm-layer');
+ setTimeout(()=>{try{search.focus({preventScroll:true})}catch(_error){search.focus()}},40);
+}
+async function importPortraits(app,ds,rerender){
+ if(!ds)return app.toast('Vælg elevstamdata først');
+ const input=document.createElement('input');input.type='file';input.accept='image/*';input.multiple=true;input.hidden=true;document.body.append(input);
+ input.onchange=async()=>{const files=[...(input.files||[])];input.remove();if(!files.length)return;try{app.toast(`Importerer ${files.length} billede${files.length===1?'':'r'} som medier…`);const results=await app.mediaManager.importFiles(files,{optimize:true,maxDimension:1200,quality:.86,keepOriginal:false});const imported=results.filter(result=>(result?.media||result)?.id).length;app.toast(`${imported} billede${imported===1?'':'r'} importeret til Ressourcer`);rerender?.();setTimeout(()=>openPortraitMatcher(app,ds).catch(error=>{console.error(error);app.toast('Billederne er importeret. Åbn Match elevbilleder… under Ressourcer.')}),80)}catch(error){console.error(error);app.toast(error?.message||'Billederne kunne ikke importeres')}};
+ input.addEventListener('cancel',()=>input.remove(),{once:true});input.click();
+}
+function installPortraitMatcherButton(){
+ const center=document.querySelector('.tn-datacenter');if(!center)return;const text=clean(center.textContent);if(!text.includes('Ressourcer'))return;
+ const head=[...center.querySelectorAll('section,div')].find(node=>node.querySelector?.('h2')?.textContent?.includes('Ressourcer'))||center.querySelector('.plan2-resource-center-head-v82');if(!head||head.querySelector('[data-open-portrait-matcher]'))return;
+ const actions=head.querySelector('.plan2-resource-center-actions-v82')||head;const button=document.createElement('button');button.type='button';button.dataset.openPortraitMatcher='';button.textContent='Match elevbilleder…';button.onclick=()=>{const app=TN?.runtime?.app||window.tavleNextApp;openPortraitMatcher(app).catch(error=>{console.error(error);app?.toast?.(error?.message||'Elevbilledmatcheren kunne ikke åbnes')})};actions.append(button);
+}
+const portraitMatcherObserver=new MutationObserver(()=>installPortraitMatcherButton());portraitMatcherObserver.observe(document.documentElement,{childList:true,subtree:true});setTimeout(installPortraitMatcherButton,100);
 function suspendPlanOverviewForChildModal(){
  const overview=document.querySelector('#tnModalRoot .tn-modal:has(.tn-datacenter)');
  if(!overview)return()=>{};
@@ -70570,6 +70736,26 @@ function finalPlanVisitCard(manifest={}){
   };
 })(window.TavleNext);
 </script>
+
+<!-- Plan 2.0 · Opgave 04E · Fase 2 · matchmodal størrelse og fokus -->
+<!-- Plan 2.0 · Opgave 04E1 · matchmodal over eksisterende dæmpningslag -->
+<style id="plan2-portrait-matcher-layer-v1">
+#tnModalRoot > .tn-modal-layer.plan2-pm-layer{z-index:1400!important;}
+</style>
+<style id="plan2-portrait-matcher-modal-layout-v1">
+#tnModalRoot .tn-modal.plan2-pm-modal{
+ width:min(1280px,96vw);
+ height:min(760px,calc(100dvh - 190px));
+ max-height:calc(100dvh - 190px);
+ margin-bottom:86px;
+}
+#tnModalRoot .tn-modal.plan2-pm-modal>.tn-modal-body{min-height:0;overflow:hidden}
+#tnModalRoot .tn-modal.plan2-pm-modal .plan2-pm{height:100%;min-height:0}
+#tnModalRoot .tn-modal.plan2-pm-modal .plan2-pm-grid{min-height:0;overscroll-behavior:contain}
+@media(max-width:760px){
+ #tnModalRoot .tn-modal.plan2-pm-modal{width:98vw;height:calc(100dvh - 170px);max-height:calc(100dvh - 170px);margin-bottom:78px}
+}
+</style>
 </body></html>`;
 }
 
@@ -78893,5 +79079,66 @@ Focus.prototype.renderNotes=async function(container){
  return result;
 };
 try{TN.version='0.14.32-student-master-note-writeback-on-finish';}catch(_error){}
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · Opgave 04D · Fase 1 · medielager som kanoniske Ressourcer -->
+<script id="plan2-portrait-resource-persistence-v1">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2PortraitResourcePersistenceV1)return;
+window.__plan2PortraitResourcePersistenceV1=true;
+const App=TN.TavleNextApp;
+if(!App?.prototype?.resourceScopeContext)return;
+const clean=value=>String(value??'').trim();
+const priorResourceScopeContext=App.prototype.resourceScopeContext;
+function mediaType(media){
+ const raw=[media?.mimeType,media?.mime,media?.type,media?.kind,media?.fileName,media?.name].map(clean).join(' ').toLowerCase();
+ if(raw.includes('image/')||/\.(png|jpe?g|gif|webp|heic|heif|avif|bmp|svg)$/i.test(clean(media?.fileName||media?.name)))return 'Billede';
+ if(raw.includes('audio/'))return 'Lyd';
+ if(raw.includes('video/'))return 'Video';
+ return clean(media?.type||media?.kind||'Medie');
+}
+function canonicalMediaResource(media){
+ const id=clean(media?.id);
+ const portrait=!!media?.studentPortrait||clean(media?.category).toLocaleLowerCase('da-DK')==='elevbilleder';
+ return {
+  id:`media:${id}`,
+  resourceId:`media:${id}`,
+  identity:`media:${id}`,
+  title:clean(media?.title||media?.name||media?.fileName||'Medie'),
+  type:mediaType(media),
+  kind:clean(media?.kind||'media'),
+  category:portrait?'Elevbilleder':'Medier',
+  mediaId:id,
+  fileName:clean(media?.fileName||media?.name),
+  mimeType:clean(media?.mimeType||media?.mime||media?.blob?.type),
+  studentPortrait:portrait,
+  studentRowKey:clean(media?.studentRowKey),
+  studentName:clean(media?.studentName),
+  sourceDatasetId:clean(media?.sourceDatasetId),
+  source:portrait?'student-portrait':'media-library',
+  locations:['Medielager'],
+  usageCount:0,
+  boardTargets:[]
+ };
+}
+App.prototype.resourceScopeContext=async function(mode='global'){
+ const context=await priorResourceScopeContext.call(this,mode);
+ if(mode!=='global')return context;
+ const mediaRows=await this.storage.getAll('media').catch(()=>[]);
+ const existing=[...(context?.resources||[])];
+ const representedMediaIds=new Set(existing.map(item=>clean(item?.mediaId)).filter(Boolean));
+ const representedIds=new Set(existing.flatMap(item=>[clean(item?.id),clean(item?.resourceId),clean(item?.identity)]).filter(Boolean));
+ for(const media of mediaRows||[]){
+  const id=clean(media?.id);
+  if(!id||media?.deletedAt||media?.trashed||media?.isDeleted)continue;
+  if(representedMediaIds.has(id)||representedIds.has(`media:${id}`))continue;
+  existing.push(canonicalMediaResource(media));
+  representedMediaIds.add(id);
+ }
+ return {...context,resources:existing,mediaLibraryCount:(mediaRows||[]).filter(media=>clean(media?.id)&&!media?.deletedAt&&!media?.trashed&&!media?.isDeleted).length};
+};
+try{TN.version='0.14.33-portrait-resource-persistence';}catch(_error){}
 })(window.TavleNext);
 </script>
