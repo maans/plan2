@@ -78818,3 +78818,80 @@ Focus.prototype.renderNotes=async function(container){
 try{TN.version='0.14.31-student-master-note-local-owner';}catch(_error){}
 })(window.TavleNext);
 </script>
+
+
+<!-- Plan 2.0 · Stamdata-note: skriv tilbage ved afsluttet redigering · 2026-08-05 -->
+<script id="plan2-student-master-note-writeback-on-finish-v1">
+(function(TN){
+'use strict';
+if(!TN || window.__plan2StudentMasterNoteWritebackOnFinishV1)return;
+window.__plan2StudentMasterNoteWritebackOnFinishV1=true;
+const Focus=TN.StudentFocusManager;
+if(!Focus?.prototype)return;
+const PREFIX='student-master-note:';
+const clean=value=>String(value??'').trim();
+const key=value=>clean(value).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'');
+const noteColumnIndex=dataset=>{
+ const columns=Array.isArray(dataset?.columns)?dataset.columns:[];
+ for(const alias of ['note','notat']){
+  const index=columns.findIndex(column=>key(column)===alias);
+  if(index>=0)return index;
+ }
+ return -1;
+};
+const decode=noteId=>{
+ const value=String(noteId||'');
+ if(!value.startsWith(PREFIX))return null;
+ const rest=value.slice(PREFIX.length);
+ const separator=rest.indexOf(':');
+ if(separator<1)return null;
+ return {datasetId:rest.slice(0,separator),rowKey:rest.slice(separator+1)};
+};
+const previousRenderNotes=Focus.prototype.renderNotes;
+Focus.prototype.renderNotes=async function(container){
+ const result=await previousRenderNotes.call(this,container);
+ const state=this.current;
+ const source=state?.noteMode==='editor'?decode(state.selectedNoteId):null;
+ if(!source)return result;
+ const textarea=container.querySelector('[data-note-text]');
+ if(!textarea)return result;
+ let lastWritten=null;
+ let writing=null;
+ const writeBack=async()=>{
+  const value=String(textarea.value??'');
+  if(value===lastWritten)return writing;
+  lastWritten=value;
+  writing=(async()=>{
+   try{
+    const dataset=await this.app.data.get(source.datasetId);
+    if(!dataset)return;
+    const columnIndex=noteColumnIndex(dataset);
+    if(columnIndex<0)return;
+    const found=this.app.relationManager.findRow(dataset,source.rowKey);
+    if(!found?.row)return;
+    if(String(found.row[columnIndex]??'')===value)return;
+    found.row[columnIndex]=value;
+    dataset.updatedAt=TN.now();
+    await this.app.storage.put('datasets',dataset);
+   }catch(error){
+    console.error('Stamdata-noten kunne ikke skrives tilbage',error);
+    this.app.toast?.('Noten blev gemt, men stamdata kunne ikke opdateres');
+   }
+  })();
+  return writing;
+ };
+ textarea.addEventListener('blur',writeBack,{once:true});
+ const back=container.querySelector('[data-back]');
+ if(back){
+  const previousBack=back.onclick;
+  back.onclick=async event=>{
+   event.preventDefault();
+   await writeBack();
+   return previousBack?.call(back,event);
+  };
+ }
+ return result;
+};
+try{TN.version='0.14.32-student-master-note-writeback-on-finish';}catch(_error){}
+})(window.TavleNext);
+</script>
