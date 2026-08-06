@@ -10336,6 +10336,8 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
 
 <!-- Plan 2.0 · Opgave 04K2 · Kompakt elevbilled-matchkort · stabil billedkilde og tættere layout -->
+
+<!-- PLAN 2.0 U4C: aktivt ressourcekort viser touch-sikker lokal ⋯-menu -->
 </body></html>`;
       return this.addWidget('html',{title:'Plan · indlejret',content:{html:wrapper,mediaId:null,source:'inline',trusted:true,planEmbed:true,appKind:'plan',name:'Plan-indlejret.html',embeddedSessionId:sessionId,planUrl:url.href},geometry:{width:860,height:600}});
     }
@@ -42101,6 +42103,61 @@ kompatible datasæt. Ingen kalenderdata migreres eller ændres ved almindelig vi
           menu.querySelector('[data-collect]').onclick=async()=>{app.modalManager.closeAll();const result=await showCollectBoardResourcesDialog(app,widget,{createIfMissing:true});if(result){await reload();await render();}};
         };
 
+        async function replaceLibraryMedia(item){
+          if(!item?.mediaId){app.toast('Denne ressource har ingen lokal fil, der kan udskiftes');return;}
+          const oldMedia=await app.mediaManager.get(item.mediaId).catch(()=>null)||await app.storage.get('media',item.mediaId).catch(()=>null);
+          if(!oldMedia){app.toast('Den eksisterende fil kunne ikke findes');return;}
+          const oldBlob=oldMedia.blob instanceof Blob?oldMedia.blob:(oldMedia.originalBlob instanceof Blob?oldMedia.originalBlob:null);
+          const oldName=text(oldMedia.name||oldMedia.fileName||item.fileName||item.title||'Ressource');
+          const oldMime=text(oldMedia.mimeType||oldMedia.mime||oldBlob?.type||item.mimeType).toLowerCase();
+          const acceptByKind={image:'image/*',pdf:'.pdf,application/pdf',audio:'audio/*',video:'video/*',spreadsheet:'.xlsx,.xls,.ods,.csv,.tsv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,text/csv,text/tab-separated-values'};
+          const input=document.createElement('input');input.type='file';input.accept=acceptByKind[item.kind]||oldMime||'*/*';
+          input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';document.body.append(input);
+          const file=await new Promise(resolve=>{const done=value=>{setTimeout(()=>input.remove(),0);resolve(value||null)};input.addEventListener('change',()=>done(input.files?.[0]),{once:true});input.addEventListener('cancel',()=>done(null),{once:true});input.click();});
+          if(!file)return;
+          const ext=name=>String(name||'').toLowerCase().match(/\.([^.]+)$/)?.[1]||'';
+          const newMime=text(file.type).toLowerCase();
+          const family=mime=>mime.split('/')[0]||'';
+          const sheetExt=new Set(['xlsx','xls','ods','csv','tsv']);
+          let compatible=true;
+          if(item.kind==='image')compatible=family(newMime)==='image';
+          else if(item.kind==='pdf')compatible=newMime==='application/pdf'||ext(file.name)==='pdf';
+          else if(item.kind==='audio')compatible=family(newMime)==='audio';
+          else if(item.kind==='video')compatible=family(newMime)==='video';
+          else if(item.kind==='spreadsheet')compatible=sheetExt.has(ext(file.name));
+          else if(oldMime&&newMime)compatible=family(oldMime)===family(newMime)||oldMime===newMime;
+          if(!compatible){app.toast('Vælg en fil af samme ressourcetype');return;}
+          const newName=text(file.name||'Ny fil');
+          if(!window.confirm(`Udskift "${oldName}" med "${newName}"?
+
+Ressourcens ID, elevkoblinger og eksisterende visninger bevares. Den tidligere fil fjernes fra Plan.`))return;
+          const backup={...oldMedia};
+          try{
+            const updated={...oldMedia,blob:file,originalBlob:file,name:newName,fileName:newName,mimeType:file.type||oldMime||'application/octet-stream',mime:file.type||oldMime||'application/octet-stream',size:Number(file.size||0),updatedAt:TN.now()};
+            if(updated.type&&String(updated.type).includes('/'))updated.type=updated.mimeType;
+            await app.storage.put('media',updated);
+            const verified=await app.storage.get('media',item.mediaId);
+            const verifiedBlob=verified?.blob instanceof Blob?verified.blob:(verified?.originalBlob instanceof Blob?verified.originalBlob:null);
+            if(!verifiedBlob||Number(verifiedBlob.size)!==Number(file.size))throw new Error('Den nye fil kunne ikke verificeres');
+            if(state.dataset&&state.info&&Number.isInteger(item.index)){
+              const row=state.dataset.rows?.[item.index];
+              const setValue=(index,value)=>{if(index<0||!row)return;if(Array.isArray(row))row[index]=value;else row[state.dataset.columns[index]]=value;};
+              setValue(state.info.titleIndex,newName.replace(/\.[^.]+$/,''));
+              setValue(state.info.fileNameIndex,newName);
+              setValue(state.info.mimeTypeIndex,updated.mimeType);
+              await app.dataManager.update(state.dataset);
+            }
+            TN.emit?.('mediachange',{kind:'update',media:verified});
+            app.invalidateResourceContextCache?.();
+            await reload();await persist(true);await render();
+            app.toast(`"${oldName}" er udskiftet med "${newName}"`);
+          }catch(error){
+            console.error('Ressourcen kunne ikke udskiftes',error);
+            try{await app.storage.put('media',backup);}catch(_){ }
+            app.toast(error?.message||'Filen kunne ikke udskiftes. Den eksisterende fil er bevaret.');
+          }
+        }
+
         const showItemMenu=item=>{
           if(!item)return;
           const menu=document.createElement('div');
@@ -42112,6 +42169,7 @@ kompatible datasæt. Ingen kalenderdata migreres eller ændres ved almindelig vi
             <button data-show-web><b>Prøv webvisning igen</b><small>Genindlæs den indlejrede visning</small></button>
             <button data-copy-address><b>Kopiér adresse</b><small>Kopiér linket til udklipsholderen</small></button>`:
             `<button data-open><b>Åbn</b><small>Vis kilden eller filen</small></button>`}
+            ${item.mediaId?'<button data-replace-media><b>Udskift fil…</b><small>Bevar ressourcens ID og alle koblinger</small></button>':''}
             <button data-pin><b>Sæt på tavlen</b><small>Opret en ny visning af samme ressource</small></button>
             <button data-info><b>Vis oplysninger</b><small>Type og brug</small></button>
             <hr>
@@ -42147,6 +42205,7 @@ kompatible datasæt. Ingen kalenderdata migreres eller ændres ved almindelig vi
             catch(_){app.toast('Adressen kunne ikke kopieres');}
             app.modalManager.closeAll();
           });
+          menu.querySelector('[data-replace-media]')?.addEventListener('click',async()=>{app.modalManager.closeAll();await replaceLibraryMedia(item);});
           menu.querySelector('[data-pin]').onclick=async()=>{app.modalManager.closeAll();await pinResource(app,item,{web:true});};
           menu.querySelector('[data-info]').onclick=async()=>{
             app.modalManager.closeAll();
@@ -55379,7 +55438,7 @@ TN.version='0.11.5-resource-collection-v24';
     return true;
   };
 
-  App.prototype.permanentlyDeleteSharedMedia=async function(mediaId,{title='Medie'}={}){
+  App.prototype.permanentlyDeleteSharedMedia=async function(mediaId,{title='Medie',confirmDelete=true,silent=false,render=true}={}){
     mediaId=String(mediaId||'');
     if(!mediaId){this.toast('Mediet har ingen filreference');return false;}
 
@@ -55397,7 +55456,7 @@ TN.version='0.11.5-resource-collection-v24';
     const message=usageCount
       ? `Slet “${title}” permanent?\n\nMediet bruges i ${usedWidgets.length} tavlevisning${usedWidgets.length===1?'':'er'} og ${usedDatasets.length} ressourcesamling${usedDatasets.length===1?'':'er'}. Alle disse visninger fjernes. Handlingen kan ikke fortrydes.`
       : `Slet “${title}” permanent?\n\nHandlingen kan ikke fortrydes.`;
-    if(!confirm(message))return false;
+    if(confirmDelete&&!confirm(message))return false;
 
     const boardById=new Map(boards.map(board=>[String(board.id),board]));
     for(const widget of usedWidgets){
@@ -55419,8 +55478,8 @@ TN.version='0.11.5-resource-collection-v24';
     catch(error){console.warn('Mediet kunne ikke fjernes permanent',error);}
 
     await this.storage.flush?.().catch(()=>{});
-    if(TN.runtime.activeBoard)await this.renderActiveBoard();
-    this.toast(`${title} er slettet permanent`);
+    if(render&&TN.runtime.activeBoard)await this.renderActiveBoard();
+    if(!silent)this.toast(`${title} er slettet permanent`);
     return true;
   };
 
@@ -59199,8 +59258,12 @@ App.prototype.renderResourceCatalog=async function(container,mode='session'){
   const selectedVisible=visible.filter(x=>chosen.has(x.index)).length;
   const selectedTotal=(context.resources||[]).map((item,index)=>({item,index})).filter(({item,index})=>activeCats.has(categoryOf(item))&&chosen.has(index)).length;
   summary.innerHTML=`<strong>${esc(context.scopeLabel)}</strong><span>${visible.length} af ${(context.resources||[]).length} ressourcer</span>${cats.length?`<span>· ${activeCats.size} af ${cats.length} kategorier valgt</span>`:''}`;
-  packageRow.querySelector('[data-count]').textContent=`${visible.length} vises · ${selectedTotal} valgt til pakken`;
+  packageRow.querySelector('[data-count]').textContent=`${visible.length} vises · ${selectedTotal} markeret`;
   packageRow.querySelector('[data-package]').disabled=!selectedTotal;
+  const replaceActiveButton=packageRow.querySelector('[data-replace-active]');
+  const activeItem=Number.isInteger(activeIndex)?(context.resources||[])[activeIndex]:null;
+  replaceActiveButton.disabled=!activeItem?.mediaId;
+  replaceActiveButton.title=activeItem?.mediaId?`Udskift ${clean(activeItem.title||activeItem.fileName||'aktiv ressource')}`:'Klik på et lokalt ressourcekort først';
   list.replaceChildren();
   for(const {item,index} of visible){
    const row=document.createElement('article');row.className='tn-resource-catalog-row plan2-resource-selectable';
@@ -59208,6 +59271,7 @@ App.prototype.renderResourceCatalog=async function(container,mode='session'){
    const info=document.createElement('div');const locations=(item.locations||[]).join(' · ');info.innerHTML=`<strong>${esc(item.title)}</strong><small>${esc(categoryOf(item))}${item.usageCount?` · direkte brug: ${item.usageCount}`:''}${item.size?` · ${TN.formatBytes(item.size)}`:''}</small><small class="tn-resource-origin">${esc(locations||'Ressourcekatalog')}</small>`;
    const actions=document.createElement('div');actions.className='tn-resource-catalog-actions';
    if(item.mediaId){const b=document.createElement('button');b.type='button';b.textContent='Hent';b.onclick=()=>this.downloadResourceItem(item);actions.append(b);}else if(urlOf(item)){const b=document.createElement('button');b.type='button';b.textContent='Åbn';b.onclick=()=>window.open(urlOf(item),'_blank','noopener,noreferrer');actions.append(b);}
+   if(activeIndex===index){const more=document.createElement('button');more.type='button';more.className='plan2-resource-card-more';more.textContent='⋯';more.title='Flere handlinger for denne ressource';more.setAttribute('aria-label',`Flere handlinger for ${clean(item.title||'ressourcen')}`);more.onclick=e=>{e.stopPropagation();openResourceCardMenu(item);};actions.append(more);}
    row.append(check,info,actions);list.append(row);
   }
   if(!visible.length)list.innerHTML='<div class="tn-empty-state">Ingen ressourcer matcher søgningen og de valgte kategorier.</div>';
@@ -61583,6 +61647,14 @@ try{
  }
 }
 </style>
+
+<style id="plan2-u4c-resource-card-menu-touch-style">
+#tavleNextApp .plan2-resource-card-more{min-width:38px;min-height:38px;font-size:20px;line-height:1;padding:5px 9px;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+#tavleNextApp .plan2-resource-card-menu{display:grid;gap:8px}
+#tavleNextApp .plan2-resource-card-menu>button{display:grid;text-align:left;gap:3px;width:100%;padding:12px 14px;border:1px solid var(--tn-line);border-radius:10px;background:var(--tn-panel2);color:var(--tn-text)}
+#tavleNextApp .plan2-resource-card-menu>button small{color:var(--tn-muted);font-weight:500}
+#tavleNextApp .tn-resource-catalog-row.plan2-resource-active-card .plan2-resource-info strong::after{content:''!important}
+</style>
 <script id="plan2-phase12t-resource-overview-script">
 (function(TN){
 'use strict';
@@ -63676,8 +63748,9 @@ App.prototype.renderResourceCatalog=async function(container,mode='session'){
   const selectedVisible=visible.filter(x=>chosen.has(x.index)).length;
   const selectedTotal=(context.resources||[]).map((item,index)=>({item,index})).filter(({item,index})=>activeCats.has(categoryOf(item))&&chosen.has(index)).length;
   summary.innerHTML=`<strong>${esc(context.scopeLabel)}</strong><span>${visible.length} af ${(context.resources||[]).length} ressourcer</span>${cats.length?`<span>· ${activeCats.size} af ${cats.length} kategorier valgt</span>`:''}`;
-  packageRow.querySelector('[data-count]').textContent=`${visible.length} vises · ${selectedTotal} valgt til pakken`;
+  packageRow.querySelector('[data-count]').textContent=`${visible.length} vises · ${selectedTotal} markeret`;
   packageRow.querySelector('[data-package]').disabled=!selectedTotal;
+  packageRow.querySelector('[data-delete-selected]').disabled=!selectedTotal;
   list.replaceChildren();
   for(const {item,index} of visible){
    const row=document.createElement('article');row.className='tn-resource-catalog-row plan2-resource-selectable';
@@ -67562,7 +67635,7 @@ const clean=v=>String(v??'').trim();
 const norm=v=>clean(v).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const FIELD_DEFS=[
  {kind:'team',label:'Teams',aliases:['Kontaktgruppe','Kontaktgruppe/Team','Kontaktteam','Team']},
- {kind:'residence',label:'Bosteder',aliases:['Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']},
+ {kind:'residence',label:'Bosteder',aliases:['Student House','StudentHouse','Elevgang','Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']},
  {kind:'custom',label:'Grupper',aliases:['Grupper','Gruppe','Elevgrupper','Elevgruppe'],multi:true}
 ];
 function fieldValues(value,def){
@@ -69847,7 +69920,7 @@ const clean=v=>String(v??'').trim();
 const norm=v=>clean(v).toLocaleLowerCase('da').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const defs=[
  {kind:'team',label:'Team',aliases:['Kontaktgruppe','Kontaktgruppe/Team','Kontaktteam','Team']},
- {kind:'residence',label:'Bosted',aliases:['Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']}
+ {kind:'residence',label:'Bosted',aliases:['Student House','StudentHouse','Elevgang','Hus/gang','Hus/Gang','Hus','Bosted','Boenhed']}
 ];
 let cataloguePromise=null;
 function columnIndex(dataset,aliases){const wanted=new Set(aliases.map(norm));return (dataset?.columns||[]).findIndex(column=>wanted.has(norm(column)));}
@@ -71001,6 +71074,16 @@ App.prototype.showWidgetMoreMenu=function(id,anchorButton){
   return result;
 };
 })(window.TavleNext);
+</script>
+
+<style id="plan2-active-resource-card-u4-style">
+.tn-resource-catalog-row.plan2-resource-active-card{border-color:var(--tn-accent,#38bdf8)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--tn-accent,#38bdf8) 28%,transparent);background:color-mix(in srgb,var(--tn-accent,#38bdf8) 10%,var(--tn-panel2,#111827))!important}
+.tn-resource-catalog-row.plan2-resource-active-card .plan2-resource-info strong::after{content:' · aktiv';font-size:11px;color:#7dd3fc;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.plan2-resource-package-row [data-replace-active]:disabled{opacity:.45;cursor:not-allowed}
+</style>
+
+<script id="plan-u6c-delete-resource-family-marker">
+(function(){try{window.TavleNext.version='0.14.19-u6c-delete-resource-family';document.title='PLAN-04L-U6C-SLET-RESSOURCEFAMILIE-TEST';}catch(_){}})();
 </script>
 </body></html>`;
 }
@@ -78716,10 +78799,11 @@ App.prototype.renderResourceCatalog=async function(container,mode='global'){
  const checkboxCats=cats.filter(c=>c!=='Elevbilleder');
  const hasPortraits=cats.includes('Elevbilleder');
  const activeCats=new Set(cats),chosen=new Set((context.resources||[]).map((_,i)=>i));
+ let activeIndex=null;
  const tools=document.createElement('div');tools.className='tn-resource-catalog-tools plan2-resource-tools-v81';
  tools.innerHTML=`<input type="search" placeholder="Søg i ressourcer" aria-label="Søg i ressourcer"><div class="plan2-resource-filter-checks" role="group" aria-label="Filtrér ressourcer efter kategori">${checkboxCats.map(c=>`<label><input type="checkbox" data-type="${esc(c)}" checked><span>${esc(c)}</span></label>`).join('')}</div>`;
  const selection=document.createElement('div');selection.className='plan2-resource-selection-tools';selection.innerHTML=`<button type="button" data-all>Vælg alle viste</button><button type="button" data-none>Fravælg alle viste</button>${hasPortraits?'<button type="button" data-portraits aria-pressed="true">Elevbilleder</button>':''}`;
- const packageRow=document.createElement('div');packageRow.className='plan2-resource-package-row';packageRow.innerHTML='<span data-count></span><button type="button" data-package>Eksportér ressourcepakke…</button><button type="button" data-delete-package>Slet ressourcepakke…</button>';
+ const packageRow=document.createElement('div');packageRow.className='plan2-resource-package-row';packageRow.innerHTML='<span data-count></span><button type="button" data-package>Eksportér ressourcepakke…</button><button type="button" data-delete-selected>Slet valgte…</button>';
  const summary=document.createElement('section');summary.className='tn-resource-catalog-summary';
  const list=document.createElement('div');list.className='tn-resource-catalog-list';
  let visible=[];
@@ -78736,12 +78820,19 @@ App.prototype.renderResourceCatalog=async function(container,mode='global'){
   if(portraitButton){const on=activeCats.has('Elevbilleder');portraitButton.setAttribute('aria-pressed',String(on));portraitButton.classList.toggle('primary',on);}
   list.replaceChildren();
   for(const {item,index} of visible){
-   const row=document.createElement('article');row.className='tn-resource-catalog-row plan2-resource-selectable';row.dataset.resourceIdentity=clean(item.identity||item.resourceId||item.id);
-   const check=document.createElement('input');check.type='checkbox';check.className='plan2-resource-item-check';check.checked=chosen.has(index);check.setAttribute('aria-label',`Vælg ${clean(item.title||'ressource')} til eksport`);check.onchange=()=>{check.checked?chosen.add(index):chosen.delete(index);draw();};
-   const info=document.createElement('div');info.className='plan2-resource-info';const locations=(item.locations||[]).join(' · ');info.innerHTML=`<strong role="button" tabindex="0" aria-label="Vælg ${esc(item.title||'ressource')} til eksport">${esc(item.title)}</strong><small>${esc(categoryOf(item))}${item.usageCount?` · direkte brug: ${item.usageCount}`:''}${item.size?` · ${TN.formatBytes(item.size)}`:''}</small><small class="tn-resource-origin">${esc(locations||'Ressourcekatalog')}</small>`;
-   const toggle=()=>{chosen.has(index)?chosen.delete(index):chosen.add(index);draw();};info.querySelector('strong').onclick=toggle;info.querySelector('strong').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}};
+   const row=document.createElement('article');row.className='tn-resource-catalog-row plan2-resource-selectable';row.dataset.resourceIdentity=clean(item.identity||item.resourceId||item.id);row.classList.toggle('plan2-resource-active-card',activeIndex===index);row.tabIndex=0;row.setAttribute('aria-selected',String(activeIndex===index));
+   const activate=()=>{activeIndex=index;draw();};
+   row.onclick=e=>{if(e.target.closest('input,button,a'))return;activate();};
+   row.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('input,button,a')){e.preventDefault();activate();}};
+   const check=document.createElement('input');check.type='checkbox';check.className='plan2-resource-item-check';check.checked=chosen.has(index);check.setAttribute('aria-label',`Markér ${clean(item.title||'ressource')} til massehandlinger`);check.onclick=e=>e.stopPropagation();check.onchange=()=>{check.checked?chosen.add(index):chosen.delete(index);draw();};
+   const info=document.createElement('div');info.className='plan2-resource-info';const locations=(item.locations||[]).join(' · ');info.innerHTML=`<strong>${esc(item.title)}</strong><small>${esc(categoryOf(item))}${item.usageCount?` · direkte brug: ${item.usageCount}`:''}${item.size?` · ${TN.formatBytes(item.size)}`:''}</small><small class="tn-resource-origin">${esc(locations||'Ressourcekatalog')}</small>`;
    const actions=document.createElement('div');actions.className='tn-resource-catalog-actions';
-   if(item.mediaId){const b=document.createElement('button');b.type='button';b.textContent='Hent';b.onclick=()=>this.downloadResourceItem(item);actions.append(b);}else if(urlOf(item)){const b=document.createElement('button');b.type='button';b.textContent='Åbn';b.onclick=()=>window.open(urlOf(item),'_blank','noopener,noreferrer');actions.append(b);}
+   if(item.mediaId){const b=document.createElement('button');b.type='button';b.textContent='Hent';b.onclick=e=>{e.stopPropagation();this.downloadResourceItem(item);};actions.append(b);}else if(urlOf(item)){const b=document.createElement('button');b.type='button';b.textContent='Åbn';b.onclick=e=>{e.stopPropagation();window.open(urlOf(item),'_blank','noopener,noreferrer');};actions.append(b);}
+   if(activeIndex===index){
+    const more=document.createElement('button');more.type='button';more.className='plan2-resource-card-more';more.textContent='⋯';more.setAttribute('aria-label',`Flere handlinger for ${clean(item.title||'ressource')}`);
+    more.onclick=e=>{e.preventDefault();e.stopPropagation();openResourceCardMenu(item);};
+    actions.append(more);
+   }
    row.append(check,info,actions);list.append(row);
   }
   if(!visible.length)list.innerHTML='<div class="tn-empty-state">Ingen ressourcer matcher søgningen og de valgte kategorier.</div>';
@@ -78753,7 +78844,182 @@ App.prototype.renderResourceCatalog=async function(container,mode='global'){
  selection.querySelector('[data-none]').onclick=()=>{visible.forEach(x=>chosen.delete(x.index));draw();};
  const portraitButton=selection.querySelector('[data-portraits]');
  if(portraitButton)portraitButton.onclick=()=>{activeCats.has('Elevbilleder')?activeCats.delete('Elevbilleder'):activeCats.add('Elevbilleder');draw();};
- packageRow.querySelector('[data-delete-package]').onclick=()=>this.openDeleteImportedResourcePackage(container,mode);
+ const replaceResourceItem=async(item)=>{
+  if(!item?.mediaId)return this.toast('Denne ressource har ikke en lokal fil, der kan udskiftes');
+  // iPad/Safari kræver, at filvælgeren åbnes direkte i det oprindelige tap-event.
+  // Der må derfor ikke ligge et await/IndexedDB-opslag før input.click().
+  const hintedMime=clean(item.mimeType).toLowerCase();
+  const hintedName=clean(item.fileName||item.title);
+  const hintedExt=(hintedName.match(/\.([^.]+)$/)||[])[1]?.toLowerCase()||'';
+  const sheetExts=new Set(['xlsx','xls','ods','csv','tsv']);
+  const acceptHint=sheetExts.has(hintedExt)?'.xlsx,.xls,.ods,.csv,.tsv':(hintedMime||'*/*');
+  const input=document.createElement('input');input.type='file';input.accept=acceptHint;input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';document.body.append(input);
+  const filePromise=new Promise(resolve=>{const done=value=>{setTimeout(()=>input.remove(),0);resolve(value||null)};input.addEventListener('change',()=>done(input.files?.[0]),{once:true});input.addEventListener('cancel',()=>done(null),{once:true});});
+  input.click();
+  const file=await filePromise;
+  if(!file)return;
+  const oldMedia=await this.mediaManager.get(item.mediaId).catch(()=>null)||await this.storage.get('media',item.mediaId).catch(()=>null);
+  if(!oldMedia)return this.toast('Den eksisterende fil kunne ikke findes');
+  const oldBlob=oldMedia.blob instanceof Blob?oldMedia.blob:(oldMedia.originalBlob instanceof Blob?oldMedia.originalBlob:null);
+  const oldName=clean(oldMedia.name||oldMedia.fileName||item.fileName||item.title||'Ressource');
+  const oldMime=clean(oldMedia.mimeType||oldMedia.mime||oldBlob?.type||item.mimeType).toLowerCase();
+  const newMime=clean(file.type).toLowerCase();const family=m=>clean(m).split('/')[0]||'';
+  const oldExt=(oldName.match(/\.([^.]+)$/)||[])[1]?.toLowerCase()||'';const newExt=(file.name.match(/\.([^.]+)$/)||[])[1]?.toLowerCase()||'';
+  const sheets=new Set(['xlsx','xls','ods','csv','tsv']);
+  const compatible=(sheets.has(oldExt)?sheets.has(newExt):(oldMime&&newMime?family(oldMime)===family(newMime)||oldMime===newMime:oldExt===newExt));
+  if(!compatible)return this.toast('Vælg en fil af samme ressourcetype');
+
+  // Filnavnet følger altid den nye fil. Et brugerdefineret visningsnavn bevares,
+  // mens et automatisk filbaseret navn følger den nye fil.
+  const baseName=value=>clean(value).replace(/\.[^.]+$/,'');
+  const normTitle=value=>baseName(value).trim().toLocaleLowerCase('da-DK');
+  const oldTitle=clean(oldMedia.title||oldMedia.displayName||item.title||baseName(oldName));
+  const oldAutoTitle=baseName(oldName);
+  const newAutoTitle=baseName(file.name);
+  const hasExplicitTitleSource=oldMedia.titleSource==='user';
+  const looksUserDefined=hasExplicitTitleSource||(oldTitle&&normTitle(oldTitle)!==normTitle(oldAutoTitle));
+  const nextTitle=looksUserDefined?oldTitle:newAutoTitle;
+  const titleLine=looksUserDefined
+   ?`Visningsnavnet "${oldTitle}" bevares.`
+   :`Visningsnavnet ændres fra "${oldTitle||oldAutoTitle}" til "${newAutoTitle}".`;
+  if(!window.confirm(`Udskift "${oldName}" med "${file.name}"?\n\n${titleLine}\nRessourcens ID og eksisterende koblinger bevares.`))return;
+  const backup={...oldMedia};
+  try{
+   const updated={...oldMedia,blob:file,originalBlob:file,name:file.name,fileName:file.name,title:nextTitle,displayName:nextTitle,titleSource:looksUserDefined?'user':'filename',mimeType:file.type||oldMime||'application/octet-stream',mime:file.type||oldMime||'application/octet-stream',size:Number(file.size||0),updatedAt:TN.now()};
+   await this.storage.put('media',updated);
+   const verified=await this.storage.get('media',item.mediaId);const blob=verified?.blob instanceof Blob?verified.blob:verified?.originalBlob;
+   if(!(blob instanceof Blob)||Number(blob.size)!==Number(file.size))throw new Error('Den nye fil kunne ikke verificeres');
+   TN.emit?.('mediachange',{kind:'update',media:verified});this.invalidateResourceContextCache?.();
+   this.toast(`"${oldName}" er udskiftet med "${file.name}"${looksUserDefined?`; visningsnavnet "${nextTitle}" er bevaret`:`; navnet er ændret til "${nextTitle}"`}`);
+   await this.renderResourceCatalog(container,mode);
+  }catch(error){try{await this.storage.put('media',backup)}catch(_){ }this.toast(error?.message||'Filen kunne ikke udskiftes. Den eksisterende fil er bevaret.');}
+ };
+ const openResourceCardMenu=item=>{
+  const body=document.createElement('div');body.className='plan2-resource-card-menu';
+  const addAction=(label,description,run,danger=false)=>{
+   const button=document.createElement('button');button.type='button';button.className=danger?'danger':'';
+   button.innerHTML=`<strong>${esc(label)}</strong>${description?`<small>${esc(description)}</small>`:''}`;
+   button.onclick=async()=>{this.modalManager.closeAll();await Promise.resolve(run());};body.append(button);
+  };
+  if(urlOf(item))addAction('Åbn','Vis kilden eller filen',()=>window.open(urlOf(item),'_blank','noopener,noreferrer'));
+  if(item.mediaId)addAction('Hent original','Gem den lokale fil på enheden',()=>this.downloadResourceItem(item));
+  addAction('Udskift fil…','Bevar ressourcens ID og alle koblinger',()=>replaceResourceItem(item));
+  addAction('Vis oplysninger','Type, kategori, filnavn og brug',()=>{
+   const info=document.createElement('div');
+   info.innerHTML=`<p><strong>${esc(item.title||'Ressource')}</strong></p><p>Type: ${esc(item.type||'Ukendt')}<br>Kategori: ${esc(categoryOf(item))}<br>Filnavn: ${esc(item.fileName||'—')}<br>MIME: ${esc(item.mimeType||'—')}<br>Direkte brug: ${Number(item.usageCount||0)}</p>`;
+   this.modalManager.open({title:'Ressourceoplysninger',body:info,actions:[{label:'Luk',run:()=>true}]});
+  });
+  if(item.mediaId)addAction('Slet permanent…','Fjern filen og alle dens visninger',()=>this.permanentlyDeleteSharedMedia(item.mediaId,{title:item.title||item.fileName||'Ressource'}),true);
+  this.modalManager.closeAll();requestAnimationFrame(()=>this.modalManager.open({title:clean(item.title||'Ressource'),body,actions:[{label:'Luk',run:()=>true}]}));
+ };
+ const deleteResourceFamily=async(item)=>{
+  const mediaIds=new Set([clean(item?.mediaId)].filter(Boolean));
+  const resourceIds=new Set([clean(item?.resourceId)].filter(Boolean));
+  const fileNames=new Set([clean(item?.fileName)].filter(Boolean));
+  const datasetIds=new Set([clean(item?.datasetId)].filter(Boolean));
+  let changed=false;
+
+  // Fjern først den lokale fil og dens direkte widgetvisninger.
+  for(const mediaId of mediaIds){
+   const removed=await this.permanentlyDeleteSharedMedia(mediaId,{title:item?.title||item?.fileName||'Ressource',confirmDelete:false,silent:true,render:false});
+   changed=!!removed||changed;
+  }
+
+  // Find samtlige katalogrækker for samme ressource. De kan ligge i både
+  // det permanente katalog og i afledte ressourcesamlinger.
+  const allDatasets=await this.storage.getAll('datasets').catch(()=>[]);
+  for(const dataset of allDatasets){
+   if(!dataset||!Array.isArray(dataset.rows))continue;
+   const type=clean(dataset.type).toLowerCase();
+   if(type!=='resource-list')continue;
+   const columns=Array.isArray(dataset.columns)?dataset.columns:[];
+   const ix=name=>columns.findIndex(column=>clean(column).toLowerCase()===name.toLowerCase());
+   const mediaIx=ix('MediaId'), resourceIx=ix('ResourceId'), fileIx=ix('FileName'), sourceIx=ix('SourceDatasetIds');
+   const get=(row,index)=>index<0?'':clean(Array.isArray(row)?row[index]:row?.[columns[index]]);
+   const before=dataset.rows.length;
+   dataset.rows=dataset.rows.filter(row=>{
+    const rowMedia=get(row,mediaIx), rowResource=get(row,resourceIx), rowFile=get(row,fileIx);
+    const match=(rowMedia&&mediaIds.has(rowMedia))||(rowResource&&resourceIds.has(rowResource))||(rowFile&&fileNames.has(rowFile));
+    if(!match)return true;
+    const sourceIds=get(row,sourceIx).split(',').map(clean).filter(Boolean);
+    sourceIds.forEach(id=>datasetIds.add(id));
+    if(rowMedia)mediaIds.add(rowMedia);
+    if(rowResource)resourceIds.add(rowResource);
+    if(rowFile)fileNames.add(rowFile);
+    return false;
+   });
+   if(dataset.rows.length!==before){
+    dataset.meta={...(dataset.meta||{}),updatedAt:TN.now(),prunedByResourceDelete:true};
+    await this.dataManager.update(dataset);
+    changed=true;
+   }
+  }
+
+  // Find afledte datasæt, der dokumenteret stammer fra originalfilen.
+  for(const dataset of allDatasets){
+   if(!dataset||clean(dataset.type).toLowerCase()==='resource-list')continue;
+   const meta=dataset.meta||{};
+   const linked=
+    datasetIds.has(clean(dataset.id))||
+    mediaIds.has(clean(meta.sourceMediaId))||
+    resourceIds.has(clean(meta.sourceResourceId))||
+    fileNames.has(clean(meta.sourceFileName))||
+    fileNames.has(clean(meta.sourceName));
+   if(linked)datasetIds.add(clean(dataset.id));
+  }
+
+  // Fjern alle widgets, der refererer til et datasæt i familien, før datasættet slettes.
+  if(datasetIds.size){
+   const widgets=await this.storage.getAll('widgets').catch(()=>[]);
+   const boards=await this.storage.getAll('boards').catch(()=>[]);
+   const boardById=new Map(boards.map(board=>[String(board.id),board]));
+   for(const widget of widgets){
+    const direct=clean(widget?.datasetId);
+    const json=JSON.stringify(widget?.content||{});
+    const linked=datasetIds.has(direct)||[...datasetIds].some(id=>id&&json.includes(String(id)));
+    if(!linked)continue;
+    const board=boardById.get(String(widget.boardId));
+    if(board)await this.widgetManager.delete(board,widget.id);
+    else await this.storage.delete('widgets',widget.id);
+    changed=true;
+   }
+   for(const datasetId of datasetIds){
+    const dataset=await this.dataManager.get(datasetId).catch(()=>null);
+    if(dataset&&clean(dataset.type).toLowerCase()!=='resource-list'){
+     await this.dataManager.delete(datasetId);
+     changed=true;
+    }
+   }
+  }
+
+  await this.storage.flush?.();
+  return changed;
+ };
+ const deleteSelectedResources=async()=>{
+  const items=selectedItems();if(!items.length)return this.toast('Markér mindst én ressource');
+  const deletableItems=items.filter(item=>item.mediaId||item.datasetId);const unsupported=items.length-deletableItems.length;
+  if(!deletableItems.length)return this.toast('De markerede ressourcer kan ikke slettes permanent');
+  const names=deletableItems.slice(0,5).map(item=>clean(item.title||item.fileName||'Ressource'));
+  const body=document.createElement('div');
+  body.innerHTML=`<section style="border:1px solid var(--tn-danger,#d44);border-radius:12px;padding:14px"><p><strong>${deletableItems.length===1?`Slet “${esc(names[0])}” permanent?`:`Slet ${deletableItems.length} markerede ressourcer permanent?`}</strong></p><p>Filerne og alle deres visninger fjernes fra Plan. Handlingen kan ikke fortrydes.</p>${deletableItems.length>1?`<p>${names.map(esc).join('<br>')}${deletableItems.length>5?`<br>… og ${deletableItems.length-5} flere`:''}</p>`:''}${unsupported?`<p class="muted">${unsupported} markeret ressource uden lokal fil springes over.</p>`:''}</section>`;
+  const app=this;this.modalManager.closeAll();requestAnimationFrame(()=>app.modalManager.open({title:'Slet valgte ressourcer',body,actions:[
+   {label:'Annuller',run:()=>true},
+   {label:deletableItems.length===1?'Slet permanent':`Slet ${deletableItems.length} permanent`,danger:true,run:async()=>{
+    let deleted=0,failed=0;
+    for(const item of deletableItems){
+     try{
+      const changed=await deleteResourceFamily(item);
+      if(changed)deleted++;else failed++;
+     }catch(error){console.error(error);failed++;}
+    }
+    app.invalidateResourceContextCache?.();
+    await app.renderResourceCatalog(container,mode);
+    app.toast(`${deleted} ressource${deleted===1?'':'r'} slettet permanent${failed?` · ${failed} kunne ikke slettes`:''}`);
+    return true;
+   }}
+  ]}));
+ };
+ packageRow.querySelector('[data-delete-selected]').onclick=deleteSelectedResources;
  packageRow.querySelector('[data-package]').onclick=async()=>{
   const items=selectedItems();if(!items.length)return this.toast('Vælg mindst én ressource');
   const body=document.createElement('div');body.className='plan2-resource-package-info';body.innerHTML=`<p><strong>${items.length} valgte ressourcer eksporteres.</strong></p><p>${esc(context.scopeLabel)}</p>`;
@@ -79464,5 +79730,151 @@ try{TN.version='0.14.33-portrait-resource-persistence';}catch(_error){}
       return results;
     };
   }
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · U6E · Sekventiel ressourceimport, synlig datamodal og fokus på sidste import -->
+<script id="plan2-u6e-resource-import-queue-v1">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2U6EResourceImportQueueV1)return;
+window.__plan2U6EResourceImportQueueV1=true;
+const App=TN.TavleNextApp||TN.App;
+if(!App?.prototype||typeof App.prototype.importFilesToResources!=='function')return;
+const clean=value=>String(value??'').trim();
+const norm=value=>clean(value).toLocaleLowerCase('da-DK');
+const DATA_RE=/\.(xlsx|xls|csv|tsv|ods)$/i;
+const INFO_RE=/^(readme|info|import[-_ ]?log)(?:\.[^.]+)?$/i;
+
+function isInfoFile(file){
+ const name=clean(file?.name);
+ return /\.(txt|md)$/i.test(name)&&INFO_RE.test(name);
+}
+function closePlanOverview(app){
+ const layer=[...document.querySelectorAll('#tnModalRoot > .tn-modal-layer')]
+  .find(node=>node.querySelector('.tn-datacenter'));
+ if(!layer)return false;
+ try{app.modalManager?.close?.(layer);}catch(_){layer.remove?.();}
+ return true;
+}
+function waitFrame(){return new Promise(resolve=>requestAnimationFrame(()=>resolve()));}
+
+async function runDataImportAndWait(app,invoke){
+ closePlanOverview(app);
+ await waitFrame();
+ const manager=app.modalManager;
+ if(!manager?.open)return invoke();
+ const originalOpen=manager.open;
+ let captured=false;
+ let settle;
+ const closed=new Promise(resolve=>{settle=resolve;});
+ manager.open=function(options={}){
+  const title=clean(options.title);
+  if(!captured&&/^Importér (?:datafiler|Data|\d+ datafiler)/i.test(title)){
+   captured=true;
+   const previousOnClose=options.onClose;
+   options={...options,onClose:()=>{try{previousOnClose?.();}finally{settle?.();}}};
+  }
+  return originalOpen.call(this,options);
+ };
+ try{
+  await invoke();
+ }finally{
+  manager.open=originalOpen;
+ }
+ if(captured)await closed;
+}
+
+async function createImportLog(app,files){
+ if(!files.length||!TN.runtime?.activeBoard)return null;
+ const sections=[];
+ for(const file of files){
+  try{sections.push(`${file.name}\n${await file.text()}`);}
+  catch(error){console.warn('Import-loggen kunne ikke læses',file?.name,error);}
+ }
+ if(!sections.length)return null;
+ const title=files.length===1?'Import-log':`Import-log · ${files.length} filer`;
+ const widget=await app.widgetManager.create(TN.runtime.activeBoard,'text',{
+  title,
+  content:{text:sections.join('\n\n──────────\n\n'),fontSize:18,align:'left'},
+  geometry:{x:80,y:80,width:680,height:480}
+ });
+ await app.renderActiveBoard({preserveSelection:true});
+ return widget;
+}
+
+function resourceScore(item,file){
+ const name=norm(file?.name),base=norm(clean(file?.name).replace(/\.[^.]+$/,''));
+ const itemFile=norm(item?.fileName||item?.name);
+ const itemTitle=norm(item?.title);
+ let score=0;
+ if(name&&itemFile===name)score+=100;
+ if(base&&itemTitle===base)score+=45;
+ if(clean(item?.category)==='Data'||clean(item?.presentationCategory)==='Data')score+=30;
+ if(clean(item?.type)==='Regneark')score+=25;
+ if(clean(item?.source)==='data-resource')score+=20;
+ if(item?.mediaId)score+=5;
+ return score;
+}
+async function focusLastImportedResource(app,file){
+ if(!file||typeof app.resourceScopeContext!=='function'||typeof app.createResourceCollectionFromResourceScope!=='function'||typeof app.openGlobalResourceTool!=='function')return null;
+ await new Promise(resolve=>setTimeout(resolve,120));
+ app.invalidateResourceContextCache?.();
+ const context=await app.resourceScopeContext('global');
+ const resources=[...(context?.resources||[])];
+ if(!resources.length)return null;
+ let activeIndex=0,best=-1;
+ resources.forEach((item,index)=>{const score=resourceScore(item,file);if(score>best){best=score;activeIndex=index;}});
+ if(best<=0)activeIndex=Math.max(0,resources.length-1);
+ const collection=await app.createResourceCollectionFromResourceScope('global',resources);
+ const widget=await app.openGlobalResourceTool({dataset:collection});
+ if(!widget)return null;
+ widget.content={...(widget.content||{}),datasetId:collection.id,sourceName:collection.name,
+  view:'overview',activeIndex,typeFilter:'Alle',categoryFilter:'Alle',search:'',
+  resourceScope:'global',globalResourceTool:true,sourceFilterSnapshot:false};
+ await app.widgetManager.update(widget,{immediate:true});
+ try{await app.renderActiveBoard({preserveSelection:true});}catch(_){await app.renderActiveBoard?.();}
+ app.selectWidget?.(widget.id);
+ return widget;
+}
+
+const previousImportFilesToResources=App.prototype.importFilesToResources;
+App.prototype.importFilesToResources=async function(files){
+ const selected=[...(files||[])];
+ if(!selected.length)return[];
+ const infoFiles=selected.filter(isInfoFile);
+ const importable=selected.filter(file=>!isInfoFile(file));
+ const dataFiles=importable.filter(file=>DATA_RE.test(clean(file?.name)));
+ const otherFiles=importable.filter(file=>!DATA_RE.test(clean(file?.name)));
+ let result=[];
+ try{
+  if(dataFiles.length){
+   await runDataImportAndWait(this,async()=>{
+    const value=await previousImportFilesToResources.call(this,dataFiles);
+    if(Array.isArray(value))result.push(...value);
+   });
+  }
+  if(otherFiles.length){
+   const value=await previousImportFilesToResources.call(this,otherFiles);
+   if(Array.isArray(value))result.push(...value);
+  }
+  const logWidget=await createImportLog(this,infoFiles);
+  const lastFile=importable.at(-1)||null;
+  if(lastFile){
+   await focusLastImportedResource(this,lastFile);
+   this.toast?.(`${lastFile.name} er importeret og åbnet i Ressourcer${logWidget?' · Import-log lagt på tavlen':''}`);
+  }else if(logWidget){
+   this.selectWidget?.(logWidget.id);
+   this.toast?.('Import-log lagt på tavlen');
+  }
+  return result;
+ }catch(error){
+  console.error('Ressourceimportkøen fejlede',error);
+  this.toast?.(error?.message||'Filerne kunne ikke importeres');
+  throw error;
+ }
+};
+
+try{TN.version='0.14.21-u6e-import-queue-modal-resource-focus';document.title='PLAN-04L-U6E-IMPORTKOE-MODAL-RESSOURCEFOKUS-TEST';}catch(_){ }
 })(window.TavleNext);
 </script>
