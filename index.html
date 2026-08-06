@@ -2476,7 +2476,7 @@ html[data-plan-embed="true"] .tn-board-counter-center{min-width:56px;padding-inl
 <div id="tnModalRoot"></div>
 <div aria-live="polite" id="tnToast" role="status"></div>
 <aside hidden="" id="tnDevPanel"></aside>
-<input accept=".plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*" hidden="" id="tnFileInput" multiple="" type="file"/>
+<input accept=".plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*" hidden="" id="tnFileInput" multiple="" type="file"/>
 </div>
 <section hidden="" id="tnFatal"><h1>Plan kunne ikke starte</h1><pre id="tnFatalMessage"></pre></section>
 <script>
@@ -8874,7 +8874,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         await map[action]?.();
       });
       if(this.widgetPicker)this.widgetPicker.addEventListener('change',()=>{const id=this.widgetPicker.value;if(!id)return;this.chooseWidgetFromPicker(id);});
-      this.fileInput.addEventListener('change',()=>{const files=[...this.fileInput.files];this.fileInput.value='';this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.queueFiles(files);});
+      this.fileInput.addEventListener('change',()=>{const files=[...this.fileInput.files];this.fileInput.value='';this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.queueFiles(files);});
       let dropOverlayTimer=0;const clearDropOverlay=()=>{clearTimeout(dropOverlayTimer);dropOverlayTimer=0;this.viewport.classList.remove('dragover');};const armDropOverlay=()=>{this.viewport.classList.add('dragover');clearTimeout(dropOverlayTimer);dropOverlayTimer=setTimeout(clearDropOverlay,700);};
       this.viewport.addEventListener('dragenter',e=>{e.preventDefault();armDropOverlay();});
       this.viewport.addEventListener('dragover',e=>{e.preventDefault();armDropOverlay();});
@@ -10334,6 +10334,8 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
 
 
 
+
+<!-- Plan 2.0 · Opgave 04K2 · Kompakt elevbilled-matchkort · stabil billedkilde og tættere layout -->
 </body></html>`;
       return this.addWidget('html',{title:'Plan · indlejret',content:{html:wrapper,mediaId:null,source:'inline',trusted:true,planEmbed:true,appKind:'plan',name:'Plan-indlejret.html',embeddedSessionId:sessionId,planUrl:url.href},geometry:{width:860,height:600}});
     }
@@ -10892,7 +10894,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       return this.addWidget('calendar',{title:dataset.name,content:{view:'month',date,datasetId:dataset.id,events:[]},geometry:{x:90,y:70,width:520,height:470}});
     }
     downloadText(text,filename,type='text/plain;charset=utf-8'){const prepared=this.fileExporter.prepareText(text,filename,type);this.fileExporter.download(prepared);}
-    requestImportFiles(){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();}
+    requestImportFiles(){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();}
     requestImageImport(){this.fileInput.accept='image/*';this.fileInput.multiple=true;this.fileInput.click();}
     async showDemoDataLibrary(){
       const body=document.createElement('div');
@@ -48228,7 +48230,7 @@ function requestResourcePackageFiles(app){
  if(!app)return;
  const input=document.createElement('input');
  input.type='file';
- input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
+ input.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
  input.multiple=true;
  input.style.position='fixed';
  input.style.left='-10000px';
@@ -48242,7 +48244,8 @@ function requestResourcePackageFiles(app){
   /* Ressourceknappen ejer sin importkontekst. Gå direkte til den fælles
      fil-dispatcher, så ZIP-filen først sniffes for plan-resources.json
      i stedet for at queueFiles sender den til Planpakke-importøren. */
-  if(typeof app.handleFiles==='function')void app.handleFiles(files);
+  if(typeof app.importFilesToResources==='function')void app.importFilesToResources(files);
+  else if(typeof app.handleFiles==='function')void app.handleFiles(files);
   else if(typeof app.queueFiles==='function')app.queueFiles(files);
  },{once:true});
  input.addEventListener('cancel',()=>input.remove(),{once:true});
@@ -60493,7 +60496,7 @@ proto.handleFiles=async function(files){
 const oldRequest=proto.requestImportFiles;
 proto.requestImportFiles=function(){
   if(this.fileInput){
-    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/x-zip-compressed,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
     this.fileInput.multiple=false;
     this.fileInput.click();
     return;
@@ -62008,7 +62011,7 @@ App.prototype.handleFiles=async function(files){
 
 const originalRequestImportFiles=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
-  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
   this.fileInput.multiple=true;
   this.fileInput.click();
 };
@@ -66127,7 +66130,7 @@ try{document.title='Plan_2_0_v8h';}catch{}
   }
 
   App.prototype.requestCoursePackageImport=function(){
-    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/x-zip-compressed,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
     this.fileInput.multiple=false;
     this.fileInput.click();
   };
@@ -66323,7 +66326,7 @@ App.prototype.previewPlanPackageImport=async function(file){
 const previousRequest=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
   if(this.fileInput){
-    this.fileInput.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
+    this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
     this.fileInput.multiple=false;
     this.fileInput.click();
     return;
@@ -67328,7 +67331,7 @@ function courseImportInput(app){
  input=document.createElement('input');
  input.id='plan2CourseImportInput';
  input.type='file';
- input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';
+ input.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
  input.multiple=false;
  input.tabIndex=-1;
  input.setAttribute('aria-hidden','true');
@@ -67727,7 +67730,7 @@ TN.version='0.9.7-derived-groups-via-mine-holds';
   const downstreamRequestImportFiles=App.prototype.requestImportFiles;
   App.prototype.requestImportFiles=function(){
     if(this.fileInput){
-      this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,application/json,text/csv,text/tab-separated-values,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+      this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
       this.fileInput.multiple=true;
       this.fileInput.click();
       return;
@@ -67787,7 +67790,7 @@ const downstream=App.prototype.handleFiles;
 App.prototype.handleFiles=async function(files){const normal=[...(files||[])].map(f=>this.normalizeImportFile?this.normalizeImportFile(f):f),zips=normal.filter(isZip),data=normal.filter(f=>!isZip(f)&&DATA_RE.test(f.name)),other=normal.filter(f=>!isZip(f)&&!DATA_RE.test(f.name));for(const zip of zips){const entries=await unzip(zip),manifestBytes=entries.get('manifest.json')||entries.get('Plan-Ressourcer - filer/plan-resources.json');let manifest=null;if(manifestBytes)try{manifest=JSON.parse(new TextDecoder().decode(manifestBytes));}catch(_){}if(manifest?.format==='Plan 2.0 resource-package'){const extracted=[];for(const item of manifest.resources||[]){if(!item.packagePath)continue;const bytes=entries.get(item.packagePath);if(bytes&&DATA_RE.test(item.fileName||item.packagePath))extracted.push(new File([bytes],item.fileName||item.packagePath.split('/').pop(),{type:item.mimeType||mimeFor(item.fileName||item.packagePath)}));}if(extracted.length)showImport(this,extracted,{title:'Importér Data fra Ressourcepakke',source:'resource-package'});else this.toast('Ressourcepakken indeholder ingen regneark eller CSV-filer');continue;}if(manifest?.format==='Plan 2.0 package'||manifest?.format==='plan-package'){await this.previewPlanPackageImport(zip);continue;}const extracted=[...entries].filter(([name])=>DATA_RE.test(name)).map(([name,bytes])=>new File([bytes],name.split('/').pop(),{type:mimeFor(name)}));if(extracted.length)showImport(this,extracted,{title:`Importér ${extracted.length} datafiler fra ZIP`,source:'zip'});else await this.previewPlanPackageImport(zip);}
  if(data.length)showImport(this,data);if(other.length)return downstream.call(this,other);return [];
 };
-const previousRequest=App.prototype.requestImportFiles;App.prototype.requestImportFiles=function(){if(this.fileInput){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.xlsx,.xls,.ods,.ics,.pdf,.html,.htm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();return;}return previousRequest?.call(this);};
+const previousRequest=App.prototype.requestImportFiles;App.prototype.requestImportFiles=function(){if(this.fileInput){this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';this.fileInput.multiple=true;this.fileInput.click();return;}return previousRequest?.call(this);};
 TN.version='0.14.0-data-resources-zip-v100';window.__PLAN_DATA_RESOURCES__='1.0';
 })(window.TavleNext);
 </script>
@@ -69345,7 +69348,7 @@ const readJson=(entries,names)=>{for(const name of names){const b=entries.get(na
 function courseData(payload,manifest){const sessions=[...(payload?.sessions||[])];let courses=[...(manifest?.courses||payload?.courses||payload?.workspaces||[])];if(!courses.length){const map=new Map();for(const s of sessions){const id=clean(s.courseId||s.forloebId||s.course?.id),title=clean(s.courseTitle||s.forloebTitle||s.course?.title);if(!id&&!title)continue;const key=id||title;if(!map.has(key))map.set(key,{id:key,title:title||'Undervisningsforløb',sessionIds:[]});map.get(key).sessionIds.push(String(s.id));}courses=[...map.values()];}return {sessions,courses};}
 function showPlanPreview(app,file,opened){const manifest=opened.manifest||{},payload=opened.payload||{},info=app.backupManager?.inspect?.(payload)||{};const {sessions,courses}=courseData(payload,manifest);const body=document.createElement('div');body.className='tn-package-card-preview';const created=manifest.createdAt?new Intl.DateTimeFormat('da-DK',{dateStyle:'medium'}).format(new Date(manifest.createdAt)):'';const type=clean(manifest.backupType||payload.backupKind||'backup');const label=type==='all'||type==='backup++'?'Backup++':type==='course'?'Backup+':type==='template'?'Skabelon':type==='share'?'Backup':'Planpakke';body.innerHTML=`<section class="tn-package-card-hero"><div class="tn-package-card-kicker">${esc(label)} · Planpakke</div><h2>${esc(manifest.title||file.name.replace(/\.planpkg\.zip$|\.zip$/i,''))}</h2><p>Se pakkens indhold, før du åbner det i Plan.</p><div class="tn-package-card-meta"><span>${courses.length} undervisningsforløb</span><span>${info.sessions??sessions.length} sessioner</span><span>${info.boards??0} tavler</span>${created?`<span>${esc(created)}</span>`:''}</div></section><div class="tn-package-card-note"><strong>Pakken åbnes i Plan 2.0.</strong><br>Visitkortet er kun et overblik og bliver ikke importeret som en widget.</div><section class="tn-package-card-list"></section>`;const list=body.querySelector('.tn-package-card-list');if(courses.length){for(const c of courses){const ids=new Set((c.sessionIds||[]).map(String));const rel=sessions.filter(s=>ids.has(String(s.id))||String(s.courseId||s.forloebId||'')===String(c.id||''));const el=document.createElement('article');el.className='tn-package-card-item';el.innerHTML=`<header><div><h3>${esc(c.title||c.name||'Forløb uden titel')}</h3>${c.description?`<p>${esc(c.description)}</p>`:''}</div><small>${rel.length} session${rel.length===1?'':'er'}</small></header>${rel.length?`<details><summary>Se sessionerne</summary><ol>${rel.slice(0,14).map(s=>`<li>${esc(s.title||s.name||'Session')}</li>`).join('')}${rel.length>14?`<li>… og ${rel.length-14} flere</li>`:''}</ol></details>`:''}`;list.append(el);}}else{list.innerHTML='<article class="tn-package-card-item"><h3>Pakken er klar til import</h3><p>Hele indholdet vises, når pakken åbnes i Plan.</p></article>';}
 app.modalManager.closeAll();app.modalManager.open({title:'Forhåndsvis Planpakke',body,className:'tn-modal-wide',actions:[{label:'Annuller',run:()=>{}},{label:'Fortsæt til import',primary:true,run:async()=>{app.modalManager.closeAll();const jf=new File([JSON.stringify(payload)],`${clean(manifest.title)||'Planpakke'}.json`,{type:'application/json'});await app.previewJsonImport(jf);return false;}}]});}
-function showResourcePreview(app,file,entries,manifest){const resources=[...(manifest.resources||[])];const groups=new Map();for(const r of resources){const k=clean(r.category||r.presentationCategory||r.type||'Andet');groups.set(k,(groups.get(k)||0)+1);}const body=document.createElement('div');body.className='tn-package-card-preview';body.innerHTML=`<section class="tn-package-card-hero"><div class="tn-package-card-kicker">Ressourcepakke</div><h2>${esc(manifest.scopeLabel||manifest.title||file.name.replace(/\.zip$/i,''))}</h2><p>Se materialerne, før de bliver lagt ind i Ressourcer.</p><div class="tn-package-card-meta"><span>${resources.length} ressourcer</span>${[...groups].map(([k,n])=>`<span>${n} ${esc(k)}</span>`).join('')}</div></section><div class="tn-package-card-note"><strong>Visitkortet bruges kun som forhåndsvisning.</strong><br>Det bliver ikke importeret som en HTML-ressource.</div><section class="tn-package-card-list"></section>`;const list=body.querySelector('.tn-package-card-list');for(const r of resources.slice(0,40)){const el=document.createElement('article');el.className='tn-package-card-item';el.innerHTML=`<header><h3>${esc(r.title||r.name||r.fileName||'Ressource')}</h3><small>${esc(r.category||r.type||'Ressource')}</small></header>${r.note||r.description?`<p>${esc(r.note||r.description)}</p>`:''}`;list.append(el);}if(resources.length>40){const e=document.createElement('article');e.className='tn-package-card-item';e.innerHTML=`<p>… og ${resources.length-40} flere ressourcer</p>`;list.append(e);}app.modalManager.closeAll();app.modalManager.open({title:'Forhåndsvis ressourcepakke',body,className:'tn-modal-wide tn-resource-package-preview-modal',actions:[{label:'Annuller',run:()=>{}},{label:'Importér ressourcer',primary:true,run:async()=>{const files=[];for(const r of resources){if(!r.packagePath)continue;const b=entries.get(r.packagePath);if(!b)continue;files.push(new File([b],r.fileName||r.packagePath.split('/').pop(),{type:r.mimeType||'application/octet-stream'}));}app.modalManager.closeAll();if(files.length)await app.handleFiles(files);else app.toast('Pakken indeholder ingen lokale filer, der kan importeres automatisk');return false;}}]});}
+function showResourcePreview(app,file,entries,manifest){const resources=[...(manifest.resources||[])];const groups=new Map();for(const r of resources){const k=clean(r.category||r.presentationCategory||r.type||'Andet');groups.set(k,(groups.get(k)||0)+1);}const body=document.createElement('div');body.className='tn-package-card-preview';body.innerHTML=`<section class="tn-package-card-hero"><div class="tn-package-card-kicker">Ressourcepakke</div><h2>${esc(manifest.scopeLabel||manifest.title||file.name.replace(/\.zip$/i,''))}</h2><p>Se materialerne, før de bliver lagt ind i Ressourcer.</p><div class="tn-package-card-meta"><span>${resources.length} ressourcer</span>${[...groups].map(([k,n])=>`<span>${n} ${esc(k)}</span>`).join('')}</div></section><div class="tn-package-card-note"><strong>Visitkortet bruges kun som forhåndsvisning.</strong><br>Det bliver ikke importeret som en HTML-ressource.</div><section class="tn-package-card-list"></section>`;const list=body.querySelector('.tn-package-card-list');for(const r of resources.slice(0,40)){const el=document.createElement('article');el.className='tn-package-card-item';el.innerHTML=`<header><h3>${esc(r.title||r.name||r.fileName||'Ressource')}</h3><small>${esc(r.category||r.type||'Ressource')}</small></header>${r.note||r.description?`<p>${esc(r.note||r.description)}</p>`:''}`;list.append(el);}if(resources.length>40){const e=document.createElement('article');e.className='tn-package-card-item';e.innerHTML=`<p>… og ${resources.length-40} flere ressourcer</p>`;list.append(e);}app.modalManager.closeAll();app.modalManager.open({title:'Forhåndsvis ressourcepakke',body,className:'tn-modal-wide tn-resource-package-preview-modal',actions:[{label:'Annuller',run:()=>{}},{label:'Importér ressourcer',primary:true,run:async()=>{const files=[];for(const r of resources){if(!r.packagePath)continue;const b=entries.get(r.packagePath);if(!b)continue;files.push(new File([b],r.fileName||r.packagePath.split('/').pop(),{type:r.mimeType||'application/octet-stream'}));}app.modalManager.closeAll();if(files.length){if(typeof app.importFilesToResources==='function')await app.importFilesToResources(files);else await app.handleFiles(files);}else app.toast('Pakken indeholder ingen lokale filer, der kan importeres automatisk');return false;}}]});}
 const downstream=App.prototype.handleFiles;
 App.prototype.handleFiles=async function(files){const ordinary=[];for(const file of files||[]){if(!isZip(file)){ordinary.push(file);continue;}let entries;try{entries=await unzip(file);}catch(_){ordinary.push(file);continue;}const manifest=readJson(entries,['data/manifest.json','manifest.json','Plan-Ressourcer - filer/plan-resources.json','plan-resources.json']);if(manifest?.format==='Plan 2.0 resource-package'){showResourcePreview(this,file,entries,manifest);continue;}if(manifest?.format==='Plan 2.0 package'||manifest?.format==='plan-package'){try{const opened=await this.openPlanPackage(file);showPlanPreview(this,file,opened);}catch(_){ordinary.push(file);}continue;}ordinary.push(file);}if(ordinary.length)return downstream.call(this,ordinary);return [];};
 TN.version='0.18.0-package-visitcard-preview';window.__PLAN_PACKAGE_PREVIEW__='1.0';
@@ -69529,10 +69532,10 @@ function openResourcePicker(event){
  event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();
  const now=Date.now();if(now-lastOpen<600)return;lastOpen=now;
  const input=document.createElement('input');
- input.type='file';input.accept='.plan2,.zip,.planpkg,.json,application/zip,application/json';input.multiple=true;
+ input.type='file';input.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';input.multiple=true;
  input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';document.body.append(input);
  const remove=()=>setTimeout(()=>input.remove(),0);
- input.addEventListener('change',()=>{const selected=[...(input.files||[])];remove();const app=appInstance();if(selected.length&&app?.handleFiles)void app.handleFiles(selected);else if(selected.length&&app?.queueFiles)app.queueFiles(selected);},{once:true});
+ input.addEventListener('change',()=>{const selected=[...(input.files||[])];remove();const app=appInstance();if(selected.length&&typeof app?.importFilesToResources==='function')void app.importFilesToResources(selected);else if(selected.length&&app?.handleFiles)void app.handleFiles(selected);else if(selected.length&&app?.queueFiles)app.queueFiles(selected);},{once:true});
  input.addEventListener('cancel',remove,{once:true});
  input.click();
 }
@@ -70231,12 +70234,19 @@ function ensurePortraitMatcherStyle(){
  .plan2-pm{display:grid;grid-template-rows:auto minmax(0,1fr);gap:10px;min-height:min(72dvh,760px)}
  .plan2-pm-tools{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(135px,.8fr) minmax(165px,1fr) auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel)}
  .plan2-pm-tools input,.plan2-pm-tools select{width:100%;min-width:0}.plan2-pm-count{font-weight:800;color:var(--tn-muted);white-space:nowrap}
- .plan2-pm-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-content:start;overflow:auto;padding:2px 3px 14px}
- .plan2-pm-card{display:grid;grid-template-columns:minmax(86px,.85fr) minmax(120px,1.15fr);gap:9px;padding:9px;border:1px solid var(--tn-line);border-radius:12px;background:var(--tn-panel2);min-width:0}
- .plan2-pm-card[data-state="unmatched"]{border-color:#ef444477}.plan2-pm-card[data-state="conflict"]{border-color:#f59e0b}.plan2-pm-card[data-state="matched"]{border-color:#22c55e88}
- .plan2-pm-image{display:grid;gap:6px;min-width:0}.plan2-pm-image img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;background:#0f172a}.plan2-pm-image input{width:100%;min-width:0;font-weight:800}.plan2-pm-file{font-size:11px;color:var(--tn-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
- .plan2-pm-fields{display:grid;align-content:start;gap:7px;min-width:0}.plan2-pm-fields label{display:grid;gap:4px;font-size:12px;color:var(--tn-muted)}.plan2-pm-fields select{width:100%;min-width:0}.plan2-pm-state{font-size:12px;font-weight:850}.plan2-pm-unlink{justify-self:start;padding:6px 9px!important;font-size:12px!important}.plan2-pm-empty{grid-column:1/-1;padding:28px;text-align:center;color:var(--tn-muted);border:1px dashed var(--tn-line);border-radius:12px}
- @media(max-width:1250px){.plan2-pm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:900px){.plan2-pm-tools{grid-template-columns:1fr 1fr}.plan2-pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.plan2-pm-grid{grid-template-columns:1fr}.plan2-pm-card{grid-template-columns:105px minmax(0,1fr)}}`;
+ .plan2-pm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;align-content:start;overflow:auto;padding:4px 5px 14px}
+ .plan2-pm-card{position:relative;display:grid;grid-template-columns:128px minmax(0,1fr);gap:12px;padding:12px;border:1px solid color-mix(in srgb,var(--tn-line) 84%,transparent);border-radius:16px;background:color-mix(in srgb,var(--tn-panel2) 92%,#fff 8%);min-width:0;min-height:214px;box-shadow:0 6px 18px #00000016;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+ .plan2-pm-card:focus-within{border-color:color-mix(in srgb,var(--tn-accent,#38bdf8) 72%,var(--tn-line));box-shadow:0 8px 24px #00000026;transform:translateY(-1px)}
+ .plan2-pm-card[data-state="unmatched"]{border-color:var(--tn-line)}.plan2-pm-card[data-state="conflict"]{border-color:#f59e0b}.plan2-pm-card[data-state="matched"]{border-color:color-mix(in srgb,#22c55e 42%,var(--tn-line))}
+ .plan2-pm-badge{position:absolute;top:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:4px;min-height:25px;padding:4px 9px;border-radius:999px;font-size:10.5px;font-weight:900;letter-spacing:.01em;box-shadow:0 2px 8px #0003}
+ .plan2-pm-badge[data-kind="media"]{background:#e2e8f0;color:#334155;border:1px solid #94a3b8}.plan2-pm-badge[data-kind="media"]::before{content:'●';font-size:7px;color:#64748b}
+ .plan2-pm-badge[data-kind="portrait"]{background:#dcfce7;color:#166534;border:1px solid #22c55e}.plan2-pm-badge[data-kind="portrait"]::before{content:'✓';font-size:11px}
+ .plan2-pm-badge[data-kind="conflict"]{background:#fef3c7;color:#92400e;border:1px solid #f59e0b}.plan2-pm-badge[data-kind="conflict"]::before{content:'!';font-size:11px}
+ .plan2-pm-image{display:grid;align-content:start;min-width:0;padding-top:34px}.plan2-pm-image img{display:block;width:128px;height:160px;object-fit:cover;border-radius:12px;background:#0f172a;box-shadow:0 4px 13px #0004}
+ .plan2-pm-fields{display:grid;align-content:start;gap:8px;min-width:0;padding-top:36px}.plan2-pm-title{font-size:15px;font-weight:900;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:2px}.plan2-pm-name-label,.plan2-pm-fields label{display:grid;gap:3px;font-size:11px;font-weight:750;color:var(--tn-muted)}
+ .plan2-pm-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px}.plan2-pm-name-row input{width:100%;min-width:0;min-height:32px;padding:5px 8px;font-weight:800}.plan2-pm-extension{display:inline-flex;align-items:center;min-height:32px;padding:0 7px;border:1px solid var(--tn-line);border-radius:8px;background:color-mix(in srgb,var(--tn-panel) 82%,transparent);color:var(--tn-muted);font-weight:850;white-space:nowrap}.plan2-pm-file{display:none}
+ .plan2-pm-fields select{width:100%;min-width:0;min-height:32px}.plan2-pm-state{font-size:11px;font-weight:850}.plan2-pm-card-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:2px}.plan2-pm-card-actions button{min-height:42px;min-width:58px;padding:7px 10px!important;font-size:11px!important;touch-action:manipulation}.plan2-pm-replace{opacity:.92}.plan2-pm-replace:hover{opacity:1}.plan2-pm-unlink{opacity:.8}.plan2-pm-unlink:hover{opacity:1}.plan2-pm-delete{border-color:color-mix(in srgb,#ef4444 55%,var(--tn-line))!important;color:#fecaca!important;background:color-mix(in srgb,#7f1d1d 38%,var(--tn-panel))!important}.plan2-pm-delete:hover,.plan2-pm-delete:focus-visible{border-color:#ef4444!important;background:color-mix(in srgb,#991b1b 55%,var(--tn-panel))!important}.plan2-pm-empty{grid-column:1/-1;padding:28px;text-align:center;color:var(--tn-muted);border:1px dashed var(--tn-line);border-radius:12px}
+ @media(min-width:1600px){.plan2-pm-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:1120px){.plan2-pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:900px){.plan2-pm-tools{grid-template-columns:1fr 1fr}}@media(max-width:680px){.plan2-pm-grid{grid-template-columns:1fr}.plan2-pm-card{grid-template-columns:112px minmax(0,1fr);gap:10px;padding:10px;min-height:190px}.plan2-pm-image img{width:112px;height:140px}.plan2-pm-fields{padding-top:34px}}`;
  document.head.append(style);
 }
 function matcherOverviewHost(){
@@ -70255,17 +70265,33 @@ function studentAliases(student){
  return values.map(portraitMatchKey).filter(Boolean);
 }
 async function matcherGroups(app,ds,students){
- // Matcheren viser kun de grupper, brugeren aktivt har valgt under Mine hold.
- // Hele gruppekataloget hører til administrationsvisningen, ikke denne arbejdsvælger.
- let groups=[];try{groups=await app.studentScope?.favouriteGroups?.()||[]}catch(_error){}
+ // Mine hold er den autoritative, lille arbejdsliste i matcheren.
+ // Medlemmer beregnes gennem den fælles studentScope-controller, så både
+ // afledte hold og manuelt oprettede grupper virker uden særkode her.
+ const controller=app.studentScope;
+ let favourites=[];try{favourites=await controller?.favouriteGroups?.()||[]}catch(_error){}
  const result=[];
- for(const group of groups){
-  const source=clean(group?.meta?.sourceDatasetId);if(source&&source!==clean(ds.id))continue;
-  const members=new Set((group?.meta?.elevIds||group?.meta?.members||[]).map(portraitMatchKey).filter(Boolean));if(!members.size)continue;
-  const rowKeys=new Set();for(const student of students){if(studentAliases(student).some(alias=>members.has(alias)))rowKeys.add(clean(student.rowKey))}
-  if(rowKeys.size)result.push({id:clean(group.id||group.name),title:clean(group.name||group.title||group.meta?.filterValue||'Hold'),rowKeys});
+ for(const group of favourites){
+  try{
+   const allowed=await controller?.allowed?.({kind:'group',id:String(group.id),group});
+   if(!allowed)continue;
+   const rowKeys=new Set();
+   for(const student of students){
+    const key=clean(student?.rowKey),bare=key.replace(/^id:/i,''),name=portraitMatchKey(student?.title);
+    const aliases=studentAliases(student);
+    const idMatch=key&&(allowed.ids?.has(key)||allowed.ids?.has(bare)||allowed.ids?.has(`id:${bare}`)||aliases.some(alias=>allowed.ids?.has(alias)||allowed.ids?.has(alias.replace(/^id:/i,''))||allowed.ids?.has(`id:${alias.replace(/^id:/i,'')}`)));
+    const nameMatch=name&&allowed.names?.has(name);
+    if(idMatch||nameMatch)rowKeys.add(key);
+   }
+   if(rowKeys.size)result.push({id:clean(group.id),title:controller.shortName?.(group)||clean(group.name||group.title||'Hold'),rowKeys});
+  }catch(error){console.warn('Mine hold-filteret kunne ikke beregne medlemmer for',group?.name||group?.id,error)}
  }
- return result.sort((a,b)=>a.title.localeCompare(b.title,'da',{numeric:true,sensitivity:'base'}));
+ result.sort((a,b)=>a.title.localeCompare(b.title,'da',{numeric:true,sensitivity:'base'}));
+ if(result.length>1){
+  const combined=new Set();for(const group of result)for(const key of group.rowKeys)combined.add(key);
+  result.unshift({id:'__mine_hold__',title:'Mine hold (samlet)',rowKeys:combined});
+ }
+ return result;
 }
 async function openPortraitMatcher(app,preferredDataset=null){
  ensurePortraitMatcherStyle();
@@ -70289,6 +70315,84 @@ async function openPortraitMatcher(app,preferredDataset=null){
  const conflicts=()=>{const seen=new Map();for(const draft of drafts)if(draft.rowKey)seen.set(draft.rowKey,(seen.get(draft.rowKey)||0)+1);return new Set([...seen].filter(([,n])=>n>1).map(([key])=>key))};
  const stateOf=(draft,conflict)=>draft.rowKey?(conflict.has(draft.rowKey)?'conflict':'matched'):'unmatched';
  const saving=new Set();
+ async function removePortraitRefsEverywhere(mediaId){
+  const allDatasets=await app.storage.getAll('datasets');
+  let activeMeta=null;
+  for(const dataset of allDatasets){
+   const refs=dataset?.meta?.portraitRefs;
+   if(!Array.isArray(refs)||!refs.some(ref=>clean(ref?.mediaId)===mediaId))continue;
+   dataset.meta={...(dataset.meta||{}),portraitRefs:refs.filter(ref=>clean(ref?.mediaId)!==mediaId)};
+   await app.storage.put('datasets',dataset);
+   TN.emit?.('datasetchange',{kind:'update',dataset});
+   if(clean(dataset.id)===clean(ds.id))activeMeta=dataset.meta;
+  }
+  if(activeMeta)ds.meta=activeMeta;
+ }
+ async function replacePortraitFile(draft,file){
+  const mediaId=clean(draft?.media?.id);if(!mediaId||saving.has(mediaId))return false;
+  if(!(file instanceof Blob)||!String(file.type||'').toLowerCase().startsWith('image/')){app.toast('Vælg en billedfil');return false}
+  const oldMedia=await app.storage.get('media',mediaId)||draft.media;
+  const oldName=clean(oldMedia?.name||oldMedia?.fileName||oldMedia?.title||'billedet');
+  const newName=clean(file.name||'nyt billede');
+  if(!window.confirm(`Udskift "${oldName}" med "${newName}"?
+
+Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra Plan.`))return false;
+  saving.add(mediaId);
+  try{
+   const updated={...oldMedia};
+   updated.blob=file;
+   updated.originalBlob=file;
+   updated.name=newName;
+   updated.fileName=newName;
+   updated.mimeType=file.type||oldMedia.mimeType||oldMedia.mime||'image/*';
+   updated.mime=updated.mimeType;
+   updated.type=updated.mimeType;
+   updated.size=Number(file.size||0);
+   updated.updatedAt=TN.now();
+   await app.storage.put('media',updated);
+   const verified=await app.storage.get('media',mediaId);
+   const verifiedBlob=mediaBlob(verified);
+   if(!verifiedBlob||Number(verifiedBlob.size)!==Number(file.size))throw new Error('Det nye billede kunne ikke verificeres');
+   try{URL.revokeObjectURL(draft.url)}catch(_error){}
+   draft.media=verified;
+   draft.title=clean(verified.title||verified.name||verified.fileName||'Billede');
+   draft.url=URL.createObjectURL(verifiedBlob);urls.push(draft.url);
+   TN.emit?.('mediachange',{kind:'update',media:verified});
+   app.toast(`"${oldName}" er udskiftet med "${newName}"`);
+   return true;
+  }catch(error){
+   console.error('Billedet kunne ikke udskiftes',error);
+   app.toast(error?.message||'Billedet kunne ikke udskiftes. Det eksisterende billede er bevaret.');
+   return false;
+  }finally{saving.delete(mediaId)}
+ }
+ async function resetDraft(draft){
+  const mediaId=clean(draft?.media?.id);if(!mediaId||saving.has(mediaId))return false;
+  saving.add(mediaId);
+  try{
+   const media=await app.storage.get('media',mediaId)||draft.media;
+   media.category='Medier';media.studentPortrait=false;
+   delete media.studentRowKey;delete media.studentName;delete media.sourceDatasetId;
+   if(media.source==='student-portrait')delete media.source;
+   media.updatedAt=TN.now();
+   await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});
+   const allDatasets=await app.storage.getAll('datasets');
+   for(const dataset of allDatasets){
+    const refs=Array.isArray(dataset?.meta?.portraitRefs)?dataset.meta.portraitRefs:[];
+    if(!refs.some(ref=>clean(ref?.mediaId)===mediaId))continue;
+    dataset.meta={...(dataset.meta||{}),portraitRefs:refs.filter(ref=>clean(ref?.mediaId)!==mediaId)};
+    await app.storage.put('datasets',dataset);TN.emit?.('datasetchange',{kind:'update',dataset});
+    if(clean(dataset.id)===clean(ds.id))ds.meta=dataset.meta;
+   }
+   draft.media=media;draft.rowKey='';draft.manual=true;draft.suggested=false;
+   app.toast('Billedet er nulstillet til Medie');
+   return true;
+  }catch(error){
+   console.error('Elevbilledet kunne ikke nulstilles',error);
+   app.toast(error?.message||'Billedet kunne ikke nulstilles');
+   return false;
+  }finally{saving.delete(mediaId)}
+ }
  async function saveDraft(draft,nextRowKey=draft.rowKey){
   const mediaId=clean(draft?.media?.id);if(!mediaId||saving.has(mediaId))return false;
   nextRowKey=clean(nextRowKey);
@@ -70316,10 +70420,12 @@ async function openPortraitMatcher(app,preferredDataset=null){
     currentRefs.push({mediaId:media.id,fileName:media.name||media.fileName||'',rowKey:nextRowKey,rowIndex:Number(student.index),studentName:student.title||'',matchedBy:'manual',sourceDatasetId:clean(ds.id),title:media.title,mimeType:media.mimeType||media.mime||media.blob?.type||'image/*',importedAt:new Date().toISOString()});
    }else{
     media.category='Medier';media.studentPortrait=false;delete media.studentRowKey;delete media.studentName;delete media.sourceDatasetId;if(media.source==='student-portrait')delete media.source;
+    await removePortraitRefsEverywhere(mediaId);
+    currentRefs=[...(ds.meta?.portraitRefs||[])].filter(ref=>clean(ref?.mediaId)!==mediaId);
    }
    await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});
    const matchedCount=drafts.reduce((sum,item)=>sum+(item===draft?(nextRowKey?1:0):(item.rowKey?1:0)),0);
-   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:5,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount}};
+   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:6,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount}};
    await app.dataManager.update(ds);
    draft.media=media;draft.rowKey=nextRowKey;draft.manual=true;draft.suggested=false;
    app.toast(nextRowKey?'Elevbilledet er gemt':'Billedet er nulstillet til Medie');
@@ -70332,12 +70438,14 @@ async function openPortraitMatcher(app,preferredDataset=null){
   const q=lower(search.value),wanted=status.value,group=groups.find(item=>item.id===groupSelect.value),conflict=conflicts();grid.replaceChildren();
   let matched=0,unmatched=0,conflictCount=0;for(const draft of drafts){const st=stateOf(draft,conflict);if(st==='matched')matched++;else if(st==='conflict')conflictCount++;else unmatched++}count.textContent=`${drafts.length} billeder · ${matched} matchet · ${unmatched} uafklarede · ${conflictCount} konflikter`;
   const visible=drafts.filter(draft=>{const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),text=lower([draft.title,draft.media.name,draft.media.fileName,student?.title].filter(Boolean).join(' '));const statusOk=wanted==='all'||(wanted==='attention'&&(st==='unmatched'||st==='conflict'))||wanted===st;const groupOk=!group||(draft.rowKey&&group.rowKeys.has(draft.rowKey));return statusOk&&groupOk&&(!q||text.includes(q))});
-  for(const draft of visible){const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),card=document.createElement('article');card.className='plan2-pm-card';card.dataset.state=st;card.innerHTML=`<div class="plan2-pm-image"><img src="${draft.url}" alt=""><input type="text" value="${TN.escapeHtml(draft.title)}" aria-label="Titel"><div class="plan2-pm-file">${TN.escapeHtml(draft.media.name||draft.media.fileName||'')}</div></div><div class="plan2-pm-fields"><label>Elev<select data-student><option value="">Ikke knyttet · Medie</option>${students.map(item=>`<option value="${TN.escapeHtml(clean(item.rowKey))}" ${clean(item.rowKey)===draft.rowKey?'selected':''}>${TN.escapeHtml(item.title)}</option>`).join('')}</select></label><div class="plan2-pm-state">${st==='conflict'?'Konflikt: flere billeder til samme elev':st==='matched'?(draft.suggested?'Automatisk forslag':'Matchet'):'Ikke matchet · forbliver Medie'}</div><button type="button" class="plan2-pm-unlink" data-unlink ${draft.rowKey?'':'disabled'}>Reset</button></div>`;
-   const titleInput=card.querySelector('input'),studentSelect=card.querySelector('select'),resetButton=card.querySelector('[data-unlink]');
-   titleInput.oninput=event=>{draft.title=event.target.value};
-   titleInput.onblur=async()=>{await saveDraft(draft,draft.rowKey)};
+  for(const draft of visible){const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),card=document.createElement('article'),sourceName=clean(draft.media.name||draft.media.fileName||draft.title||'Billede'),extensionMatch=sourceName.match(/(\.[^.\/]+)$/),extension=extensionMatch?extensionMatch[1]:'',currentTitle=clean(draft.title||sourceName),titleWithoutExtension=extension&&currentTitle.toLocaleLowerCase('da-DK').endsWith(extension.toLocaleLowerCase('da-DK'))?currentTitle.slice(0,-extension.length):currentTitle.replace(/\.[^.\/]+$/,''),displayTitle=student?.title||titleWithoutExtension||'Uden titel';card.className='plan2-pm-card';card.dataset.state=st;card.innerHTML=`<span class="plan2-pm-badge" data-kind="${st==='conflict'?'conflict':st==='matched'?'portrait':'media'}">${st==='conflict'?'Konflikt':st==='matched'?'Elevbillede':'Medie'}</span><div class="plan2-pm-image"><img alt="${TN.escapeHtml(displayTitle)}" title="${TN.escapeHtml(sourceName)}"><div class="plan2-pm-file" title="${TN.escapeHtml(sourceName)}">${TN.escapeHtml(sourceName)}</div></div><div class="plan2-pm-fields"><div class="plan2-pm-title" title="${TN.escapeHtml(displayTitle)}">${TN.escapeHtml(displayTitle)}</div><label class="plan2-pm-name-label">Billednavn<div class="plan2-pm-name-row"><input type="text" value="${TN.escapeHtml(titleWithoutExtension)}" aria-label="Billednavn uden filtype"><span class="plan2-pm-extension" aria-label="Låst filtype">${TN.escapeHtml(extension||'')}</span></div></label><label>Vælg elev<select data-student><option value="">Ikke knyttet</option>${students.map(item=>`<option value="${TN.escapeHtml(clean(item.rowKey))}" ${clean(item.rowKey)===draft.rowKey?'selected':''}>${TN.escapeHtml(item.title)}</option>`).join('')}</select></label>${st==='conflict'?'<div class="plan2-pm-state">Flere billeder er knyttet til samme elev</div>':''}<div class="plan2-pm-card-actions"><button type="button" class="plan2-pm-replace" data-replace aria-label="Udskift billedfilen og bevar koblingen">Udskift</button><button type="button" class="plan2-pm-unlink" data-unlink ${draft.rowKey?'':'disabled'}>Reset</button><button type="button" class="plan2-pm-delete" data-delete aria-label="Slet billedet permanent fra Plan">Slet</button></div></div>`;
+   const image=card.querySelector('img');image.src=draft.url;
+   const titleInput=card.querySelector('input'),studentSelect=card.querySelector('select'),replaceButton=card.querySelector('[data-replace]'),resetButton=card.querySelector('[data-unlink]'),deleteButton=card.querySelector('[data-delete]');
+   titleInput.oninput=event=>{draft.title=clean(event.target.value)+(extension||'')};
+   titleInput.onblur=async()=>{if(!clean(titleInput.value)){titleInput.value=titleWithoutExtension;draft.title=titleWithoutExtension+(extension||'');return}await saveDraft(draft,draft.rowKey)};
    studentSelect.onchange=async event=>{const previous=draft.rowKey,next=event.target.value;studentSelect.disabled=true;resetButton.disabled=true;const ok=await saveDraft(draft,next);if(!ok)draft.rowKey=previous;draw()};
-   resetButton.onclick=async()=>{studentSelect.disabled=true;resetButton.disabled=true;await saveDraft(draft,'');draw()};grid.append(card);
+   replaceButton.onclick=()=>{const picker=document.createElement('input');picker.type='file';picker.accept='image/*,.png,.jpg,.jpeg,.webp,.gif,.bmp,.heic,.heif';picker.hidden=true;document.body.append(picker);picker.onchange=async()=>{const file=picker.files?.[0];picker.remove();if(!file)return;studentSelect.disabled=true;replaceButton.disabled=true;resetButton.disabled=true;deleteButton.disabled=true;await replacePortraitFile(draft,file);draw()};picker.addEventListener('cancel',()=>picker.remove(),{once:true});picker.click()};
+   resetButton.onclick=async()=>{studentSelect.disabled=true;replaceButton.disabled=true;resetButton.disabled=true;deleteButton.disabled=true;await resetDraft(draft);draw()};deleteButton.onclick=async()=>{const label=clean(draft.title||draft.media?.name||draft.media?.fileName||'billedet');if(!window.confirm(`Slet \"${label}\" permanent fra Plans lager?\n\nBilledet fjernes også som elevbillede og kan ikke gendannes uden en backup.`))return;const mediaId=clean(draft.media?.id);if(!mediaId)return;studentSelect.disabled=true;resetButton.disabled=true;deleteButton.disabled=true;try{const allDatasets=await app.storage.getAll('datasets');for(const dataset of allDatasets){const refs=dataset?.meta?.portraitRefs;if(!Array.isArray(refs)||!refs.some(ref=>clean(ref?.mediaId)===mediaId))continue;dataset.meta={...(dataset.meta||{}),portraitRefs:refs.filter(ref=>clean(ref?.mediaId)!==mediaId)};await app.storage.put('datasets',dataset);TN.emit?.('datasetchange',{kind:'update',dataset});if(clean(dataset.id)===clean(ds.id))ds.meta=dataset.meta;}try{if(app.mediaManager?.remove)await app.mediaManager.remove(mediaId,{force:true});else{await app.storage.delete('media',mediaId);TN.emit?.('mediachange',{kind:'delete',id:mediaId})}}catch(error){if(await app.storage.get('media',mediaId)){await app.storage.delete('media',mediaId);TN.emit?.('mediachange',{kind:'delete',id:mediaId})}else throw error;}const index=drafts.indexOf(draft);if(index>=0)drafts.splice(index,1);try{URL.revokeObjectURL(draft.url)}catch(_error){}app.toast('Billedet er slettet fra Plan');draw();}catch(error){console.error('Billedet kunne ikke slettes',error);app.toast(error?.message||'Billedet kunne ikke slettes');studentSelect.disabled=false;resetButton.disabled=!draft.rowKey;deleteButton.disabled=false;}};grid.append(card);
   }
   if(!visible.length)grid.innerHTML='<div class="plan2-pm-empty">Ingen billeder matcher de valgte filtre.</div>';
  }
@@ -70349,8 +70457,28 @@ async function openPortraitMatcher(app,preferredDataset=null){
 }
 async function importPortraits(app,ds,rerender){
  if(!ds)return app.toast('Vælg elevstamdata først');
- const input=document.createElement('input');input.type='file';input.accept='image/*';input.multiple=true;input.hidden=true;document.body.append(input);
- input.onchange=async()=>{const files=[...(input.files||[])];input.remove();if(!files.length)return;try{app.toast(`Importerer ${files.length} billede${files.length===1?'':'r'} som medier…`);const results=await app.mediaManager.importFiles(files,{optimize:true,maxDimension:1200,quality:.86,keepOriginal:false});const imported=results.filter(result=>(result?.media||result)?.id).length;app.toast(`${imported} billede${imported===1?'':'r'} importeret til Ressourcer`);rerender?.();setTimeout(()=>openPortraitMatcher(app,ds).catch(error=>{console.error(error);app.toast('Billederne er importeret. Åbn Match elevbilleder… under Ressourcer.')}),80)}catch(error){console.error(error);app.toast(error?.message||'Billederne kunne ikke importeres')}};
+ const input=document.createElement('input');input.type='file';input.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.md,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,text/markdown,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';input.multiple=true;input.hidden=true;document.body.append(input);
+ input.onchange=async()=>{
+  const selected=[...(input.files||[])];input.remove();if(!selected.length)return;
+  const isImportInfo=file=>/^(readme|info|import[-_ ]?log)(?:\.[^.]+)?$/i.test(String(file?.name||'').trim())&&/\.(?:txt|md)$/i.test(String(file?.name||''));
+  const infoFiles=selected.filter(isImportInfo),files=selected.filter(file=>!isImportInfo(file));
+  try{
+   if(files.length){app.toast(`Importerer ${files.length} fil${files.length===1?'':'er'} til Ressourcer…`);if(typeof app.importFilesToResources==='function')await app.importFilesToResources(files);else if(typeof app.handleFiles==='function')await app.handleFiles(files);else if(typeof app.queueFiles==='function')app.queueFiles(files);else throw new Error('Den fælles importvej er ikke tilgængelig')}
+   if(infoFiles.length){
+    const sections=[];
+    for(const file of infoFiles){try{sections.push(`${file.name}\n${await file.text()}`)}catch(error){console.warn('Importinformationen kunne ikke læses',file?.name,error)}}
+    if(sections.length&&TN.runtime?.activeBoard){
+     const title=infoFiles.length===1?'Import-log':`Import-log · ${infoFiles.length} filer`;
+     await app.widgetManager.create(TN.runtime.activeBoard,'text',{title,content:{text:sections.join('\n\n──────────\n\n'),fontSize:18,align:'left'},geometry:{x:80,y:80,width:680,height:480}});
+     await app.renderActiveBoard({preserveSelection:true});
+     app.toast(`Import-log lagt på tavlen${files.length?` · ${files.length} øvrige filer importeret`:''}`);
+    }
+   }
+   rerender?.();
+   const hasImages=files.some(file=>String(file?.type||'').toLowerCase().startsWith('image/')||/\.(?:jpe?g|png|gif|webp|bmp|svg|heic|heif)$/i.test(String(file?.name||'')));
+   if(hasImages)setTimeout(()=>openPortraitMatcher(app,ds).catch(error=>{console.error(error);app.toast('Filerne er importeret. Åbn Match elevbilleder… under Ressourcer.')}),80);
+  }catch(error){console.error(error);app.toast(error?.message||'Filerne kunne ikke importeres')}
+ };
  input.addEventListener('cancel',()=>input.remove(),{once:true});input.click();
 }
 function installPortraitMatcherButton(){
@@ -70426,7 +70554,7 @@ async function render(root){
  const all=(await app.dataManager.listAvailable(window.TavleNext?.runtime?.activeSession?.id)||[]).filter(ds=>Array.isArray(ds.rows)&&Array.isArray(ds.columns)),roles=load(),active={};
  for(const key of Object.keys(models))active[key]=chosen(all,key,roles);
  const statuses=Object.fromEntries(Object.keys(models).map(k=>[k,status(active[k],k)]));
- content.innerHTML=`<div class="tn-dc-page-heading"><strong>🎓 Elevadministration</strong><span>Vælg en importeret datakilde i rullemenuen, eller hent en ny fil med knappen ved siden af.</span></div><div class="tn-ea-compact"><section class="tn-ea-source-list">${Object.entries(models).map(([key,m])=>`<div class="tn-ea-source-row"><span class="tn-ea-source-label">${m.label}<button type="button" class="tn-ea-download" data-download-key="${key}" aria-label="Hent aktiv ${m.label.toLocaleLowerCase('da-DK')}" title="Hent aktiv datakilde">⇩</button></span><select class="tn-ea-source-select" data-source-key="${key}" aria-label="${m.label}"></select><button type="button" class="tn-ea-import-source" data-import-key="${key}" aria-label="Hent nyt ${m.label.toLocaleLowerCase('da-DK')} fra disk">Hent…</button><button type="button" class="tn-ea-light tn-health-${statuses[key].level}" data-light-key="${key}" title="${statuses[key].title}"></button></div>`).join('')}</section><section class="tn-elevadmin-tools"><button type="button" data-leveling><b>Niveaudeling</b><span>Åbn niveaudelingsmatrixen med den valgte niveaudelingskilde.</span></button><button type="button" data-groups><b>Grupper</b><span>Vis levende grupper, hold, teams og bosteder afledt af de valgte elevstamdata.</span></button><button type="button" data-boards><b>Elevtavler</b><span>Opret én tavle pr. elev fra de valgte elevstamdata.</span></button><button type="button" data-grades><b>Karakterer</b><span>Åbn karakterarbejdet med det valgte karakterark.</span></button><button type="button" data-conversations><b>Fagsamtaler</b><span>Åbn samtaler med det valgte fagsamtaleark.</span></button><button type="button" data-source-tools><b>Elevstamdata og øvrige værktøjer</b><span>Åbn værktøjskassen for de valgte elevstamdata.</span></button></section><section class="tn-ea-image-actions"><button type="button" data-import-portraits><b>Hent nyt sæt elevbilleder</b><span>Importér billeder til ressourcebiblioteket og knyt dem til de valgte stamdata.</span></button><button type="button" data-clean-portraits><b>Ryd op i datakilder…</b><span>Slet tidligere eller aktive datakilder og deres tilknyttede data.</span></button></section></div>`;
+ content.innerHTML=`<div class="tn-dc-page-heading"><strong>🎓 Elevadministration</strong><span>Vælg en importeret datakilde i rullemenuen, eller hent en ny fil med knappen ved siden af.</span></div><div class="tn-ea-compact"><section class="tn-ea-source-list">${Object.entries(models).map(([key,m])=>`<div class="tn-ea-source-row"><span class="tn-ea-source-label">${m.label}<button type="button" class="tn-ea-download" data-download-key="${key}" aria-label="Hent aktiv ${m.label.toLocaleLowerCase('da-DK')}" title="Hent aktiv datakilde">⇩</button></span><select class="tn-ea-source-select" data-source-key="${key}" aria-label="${m.label}"></select><button type="button" class="tn-ea-import-source" data-import-key="${key}" aria-label="Hent nyt ${m.label.toLocaleLowerCase('da-DK')} fra disk">Hent…</button><button type="button" class="tn-ea-light tn-health-${statuses[key].level}" data-light-key="${key}" title="${statuses[key].title}"></button></div>`).join('')}</section><section class="tn-elevadmin-tools"><button type="button" data-leveling><b>Niveaudeling</b><span>Åbn niveaudelingsmatrixen med den valgte niveaudelingskilde.</span></button><button type="button" data-groups><b>Grupper</b><span>Vis levende grupper, hold, teams og bosteder afledt af de valgte elevstamdata.</span></button><button type="button" data-boards><b>Elevtavler</b><span>Opret én tavle pr. elev fra de valgte elevstamdata.</span></button><button type="button" data-grades><b>Karakterer</b><span>Åbn karakterarbejdet med det valgte karakterark.</span></button><button type="button" data-conversations><b>Fagsamtaler</b><span>Åbn samtaler med det valgte fagsamtaleark.</span></button><button type="button" data-source-tools><b>Elevstamdata og øvrige værktøjer</b><span>Åbn værktøjskassen for de valgte elevstamdata.</span></button></section><section class="tn-ea-image-actions"><button type="button" data-import-portraits><b>Importér filer…</b><span>Importér billeder, dokumenter, data eller Plan-pakker. Billeder kan bagefter knyttes til de valgte stamdata.</span></button><button type="button" data-clean-portraits><b>Ryd op i datakilder…</b><span>Slet tidligere eller aktive datakilder og deres tilknyttede data.</span></button></section></div>`;
  for(const [key,m] of Object.entries(models)){
   const sel=content.querySelector(`[data-source-key="${key}"]`),items=compatible(all,key);
   const none=document.createElement('option');none.value='';none.textContent=items.length?'Vælg datakilde…':'Ingen relevante datakilder fundet';sel.append(none);
@@ -70756,6 +70884,124 @@ function finalPlanVisitCard(manifest={}){
  #tnModalRoot .tn-modal.plan2-pm-modal{width:98vw;height:calc(100dvh - 170px);max-height:calc(100dvh - 170px);margin-bottom:78px}
 }
 </style>
+
+<script id="plan2-u1g2-correct-cache-invalidation-marker">window.__plan2U1G2CorrectCacheInvalidation=true;</script>
+<script id="plan2-u1e-resource-category-cache-invalidation">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2U1EResourceCategoryCacheInvalidation)return;
+window.__plan2U1EResourceCategoryCacheInvalidation=true;
+function invalidate(){
+ const app=TN.runtime?.app||window.tavleNextApp;
+ if(!app)return;
+ app.__plan2Phase12TGlobalCatalog=null;
+ app.__plan2Phase12TGlobalPromise=null;
+ app.__plan2ResourceCatalogCache=null;
+ app.__plan2ResourceScopeCache=null;
+ app.invalidateResourceContextCache?.();
+}
+window.addEventListener('plan2:mediachange',invalidate);
+window.addEventListener('plan2:datasetchange',invalidate);
+window.addEventListener('plan2:resourcechange',invalidate);
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · U2 · Ressourcebibliotek: universel import øverst og synligt importresultat -->
+<script id="plan2-u2-library-universal-import-v1">
+(function(TN){
+'use strict';
+if(!TN||window.__plan2U2LibraryUniversalImportV1)return;
+window.__plan2U2LibraryUniversalImportV1=true;
+const App=TN.TavleNextApp||TN.App;
+if(!App?.prototype)return;
+const clean=v=>String(v??'').trim();
+const ACCEPT='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+function widgetById(id){return (TN.runtime?.activeWidgets||[]).find(w=>String(w?.id)===String(id));}
+async function persistWidget(app,widget){
+  const board=TN.runtime?.activeBoard;
+  if(!board||!widget)return;
+  try{await app.widgetManager.update(board,widget);}catch(_){try{await app.widgetManager.update(widget,{immediate:true});}catch(__){}}
+  try{await app.boardManager.update(board);}catch(_){ }
+}
+async function clearLibraryFilters(app,widget,{rebuild=false}={}){
+  if(!widget)return;
+  widget.content=widget.content||{};
+  widget.content.typeFilter='Alle';
+  widget.content.categoryFilter='Alle';
+  widget.content.search='';
+  widget.content.navigatorScrollTop=0;
+  if(rebuild&&typeof app.resourceScopeContext==='function'&&typeof app.createResourceCollectionFromResourceScope==='function'){
+    try{
+      app.invalidateResourceContextCache?.();
+      const context=await app.resourceScopeContext('global');
+      const items=[...(context?.resources||[])];
+      const dataset=await app.createResourceCollectionFromResourceScope('global',items);
+      if(dataset){
+        dataset.meta={...(dataset.meta||{}),sourceScope:'global',requestedResourceScope:'global',requestedSearch:'',requestedCategories:[],requestedVisibleCount:items.length,libraryFiltersCleared:true};
+        try{await app.dataManager.update(dataset);}catch(_){ }
+        widget.content.datasetId=dataset.id;
+        widget.content.sourceName=dataset.name||'Ressourcer';
+        widget.content.activeIndex=Math.max(0,items.length-1);
+      }
+    }catch(error){console.warn('Biblioteket kunne ikke genopbygges efter import',error);}
+  }
+  await persistWidget(app,widget);
+  try{await app.renderActiveBoard({preserveSelection:true});}catch(_){try{await app.renderActiveBoard();}catch(__){}}
+}
+function chooseFiles(){
+  return new Promise(resolve=>{
+    const input=document.createElement('input');
+    input.type='file';input.multiple=true;input.accept=ACCEPT;
+    input.style.cssText='position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:.001';
+    document.body.append(input);
+    const done=files=>{setTimeout(()=>input.remove(),0);resolve(files||[]);};
+    input.addEventListener('change',()=>done([...(input.files||[])]),{once:true});
+    input.addEventListener('cancel',()=>done([]),{once:true});
+    input.click();
+  });
+}
+async function importIntoLibrary(app,widget){
+  const files=await chooseFiles();
+  if(!files.length)return;
+  try{
+    if(typeof app.importFilesToResources==='function')await app.importFilesToResources(files);
+    else if(typeof app.handleFiles==='function')await app.handleFiles(files);
+    else throw new Error('Den fælles importvej er ikke tilgængelig');
+    await clearLibraryFilters(app,widget,{rebuild:true});
+    app.toast(`${files.length} fil${files.length===1?'':'er'} behandlet · filtre fjernet`);
+  }catch(error){console.error(error);app.toast(error?.message||'Importen mislykkedes');}
+}
+const previous=App.prototype.showWidgetMoreMenu;
+App.prototype.showWidgetMoreMenu=function(id,anchorButton){
+  const result=previous?.call(this,id,anchorButton);
+  const app=this;
+  setTimeout(()=>{
+    const widget=widgetById(id);
+    if(widget?.type!=='resource-matrix')return;
+    const menus=[...document.querySelectorAll('.tn-widget-more-popover')];
+    const menu=menus.at(-1);if(!menu)return;
+    let importButton=[...menu.querySelectorAll('button')].find(b=>/Tilføj medier fra disk|Importer fra disk/i.test(clean(b.textContent)));
+    if(importButton){
+      importButton.innerHTML='<span>＋</span><b>Importer fra disk…</b>';
+      importButton.onclick=event=>{event.preventDefault();event.stopPropagation();app.closeLayoutPopover?.();void importIntoLibrary(app,widget);};
+    }else{
+      importButton=document.createElement('button');importButton.type='button';
+      importButton.innerHTML='<span>＋</span><b>Importer fra disk…</b>';
+      importButton.onclick=()=>{app.closeLayoutPopover?.();void importIntoLibrary(app,widget);};
+    }
+    let clearButton=menu.querySelector('[data-plan2-clear-library-filters]');
+    if(!clearButton){
+      clearButton=document.createElement('button');clearButton.type='button';clearButton.dataset.plan2ClearLibraryFilters='';
+      clearButton.innerHTML='<span>⌫</span><b>Fjern filtre</b>';
+      clearButton.onclick=()=>{app.closeLayoutPopover?.();void clearLibraryFilters(app,widget,{rebuild:true}).then(()=>app.toast('Alle ressourcer vises'));};
+    }
+    menu.prepend(clearButton);
+    menu.prepend(importButton);
+  },0);
+  return result;
+};
+})(window.TavleNext);
+</script>
 </body></html>`;
 }
 
@@ -72181,7 +72427,7 @@ App.prototype.previewPlanPackageImport=async function(file){
 
 const originalRequestImportFiles=App.prototype.requestImportFiles;
 App.prototype.requestImportFiles=function(){
-  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.ics,.pdf,.html,.htm,.webp,.webm,application/zip,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
+  this.fileInput.accept='.plan2,.zip,.planpkg,.json,.csv,.tsv,.txt,.xlsx,.xls,.ods,.ics,.pdf,.docx,.odt,.html,.htm,.webp,.webm,application/zip,application/x-zip-compressed,application/json,text/csv,text/tab-separated-values,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.oasis.opendocument.spreadsheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,image/webp,video/webm,audio/webm,image/*,audio/*,video/*';
   this.fileInput.multiple=true;
   this.fileInput.click();
 };
@@ -79140,5 +79386,83 @@ App.prototype.resourceScopeContext=async function(mode='global'){
  return {...context,resources:existing,mediaLibraryCount:(mediaRows||[]).filter(media=>clean(media?.id)&&!media?.deletedAt&&!media?.trashed&&!media?.isDeleted).length};
 };
 try{TN.version='0.14.33-portrait-resource-persistence';}catch(_error){}
+})(window.TavleNext);
+</script>
+
+<!-- Plan 2.0 · U1B · Ressource-only importkontekst. Ressourcer gemmer filer uden tavlewidgets; Tilføj til tavle bevarer eksisterende adfærd. -->
+<script id="plan2-u1b-resource-only-import-v1">
+(function(TN){
+  'use strict';
+  const App=TN?.TavleNextApp||TN?.App;
+  if(!App||App.prototype.__planResourceOnlyImportV1)return;
+  App.prototype.__planResourceOnlyImportV1=true;
+
+  App.prototype.importFilesToResources=async function(files){
+    const previous=this.__planImportTarget;
+    this.__planImportTarget='resources';
+    try{return await this.handleFiles(files);}
+    finally{
+      if(previous===undefined)delete this.__planImportTarget;
+      else this.__planImportTarget=previous;
+    }
+  };
+
+  const isResourceOnly=app=>app?.__planImportTarget==='resources';
+  const countLabel=(count,one,many)=>`${count} ${count===1?one:many}`;
+
+  const previousImportImages=App.prototype.importImages;
+  App.prototype.importImages=async function(files){
+    if(!isResourceOnly(this))return previousImportImages.call(this,files);
+    const accepted=[...(files||[])].filter(file=>this.inferImportMime(file).startsWith('image/'));
+    if(!accepted.length)return[];
+    const results=await this.mediaManager.importFiles(accepted,{optimize:true,maxDimension:2048,quality:.86,keepOriginal:false});
+    const created=results.filter(result=>!result.deduplicated).length;
+    const existing=results.length-created;
+    const parts=[];
+    if(created)parts.push(`${countLabel(created,'billede','billeder')} lagt i Ressourcer`);
+    if(existing)parts.push(`${countLabel(existing,'identisk billede fandtes','identiske billeder fandtes')} allerede`);
+    this.toast(parts.join(' · ')||'Ingen billeder blev importeret');
+    return results;
+  };
+
+  const previousImportMediaFiles=App.prototype.importMediaFiles;
+  App.prototype.importMediaFiles=async function(files,kind='video'){
+    if(!isResourceOnly(this))return previousImportMediaFiles.call(this,files,kind);
+    kind=kind==='audio'?'audio':'video';
+    const accepted=[...(files||[])].filter(file=>this.inferImportMime(file).startsWith(`${kind}/`));
+    if(!accepted.length)return[];
+    const results=await this.mediaManager.importFiles(accepted,{optimize:false,keepOriginal:false});
+    const created=results.filter(result=>!result.deduplicated).length;
+    const existing=results.length-created;
+    const one=kind==='audio'?'lydfil':'videofil',many=kind==='audio'?'lydfiler':'videofiler';
+    const parts=[];
+    if(created)parts.push(`${countLabel(created,one,many)} lagt i Ressourcer`);
+    if(existing)parts.push(`${countLabel(existing,`identisk ${one} fandtes`,`identiske ${many} fandtes`)} allerede`);
+    this.toast(parts.join(' · ')||'Ingen mediefiler blev importeret');
+    return results;
+  };
+
+  const previousImportDocumentFile=App.prototype.importDocumentFile;
+  App.prototype.importDocumentFile=async function(file,type){
+    if(!isResourceOnly(this))return previousImportDocumentFile.call(this,file,type);
+    const result=await this.mediaManager.importFile(file,{optimize:false,keepOriginal:false});
+    const label=type==='pdf'?'PDF':type==='html'?'HTML-fil':type==='audio'?'lydfil':type==='video'?'videofil':'fil';
+    this.toast(result.deduplicated?`${label} findes allerede i Ressourcer`:`${label} lagt i Ressourcer`);
+    return result.media;
+  };
+
+  if(typeof App.prototype.importPdfFiles==='function'){
+    const previousImportPdfFiles=App.prototype.importPdfFiles;
+    App.prototype.importPdfFiles=async function(files){
+      if(!isResourceOnly(this))return previousImportPdfFiles.call(this,files);
+      const accepted=[...(files||[])].filter(file=>this.inferImportMime(file)==='application/pdf'||/\.pdf$/i.test(file?.name||''));
+      const results=await this.mediaManager.importFiles(accepted,{optimize:false,keepOriginal:false});
+      const created=results.filter(result=>!result.deduplicated).length,existing=results.length-created,parts=[];
+      if(created)parts.push(`${countLabel(created,'PDF','PDF’er')} lagt i Ressourcer`);
+      if(existing)parts.push(`${countLabel(existing,'identisk PDF fandtes','identiske PDF’er fandtes')} allerede`);
+      this.toast(parts.join(' · ')||'Ingen PDF’er blev importeret');
+      return results;
+    };
+  }
 })(window.TavleNext);
 </script>
