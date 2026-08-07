@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pladser – prototype v9.2</title>
+  <title>Pladser – prototype v9.3</title>
 
   <!-- SheetJS bruges kun til at læse regnearket i browseren. Elevdata uploades ikke. -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -612,6 +612,22 @@ function refreshBasis(){
   renderMapping(groups);
   renderCounts(groups,basis);
 }
+
+function updateAreaTableTitles(){
+  const selectedByArea={};
+
+  document.querySelectorAll('#mapping select[data-area]').forEach(sel=>{
+    selectedByArea[Number(sel.dataset.area)]=sel.value||`Område ${sel.dataset.area}`;
+  });
+
+  document.querySelectorAll('.table[data-area]').forEach(table=>{
+    const area=Number(table.dataset.area);
+    const wrap=table.closest('.table-group');
+    const label=wrap?.querySelector('.team-label');
+    if(label) label.textContent=selectedByArea[area]||`Område ${area}`;
+  });
+}
+
 function renderMapping(groups){
   const map=document.getElementById('mapping');map.innerHTML='';
   document.getElementById('mappingSection').classList.remove('hidden');
@@ -625,8 +641,12 @@ function renderMapping(groups){
     const teamDefault=`Team ${area}`;
     if(groups.includes(teamDefault))sel.value=teamDefault;
     else if(groups[area-1])sel.value=groups[area-1];
+
+    sel.addEventListener('change',updateAreaTableTitles);
     row.append(label,sel);map.appendChild(row);
   }
+
+  updateAreaTableTitles();
 }
 function renderCounts(groups,basis){
   const box=document.getElementById('counts');box.innerHTML='';
