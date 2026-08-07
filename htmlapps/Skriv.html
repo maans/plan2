@@ -8967,7 +8967,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const INSTANCE_KEY = PREFIX + 'tavle_bridge_instance_id';
   const RESTORE_MARK_KEY = PREFIX + 'tavle_bridge_last_restore_hash';
   const CLEAN_HASH_KEY = PREFIX + 'tavle_bridge_last_clean_hash';
-  const BRIDGE_META_KEYS = new Set([INSTANCE_KEY, RESTORE_MARK_KEY, CLEAN_HASH_KEY, PREFIX + 'tab_id', PREFIX + 'tab_lock']);
+  const BRIDGE_META_KEYS = new Set([INSTANCE_KEY, RESTORE_MARK_KEY, CLEAN_HASH_KEY, PREFIX + 'tab_id', PREFIX + 'tab_lock', PREFIX + 'remoteOverridesFetchedAt_v1']);
   function isBridgeMetaKey(k){
     k = String(k || '');
     if (!k) return false;
@@ -9114,8 +9114,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const rawSet = localStorage.setItem.bind(localStorage);
     const rawRemove = localStorage.removeItem.bind(localStorage);
     const rawClear = localStorage.clear.bind(localStorage);
-    localStorage.setItem = function(k, v){ const r = rawSet(k, v); try { if (String(k || '').startsWith(PREFIX) && !isBridgeMetaKey(k)) scheduleSave('localStorage.setItem'); } catch(_) {} return r; };
-    localStorage.removeItem = function(k){ const r = rawRemove(k); try { if (String(k || '').startsWith(PREFIX) && !isBridgeMetaKey(k)) scheduleSave('localStorage.removeItem'); } catch(_) {} return r; };
+    localStorage.setItem = function(k, v){
+      let previous = null;
+      try { previous = localStorage.getItem(k); } catch(_) {}
+      const next = String(v);
+      const r = rawSet(k, v);
+      try {
+        // En skrivning af præcis samme værdi er ikke en reel ændring.
+        if (previous !== next && String(k || '').startsWith(PREFIX) && !isBridgeMetaKey(k)) scheduleSave('localStorage.setItem');
+      } catch(_) {}
+      return r;
+    };
+    localStorage.removeItem = function(k){
+      let existed = false;
+      try { existed = localStorage.getItem(k) !== null; } catch(_) {}
+      const r = rawRemove(k);
+      try {
+        if (existed && String(k || '').startsWith(PREFIX) && !isBridgeMetaKey(k)) scheduleSave('localStorage.removeItem');
+      } catch(_) {}
+      return r;
+    };
     localStorage.clear = function(){ const r = rawClear(); scheduleSave('localStorage.clear'); return r; };
   } catch(_) {}
 
