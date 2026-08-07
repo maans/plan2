@@ -7316,7 +7316,48 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
       const items=scoped.slice().sort((a,b)=>{const delta=planOrder(a)-planOrder(b);return delta||String(a.title).localeCompare(String(b.title),'da');}).map((session,index)=>{const order=planOrder(session);return {...session,sessionIndexPosition:Number.isFinite(order)?order:index+1,searchText:`${session.title} ${session.id}`};});
       return mountVirtualIndex({body,items,rowHeight:60,renderRow:session=>{const button=document.createElement('button');button.type='button';button.innerHTML=`<strong>${escape(session.title)}</strong><small>${session.sessionIndexPosition}. i rækkefølgen · Åbn session</small>`;button.onclick=()=>app.openSession(session.id);return button;}});
     },unmount(){}});
-    reg('board-index',{async mount({widget,body,app}){const boards=await app.boardManager.list(TN.runtime.activeSession.id),filter=new Set(widget.content.boardIds||[]),items=(filter.size?boards.filter(b=>filter.has(b.id)):boards).map(b=>({...b,searchText:b.title}));return mountVirtualIndex({body,items,rowHeight:54,renderRow:b=>{const btn=document.createElement('button');btn.type='button';btn.innerHTML=`<strong>${escape(b.title)}</strong>`;btn.onclick=()=>app.openBoard(b.id);return btn;}});},unmount(){}});
+    reg('board-index',{async mount({widget,body,app}){
+      const boards=await app.boardManager.list(TN.runtime.activeSession.id),
+        filter=new Set(widget.content.boardIds||[]),
+        items=(filter.size?boards.filter(b=>filter.has(b.id)):boards).map(b=>({...b,searchText:b.title}));
+
+      return mountVirtualIndex({
+        body,
+        items,
+        rowHeight:40,
+        renderRow:b=>{
+          const btn=document.createElement('button');
+          btn.type='button';
+          btn.classList.add('tn-board-index-link');
+          btn.innerHTML=`<strong>${escape(b.title)}</strong>`;
+
+          let lastTouchAt=0;
+          const open=event=>{
+            event?.preventDefault?.();
+            event?.stopPropagation?.();
+            void app.openBoard(b.id);
+          };
+
+          btn.addEventListener('pointerup',event=>{
+            if(event.pointerType!=='touch')return;
+            lastTouchAt=Date.now();
+            event.stopImmediatePropagation();
+            open(event);
+          },true);
+
+          btn.addEventListener('click',event=>{
+            if(Date.now()-lastTouchAt<700){
+              event.preventDefault();
+              event.stopImmediatePropagation();
+              return;
+            }
+            open(event);
+          });
+
+          return btn;
+        }
+      });
+    },unmount(){}});
 
     const htmlAppRuntime=TN.runtime.htmlApps||(TN.runtime.htmlApps={frames:new Map(),bridgeInstalled:false});
     const htmlFileName=value=>{let name=String(value||'HTML-app.html').trim()||'HTML-app.html';name=name.replace(/[\\/:*?"<>|]+/g,'_');return /\.html?$/i.test(name)?name:`${name}.html`;};
@@ -70951,7 +70992,24 @@ function finalPlanVisitCard(manifest={}){
  const title=manifest.title||'Plan-pakke';
  const plan=manifest.counts||{},resources=manifest.resourceCounts||{};
  const created=manifest.createdAt?new Date(manifest.createdAt).toLocaleString('da-DK',{dateStyle:'long',timeStyle:'short'}):'';
- return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${esc(title)} · Plan 2.0</title><style>:root{color-scheme:light dark}body{margin:0;background:#091221;color:#f4f7fb;font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(900px,calc(100% - 28px));margin:28px auto}.card{border:1px solid #304867;border-radius:20px;background:#14233a;padding:24px}.muted{color:#a9b6c8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid #304867;border-radius:13px;background:#1d304c;padding:12px}.stat b{display:block;font-size:1.35rem}.stat span{color:#a9b6c8;font-size:.9rem}code{color:#8ee8f5}</style></head><body><main class="shell"><section class="card"><h1>${esc(title)}</h1><p class="muted">Plan 2.0-pakke${created?` · ${esc(created)}`:''}</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer</span></div></div><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcemanifestet ligger i <code>resources/manifest.json</code>.</p></section></main></body></html>`;
+ return `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>${esc(title)} · Plan 2.0</title><style>:root{color-scheme:light dark}body{margin:0;background:#091221;color:#f4f7fb;font:16px/1.5 system-ui,-apple-system,sans-serif}.shell{width:min(900px,calc(100% - 28px));margin:28px auto}.card{border:1px solid #304867;border-radius:20px;background:#14233a;padding:24px}.muted{color:#a9b6c8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}.stat{border:1px solid #304867;border-radius:13px;background:#1d304c;padding:12px}.stat b{display:block;font-size:1.35rem}.stat span{color:#a9b6c8;font-size:.9rem}code{color:#8ee8f5}</style>
+<style id="plan-board-index-touch-compact-fix">
+.tn-board-index-link{
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent;
+  min-height:34px!important;
+  padding:6px 12px!important;
+  margin:0!important;
+  display:flex!important;
+  align-items:center!important;
+  width:100%!important;
+  cursor:pointer!important;
+}
+.tn-board-index-link strong{
+  line-height:1.15!important;
+}
+</style>
+</head><body><main class="shell"><section class="card"><h1>${esc(title)}</h1><p class="muted">Plan 2.0-pakke${created?` · ${esc(created)}`:''}</p><div class="grid"><div class="stat"><b>${Number(plan.sessions)||0}</b><span>sessioner</span></div><div class="stat"><b>${Number(plan.boards)||0}</b><span>tavler</span></div><div class="stat"><b>${Number(plan.widgets)||0}</b><span>widgets</span></div><div class="stat"><b>${Number(resources.resources)||0}</b><span>ressourcer</span></div></div><p class="muted">Importér hele ZIP-pakken i Plan 2.0. Ressourcemanifestet ligger i <code>resources/manifest.json</code>.</p></section></main></body></html>`;
 }
 
 App.prototype.buildCombinedPlanPackage=async function(request={},payload,resourceResult){
