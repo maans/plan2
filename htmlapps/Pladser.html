@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pladser – prototype v9.1</title>
+  <title>Pladser – prototype v9.2</title>
 
   <!-- SheetJS bruges kun til at læse regnearket i browseren. Elevdata uploades ikke. -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -275,7 +275,7 @@
 
     <section id="analysisSection" class="hidden">
       <h3>2. Klassificér grupper</h3>
-      <div class="note">Teams og rejsehold genkendes automatisk. Andre gruppenavne kan markeres som profilfag eller valgfag.</div>
+      <div class="note">Teams og rejsehold genkendes automatisk. Andre gruppenavne kan markeres som linjefag eller valgfag.</div>
       <div id="groupList" class="group-list"></div>
 
       <h3>3. Vælg fordelingsgrundlag</h3>
@@ -283,7 +283,7 @@
       <select id="basis">
         <option value="team">Teams</option>
         <option value="studenthouse">Gange / Studenthouse</option>
-        <option value="profilfag">Profilfag</option>
+        <option value="profilfag">Linjefag</option>
         <option value="rejsehold">Rejsehold</option>
         <option value="valgfag">Valgfag</option>
       </select>
@@ -585,7 +585,7 @@ function renderGroupClassification(){
     const row=document.createElement('div');row.className='group-row';
     const span=document.createElement('span');span.textContent=group;span.title=group;
     const select=document.createElement('select');
-    [['ukendt','Ukendt'],['team','Team'],['profilfag','Profilfag'],['rejsehold','Rejsehold'],['valgfag','Valgfag']]
+    [['ukendt','Ukendt'],['team','Team'],['profilfag','Linjefag'],['rejsehold','Rejsehold'],['valgfag','Valgfag']]
       .forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;select.appendChild(o)});
     select.value=groupTypes[group];
     select.addEventListener('change',()=>{groupTypes[group]=select.value;refreshBasis()});
