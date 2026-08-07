@@ -1210,22 +1210,33 @@ try{
   function normalizeIncomingStudents(payload){
     const rows=payload?.students||payload?.elever||payload?.rows||payload?.data;
     if(!Array.isArray(rows)) return null;
-    return rows.map((r,i)=>({
-      id:String(r.id||r.unilogin||i+1),
-      firstName:String(r.fornavn||r.firstName||'').trim(),
-      lastName:String(r.efternavn||r.lastName||'').trim(),
-      name:String(r.navn||r.name||`${r.fornavn||''} ${r.efternavn||''}`).trim(),
-      groups:Array.isArray(r.grupper||r.groups)
-        ? (r.grupper||r.groups).map(String)
-        : splitGroups(r.grupper||r.groups||''),
-      studenthouse:String(r.studenthouse||r.gang||'').trim()
-    })).filter(s=>s.name);
+    const key=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
+    const value=(row,aliases)=>{const wanted=new Set(aliases.map(key));for(const [name,v] of Object.entries(row||{}))if(wanted.has(key(name)))return v;return '';};
+    return rows.map((r,i)=>{
+      const firstName=String(value(r,['fornavn','firstName','first name'])||'').trim();
+      const lastName=String(value(r,['efternavn','lastName','last name'])||'').trim();
+      const rawGroups=value(r,['grupper','groups','elevgrupper']);
+      return {
+        id:String(value(r,['id','unilogin','elevid','studentid'])||i+1),
+        firstName,
+        lastName,
+        name:String(value(r,['navn','name','fulde navn','elevnavn'])||`${firstName} ${lastName}`).trim(),
+        groups:Array.isArray(rawGroups)
+          ? rawGroups.map(String).map(x=>x.trim()).filter(Boolean)
+          : String(rawGroups||'').split(/\r?\n|;\s*/).map(x=>x.trim()).filter(Boolean),
+        studenthouse:String(value(r,['studenthouse','student house','gang'])||'').trim()
+      };
+    }).filter(s=>s.name);
   }
 
   window.addEventListener('message',ev=>{
     const msg=ev&&ev.data;
     if(!msg)return;
-    if(!['PLADSER_STAMDATA','PLAN2_STAMDATA','TAVLE_STAMDATA'].includes(msg.type))return;
+    if(msg.type==='PLADSER_STAMDATA_ERROR'||(msg.protocol==='plan-htmlapp-v1'&&msg.type==='STAMDATA_ERROR')){
+      showImport(msg.error||msg.payload?.message||'Plan 2.0 kunne ikke levere stamdata.','bad');
+      return;
+    }
+    if(!['PLADSER_STAMDATA','PLAN2_STAMDATA','TAVLE_STAMDATA','STAMDATA_RESPONSE'].includes(msg.type))return;
     const incoming=normalizeIncomingStudents(msg.payload||msg);
     if(!incoming||!incoming.length)return;
 
@@ -1246,7 +1257,8 @@ try{
         accepts:['PLADSER_STAMDATA','PLAN2_STAMDATA','TAVLE_STAMDATA'],
         fields:['Fornavn','Efternavn','Grupper','Studenthouse']
       },'*');
-      window.parent.postMessage({type:'PLADSER_STAMDATA_REQUEST',source:'Pladser'},'*');
+      const requestId='pladser_data_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+      window.parent.postMessage({protocol:'plan-htmlapp-v1',app:'pladser',type:'STAMDATA_REQUEST',requestId,payload:{fields:['Fornavn','Efternavn','Grupper','Studenthouse']}},'*');
     }catch(_){}
   }
 })();
