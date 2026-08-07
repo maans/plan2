@@ -6032,7 +6032,7 @@ function renderSettings() {
       if (miss.length) {
         const ex = miss.slice(0,3).map(st => `${escapeHtml(st.fornavn||'')} ${escapeHtml(st.efternavn||'')}`.trim()).filter(Boolean);
         warnEl.style.display = 'block';
-        warnEl.innerHTML = `⚠️ <b>Tjek manglende stamdata</b><div class="small muted" style="margin-top:.25rem">${miss.length} elev(er) mangler entydige K-lærerinitialer.${ex.length? '<br>Fx: '+ex.join(', '):''}</div>`;
+        warnEl.innerHTML = `⚠️ <b>Tjek manglende stamdata</b><div class="small muted" style="margin-top:.25rem">${miss.length} elev(er) mangler K-lærere (Kontaktlærer1/2).${ex.length? '<br>Fx: '+ex.join(', '):''}</div>`;
       } else {
         warnEl.style.display = 'none';
         warnEl.textContent = '';
@@ -8681,6 +8681,33 @@ const modOk = (e.ctrlKey && e.altKey);
     );
   }
 
+  function samePlanStudentList(current, incoming){
+    const a = Array.isArray(current) ? current : [];
+    const b = Array.isArray(incoming) ? incoming : [];
+    if (a.length !== b.length) return false;
+
+    const comparable = st => ({
+      fornavn:String(st?.fornavn ?? ''),
+      efternavn:String(st?.efternavn ?? ''),
+      navn:String(st?.navn ?? ''),
+      unilogin:String(st?.unilogin ?? ''),
+      koen:String(st?.koen ?? ''),
+      klasse:String(st?.klasse ?? ''),
+      grupper:normalizeStudentGroups(st?.grupper),
+      kontaktlaerer1:String(st?.kontaktlaerer1 ?? ''),
+      kontaktlaerer2:String(st?.kontaktlaerer2 ?? ''),
+      kontaktlaerer1_ini:String(st?.kontaktlaerer1_ini ?? ''),
+      kontaktlaerer2_ini:String(st?.kontaktlaerer2_ini ?? ''),
+      kontaktlaerer1_ini_kilde:String(st?.kontaktlaerer1_ini_kilde ?? ''),
+      kontaktlaerer2_ini_kilde:String(st?.kontaktlaerer2_ini_kilde ?? ''),
+      team_initialer_tvetydige:!!st?.team_initialer_tvetydige
+    });
+    const byId = list => list.map(comparable).sort((x,y) =>
+      x.unilogin.localeCompare(y.unilogin,'da') || x.navn.localeCompare(y.navn,'da')
+    );
+    return JSON.stringify(byId(a)) === JSON.stringify(byId(b));
+  }
+
   function markPlanStamdataImported(count, datasetName){
     const statusEl = document.getElementById('studentsStatus');
     if (statusEl) {
@@ -8701,7 +8728,6 @@ const modOk = (e.ctrlKey && e.altKey);
       if (ev.source !== window.parent) return;
       const msg = ev.data || {};
       if (msg.protocol !== 'plan-htmlapp-v1') return;
-      if (msg.app && msg.app !== 'skriv') return;
       if (msg.requestId && msg.requestId !== requestId) return;
       if (msg.type === 'STAMDATA_ERROR') {
         const statusEl = document.getElementById('studentsStatus');
@@ -8712,22 +8738,19 @@ const modOk = (e.ctrlKey && e.altKey);
       const payload = msg.payload || {};
       const students = normalizePlanStamdataPayload(payload);
       if (!students.length) return;
-      const hadStudents = getStudents().length > 0;
 
-      // setStudents udskifter kun stamlisten. Elevtekster, markeringer og øvrigt
-      // arbejde ligger fortsat på UniLogin-nøglerne i Skriv og bevares.
-      setStudents(students, {kind:'plan2', datasetName:payload?.dataset?.name || 'Elevstamdata'});
+      // Skriv modtager stamdata igen, hver gang HTML-appen åbnes. Skriv kun
+      // elevlisten til localStorage, hvis indholdet faktisk har ændret sig.
+      // Ellers ville gemmebroen fejlagtigt markere en uændret tavle som "ikke gemt".
+      const currentStudents = getStudents();
+      const stamdataChanged = !samePlanStudentList(currentStudents, students);
+      if (stamdataChanged) {
+        // setStudents udskifter kun stamlisten. Elevtekster, markeringer og øvrigt
+        // arbejde ligger fortsat på UniLogin-nøglerne i Skriv og bevares.
+        setStudents(students, {kind:'plan2', datasetName:payload?.dataset?.name || 'Elevstamdata'});
+      }
       markPlanStamdataImported(students.length, payload?.dataset?.name || 'Plan 2.0');
-      try {
-        // Første automatiske indlæsning følger samme flow som en manuel elevimport:
-        // valgt K-lærer -> K-elever, ellers Generelt så læreren kan vælge sig selv.
-        if (!hadStudents) {
-          const me = String(getSettings()?.me || '').trim();
-          if (me) setTab('k');
-          else { setTab('set'); setSettingsSubtab('general'); }
-        }
-        renderSettings(); renderStatus(); renderAll();
-      } catch(err) { console.warn('Skriv: kunne ikke genrendere efter Plan-stamdata', err); }
+      try { renderSettings(); renderStatus(); renderAll(); } catch(err) { console.warn('Skriv: kunne ikke genrendere efter Plan-stamdata', err); }
     });
 
     try {
