@@ -1121,7 +1121,7 @@ body.udt-readonly main.app{
       <div class="cardTitle">Importér data</div>
 
       <div class="muted small" style="margin:.2rem 0 .8rem 0; line-height:1.45">
-        Du kan enten indlæse en backup (JSON) eller indlæse elevlisten (CSV). Hvis du importerer backup, flettes indholdet ind, så du ikke mister dit eget arbejde.
+        Når Skriv kører som HTML-app i Plan 2.0, hentes elevstamdata automatisk fra Plan. Du kan stadig indlæse en lokal elevliste (CSV) som fallback. Backup (JSON) fletter indholdet ind, så du ikke mister dit eget arbejde.
       </div>
 
       <div class="row gap wrap" style="margin-bottom:.6rem">
@@ -1142,14 +1142,15 @@ body.udt-readonly main.app{
       <details class="fold no-print" style="margin-top:.8rem">
         <summary>Accepterede kolonner (eksempler)</summary>
         <div class="muted small">
-          <div><b>Demo / standard-elevliste:</b> Fornavn, Efternavn, Unilogin, Køn, Klasse, Kontaktlærer1, Kontaktlærer2, Initialer for k-lærer1, Initialer for k-lærer2</div>
+          <div><b>Demo / standard-elevliste:</b> Fornavn, Efternavn, Unilogin, Køn, Klasse, Kontaktlærer1, Kontaktlærer2, Grupper. De to kolonner med lærerinitialer er valgfrie overrides.</div>
 
           <div style="margin-top:.35rem"><b>Kontaktlærere og initialer:</b></div>
           <ul style="margin:.25rem 0 0 1.1rem">
-            <li>I <i>Kontaktlærer1</i> og <i>Kontaktlærer2</i> kan du skrive kontaktlærerens navn (fx “Gert Hansen”).</li>
-            <li>Hvis der ikke er angivet initialer, danner appen dem automatisk (fx Gert Hansen → GH).</li>
-            <li>Hvis du vil bruge andre initialer, udfyld <i>Initialer for k-lærer1</i> / <i>Initialer for k-lærer2</i> (fx GTH). Disse overstyrer de automatiske initialer.</li>
-            <li>Kontaktlærer 2 og/eller initialer kan være tomme. Tomme felter ignoreres.</li>
+            <li>I <i>Kontaktlærer1</i> og <i>Kontaktlærer2</i> står kontaktlærernes navne.</li>
+            <li>Hvis <i>Grupper</i> indeholder et Teamnavn som <i>Team 1 TK/MM</i>, bruger Skriv TK og MM som de faktiske lærerinitialer og matcher dem med kontaktlærernes navne.</li>
+            <li><i>Initialer for k-lærer1</i> / <i>Initialer for k-lærer2</i> kan stadig bruges som eksplicit override, hvis et særligt tilfælde kræver det.</li>
+            <li>Hvis der ikke findes Teaminitialer og heller ikke en override, falder Skriv tilbage til at danne initialerne ud fra lærerens navn. Et tvetydigt Teammatch bliver ikke gættet.</li>
+            <li>Kontaktlærer 2 kan være tom. Tomme felter ignoreres.</li>
           </ul>
 
           <div style="margin-top:.35rem"><em>Appen matcher kolonner robust (store/små bogstaver er ligegyldige, mellemrum trimmes, og kendte varianter accepteres).</em></div>
@@ -1974,6 +1975,7 @@ Oline,Dahl,u10151,k,10B,Oal Ygaard,Dno Svang,OY,DS`;
   const KEYS = {
     settings: LS_PREFIX + 'settings',
     students:  LS_PREFIX + 'students',
+    studentsSource: LS_PREFIX + 'students_source',
     templates: LS_PREFIX + 'templates',
     templatesImported: LS_PREFIX + 'templates_imported',
     marksSang: LS_PREFIX + 'marks_sang',
@@ -4193,12 +4195,122 @@ function isValidInitials(raw){
 }
 
 function normalizedInitials(overrideRaw, fullNameRaw){
-  // Rules (per "Accepterede kolonner"):
-  // - If Initialer for k-lærer1/2 is provided AND looks like real initials (1-4 letters), use it.
-  // - Otherwise auto-generate from the full name.
+  // Explicit override remains the strongest signal. If none exists, this is
+  // only the final fallback; normal imports now prefer initials from Teamnavnet.
   const o = (overrideRaw ?? '').toString().trim();
   if (isValidInitials(o)) return cleanInitials(o);
   return toInitials(fullNameRaw);
+}
+
+function normalizeStudentGroups(raw){
+  if (Array.isArray(raw)) return raw.map(v => String(v ?? '').trim()).filter(Boolean);
+  return String(raw ?? '')
+    .split(/\r?\n|;\s*/g)
+    .map(v => v.trim())
+    .filter(Boolean);
+}
+
+function teamInitialsFromGroups(rawGroups){
+  const groups = normalizeStudentGroups(rawGroups);
+  for (const lineRaw of groups) {
+    const line = String(lineRaw || '').trim();
+    if (!/^team\b/i.test(line)) continue;
+
+    // Eksempler: "Team 1 TK/MM", "Team 6 ABC/DE". Vi læser kun den
+    // initial-del, der er adskilt med /, så almindelige ord i gruppen ikke
+    // kan blive fejltolket som initialer.
+    const afterTeam = line.replace(/^team\b\s*\d*\s*[-–—:]?\s*/i, '');
+    const slashMatch = afterTeam.match(/([A-ZÆØÅ]{1,4})\s*\/\s*([A-ZÆØÅ]{1,4})(?:\s*\/\s*([A-ZÆØÅ]{1,4}))?/i);
+    if (slashMatch) {
+      return slashMatch.slice(1).filter(Boolean).map(cleanInitials).filter(isValidInitials);
+    }
+
+    // Et Team med kun én kontaktlærer kan også angive ét sæt initialer.
+    const single = cleanInitials(afterTeam);
+    if (isValidInitials(single)) return [single];
+  }
+  return [];
+}
+
+function teacherInitialMatchScore(initialsRaw, fullNameRaw){
+  const initials = cleanInitials(initialsRaw);
+  const name = String(fullNameRaw || '').trim().toUpperCase();
+  if (!isValidInitials(initials) || !name) return -10000;
+  const parts = name.match(/[A-ZÆØÅ]+/g) || [];
+  if (!parts.length) return -10000;
+  const tokenInitials = parts.map(p => p[0] || '').join('');
+  if (!tokenInitials || initials[0] !== tokenInitials[0]) return -10000;
+
+  let score = 100; // Første bogstav skal matche fornavnet.
+  const firstLast = (tokenInitials[0] || '') + (tokenInitials[tokenInitials.length - 1] || '');
+  if (initials === tokenInitials) score += 80;
+  if (initials === firstLast) score += 55;
+
+  // Beløn initialer, der følger for-/mellem-/efternavnenes begyndelsesbogstaver
+  // i samme rækkefølge. Det håndterer både fx MM og MPM/ABP.
+  let pos = 0, ordered = true;
+  for (const ch of initials) {
+    const found = tokenInitials.indexOf(ch, pos);
+    if (found < 0) { ordered = false; break; }
+    pos = found + 1;
+  }
+  if (ordered) score += 25 + initials.length * 6;
+
+  for (let i = 1; i < initials.length; i++) {
+    if (tokenInitials.slice(1).includes(initials[i])) score += 5;
+  }
+  return score;
+}
+
+function matchTeamInitialsToTeachers(initialsRaw, teacher1Raw, teacher2Raw){
+  const initials = (Array.isArray(initialsRaw) ? initialsRaw : [])
+    .map(cleanInitials).filter(isValidInitials);
+  const teacher1 = String(teacher1Raw || '').trim();
+  const teacher2 = String(teacher2Raw || '').trim();
+  const result = { ini1:'', ini2:'', ambiguous:false };
+  if (!initials.length) return result;
+
+  if (teacher1 && teacher2 && initials.length >= 2) {
+    const a = initials[0], b = initials[1];
+    const direct = teacherInitialMatchScore(a, teacher1) + teacherInitialMatchScore(b, teacher2);
+    const swapped = teacherInitialMatchScore(b, teacher1) + teacherInitialMatchScore(a, teacher2);
+    const directValid = teacherInitialMatchScore(a, teacher1) > -10000 && teacherInitialMatchScore(b, teacher2) > -10000;
+    const swappedValid = teacherInitialMatchScore(b, teacher1) > -10000 && teacherInitialMatchScore(a, teacher2) > -10000;
+
+    if (directValid && (!swappedValid || direct > swapped)) { result.ini1 = a; result.ini2 = b; return result; }
+    if (swappedValid && (!directValid || swapped > direct)) { result.ini1 = b; result.ini2 = a; return result; }
+    if (directValid && swappedValid && direct === swapped) result.ambiguous = true;
+    return result;
+  }
+
+  // Hvis kun én kontaktlærer er angivet, vælg kun et entydigt match.
+  const assignSingle = (teacher, key) => {
+    if (!teacher) return;
+    const scored = initials.map(ini => ({ini, score:teacherInitialMatchScore(ini, teacher)}))
+      .filter(x => x.score > -10000).sort((x,y) => y.score - x.score);
+    if (scored.length && (scored.length === 1 || scored[0].score > scored[1].score)) result[key] = scored[0].ini;
+    else if (scored.length) result.ambiguous = true;
+  };
+  assignSingle(teacher1, 'ini1');
+  assignSingle(teacher2, 'ini2');
+  return result;
+}
+
+function resolveStudentTeacherInitials({teacher1, teacher2, groups, override1, override2}){
+  const explicit1 = isValidInitials(override1) ? cleanInitials(override1) : '';
+  const explicit2 = isValidInitials(override2) ? cleanInitials(override2) : '';
+  const teamInitials = teamInitialsFromGroups(groups);
+  const teamMatch = matchTeamInitialsToTeachers(teamInitials, teacher1, teacher2);
+  const hasTeamInitials = teamInitials.length > 0;
+  const fallback1 = hasTeamInitials ? '' : toInitials(teacher1);
+  const fallback2 = hasTeamInitials ? '' : toInitials(teacher2);
+  return {
+    ini1: explicit1 || teamMatch.ini1 || fallback1,
+    ini2: explicit2 || teamMatch.ini2 || fallback2,
+    source1: explicit1 ? 'override' : (teamMatch.ini1 ? 'team' : (fallback1 ? 'name' : 'unresolved-team')),
+    source2: explicit2 ? 'override' : (teamMatch.ini2 ? 'team' : (fallback2 ? 'name' : 'unresolved-team')),
+    ambiguousTeam: !!teamMatch.ambiguous
+  };
 }
 
 
@@ -4998,7 +5110,16 @@ function rebuildAliasMapFromStudents(studs){
   setSettings({ ...s, aliasMap: alias });
 }
 
-function setStudents(studs){ lsSet(KEYS.students, studs); rebuildAliasMapFromStudents(studs); window.__ALL_STUDENTS__ = studs || []; rebuildAliasMapFromStudents(studs); }
+function setStudents(studs, sourceInfo){
+  lsSet(KEYS.students, studs);
+  try {
+    if (sourceInfo && typeof sourceInfo === 'object') lsSet(KEYS.studentsSource, sourceInfo);
+    else localStorage.removeItem(KEYS.studentsSource);
+  } catch(_) {}
+  rebuildAliasMapFromStudents(studs);
+  window.__ALL_STUDENTS__ = studs || [];
+  rebuildAliasMapFromStudents(studs);
+}
   function getMarks(kindKey){ return lsGet(kindKey, {}); }
   function setMarks(kindKey, m){ lsSet(kindKey, m); try{ updateImportStatsUI(); }catch(_){} }
   function getTextFor(unilogin){
@@ -5439,9 +5560,10 @@ if (chosen && erObj[chosen]) {
     efternavn: new Set(["efternavn","lastname","surname","familyname"]),
     unilogin: new Set(["unilogin","unicbrugernavn","unicusername","unic"]),
     koen: new Set(["køn","koen","gender", "kon"]),
-    klasse: new Set(["klasse","class","hold"]),
-    kontakt1: new Set(["kontaktlærer1","kontaktlaerer1","relationerkontaktlaerernavn","relationerkontaktlærernavn","kontaktlærer","kontaktlaerer"]),
-    kontakt2: new Set(["kontaktlærer2","kontaktlaerer2","relationerandenkontaktlaerernavn","relationerandenkontaktlærernavn","andenkontaktlærer","andenkontaktlaerer"])
+    klasse: new Set(["klasse","class","hold","klassetrin"]),
+    grupper: new Set(["grupper","groups","elevgrupper","gruppe"]),
+    kontakt1: new Set(["kontaktlærer1","kontaktlaerer1","kontaktlærer 1","kontaktlaerer 1","k-lærer 1","k-laerer 1","relationerkontaktlaerernavn","relationerkontaktlærernavn","kontaktlærer","kontaktlaerer"]),
+    kontakt2: new Set(["kontaktlærer2","kontaktlaerer2","kontaktlærer 2","kontaktlaerer 2","k-lærer 2","k-laerer 2","relationerandenkontaktlaerernavn","relationerandenkontaktlærernavn","andenkontaktlærer","andenkontaktlaerer"])
     ,ini1: new Set(["initialerforklaerer1","initialerforklærer1","kontaktlaerer1initialer","kontaktlærer1initialer"])
     ,ini2: new Set(["initialerforklaerer2","initialerforklærer2","kontaktlaerer2initialer","kontaktlærer2initialer"])
   };
@@ -5513,7 +5635,8 @@ if (chosen && erObj[chosen]) {
     return out;
   }
   function normalizeStudentRow(row, map, teacherOverrides) {
-    const get = (field) => (row[map[field]] ?? '').trim();
+    const getRaw = (field) => map && map[field] ? row?.[map[field]] : '';
+    const get = (field) => String(getRaw(field) ?? '').trim();
 
     // Ikke-destruktiv import:
     // Bevar fornavn og efternavn præcis som de står i regnearket/backuppen.
@@ -5522,22 +5645,29 @@ if (chosen && erObj[chosen]) {
     const efternavn = get('efternavn');
     const unilogin = get('unilogin') || (normalizeName((fornavn + ' ' + efternavn)).replace(/\s/g, '') + '_missing');
     const koen = normalizeGender(get('koen'));
-const klasse = get('klasse');
-    const ini1 = (get('ini1') || '').trim();
-    const ini2 = (get('ini2') || '').trim();
+    const klasse = get('klasse');
+    const ini1 = get('ini1');
+    const ini2 = get('ini2');
     const kontakt1_navn = get('kontakt1');
     const kontakt2_navn = get('kontakt2');
+    const grupper = normalizeStudentGroups(getRaw('grupper'));
 
-    // Initialer-regel (per "Accepterede kolonner"):
-    // - Hvis "Initialer for k-lærerX" er udfyldt og ligner rigtige initialer (1-4 bogstaver), brug dem.
-    // - Ellers dannes initialer automatisk ud fra kontaktlærerens navn.
-    // Tomme felter ignoreres senere i UI.
+    // Prioritet for lærerinitialer:
+    // 1) eksplicit override-kolonne, 2) Teamnavnet i Grupper, 3) navnebaseret fallback kun når Team-initialer ikke findes.
     const ov1 = teacherOverrides && kontakt1_navn ? teacherOverrides.get(normalizeName(kontakt1_navn)) : '';
     const ov2 = teacherOverrides && kontakt2_navn ? teacherOverrides.get(normalizeName(kontakt2_navn)) : '';
-    const k1 = ov1 ? ov1 : normalizedInitials(ini1, kontakt1_navn);
-    const k2 = ov2 ? ov2 : normalizedInitials(ini2, kontakt2_navn);
+    const resolved = resolveStudentTeacherInitials({
+      teacher1: kontakt1_navn, teacher2: kontakt2_navn, groups: grupper,
+      override1: ov1 || ini1, override2: ov2 || ini2
+    });
     const navn = ((fornavn || '') + ' ' + (efternavn || '')).trim();
-    return { fornavn, efternavn, navn, unilogin, koen, klasse, kontaktlaerer1: kontakt1_navn, kontaktlaerer2: kontakt2_navn, kontaktlaerer1_ini: k1, kontaktlaerer2_ini: k2 };
+    return {
+      fornavn, efternavn, navn, unilogin, koen, klasse, grupper,
+      kontaktlaerer1: kontakt1_navn, kontaktlaerer2: kontakt2_navn,
+      kontaktlaerer1_ini: resolved.ini1, kontaktlaerer2_ini: resolved.ini2,
+      kontaktlaerer1_ini_kilde: resolved.source1, kontaktlaerer2_ini_kilde: resolved.source2,
+      team_initialer_tvetydige: resolved.ambiguousTeam
+    };
   }
 
   // ---------- Canonicalize K-lærer initials across dataset ----------
@@ -5890,7 +6020,11 @@ function renderSettings() {
     $('templateText').readOnly = !!t.templateLocked;
     $('btnToggleTemplate').textContent = t.templateLocked ? '✏️ Redigér' : '🔒 Lås';
 
-    $('studentsStatus').textContent = studs.length ? `✅ Elevliste indlæst: ${studs.length} elever` : `Upload elevliste først.`;
+    const studentsSource = lsGet(KEYS.studentsSource, null);
+    const fromPlan = !!(studentsSource && studentsSource.kind === 'plan2');
+    $('studentsStatus').textContent = studs.length
+      ? (fromPlan ? `✅ Stamdata fra Plan 2.0: ${studs.length} elever${studentsSource.datasetName ? ' · ' + studentsSource.datasetName : ''}` : `✅ Elevliste indlæst: ${studs.length} elever`)
+      : `Indlæs elevliste – eller åbn Skriv i Plan 2.0 for automatisk stamdata.`;
     $('studentsStatus').style.color = studs.length ? 'var(--accent)' : 'var(--muted)';
     const warnEl = $('studentsWarn');
     if (warnEl) {
@@ -5898,7 +6032,7 @@ function renderSettings() {
       if (miss.length) {
         const ex = miss.slice(0,3).map(st => `${escapeHtml(st.fornavn||'')} ${escapeHtml(st.efternavn||'')}`.trim()).filter(Boolean);
         warnEl.style.display = 'block';
-        warnEl.innerHTML = `⚠️ <b>Tjek manglende data i CSV</b><div class="small muted" style="margin-top:.25rem">${miss.length} elev(er) mangler K-lærere (Kontaktlærer1/2).${ex.length? '<br>Fx: '+ex.join(', '):''}</div>`;
+        warnEl.innerHTML = `⚠️ <b>Tjek manglende stamdata</b><div class="small muted" style="margin-top:.25rem">${miss.length} elev(er) mangler entydige K-lærerinitialer.${ex.length? '<br>Fx: '+ex.join(', '):''}</div>`;
       } else {
         warnEl.style.display = 'none';
         warnEl.textContent = '';
@@ -8530,6 +8664,85 @@ const modOk = (e.ctrlKey && e.altKey);
       } catch (_) {}
     }
 }
+
+  // ---------- Plan 2.0 stamdata bridge ----------
+  function normalizePlanStamdataPayload(payload){
+    const rows = payload?.students || payload?.elever || payload?.rows || payload?.data;
+    if (!Array.isArray(rows) || !rows.length) return [];
+    const headers = [];
+    const seen = new Set();
+    rows.forEach(row => Object.keys(row || {}).forEach(key => { if (!seen.has(key)) { seen.add(key); headers.push(key); } }));
+    const map = mapStudentHeaders(headers);
+    if (!map.fornavn || !map.efternavn) return [];
+    const teacherOverrides = buildTeacherOverrideMap(rows, map);
+    return canonicalizeTeacherInitials(
+      rows.map(row => normalizeStudentRow(row, map, teacherOverrides))
+        .filter(st => st && st.navn)
+    );
+  }
+
+  function markPlanStamdataImported(count, datasetName){
+    const statusEl = document.getElementById('studentsStatus');
+    if (statusEl) {
+      statusEl.textContent = `✅ Stamdata fra Plan 2.0: ${count} elever${datasetName ? ' · ' + datasetName : ''}`;
+      statusEl.style.color = 'var(--accent)';
+    }
+    const localLabel = document.querySelector('label[for="studentsFile"]');
+    if (localLabel) localLabel.title = 'Valgfrit: indlæs en lokal elevliste i stedet for stamdata fra Plan 2.0';
+  }
+
+  function installPlanStamdataBridge(){
+    const embedded = (() => { try { return window.parent && window.parent !== window; } catch(_) { return false; } })();
+    if (!embedded || window.__UDT_PLAN_STAMDATA_BRIDGE__) return;
+    window.__UDT_PLAN_STAMDATA_BRIDGE__ = true;
+    const requestId = 'skriv_data_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8);
+
+    window.addEventListener('message', ev => {
+      if (ev.source !== window.parent) return;
+      const msg = ev.data || {};
+      if (msg.protocol !== 'plan-htmlapp-v1') return;
+      if (msg.app && msg.app !== 'skriv') return;
+      if (msg.requestId && msg.requestId !== requestId) return;
+      if (msg.type === 'STAMDATA_ERROR') {
+        const statusEl = document.getElementById('studentsStatus');
+        if (statusEl) statusEl.textContent = 'Plan 2.0 kunne ikke levere stamdata. Du kan stadig importere elevlisten manuelt.';
+        return;
+      }
+      if (msg.type !== 'STAMDATA_RESPONSE') return;
+      const payload = msg.payload || {};
+      const students = normalizePlanStamdataPayload(payload);
+      if (!students.length) return;
+      const hadStudents = getStudents().length > 0;
+
+      // setStudents udskifter kun stamlisten. Elevtekster, markeringer og øvrigt
+      // arbejde ligger fortsat på UniLogin-nøglerne i Skriv og bevares.
+      setStudents(students, {kind:'plan2', datasetName:payload?.dataset?.name || 'Elevstamdata'});
+      markPlanStamdataImported(students.length, payload?.dataset?.name || 'Plan 2.0');
+      try {
+        // Første automatiske indlæsning følger samme flow som en manuel elevimport:
+        // valgt K-lærer -> K-elever, ellers Generelt så læreren kan vælge sig selv.
+        if (!hadStudents) {
+          const me = String(getSettings()?.me || '').trim();
+          if (me) setTab('k');
+          else { setTab('set'); setSettingsSubtab('general'); }
+        }
+        renderSettings(); renderStatus(); renderAll();
+      } catch(err) { console.warn('Skriv: kunne ikke genrendere efter Plan-stamdata', err); }
+    });
+
+    try {
+      window.parent.postMessage({
+        protocol:'plan-htmlapp-v1', app:'skriv', type:'SKRIV_READY', requestId,
+        payload:{accepts:['STAMDATA_RESPONSE'],fields:['Fornavn','Efternavn','UniLogin','Køn','Klasse','Kontaktlærer1','Kontaktlærer2','Grupper']}
+      }, '*');
+      window.parent.postMessage({
+        protocol:'plan-htmlapp-v1', app:'skriv', type:'STAMDATA_REQUEST', requestId,
+        payload:{fields:['Fornavn','Efternavn','UniLogin','Køn','Klasse','Kontaktlærer1','Kontaktlærer2','Grupper']}
+      }, '*');
+    } catch(err) { console.warn('Skriv: kunne ikke anmode Plan 2.0 om stamdata', err); }
+  }
+
+  installPlanStamdataBridge();
   init().catch(console.error);
 })();
 function updateCsvButton(count) {
