@@ -7408,12 +7408,19 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         const linked=await app.studentMasterLink?.ensureReady?.();
         if(linked&&(app.relationManager.studentRows(linked)||[]).length)return linked;
       }catch(_){}
-      throw new Error('Vælg elevstamdata i Elevadministrationen, før Pladser henter stamdata');
+      throw new Error('Vælg elevstamdata i Elevadministrationen, før HTML-appen henter stamdata');
     };
     const pladserNormKey=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('da-DK').replace(/[^a-z0-9]+/g,'');
     const pladserValue=(object,aliases)=>{
       const wanted=new Set((aliases||[]).map(pladserNormKey));
       for(const [key,value] of Object.entries(object||{}))if(wanted.has(pladserNormKey(key)))return value;
+      return '';
+    };
+    const pladserPreferredValue=(object,aliases)=>{
+      for(const alias of (aliases||[])){
+        const wanted=pladserNormKey(alias);
+        for(const [key,value] of Object.entries(object||{}))if(pladserNormKey(key)===wanted&&value!==undefined&&value!==null&&String(value).trim()!=='')return value;
+      }
       return '';
     };
     const pladserStudentPayload=async app=>{
@@ -7424,9 +7431,23 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         const efternavn=String(pladserValue(object,['Efternavn','Last name','Lastname'])||'').trim();
         const navn=String(pladserValue(object,['Navn','Fulde navn','Elevnavn'])||entry.title||`${fornavn} ${efternavn}`).trim();
         const grupper=pladserValue(object,['Grupper','Groups','Elevgrupper']);
-        const studenthouse=pladserValue(object,['Studenthouse','Student house','Gang']);
+        const studenthouse=pladserValue(object,['Studenthouse','Student house','Gang','Hus/Gang','Bosted']);
         const unilogin=String(pladserValue(object,['UniLogin','Unilogin','ElevID','StudentID'])||'').trim();
-        return {id:String(entry.rowKey??unilogin??index+1),unilogin,fornavn,efternavn,navn,grupper:Array.isArray(grupper)?grupper.map(String):String(grupper??''),studenthouse:String(studenthouse??'').trim()};
+        const koen=String(pladserValue(object,['Køn','Koen','Gender'])||'').trim();
+        const klasse=String(pladserPreferredValue(object,['Klasse','Klassetrin','Class'])||'').trim();
+        const kontaktlaerer1=String(pladserPreferredValue(object,[
+          'Kontaktlærer 1 navn','K-lærer 1 navn','Kontaktlærer1','Kontaktlærer 1','K-lærer 1',
+          'Relationer-Kontaktlærer-Navn','Relationer Kontaktlærer Navn'
+        ])||'').trim();
+        const kontaktlaerer2=String(pladserPreferredValue(object,[
+          'Kontaktlærer 2 navn','K-lærer 2 navn','Kontaktlærer2','Kontaktlærer 2','K-lærer 2',
+          'Relationer-Anden kontaktlærer-Navn','Relationer Anden kontaktlærer Navn'
+        ])||'').trim();
+        return {
+          id:String(entry.rowKey??unilogin??index+1),unilogin,fornavn,efternavn,navn,
+          grupper:Array.isArray(grupper)?grupper.map(String):String(grupper??''),
+          studenthouse:String(studenthouse??'').trim(),koen,klasse,kontaktlaerer1,kontaktlaerer2
+        };
       }).filter(student=>student.navn);
       return {students,dataset:{id:String(dataset.id||''),name:String(dataset.name||'Elevstamdata'),updatedAt:dataset.updatedAt||dataset.createdAt||null},source:'plan2-selected-student-master'};
     };
@@ -7446,6 +7467,21 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
           pladserStudentPayload(context.app).then(result=>{
             reply('STAMDATA_RESPONSE',{ok:true,...result});
             context.status&&(context.status.textContent=`Pladser · ${result.students.length} elever fra ${result.dataset.name}`);
+          }).catch(error=>{
+            fail('STAMDATA_ERROR',error);
+          });
+          return;
+        }
+        if(data.protocol==='plan-htmlapp-v1'&&data.app==='skriv'&&data.type==='SKRIV_READY'){
+          context.widget.content=context.widget.content||{};context.widget.content.appKind='skriv';
+          context.status&&(context.status.textContent='Skriv · klar til stamdata');
+          return;
+        }
+        if(data.protocol==='plan-htmlapp-v1'&&data.app==='skriv'&&data.type==='STAMDATA_REQUEST'){
+          context.widget.content=context.widget.content||{};context.widget.content.appKind='skriv';
+          pladserStudentPayload(context.app).then(result=>{
+            reply('STAMDATA_RESPONSE',{ok:true,...result});
+            context.status&&(context.status.textContent=`Skriv · ${result.students.length} elever fra ${result.dataset.name}`);
           }).catch(error=>{
             fail('STAMDATA_ERROR',error);
           });
@@ -79213,7 +79249,7 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
   'use strict';
   if(!TN || window.__plan2DocumentationLocalReadmeDesktopV1)return;
   window.__plan2DocumentationLocalReadmeDesktopV1=true;
-  const README_ONLINE='https://raw.githubusercontent.com/maans/plan2/main/README.md';
+  const README_ONLINE='https://raw.githubusercontent.com/maans/Plan2/main/README.md';
   const DESKTOP_RELEASE='https://github.com/maans/plan2-desktop/releases/latest';
   const clean=value=>String(value??'').trim();
   const esc=value=>TN.escapeHtml?TN.escapeHtml(String(value??'')):String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -79224,19 +79260,13 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
     add(README_ONLINE);
     return urls;
   }
-  function resolveReadmeUrl(url,baseUrl){
-    const value=clean(url);
-    if(!value)return '';
-    try{return new URL(value,baseUrl||README_ONLINE).href;}catch(_){return value;}
-  }
-  function inlineMarkdown(text,baseUrl){
+  function inlineMarkdown(text){
     return esc(text)
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g,(_m,alt,url)=>'<img src="'+esc(resolveReadmeUrl(url,baseUrl))+'" alt="'+alt+'" loading="lazy">')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_m,label,url)=>'<a href="'+esc(resolveReadmeUrl(url,baseUrl))+'" target="_blank" rel="noopener">'+label+'</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_m,label,url)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+'</a>')
       .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
       .replace(/`([^`]+)`/g,'<code>$1</code>');
   }
-  function markdownToHtml(markdown,baseUrl){
+  function markdownToHtml(markdown){
     const lines=String(markdown||'').replace(/\r/g,'').split('\n');
     const out=[];let list=null;
     const closeList=()=>{if(list){out.push('</'+list+'>');list=null;}};
@@ -79244,21 +79274,14 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
       const line=raw.trimEnd();
       if(!line.trim()){closeList();continue;}
       let m=line.match(/^(#{1,4})\s+(.+)$/);
-      if(m){closeList();const n=m[1].length;out.push('<h'+n+'>'+inlineMarkdown(m[2],baseUrl)+'</h'+n+'>');continue;}
+      if(m){closeList();const n=m[1].length;out.push('<h'+n+'>'+inlineMarkdown(m[2])+'</h'+n+'>');continue;}
       m=line.match(/^[-*]\s+(.+)$/);
-      if(m){if(list!=='ul'){closeList();list='ul';out.push('<ul>');}out.push('<li>'+inlineMarkdown(m[1],baseUrl)+'</li>');continue;}
+      if(m){if(list!=='ul'){closeList();list='ul';out.push('<ul>');}out.push('<li>'+inlineMarkdown(m[1])+'</li>');continue;}
       m=line.match(/^\d+[.)]\s+(.+)$/);
-      if(m){if(list!=='ol'){closeList();list='ol';out.push('<ol>');}out.push('<li>'+inlineMarkdown(m[1],baseUrl)+'</li>');continue;}
-      if(/^>\s?/.test(line)){closeList();out.push('<blockquote>'+inlineMarkdown(line.replace(/^>\s?/,''),baseUrl)+'</blockquote>');continue;}
-      if(/^<img\b/i.test(line)){
-        closeList();
-        const src=line.match(/\bsrc=["']([^"']+)["']/i)?.[1]||'';
-        const alt=line.match(/\balt=["']([^"']*)["']/i)?.[1]||'';
-        if(src)out.push('<img src="'+esc(resolveReadmeUrl(src,baseUrl))+'" alt="'+esc(alt)+'" loading="lazy">');
-        continue;
-      }
+      if(m){if(list!=='ol'){closeList();list='ol';out.push('<ol>');}out.push('<li>'+inlineMarkdown(m[1])+'</li>');continue;}
+      if(/^>\s?/.test(line)){closeList();out.push('<blockquote>'+inlineMarkdown(line.replace(/^>\s?/,''))+'</blockquote>');continue;}
       if(/^<[^>]+>/.test(line)){continue;}
-      closeList();out.push('<p>'+inlineMarkdown(line.trim(),baseUrl)+'</p>');
+      closeList();out.push('<p>'+inlineMarkdown(line.trim())+'</p>');
     }
     closeList();return out.join('');
   }
@@ -79279,18 +79302,9 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
     body.className='tn-plan-readme-view';
     body.innerHTML='<div class="tn-plan-manual-loading">Åbner README ...</div>';
     instance.modalManager.open({title:'Plan 2.0 · README',body,className:'tn-modal-wide',actions:[]});
-    body.addEventListener('click',event=>{
-      const link=event.target.closest?.('a[href]');
-      if(!link)return;
-      const href=String(link.href||'');
-      if(!/\/manualer\/plan-2-laererhaandbog\.pdf(?:$|[?#])/i.test(href))return;
-      event.preventDefault();event.stopPropagation();
-      if(typeof TN.openPlanPdfManual==='function')TN.openPlanPdfManual(instance);
-      else window.open(href,'_blank','noopener');
-    });
     try{
       const result=await fetchReadme();
-      body.innerHTML='<article class="tn-plan-readme-article">'+markdownToHtml(result.text,result.url)+'</article>';
+      body.innerHTML='<article class="tn-plan-readme-article">'+markdownToHtml(result.text)+'</article>';
     }catch(error){
       console.error('Plan README kunne ikke åbnes',error);
       body.innerHTML='<div class="tn-plan-help-note"><b>README kunne ikke åbnes.</b> Den lokale fil blev ikke fundet, og onlineudgaven kunne ikke hentes. Hjælp kan fortsat bruges.</div>';
@@ -79309,7 +79323,7 @@ try{TN.version='0.14.16-universal-resource-picker-baseline';document.title='PLAN
   if(!document.getElementById('plan2DocumentationLocalReadmeDesktopStyle')){
     const style=document.createElement('style');
     style.id='plan2DocumentationLocalReadmeDesktopStyle';
-    style.textContent='.tn-plan-readme-view{padding:4px}.tn-plan-readme-article{max-width:900px;margin:0 auto;line-height:1.58}.tn-plan-readme-article h1,.tn-plan-readme-article h2,.tn-plan-readme-article h3{line-height:1.2;margin:1.1em 0 .45em}.tn-plan-readme-article p{margin:.7em 0}.tn-plan-readme-article li{margin:.35em 0}.tn-plan-readme-article blockquote{margin:1em 0;padding:10px 14px;border-left:5px solid var(--tn-accent);background:var(--tn-panel2);border-radius:10px}.tn-plan-readme-article code{padding:1px 5px;border-radius:5px;background:var(--tn-panel2)}.tn-plan-readme-article img{display:block;max-width:100%;height:auto;margin:16px auto;border-radius:12px}';
+    style.textContent='.tn-plan-readme-view{padding:4px}.tn-plan-readme-article{max-width:900px;margin:0 auto;line-height:1.58}.tn-plan-readme-article h1,.tn-plan-readme-article h2,.tn-plan-readme-article h3{line-height:1.2;margin:1.1em 0 .45em}.tn-plan-readme-article p{margin:.7em 0}.tn-plan-readme-article li{margin:.35em 0}.tn-plan-readme-article blockquote{margin:1em 0;padding:10px 14px;border-left:5px solid var(--tn-accent);background:var(--tn-panel2);border-radius:10px}.tn-plan-readme-article code{padding:1px 5px;border-radius:5px;background:var(--tn-panel2)}';
     document.head.appendChild(style);
   }
 })(window.TavleNext);
