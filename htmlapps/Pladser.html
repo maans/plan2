@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pladser – prototype v9.3</title>
+  <title>Pladser – prototype v10.0</title>
 
   <!-- SheetJS bruges kun til at læse regnearket i browseren. Elevdata uploades ikke. -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -21,6 +21,24 @@
     header{padding:16px 20px;background:var(--dark);color:white;display:flex;justify-content:space-between;align-items:center;gap:16px}
     header h1{font-size:20px;margin:0}
     header small{opacity:.8}
+    .header-actions{display:flex;align-items:center;gap:12px;font-weight:700}
+    .header-print{background:white;color:var(--dark);border-color:white;font-weight:750;padding:8px 12px}
+    .facelift-panel{display:flex;flex-direction:column;gap:10px}
+    .workflow-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+    .workflow-card h2{font-size:18px;margin-bottom:12px}
+    .distribute-main{width:100%;margin-top:12px;padding:12px 14px;font-weight:800;font-size:15px}
+    .secondary-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+    .compact-status{margin-top:10px}
+    .settings-card{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+    .settings-card > summary{list-style:none;cursor:pointer;padding:11px 12px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .settings-card > summary::-webkit-details-marker{display:none}
+    .settings-card > summary::after{content:"›";font-size:20px;line-height:1;transform:rotate(90deg);transition:transform .15s ease;color:var(--muted)}
+    .settings-card[open] > summary::after{transform:rotate(-90deg)}
+    .settings-card > summary span{font-size:11px;font-weight:600;color:var(--muted);margin-left:auto}
+    .settings-body{padding:0 12px 12px;border-top:1px solid #eef0f3}
+    .settings-section h3{margin-top:12px}
+    .settings-section + .settings-section{border-top:1px solid #eef0f3;margin-top:12px;padding-top:1px}
+    .control-card .counts{margin-top:12px}
     .app{display:grid;grid-template-columns:390px minmax(0,1fr);gap:14px;padding:14px;transition:grid-template-columns .18s ease}
     .app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr);gap:0}
     .app.sidebar-hidden aside{
@@ -261,66 +279,86 @@
 <body>
 <header>
   <div><h1>Pladser</h1><small>Regnearksimport · gruppefordeling på 3 borde · hele bordområder som klikzoner</small></div>
-  <div id="capacity">0 / 180 pladser</div>
+  <div class="header-actions">
+    <div id="capacity">0 / 180 pladser</div>
+    <button id="printBtn" class="header-print" type="button">Print / PDF</button>
+  </div>
 </header>
 
 <button id="sidebarToggle" class="sidebar-toggle" type="button"
   aria-expanded="true" aria-controls="controlPanel" title="Skjul sidepanel">‹</button>
 <div id="mainApp" class="app">
-  <aside id="controlPanel" class="panel">
-    <h2>1. Importér regneark</h2>
-    <input id="fileInput" type="file" accept=".xlsx,.xls,.csv">
-    <div class="note">Forventede kolonner: <b>Fornavn</b>, <b>Efternavn</b>, <b>Grupper</b> og <b>Studenthouse</b>. Grupper må gerne stå på flere linjer i samme celle.</div>
-    <div id="importStatus" class="status">Intet regneark indlæst.</div>
+  <aside id="controlPanel" class="panel facelift-panel">
+    <details id="stamdataDetails" class="settings-card" open>
+      <summary>Stamdata <span id="stamdataSummary">– vælg regneark</span></summary>
+      <div class="settings-body">
+        <input id="fileInput" type="file" accept=".xlsx,.xls,.csv">
+        <div class="note">Forventede kolonner: <b>Fornavn</b>, <b>Efternavn</b>, <b>Grupper</b> og <b>Studenthouse</b>. Grupper må gerne stå på flere linjer i samme celle.</div>
+        <div id="importStatus" class="status">Intet regneark indlæst.</div>
+      </div>
+    </details>
 
     <section id="analysisSection" class="hidden">
-      <h3>2. Klassificér grupper</h3>
-      <div class="note">Teams og rejsehold genkendes automatisk. Andre gruppenavne kan markeres som linjefag eller valgfag.</div>
-      <div id="groupList" class="group-list"></div>
+      <div class="workflow-card">
+        <h2>Fordel elever</h2>
 
-      <h3>3. Vælg fordelingsgrundlag</h3>
-      <label for="basis">Gruppetype</label>
-      <select id="basis">
-        <option value="team">Teams</option>
-        <option value="studenthouse">Gange / Studenthouse</option>
-        <option value="profilfag">Linjefag</option>
-        <option value="rejsehold">Rejsehold</option>
-        <option value="valgfag">Valgfag</option>
-      </select>
+        <label for="basis">Fordelingsgrundlag</label>
+        <select id="basis">
+          <option value="team">Teams</option>
+          <option value="studenthouse">Gange / Studenthouse</option>
+          <option value="profilfag">Linjefag</option>
+          <option value="rejsehold">Rejsehold</option>
+          <option value="valgfag">Valgfag</option>
+        </select>
 
-      <label for="strategy">Fordeling inden for gruppens 3 borde</label>
-      <select id="strategy">
-        <option value="balanced">Jævn fordeling på gruppens 3 borde</option>
-        <option value="randomWithinGroup">Tilfældig fordeling på gruppens 3 borde</option>
-      </select>
+        <label for="strategy">Fordeling på gruppens 3 borde</label>
+        <select id="strategy">
+          <option value="balanced">Jævn fordeling på gruppens 3 borde</option>
+          <option value="randomWithinGroup">Tilfældig fordeling på gruppens 3 borde</option>
+        </select>
 
-      <div id="basisStatus" class="status"></div>
+        <div id="basisStatus" class="status compact-status"></div>
 
-      <div id="mappingSection">
-        <h3>4. Knyt grupper til bordområder</h3>
-        <div class="note">Hvert område består af tre borde og højst 30 pladser.</div>
-        <div id="mapping" class="mapping"></div>
+        <button id="distributeBtn" class="primary distribute-main">Fordel elever</button>
+
+        <div class="secondary-actions">
+          <button id="shuffleBtn">Bland ulåste</button>
+          <button id="clearBtn">Ryd pladser</button>
+        </div>
       </div>
 
-      <div class="row">
-        <button id="distributeBtn" class="primary">Fordel elever</button>
-        <button id="shuffleBtn">Bland ulåste</button>
-        <button id="clearBtn">Ryd pladser</button>
-      </div>
-      <div class="row">
-        <button id="lockBtn">Lås udfyldte</button>
-        <button id="unlockBtn">Lås alle op</button>
-        <button id="printBtn">Print / PDF</button>
-      </div>
+      <details id="settingsDetails" class="settings-card">
+        <summary>Indstillinger</summary>
+        <div class="settings-body">
+          <section class="settings-section">
+            <h3>Klassificér grupper</h3>
+            <div class="note">Teams og rejsehold genkendes automatisk. Andre gruppenavne kan markeres som linjefag eller valgfag.</div>
+            <div id="groupList" class="group-list"></div>
+          </section>
 
-      <h3>Kontrol</h3>
-      <div id="counts" class="counts"></div>
-      <div id="distributionStatus" class="status">Ingen fordeling udført.</div>
-      <div class="note">
-        Klik på et elevnavn for at bytte elever. Navnefelterne udvider sig automatisk efter navnets længde.
-        Klik på selve bordfladen for at vælge et bord, og klik derefter på et andet bord for at bytte deres placering.
-        Klik på gruppetitlen over bordet for at låse eller låse alle elevplaceringer ved bordet op.
-      </div>
+          <section id="mappingSection" class="settings-section">
+            <h3>Knyt grupper til bordområder</h3>
+            <div class="note">Hvert område består af tre borde og højst 30 pladser.</div>
+            <div id="mapping" class="mapping"></div>
+          </section>
+        </div>
+      </details>
+
+      <details class="settings-card control-card">
+        <summary>Kontrol og låsninger</summary>
+        <div class="settings-body">
+          <div id="counts" class="counts"></div>
+          <div id="distributionStatus" class="status">Ingen fordeling udført.</div>
+          <div class="row">
+            <button id="unlockBtn">Lås alle op</button>
+          </div>
+          <div class="note">
+            Klik på et elevnavn for at bytte elever. Navnefelterne udvider sig automatisk efter navnets længde.
+            Klik på selve bordfladen for at vælge et bord, og klik derefter på et andet bord for at bytte deres placering.
+            Klik på gruppetitlen over bordet for at låse eller låse alle elevplaceringer ved bordet op.
+          </div>
+        </div>
+      </details>
     </section>
   </aside>
 
@@ -849,8 +887,12 @@ document.getElementById('fileInput').addEventListener('change',async e=>{
     document.getElementById('analysisSection').classList.remove('hidden');
     refreshBasis();
     showImport(`${students.length} elever og ${uniqueGroups.length} forskellige gruppenavne indlæst.`);
+    document.getElementById('stamdataSummary').textContent=`· ${students.length} elever ✓`;
+    document.getElementById('stamdataDetails').removeAttribute('open');
   }catch(err){
     students=[];document.getElementById('analysisSection').classList.add('hidden');
+    document.getElementById('stamdataDetails').setAttribute('open','');
+    document.getElementById('stamdataSummary').textContent='– importfejl';
     showImport(err.message,'bad');
   }
 });
@@ -863,7 +905,6 @@ document.getElementById('shuffleBtn').addEventListener('click',()=>{
   const target=seats.filter(s=>s.dataset.locked!=='true');target.forEach(s=>setSeat(s,null));
   shuffled(filled).forEach((student,i)=>setSeat(target[i],student));updateCapacity();showDistribution('Ulåste elever er blandet.');
 });
-document.getElementById('lockBtn').addEventListener('click',()=>{seats.filter(s=>!s.classList.contains('empty')).forEach(s=>{s.dataset.locked='true';s.classList.add('locked')});showDistribution('Alle udfyldte pladser er låst.')});
 document.getElementById('unlockBtn').addEventListener('click',()=>{seats.forEach(s=>{s.dataset.locked='false';s.classList.remove('locked')});showDistribution('Alle pladser er låst op.')});
 function buildPrintPreview(){
   const sheet=document.getElementById('printSheet');
@@ -1261,7 +1302,9 @@ try{
     const msg=ev&&ev.data;
     if(!msg)return;
     if(msg.type==='PLADSER_STAMDATA_ERROR'||(msg.protocol==='plan-htmlapp-v1'&&msg.type==='STAMDATA_ERROR')){
-      showImport(msg.error||msg.payload?.message||'Plan 2.0 kunne ikke levere stamdata.','bad');
+      document.getElementById('stamdataDetails').setAttribute('open','');
+      document.getElementById('stamdataSummary').textContent='– vælg regneark';
+      showImport(msg.error||msg.payload?.message||'Plan 2.0 kunne ikke levere stamdata. Vælg et regneark herunder.','bad');
       return;
     }
     if(!['PLADSER_STAMDATA','PLAN2_STAMDATA','TAVLE_STAMDATA','STAMDATA_RESPONSE'].includes(msg.type))return;
@@ -1275,6 +1318,8 @@ try{
     document.getElementById('analysisSection').classList.remove('hidden');
     refreshBasis();
     showImport(`${students.length} elever indlæst fra Plan 2.0.`);
+    document.getElementById('stamdataSummary').textContent=`· ${students.length} elever fra Plan 2.0 ✓`;
+    document.getElementById('stamdataDetails').removeAttribute('open');
   });
 
   if(embedded){
