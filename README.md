@@ -2,9 +2,7 @@
 
 > **En computer gemmer dine filer. Plan bevarer din undervisning.**
 
-<p align="center">
-  <img src="docs/images/start.png" alt="Plan 2.0 åbnet i browseren" width="720">
-</p>
+![Plan 2.0 åbnet i browseren](https://raw.githubusercontent.com/maans/plan2/main/docs/images/start.png)
 
 **Plan 2.0 er lærerens arbejdsplads gennem skoleåret.**
 
@@ -55,4 +53,4 @@ Plan gemmer løbende arbejdet i browserens lokale lager.
 
 Den indbyggede Hjælp er søgbar og opgaveorienteret. Den fører direkte videre til konkrete værktøjer i Plan 2.0.
 
-[**Åbn Plan-guiden — lærerhåndbogen**](manualer/plan-2-laererhaandbog.pdf)
+[**Åbn Plan-guiden — lærerhåndbogen**](https://raw.githubusercontent.com/maans/plan2/main/manualer/plan-2-laererhaandbog.pdf)
