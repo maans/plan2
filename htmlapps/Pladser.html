@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pladser – prototype v9.0</title>
+  <title>Pladser – prototype v9.1</title>
 
   <!-- SheetJS bruges kun til at læse regnearket i browseren. Elevdata uploades ikke. -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -937,8 +937,11 @@ function buildVectorPdf(){
   pdf.setDrawColor(25,25,25);pdf.setLineWidth(.45);
   pdf.rect(margin,margin,usableW,usableH);
 
-  const colGap=2.5,rowGap=5,rightServiceW=44;
-  const gridW=usableW-rightServiceW-5;
+  // Hele A3-bredden bruges til de syv kolonner i øverste og nederste række.
+  // Midterrækkens fire borde bruger de samme kolonnepositioner, så de fortsat
+  // flugter lodret med de første fire kolonner.
+  const colGap=2,rowGap=5;
+  const gridW=usableW-4;
   const colW=(gridW-colGap*6)/7;
   const rowH=(usableH-rowGap*2)/3;
 
@@ -1010,15 +1013,20 @@ function buildVectorPdf(){
     }
   }
 
-  const serviceX=margin+usableW-rightServiceW;
-  const cx=serviceX+rightServiceW/2,cy=pageH/2;
+  // Buffetområdet bruger kun den ledige del til højre for midterrækkens
+  // fjerde kolonne. Det reducerer ikke længere bredden på de øvrige rækker.
+  const serviceX=margin+2+4*(colW+colGap)+5;
+  const serviceRight=margin+usableW-3;
+  const serviceW=serviceRight-serviceX;
+  const cx=serviceX+serviceW/2,cy=pageH/2;
+  const buffetRadius=Math.min(16,Math.max(12,(serviceW-12)/2));
   pdf.setFillColor(247,234,212);pdf.setDrawColor(30,30,30);
-  pdf.circle(cx,cy,16,'FD');
+  pdf.circle(cx,cy,buffetRadius,'FD');
   pdf.setFont('helvetica','bold');pdf.setFontSize(7);pdf.setTextColor(0,0,0);
   pdf.text(['ANRETTERBORD','/ BUFFET'],cx,cy-1.5,{align:'center'});
   pdf.setLineWidth(.5);
-  pdf.line(serviceX+5,cy-27,serviceX+rightServiceW-3,cy-27);
-  pdf.line(serviceX+5,cy+27,serviceX+rightServiceW-3,cy+27);
+  pdf.line(serviceX+5,cy-27,serviceRight,cy-27);
+  pdf.line(serviceX+5,cy+27,serviceRight,cy+27);
 
   const stamp=new Date().toISOString().slice(0,10);
   __lastPdfFilename=`${pdfSafeName('Pladser')}-${stamp}.pdf`;
