@@ -52161,6 +52161,35 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
     .replace(/[\u0300-\u036f]/g,'').replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa')
     .replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
 
+  /* Toppanelets generelle iPad-ejer udfører allerede et direkte click efter et
+     gyldigt touch. Safari kan bagefter sende endnu et betroet ghost-click.
+     Elevscopechippen er en toggle, så den anden aktivering lukkede menuen igen.
+     Undertryk kun dette konkrete par: et syntetisk click umiddelbart efter en
+     touch/pen-pointer og det efterfølgende betroede click på samme chip. */
+  const bindStudentScopeChipTouchDedup=chip=>{
+    if(!chip||chip.__plan2StudentScopeTouchDedup)return chip;
+    chip.__plan2StudentScopeTouchDedup=true;
+    let lastTouchSignal=-Infinity,directTouchActivation=-Infinity;
+    const rememberTouch=event=>{
+      if(event.pointerType==='touch'||event.pointerType==='pen')lastTouchSignal=performance.now();
+    };
+    chip.addEventListener('pointerdown',rememberTouch,{capture:true,passive:true});
+    chip.addEventListener('pointerup',rememberTouch,{capture:true,passive:true});
+    chip.addEventListener('click',event=>{
+      const now=performance.now();
+      if(!event.isTrusted){
+        if(now-lastTouchSignal<220)directTouchActivation=now;
+        return;
+      }
+      if(now-directTouchActivation>=700)return;
+      directTouchActivation=-Infinity;
+      event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();
+    },true);
+    chip.style.touchAction='manipulation';
+    return chip;
+  };
+  TN.bindStudentScopeChipTouchDedup=bindStudentScopeChipTouchDedup;
+
   class ActiveStudentScopeController{
     constructor(app){
       this.app=app;
@@ -52172,7 +52201,10 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
     session(){return TN.runtime.activeSession||null;}
     courseKey(){
       const session=this.session(),meta=session?.meta||{};
-      return clean(meta.courseId||meta.planBatchId||meta.courseKey||session?.courseId||'');
+      const explicit=clean(meta.courseId||meta.planBatchId||meta.courseKey||session?.courseId||'');
+      // En enkeltstående session er også et gyldigt, udledt forløb i CourseManager.
+      // Brug samme navngivne fallback, så standardholdet altid har en stabil nøgle.
+      return explicit||(clean(session?.id)?`session:${clean(session.id)}`:'');
     }
     sessionKey(){return `plan:student-scope:session:${clean(this.session()?.id||'none')}`;}
     courseStorageKey(){const key=this.courseKey();return key?`plan:student-scope:course:${key}`:'';}
@@ -52396,6 +52428,7 @@ window.Plan2=window.Plan2||{};window.Plan2.assetResolver=TN.AssetResolver;
       const home=bar.querySelector('.plan2-home-button');
       if(home?.nextSibling)bar.insertBefore(chip,home.nextSibling);else bar.prepend(chip);
     }
+    bindStudentScopeChipTouchDedup(chip);
     const scope=await this.studentScope.effective();
     chip.querySelector('b').textContent=scope.label;
     chip.dataset.scopeKind=scope.kind;
@@ -66292,6 +66325,7 @@ App.prototype.updateStudentScopeChip=async function(){
     const home=bar.querySelector('.plan2-home-button');
     if(home?.nextSibling)bar.insertBefore(chip,home.nextSibling);else bar.prepend(chip);
   }
+  TN.bindStudentScopeChipTouchDedup?.(chip);
   const scope=await this.studentScope.effective();
   chip.querySelector('b').textContent=scope.label;
   chip.dataset.scopeKind=scope.kind;
@@ -81216,8 +81250,8 @@ TN.on?.('mediachange',payload=>{const app=TN.runtime?.app||window.tavleNextApp;i
 TN.on?.('studentcontextchange',scheduleRepair);
 scheduleRepair();
 
-try{TN.version='0.14.50-index33-resource-render-coordinator';document.title='PLAN-2.0-INDEX33-RESSOURCE-RENDER-KOORDINATOR';}catch(_error){}
+try{TN.version='0.14.51-index34-student-scope-touch-default';document.title='PLAN-2.0-INDEX34-HOLDVALG-TOUCH-STANDARD';}catch(_error){}
 })(window.TavleNext);
 </script>
 
-<!-- Plan 2.0 · 2026-08-09 · index33: Én renderkø, ét kontrolpanel og målrettet elevbilledesynk uden åbnings-loop. -->
+<!-- Plan 2.0 · 2026-08-09 · index34: index33 + entydigt touch på tavlehold og stabil standardholdsnøgle for enkeltstående forløb. -->
