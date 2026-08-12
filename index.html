@@ -4097,7 +4097,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
     rowIdentity(dataset,row,index=0){
       const columns=dataset?.columns||[],values=Array.isArray(row)?row:columns.map(c=>row?.[c]??'');
       const pick=aliases=>{const i=this.columnIndex(dataset,aliases);return i>=0?String(values[i]??'').trim():'';};
-      const stable=pick(['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','ID','Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber','Mail','E-mail','Email']);if(stable)return `id:${stable}`;
+      const stable=pick(['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','ID','Mail','E-mail','Email']);if(stable)return `id:${stable}`;
       const first=pick(['Fornavn','First name','Firstname']),last=pick(['Efternavn','Last name','Lastname']),name=pick(['Navn','Name']);
       const title=[first,last].filter(Boolean).join(' ')||name;if(title)return `name:${title.toLocaleLowerCase('da')}`;
       return `row:${Number(index)||0}`;
@@ -12869,7 +12869,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
   const assessmentColumns=['RowKey','ElevID','Navn','Klasse','Status','Faglig begrebsforståelse','Tekst- og genreviden','Analyse','Sproglig sikkerhed','Refleksion og begrundelse','Skriftlig formulering','Selvstændighed','Støttebehov','Anbefalet niveau','Vurderet af','Lærerkommentar','Aktuelt danskhold','Placeringsbegrundelse','Senest ændret'];
   const historyColumns=['Dato','RowKey','ElevID','Navn','Handling','Fra','Til','Vurderet af','Begrundelse'];
   const criterionFields=['Faglig begrebsforståelse','Tekst- og genreviden','Analyse','Sproglig sikkerhed','Refleksion og begrundelse','Skriftlig formulering','Selvstændighed'];
-  const idAliases=['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','UNI-brugernavn','Uni brugernavn','Brugernavn','Skolemail','Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber','E-mail','Email','Mailadresse'];
+  const idAliases=['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','UNI-brugernavn','Uni brugernavn','Brugernavn','Skolemail','E-mail','Email','Mailadresse'];
   const nameAliases=['Navn + efternavn','Navn og efternavn','Navn & efternavn','Fulde navn','Fuldt navn','Navn','Name'];
   const firstNameAliases=['Fornavn','First name','Firstname'];
   const lastNameAliases=['Efternavn','Last name','Lastname'];
@@ -14836,8 +14836,7 @@ placering og noter forbliver særskilte kilder. Øvrige Plan-funktioner er uænd
 
   const idAliases=[
     'ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login',
-    'Unilogin','UNI-brugernavn','Uni brugernavn','Brugernavn','Skolemail',
-    'Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber'
+    'Unilogin','UNI-brugernavn','Uni brugernavn','Brugernavn','Skolemail'
   ];
   const firstAliases=['Fornavn','First name','Firstname'];
   const lastAliases=['Efternavn','Last name','Lastname'];
@@ -16279,7 +16278,7 @@ Karakterdatasæt kan som alle andre datasæt kun slettes fra Planoversigt.
     written:'Skriftlig fremstilling',
     oral:'Mundtlig dansk'
   };
-  const idAliases=['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','Skolemail','Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber'];
+  const idAliases=['ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login','Unilogin','Skolemail'];
   const nameAliases=['Navn + efternavn','Navn og efternavn','Fulde navn','Fuldt navn','Elevnavn','Elev navn','Student name','Full name','Navn','Name'];
   const firstAliases=['Fornavn','First name','Firstname'];
   const lastAliases=['Efternavn','Last name','Lastname'];
@@ -21053,7 +21052,6 @@ rækkeorden og tomme rækker.
   const identityAliases = [
     'ElevID','Elev-ID','StudentID','Student ID','UniLogin','UNI-login','UNI login',
     'Unilogin','Skolemail','Mailadresse','E-mail','Email','Mail',
-    'Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber',
     'Navn + efternavn','Navn og efternavn','Navn & efternavn','Fulde navn',
     'Fuldt navn','Elevnavn','Elev navn','Navn','Name',
     'Fornavn','First name','Firstname','Efternavn','Last name','Lastname',
@@ -70697,13 +70695,13 @@ function saveRoles(value){try{localStorage.setItem(ROLE_KEY,JSON.stringify(value
 function matches(ds,key){
  const text=lower([ds?.name,ds?.type,ds?.meta?.dataRole,ds?.meta?.managedBy,ds?.meta?.sourceType].filter(Boolean).join(' '));
  const cols=(ds?.columns||[]).map(lower);
- if(key==='students')return /elevstam|stamdata|student.master|elevliste/.test(text)||((cols.includes('navn')||cols.includes('fornavn'))&&(cols.some(c=>/klasse|klassetrin/.test(c))||cols.some(c=>/unilogin|elevid|elev.?nummer|elevnr|student.?number/.test(c))));
+ if(key==='students')return /elevstam|stamdata|student.master|elevliste/.test(text)||((cols.includes('navn')||cols.includes('fornavn'))&&(cols.some(c=>/klasse|klassetrin/.test(c))||cols.some(c=>/unilogin|elevid/.test(c))));
  if(key==='leveling')return /niveau|leveling/.test(text)||cols.some(c=>/aktuelt danskhold|anbefalet niveau|elevens ønske/.test(c));
  if(key==='groups')return /gruppe|group.set|holdliste/.test(text)||cols.some(c=>/gruppenavn|gruppetype|gruppeid/.test(c));
  if(key==='conversations')return /fagsamt|samtaleark|subject.conversation/.test(text)||cols.some(c=>/samtaledato|lærerkommentar|fokus/.test(c));
  if(key==='grades'){
   const gradeColumns=cols.filter(c=>/karakter|standpunkt|proevekarakter|årskarakter|aarskarakter/.test(c)).length;
-  const identity=has(cols,/^(elev.?id|elev.?nummer|elevnr|student.?number|unilogin|navn|elev)$/);
+  const identity=has(cols,/^(elev.?id|unilogin|navn|elev)$/);
   return (/karakterark|karakterer|grade.?sheet|danish.?grades/.test(text)&&gradeColumns>0)||(identity&&gradeColumns>0);
  }
  return false;
@@ -70894,14 +70892,10 @@ function objects(ds){return (ds.rows||[]).map(row=>Object.fromEntries((ds.column
 function portraitMatchKey(value){return clean(value).replace(/\.[^.]+$/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('da-DK').replace(/[^a-z0-9æøå]+/g,'')}
 function portraitStudentIndex(app,ds){
  const index=new Map(),students=app.relationManager?.studentRows?.(ds)||[];
- const elevnummerAliases=['Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber'];
- const elevnummerIndex=app.relationManager?.columnIndex?.(ds,elevnummerAliases)??-1;
- const elevnummerColumn=elevnummerIndex>=0?ds.columns?.[elevnummerIndex]:'';
  const add=(value,student,kind)=>{const key=portraitMatchKey(value);if(!key)return;const list=index.get(key)||[];if(!list.some(item=>clean(item.student.rowKey)===clean(student.rowKey)))list.push({student,kind});index.set(key,list)};
  for(const student of students){
   const object=student.object||{};
-  if(elevnummerColumn)add(object[elevnummerColumn],student,'elevnummer');
-  for(const key of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID'])add(object[key],student,'id');
+  for(const key of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID','Elevnummer'])add(object[key],student,'id');
   for(const key of ['Navn','Fulde navn','Elevnavn','Fornavn'])add(object[key],student,'navn');
   add(student.title,student,'navn');
  }
@@ -70945,7 +70939,7 @@ function hideOverviewForMatcher(){
 function mediaBlob(media){return media?.blob instanceof Blob?media.blob:media?.originalBlob instanceof Blob?media.originalBlob:null}
 function studentAliases(student){
  const values=[student?.rowKey,student?.title],object=student?.object||{};
- for(const name of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID','Elevnummer','Elev nummer','Elevnr','Elev nr','Elev-nr','Elev-nr.','Elev nr.','Student number','Studentnumber','Navn','Fulde navn','Elevnavn','Fornavn'])values.push(object[name]);
+ for(const name of ['ElevID','Elev Id','StudentID','Student Id','UniLogin','Unilogin','UNI-login','UNI login','ID','Navn','Fulde navn','Elevnavn','Fornavn'])values.push(object[name]);
  return values.map(portraitMatchKey).filter(Boolean);
 }
 async function matcherGroups(app,ds,students){
@@ -70998,8 +70992,8 @@ async function openPortraitMatcher(app,preferredDataset=null){
   const githubUrl=fileName?`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fileName)}`:'';
   const media=actual||{id:mediaId,name:fileName,fileName,title:displayName,mime:'image/*',mimeType:clean(item?.mimeType||'image/*'),type:'image/*',url:publicUrl,webFallbackUrl:publicUrl,githubFallbackUrl:githubUrl,meta:{originalName:fileName,webFallbackUrl:publicUrl,githubFallbackUrl:githubUrl}};
   let rowKey=studentKeys.has(clean(item?.student?.rowKey))?clean(item.student.rowKey):'';
-  const suggestion=rowKey?null:(uniquePortraitMatch(studentIndex,fileName)||uniquePortraitMatch(studentIndex,displayName));if(!rowKey)rowKey=clean(suggestion?.student?.rowKey);
-  drafts.push({media,assetRef:{...item,mediaId,fileName,name:displayName||fileName,alt:displayName||fileName,webFallbackUrl:publicUrl,githubFallbackUrl:githubUrl},url:'',binding:null,title:clean(media.title||displayName||fileName||'Billede'),rowKey,manual:true,suggested:false,matchedBy:suggestion?.kind||'resource-portrait'});
+  const suggestion=rowKey?null:uniquePortraitMatch(studentIndex,displayName||fileName);if(!rowKey)rowKey=clean(suggestion?.student?.rowKey);
+  drafts.push({media,assetRef:{...item,mediaId,fileName,name:displayName||fileName,alt:displayName||fileName,webFallbackUrl:publicUrl,githubFallbackUrl:githubUrl},url:'',binding:null,title:clean(media.title||displayName||fileName||'Billede'),rowKey,manual:true,suggested:false,matchedBy:'resource-portrait'});
  }
  for(const media of storedMedia||[]){
   const mime=lower(media?.mimeType||media?.mime||media?.blob?.type||media?.type),name=clean(media?.name||media?.fileName||'');
@@ -71126,7 +71120,7 @@ Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra
    }
    await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});
    const matchedCount=drafts.reduce((sum,item)=>sum+(item===draft?(nextRowKey?1:0):(item.rowKey?1:0)),0);
-   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:7,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount}};
+   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:6,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount}};
    await app.dataManager.update(ds);
    draft.media=media;draft.rowKey=nextRowKey;draft.manual=true;draft.suggested=false;
    app.toast(nextRowKey?'Elevbilledet er gemt':'Billedet er nulstillet til Medie');
@@ -71135,33 +71129,6 @@ Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra
    console.error('Elevbilledmatch kunne ikke gemmes',error);draft.rowKey=previousRowKey;if(previousTitle!==undefined)draft.media.title=previousTitle;app.toast(error?.message||'Matchningen kunne ikke gemmes');return false;
   }finally{saving.delete(mediaId)}
  }
- async function persistElevnummerMatches(){
-  const rowCounts=new Map();for(const draft of drafts)if(draft.rowKey)rowCounts.set(draft.rowKey,(rowCounts.get(draft.rowKey)||0)+1);
-  const candidates=drafts.filter(draft=>draft.suggested&&draft.matchedBy==='elevnummer'&&draft.rowKey&&rowCounts.get(draft.rowKey)===1);
-  if(!candidates.length)return 0;
-  let refs=[...(ds.meta?.portraitRefs||[])],saved=0;
-  for(const draft of candidates){
-   const mediaId=clean(draft.media?.id),rowKey=clean(draft.rowKey),student=studentByKey.get(rowKey);
-   if(!mediaId||!student)continue;
-   // Et eksisterende, andet billede til samme elev må aldrig overskrives automatisk.
-   if(refs.some(ref=>clean(ref?.rowKey)===rowKey&&clean(ref?.mediaId)!==mediaId))continue;
-   const media=await app.storage.get('media',mediaId)||draft.media;
-   if(!media)continue;
-   media.category='Elevbilleder';media.studentPortrait=true;media.studentRowKey=rowKey;media.studentName=student.title||'';media.sourceDatasetId=clean(ds.id);media.source='student-portrait';media.updatedAt=TN.now();
-   await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});
-   refs=refs.filter(ref=>clean(ref?.mediaId)!==mediaId);
-   refs.push({mediaId:media.id,fileName:media.name||media.fileName||'',rowKey,rowIndex:Number(student.index),studentName:student.title||'',matchedBy:'elevnummer',sourceDatasetId:clean(ds.id),title:media.title,mimeType:media.mimeType||media.mime||media.blob?.type||'image/*',importedAt:new Date().toISOString()});
-   draft.media=media;draft.manual=true;draft.suggested=false;draft.matchedBy='elevnummer';saved++;
-  }
-  if(saved){
-   const matchedCount=drafts.reduce((sum,item)=>sum+(item.rowKey?1:0),0);
-   ds.meta={...(ds.meta||{}),portraitRefs:refs,portraitSource:'Elevadministration',portraitMatchVersion:7,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:matchedCount,unmatched:drafts.length-matchedCount,autoMatchedByElevnummer:saved}};
-   await app.dataManager.update(ds);
-   app.toast(`${saved} elevbillede${saved===1?'':'r'} automatisk matchet via Elevnummer`);
-  }
-  return saved;
- }
-
  function draw(){
   const q=lower(search.value),wanted=status.value,group=groups.find(item=>item.id===groupSelect.value),conflict=conflicts();grid.replaceChildren();
   let matched=0,unmatched=0,conflictCount=0;for(const draft of drafts){const st=stateOf(draft,conflict);if(st==='matched')matched++;else if(st==='conflict')conflictCount++;else unmatched++}count.textContent=`${drafts.length} billeder · ${matched} matchet · ${unmatched} uafklarede · ${conflictCount} konflikter`;
@@ -71179,7 +71146,6 @@ Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra
   }
   if(!visible.length)grid.innerHTML='<div class="plan2-pm-empty">Ingen billeder matcher de valgte filtre.</div>';
  }
- await persistElevnummerMatches();
  search.oninput=TN.debounce?TN.debounce(draw,80):draw;status.onchange=draw;groupSelect.onchange=draw;draw();
  const restore=hideOverviewForMatcher();
  const matcherModal=app.modalManager.open({title:`Match elevbilleder · ${drafts.length} billeder`,body,className:'tn-modal-wide plan2-pm-modal',onClose:()=>{for(const draft of drafts)try{draft.binding?.release?.()}catch(_error){}urls.forEach(URL.revokeObjectURL);restore()},actions:[]});
