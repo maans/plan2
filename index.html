@@ -46126,11 +46126,14 @@ relateret i kalenderen. Derudover får gruppesæt en praktisk aktivitetsoversigt
 
       const item=event.target.closest('.plan2-add-item');
       if(item){
-        lastTouchItemAt=Date.now();
-        lastTouchItemId=item.dataset.item||'';
+        const touchItemId=item.dataset.item||'';
         event.preventDefault();
         event.stopImmediatePropagation();
-        void launch(lastTouchItemId);
+        // Brug knappens normale klikvej også ved touch. Det er vigtigt for
+        // muligheder, der tilføjes til paletten senere og derfor ikke findes i groups/allItems.
+        item.click();
+        lastTouchItemAt=Date.now();
+        lastTouchItemId=touchItemId;
         return;
       }
 
