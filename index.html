@@ -2239,6 +2239,12 @@ html[data-plan-embed="true"] #tavleNextApp .tn-board-utility-button[data-clock-v
 .tn-management-intro{display:flex;align-items:baseline;gap:10px;padding:10px 12px;margin:4px 0 8px;border:1px solid color-mix(in srgb,var(--accent,#2f7df4) 22%,transparent);border-radius:12px;background:color-mix(in srgb,var(--accent,#2f7df4) 7%,transparent)}
 .tn-management-intro span{opacity:.72;font-size:.9rem}.tn-manage-head{align-items:end}.tn-manage-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;margin:7px 0;border:1px solid var(--border,#3a4658);border-radius:13px;background:var(--panel-2,#202a3a)}
 .tn-manage-row.active{border-color:var(--accent,#2f7df4);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent,#2f7df4) 55%,transparent)}.tn-manage-order{display:grid;place-items:center;width:30px;height:30px;border-radius:999px;background:var(--accent,#2f7df4);color:white;font-weight:800}.tn-manage-main{min-width:0}.tn-manage-main small{display:block;margin-top:4px;opacity:.66}.tn-inline-edit{position:relative}.tn-inline-edit input{width:100%;padding-right:92px;font-weight:750}.tn-inline-edit [data-save]{position:absolute;right:5px;top:50%;transform:translateY(-50%);height:26px;padding:0 9px;border-radius:999px;border:0;background:transparent;color:var(--text,#eef3ff);opacity:.045;pointer-events:none;font-size:.72rem;font-weight:800;transition:.15s ease}.tn-inline-edit [data-save].ready{opacity:1;pointer-events:auto;background:var(--accent,#2f7df4);color:#fff;box-shadow:0 2px 8px #0005}.tn-inline-edit [data-save].saved{opacity:1;background:#278a54;color:#fff}.tn-manage-actions{display:flex;gap:6px;align-items:center}.tn-manage-actions button{min-width:38px;height:34px;padding:0 10px}.tn-manage-actions .danger:not(:disabled){color:#ffb0b0}.tn-manage-board-group>h3{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:2;padding:9px 4px;background:var(--panel,#101827)}.tn-manage-board-group>h3 small{opacity:.62;font-weight:500}.tn-overview-board-filters{grid-template-columns:minmax(190px,1fr) minmax(190px,1fr) minmax(180px,1fr) auto}
+.tn-manage-create-row{cursor:pointer;touch-action:manipulation;border-style:dashed;background:color-mix(in srgb,var(--panel-2,#202a3a) 82%,transparent)}
+.tn-manage-create-row:hover{border-color:var(--accent,#2f7df4)}
+.tn-manage-create-row .tn-manage-order{background:transparent;border:1px dashed var(--border,#58667a);color:transparent}
+.tn-manage-create-row .tn-manage-main strong{display:block;font-weight:800}
+.tn-manage-create-row .tn-manage-actions button{font-size:20px;font-weight:900;line-height:1}
+
 @media(max-width:900px){.tn-manage-row{grid-template-columns:32px minmax(0,1fr)}.tn-manage-actions{grid-column:2;justify-content:flex-end}.tn-overview-board-filters{grid-template-columns:1fr 1fr}.tn-management-intro{display:grid;gap:3px}}
 </style>
 <style id="plan2-fase1l-dataset-delete-modal-stack">
@@ -9832,6 +9838,7 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
         button.addEventListener('pointercancel',cancel);button.addEventListener('lostpointercapture',cancel);
         pop.append(button);
       };
+      add('＋','Ny tavle',()=>this.createBoard());
       add('＋','Tilføj indhold',()=>this.showAddWidget());
       add('🎨','Baggrund …',()=>this.showBackgrounds());
       const drawingLabel=this.boardDrawing?.active?(this.boardDrawing?.panelHidden?'Vis tegnelinje':'Luk tegning'):'Tegn på tavlen';
@@ -11847,8 +11854,9 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
           const courseLabel=document.createElement('label');courseLabel.innerHTML='<span>Forløb</span>';
           const courseSelect=document.createElement('select');courseSelect.setAttribute('aria-label','Vælg forløb');
           for(const item of courses){const option=document.createElement('option');option.value=String(item.key||item.id);option.textContent=item.title||'Forløb';option.selected=course&&option.value===String(course.key||course.id);courseSelect.append(option);}courseLabel.append(courseSelect);
+          const createSessionFromOverview=async()=>{const title=prompt('Navn på ny session','Ny session');if(!title||!course)return;const created=await this.sessionManager.create(title.trim());await saveCourse([...(course.sessionIds||[]).map(String),String(created.id)]);await render();};
           const newButton=document.createElement('button');newButton.type='button';newButton.className='primary';newButton.textContent='＋ Ny session';newButton.disabled=!course;
-          newButton.onclick=async()=>{const title=prompt('Navn på ny session','Ny session');if(!title||!course)return;const created=await this.sessionManager.create(title.trim());await saveCourse([...(course.sessionIds||[]).map(String),String(created.id)]);await render();};
+          newButton.onclick=createSessionFromOverview;
           courseSelect.onchange=async()=>{localStorage.setItem('plan:overview:sessions-course',courseSelect.value);await render();};head.append(courseLabel,newButton);content.append(head);
           const intro=document.createElement('div');intro.className='tn-management-intro';intro.innerHTML='<strong>Redigér sessionerne her</strong><span>Omdøb, flyt, kopiér eller slet. Ændringer gemmes direkte i det valgte forløb.</span>';content.append(intro);
           const sessions=[...(course?.sessions||[])];
@@ -11877,7 +11885,16 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
             row.querySelector('[data-copy]').onclick=async()=>{const copy=await duplicateSession(session);const ids=[...(course.sessionIds||[]).map(String)],at=ids.indexOf(String(session.id));ids.splice(at+1,0,String(copy.id));await saveCourse(ids);this.toast('Sessionen er kopieret');await render();};
             row.querySelector('[data-delete]').onclick=async()=>{if(!confirm(`Slet sessionen ${session.title} permanent?`))return;await saveCourse((course.sessionIds||[]).map(String).filter(id=>id!==String(session.id)));await this.sessionManager.delete(session.id);this.toast('Sessionen er slettet');await render();};content.append(row);
           }
-          if(!sessions.length){const empty=document.createElement('div');empty.className='tn-empty-state';empty.textContent=course?'Det valgte forløb har ingen sessioner endnu.':'Der er ingen undervisningsforløb endnu.';content.append(empty);}return;
+          if(!sessions.length){const empty=document.createElement('div');empty.className='tn-empty-state';empty.textContent=course?'Det valgte forløb har ingen sessioner endnu.':'Der er ingen undervisningsforløb endnu.';content.append(empty);}
+          if(course){
+            const createRow=document.createElement('article');createRow.className='tn-manage-row tn-manage-create-row';
+            createRow.innerHTML='<span class="tn-manage-order" aria-hidden="true"></span><div class="tn-manage-main"><strong>Ny session</strong><small>Opret nederst i dette forløb</small></div><div class="tn-manage-actions"><button type="button" data-create aria-label="Ny session" title="Ny session">＋</button></div>';
+            const trigger=()=>{void createSessionFromOverview();};
+            createRow.querySelector('[data-create]').onclick=event=>{event.preventDefault();event.stopPropagation();trigger();};
+            createRow.onclick=event=>{if(event.target.closest('button,input,select,textarea,label'))return;trigger();};
+            content.append(createRow);
+          }
+          return;
         }
         if(active==='boards'){
           const courses=await this.courseManager.listCourses();
@@ -11892,7 +11909,8 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
           const search=document.createElement('input');search.type='search';search.placeholder='Søg tavler';search.setAttribute('aria-label','Søg tavler');const add=document.createElement('button');add.type='button';add.className='primary';add.textContent='＋ Ny tavle';add.disabled=!sessionSelect.value;filters.append(courseLabel,sessionLabel,search,add);content.append(filters);
           const intro=document.createElement('div');intro.className='tn-management-intro';intro.innerHTML='<strong>Redigér tavlerne her</strong><span>Den valgte session er aktiv i baggrunden. Klik på en tavlerække for at åbne tavlen og lukke Planoversigten.</span>';content.append(intro);
           const list=document.createElement('div');list.className='tn-overview-board-list';content.append(list);
-          add.onclick=async()=>{const session=course?.sessions?.find(item=>String(item.id)===sessionSelect.value);if(!session)return;const title=prompt('Navn på ny tavle','Ny tavle');if(!title)return;await this.boardManager.create(session,title.trim());await this.storage.flush?.();await paint();};
+          const createBoardFromOverview=async()=>{const session=course?.sessions?.find(item=>String(item.id)===sessionSelect.value);if(!session)return;const title=prompt('Navn på ny tavle','Ny tavle');if(!title)return;await this.boardManager.create(session,title.trim());await this.storage.flush?.();await paint();};
+          add.onclick=createBoardFromOverview;
           const paint=async()=>{list.replaceChildren();add.disabled=!sessionSelect.value;const q=search.value.trim().toLocaleLowerCase('da');let count=0;for(const session of course?.sessions||[]){if(String(session.id)!==sessionSelect.value)continue;const structure=await loadSessionStructure(session.id);const orderedIds=(session.boardIds||[]).map(String),allBoards=[...(structure.boards||[])].sort((a,b)=>orderedIds.indexOf(String(a.id))-orderedIds.indexOf(String(b.id))),boards=allBoards.filter(board=>!q||`${board.title||''} ${session.title||''}`.toLocaleLowerCase('da').includes(q));if(!boards.length)continue;const section=document.createElement('section');section.className='tn-overview-board-group tn-manage-board-group';section.innerHTML=`<h3>${TN.escapeHtml(session.title||'Session')}<small>${boards.length} tavle${boards.length===1?'':'r'}</small></h3>`;
             for(const board of boards){const orderIndex=orderedIds.indexOf(String(board.id)),row=document.createElement('article');row.dataset.boardId=String(board.id);row.className=`tn-manage-row tn-board-manage-row${String(board.id)===String(TN.runtime.activeBoard?.id||'')?' active':''}`;row.innerHTML=`<span class="tn-manage-order">${orderIndex+1}</span><div class="tn-manage-main"><div class="tn-inline-edit"><input value="${TN.escapeHtml(board.title||'Tavle')}" aria-label="Tavletitel"><button type="button" data-save>Opdatér ›</button></div><small>${(board.widgetIds||[]).length} widgets${String(board.id)===String(TN.runtime.activeBoard?.id||'')?' · Aktiv tavle':''}</small></div><div class="tn-manage-actions"><button type="button" data-open>Åbn</button><button type="button" data-up ${orderIndex===0?'disabled':''}>↑</button><button type="button" data-down ${orderIndex===orderedIds.length-1?'disabled':''}>↓</button><button type="button" data-copy title="Kopiér tavle">⧉</button><button type="button" data-delete class="danger" title="Flyt til Papirkurv" ${orderedIds.length<=1?'disabled':''}>×</button></div>`;
               const input=row.querySelector('input'),save=row.querySelector('[data-save]'),original=board.title||'';const sync=()=>{const dirty=input.value.trim()!==original;save.classList.toggle('ready',dirty);save.disabled=!dirty;};input.oninput=sync;input.onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();save.click();}else if(event.key==='Escape'){event.preventDefault();input.value=original;sync();}};sync();save.onclick=async()=>{const value=input.value.trim();if(!value)return;await this.boardManager.rename(board,value);await this.storage.flush?.();if(String(TN.runtime.activeBoard?.id||'')===String(board.id)){TN.runtime.activeBoard.title=value;this.updateStatus();}save.textContent='✓ Opdateret';save.classList.add('saved');setTimeout(()=>paint(),520);};
@@ -11902,7 +11920,17 @@ window.__TN_PDF_WORKER_SOURCE__="/**\n * @licstart The following is the entire l
               row.addEventListener('pointerup',event=>{if(!touchOpenStart||touchOpenStart.id!==event.pointerId)return;const moved=Math.hypot(event.clientX-touchOpenStart.x,event.clientY-touchOpenStart.y);touchOpenStart=null;if(moved>12)return;if(event.target.closest('button,select,textarea,label'))return;event.preventDefault();event.stopPropagation();void openBoardFromOverview();});
               row.addEventListener('pointercancel',()=>{touchOpenStart=null;});
               row.addEventListener('click',event=>{if(event.target.closest('button,input,select,textarea,label'))return;void openBoardFromOverview();});row.querySelector('[data-up]').onclick=async()=>{await this.boardManager.moveInOrder(session,board.id,-1);await paint();};row.querySelector('[data-down]').onclick=async()=>{await this.boardManager.moveInOrder(session,board.id,1);await paint();};row.querySelector('[data-copy]').onclick=async()=>{await this.boardManager.duplicate(session,board,{afterBoardId:board.id});await this.storage.flush?.();this.toast('Tavlen er kopieret');await paint();};row.querySelector('[data-delete]').onclick=async()=>{if(!confirm(`Flyt tavlen ${board.title} til Papirkurv?`))return;const widgets=await this.storage.getAllByIndex('widgets','boardId',board.id);await this.trashManager.moveBoard(board,widgets);await this.boardManager.delete(session,board.id);await this.storage.flush?.();this.toast('Tavlen er flyttet til Papirkurv');await paint();};section.append(row);count++;}
-            list.append(section);}if(!count){const empty=document.createElement('div');empty.className='tn-empty-state';empty.textContent='Ingen tavler matcher filtrene.';list.append(empty);}};
+            list.append(section);}
+            if(!count){const empty=document.createElement('div');empty.className='tn-empty-state';empty.textContent='Ingen tavler matcher filtrene.';list.append(empty);}
+            if(sessionSelect.value){
+              const createRow=document.createElement('article');createRow.className='tn-manage-row tn-manage-create-row';
+              createRow.innerHTML='<span class="tn-manage-order" aria-hidden="true"></span><div class="tn-manage-main"><strong>Ny tavle</strong><small>Opret nederst i denne session</small></div><div class="tn-manage-actions"><button type="button" data-create aria-label="Ny tavle" title="Ny tavle">＋</button></div>';
+              const trigger=()=>{void createBoardFromOverview();};
+              createRow.querySelector('[data-create]').onclick=event=>{event.preventDefault();event.stopPropagation();trigger();};
+              createRow.onclick=event=>{if(event.target.closest('button,input,select,textarea,label'))return;trigger();};
+              list.append(createRow);
+            }
+          };
           courseSelect.onchange=async()=>{localStorage.setItem('plan:overview:boards-course',courseSelect.value);const selectedCourse=courses.find(item=>String(item.key||item.id)===courseSelect.value);localStorage.setItem('plan:overview:boards-session',String(selectedCourse?.sessions?.[0]?.id||''));await render();};sessionSelect.onchange=async()=>{localStorage.setItem('plan:overview:boards-session',sessionSelect.value);if(sessionSelect.value&&String(TN.runtime.activeSession?.id||'')!==sessionSelect.value)await this.loadSession(sessionSelect.value);await paint();};search.oninput=paint;await paint();return;
         }
         if(active==='resources'){await this.renderResourceCenter(content);return;}
@@ -76639,6 +76667,7 @@ if(!install()){
 <style id="plan-108-switcher-touch-css">
 .tn-switcher-open,.tn-switcher-edit{touch-action:manipulation!important;-webkit-tap-highlight-color:transparent;}
 .tn-switcher-row{touch-action:pan-y;}
+.tn-switcher-create .tn-switcher-edit{font-size:22px!important;line-height:1!important;opacity:.9!important;}
 </style>
 <script id="plan-102-switcher-focus-script">
 (function(TN){
@@ -76734,6 +76763,22 @@ if(!install()){
       bindTap(row.querySelector('.tn-switcher-edit'),()=>{closeSwitcher();localStorage.setItem('plan:overview:sessions-course',String(course?.key||course?.id||''));localStorage.setItem('plan:overview:focus-session',String(session.id));this.showDataCenter('sessions');});
       list.append(row);
     }
+    {
+      const row=document.createElement('div');row.className='tn-switcher-row tn-switcher-create';
+      row.innerHTML='<button type="button" class="tn-switcher-open"><strong>Ny session</strong><small>Opret i dette forløb</small></button><button type="button" class="tn-switcher-edit" aria-label="Ny session" title="Ny session">＋</button>';
+      const createSession=async()=>{
+        const title=prompt('Navn på ny session','Ny session');if(title==null||!String(title).trim())return;
+        closeSwitcher();
+        const created=await this.sessionManager.create(String(title).trim());
+        if(course&&typeof this.courseManager?.saveDefinition==='function'&&!String(course.key||'').startsWith('session:')){
+          await this.courseManager.saveDefinition({id:course.id,title:course.title,subject:course.subject,schoolYear:course.schoolYear,sessionIds:[...(course.sessionIds||[]).map(String),String(created.id)]});
+        }
+        await this.loadSession(created.id);
+      };
+      bindTap(row.querySelector('.tn-switcher-open'),createSession);
+      bindTap(row.querySelector('.tn-switcher-edit'),createSession);
+      list.append(row);
+    }
     mount(pop);
   };
 
@@ -76753,6 +76798,14 @@ if(!install()){
       bindTap(row.querySelector('.tn-switcher-edit'),()=>{closeSwitcher();localStorage.setItem('plan:overview:boards-session',String(session?.id||''));localStorage.setItem('plan:overview:focus-board',String(board.id));this.showDataCenter('boards');});
       list.append(row);
     });
+    {
+      const row=document.createElement('div');row.className='tn-switcher-row tn-switcher-create';
+      row.innerHTML='<button type="button" class="tn-switcher-open"><strong>Ny tavle</strong><small>Opret i denne session</small></button><button type="button" class="tn-switcher-edit" aria-label="Ny tavle" title="Ny tavle">＋</button>';
+      const createBoard=async()=>{closeSwitcher();await this.createBoard();};
+      bindTap(row.querySelector('.tn-switcher-open'),createBoard);
+      bindTap(row.querySelector('.tn-switcher-edit'),createBoard);
+      list.append(row);
+    }
     mount(pop);
   };
 
