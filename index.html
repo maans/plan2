@@ -188,7 +188,7 @@
   }
   const danishGroups=new Set(['dana1','danb1','dana2','danb2','dana3','danb3']);
   const isDanishGroup=dataset=>String(dataset?.type||'')==='subject-group'&&String(dataset?.meta?.courseKey||'')==='dansk-2026-27'&&danishGroups.has(norm(dataset?.meta?.selectedHold));
-  const portraitIndexCache=new Map(),mediaCache=new WeakMap();
+  const portraitIndexCache=new Map(),mediaCache=new WeakMap(),globalPortraitRefCache=new WeakMap();
   const fileOf=(object,name='')=>clean(object?.Billedfil||object?.Billede||object?.Portræt||object?.Portraet||object?.Foto)||`${clean(name)}.png`;
   const silhouette=()=>'<svg viewBox="0 0 80 100" aria-hidden="true"><circle cx="40" cy="31" r="18"/><path d="M12 88c2-21 13-33 28-33s26 12 28 33z"/></svg>';
   const frame=name=>{const node=document.createElement('figure');node.className='tn-student-portrait-frame tn-student-portrait-thumb';node.dataset.imageState='missing';node.setAttribute('aria-label',`Portræt af ${name||'elev'} mangler`);node.innerHTML=silhouette();return node;};
@@ -203,11 +203,32 @@
     })());
     return portraitIndexCache.get(key);
   }
-  function cacheFor(app){let cache=mediaCache.get(app);if(!cache){cache={byId:new Map(),list:null};mediaCache.set(app,cache);}return cache;}
-  async function mediaFor(app,id,file){
+  function cacheFor(app){let cache=mediaCache.get(app);if(!cache){cache={byId:new Map(),list:null,listAt:0};mediaCache.set(app,cache);}return cache;}
+  async function mediaListFor(app){
+    const cache=cacheFor(app),now=Date.now();
+    if(!cache.list||now-cache.listAt>150){cache.listAt=now;cache.list=app.mediaManager.list().catch(()=>[]);}
+    return cache.list;
+  }
+  async function globalPortraitMediaId(app,studentName=''){
+    const wanted=norm(studentName);if(!wanted)return'';
+    const now=Date.now(),cached=globalPortraitRefCache.get(app);let entry=cached;
+    if(!entry||now-entry.at>150){
+      const byName=new Map(),conflicts=new Set(),datasets=await app.storage.getAll('datasets').catch(()=>[]);
+      for(const dataset of datasets||[])for(const ref of Array.isArray(dataset?.meta?.portraitRefs)?dataset.meta.portraitRefs:[]){
+        const name=norm(ref?.studentName||ref?.name||ref?.title),mediaId=clean(ref?.mediaId);if(!name||!mediaId)continue;
+        if(byName.has(name)&&byName.get(name)!==mediaId)conflicts.add(name);else byName.set(name,mediaId);
+      }
+      for(const name of conflicts)byName.delete(name);
+      entry={at:now,byName};globalPortraitRefCache.set(app,entry);
+    }
+    return entry.byName.get(wanted)||'';
+  }
+  async function mediaFor(app,id,file,studentName=''){
     const cache=cacheFor(app);let media=null;
     if(id){if(!cache.byId.has(id))cache.byId.set(id,app.mediaManager.get(id).catch(()=>null));media=await cache.byId.get(id);}
-    if(!media&&file){if(!cache.list)cache.list=app.mediaManager.list().catch(()=>[]);const wanted=norm(clean(file).split(/[\\/]/).pop());media=(await cache.list).find(item=>norm(item?.name||item?.meta?.originalName)===wanted)||null;}
+    const list=(!media&&(file||studentName))?await mediaListFor(app):null;
+    if(!media&&file){const wanted=norm(clean(file).split(/[\\/]/).pop());media=(list||[]).find(item=>norm(item?.name||item?.fileName||item?.meta?.originalName)===wanted)||null;}
+    if(!media&&studentName){const wantedName=norm(studentName);media=(list||[]).find(item=>{const portrait=item?.studentPortrait===true||norm(item?.category)==='elevbilleder'||item?.source==='student-portrait';const storedName=norm(item?.studentName||item?.meta?.studentName||item?.title);return portrait&&storedName===wantedName;})||null;}
     return media;
   }
   function addPortraitSource(sources,seen,value){const src=clean(value);if(src&&!seen.has(src)){seen.add(src);sources.push(src);}}
@@ -216,16 +237,17 @@
     if(fileOf(object,''))return object;
     const sourceId=clean(dataset?.meta?.sourceDatasetId);if(!sourceId)return object;
     const source=await app.dataManager.get(sourceId).catch(()=>null);if(!source)return object;
-    const wanted=norm(object?.ElevID||object?.Unilogin||object?.['UNI-login']||object?.['UNI login']);if(!wanted)return object;
-    const idIndex=(source.columns||[]).findIndex(column=>/^(unilogin|uni.?login|elev.?id|student.?id)$/i.test(clean(column)));if(idIndex<0)return object;
+    const wanted=norm(object?.ElevID||object?.Elevnummer||object?.['Elev nummer']||object?.Elevnr||object?.['Elev nr']||object?.Unilogin||object?.['UNI-login']||object?.['UNI login']);if(!wanted)return object;
+    const idIndex=(source.columns||[]).findIndex(column=>/^(unilogin|uni.?login|elev.?id|student.?id|elev.?nummer|elev.?nr)$/i.test(clean(column)));if(idIndex<0)return object;
     const row=(source.rows||[]).find(candidate=>norm(Array.isArray(candidate)?candidate[idIndex]:candidate?.[source.columns[idIndex]])===wanted);
     return row?app.relationManager.rowObject(source,row):object;
   }
   async function loadPortrait(app,node,dataset,object,name,revokes){
     if(!node||node.dataset.imageState==='ready'||node.dataset.imageState==='loading')return;
     node.dataset.imageState='loading';object=await hydratedPortraitObject(app,dataset,object);
-    const file=fileOf(object,name),index=await portraitIndex(app,dataset),short=norm(file.split(/[\\/]/).pop()),id=index.byFile.get(short)||index.byName.get(norm(name))||'';
-    const media=await mediaFor(app,id,file),sources=[],seen=new Set();
+    const file=fileOf(object,name),index=await portraitIndex(app,dataset),short=norm(file.split(/[\\/]/).pop());
+    let id=index.byFile.get(short)||index.byName.get(norm(name))||'';if(!id)id=await globalPortraitMediaId(app,name);
+    const media=await mediaFor(app,id,file,name),sources=[],seen=new Set();
     const blob=media?.blob instanceof Blob&&media.blob.size?media.blob:media?.originalBlob instanceof Blob&&media.originalBlob.size?media.originalBlob:null;
     if(blob){const url=URL.createObjectURL(blob);addPortraitSource(sources,seen,url);revokes.push(()=>URL.revokeObjectURL(url));}
     addPortraitSource(sources,seen,media?.dataUrl);addPortraitSource(sources,seen,media?.originalDataUrl);
@@ -235,7 +257,7 @@
     addPortraitSource(sources,seen,localPortraitUrl(fallbackName));
     if(fallbackName){addPortraitSource(sources,seen,`https://plan2.xn--mns-ula.dk/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);addPortraitSource(sources,seen,`https://raw.githubusercontent.com/maans/plan2/main/demo-data/elevbilleder/${encodeURIComponent(fallbackName)}`);}
     if(!sources.length){node.dataset.imageState='missing';return;}
-    node.querySelectorAll('img').forEach(image=>image.remove());const image=document.createElement('img');image.alt=`Portræt af ${name||'elev'}`;image.loading='eager';image.decoding='async';let cursor=0;
+    node.querySelectorAll('img').forEach(image=>image.remove());const image=document.createElement('img');image.alt=`Portræt af ${name||'elev'}`;image.loading='lazy';image.decoding='async';let cursor=0;
     image.onload=()=>{node.dataset.imageState='ready';node.setAttribute('aria-label',image.alt);};
     image.onerror=()=>{cursor++;if(cursor<sources.length)image.src=sources[cursor];else{node.dataset.imageState='missing';image.remove();}};
     node.prepend(image);image.src=sources[0];
@@ -71132,15 +71154,48 @@ Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra
    console.error('Elevbilledmatch kunne ikke gemmes',error);draft.rowKey=previousRowKey;if(previousTitle!==undefined)draft.media.title=previousTitle;app.toast(error?.message||'Matchningen kunne ikke gemmes');return false;
   }finally{saving.delete(mediaId)}
  }
+ async function persistAutomaticIdMatches(){
+  const conflict=conflicts(),candidates=drafts.filter(draft=>draft.suggested&&draft.matchedBy==='id'&&draft.rowKey&&!conflict.has(draft.rowKey));
+  if(!candidates.length)return 0;
+  const mediaIds=new Set(candidates.map(draft=>clean(draft.media?.id)).filter(Boolean));
+  for(const dataset of allDatasets||[]){
+   if(clean(dataset?.id)===clean(ds.id))continue;
+   const refs=Array.isArray(dataset?.meta?.portraitRefs)?dataset.meta.portraitRefs:[];
+   if(!refs.some(ref=>mediaIds.has(clean(ref?.mediaId))))continue;
+   dataset.meta={...(dataset.meta||{}),portraitRefs:refs.filter(ref=>!mediaIds.has(clean(ref?.mediaId)))};
+   await app.storage.put('datasets',dataset);TN.emit?.('datasetchange',{kind:'update',dataset});
+  }
+  let currentRefs=[...(ds.meta?.portraitRefs||[])].filter(ref=>!mediaIds.has(clean(ref?.mediaId)));
+  let saved=0;
+  for(const draft of candidates){
+   const mediaId=clean(draft.media?.id),student=studentByKey.get(clean(draft.rowKey));if(!mediaId||!student)continue;
+   const media=await app.storage.get('media',mediaId)||draft.media;
+   media.category='Elevbilleder';media.studentPortrait=true;media.studentRowKey=clean(draft.rowKey);media.studentName=student.title||'';media.sourceDatasetId=clean(ds.id);media.source='student-portrait';media.updatedAt=TN.now();
+   await app.storage.put('media',media);TN.emit?.('mediachange',{kind:'update',media});draft.media=media;draft.manual=true;draft.suggested=false;
+   currentRefs=currentRefs.filter(ref=>clean(ref?.rowKey)!==clean(draft.rowKey));
+   currentRefs.push({mediaId:media.id,fileName:media.name||media.fileName||'',rowKey:clean(draft.rowKey),rowIndex:Number(student.index),studentName:student.title||'',matchedBy:'id',sourceDatasetId:clean(ds.id),title:media.title||media.name||media.fileName||'Billede',mimeType:media.mimeType||media.mime||media.blob?.type||'image/*',importedAt:new Date().toISOString()});
+   saved++;
+  }
+  if(saved){
+   ds.meta={...(ds.meta||{}),portraitRefs:currentRefs,portraitSource:'Elevadministration',portraitMatchVersion:7,portraitLastMatch:{at:new Date().toISOString(),files:drafts.length,matched:drafts.reduce((sum,item)=>sum+(item.rowKey?1:0),0),unmatched:drafts.reduce((sum,item)=>sum+(item.rowKey?0:1),0)}};
+   await app.dataManager.update(ds);
+   for(const widget of (TN.runtime?.activeWidgets||[]).filter(item=>item?.type==='card-matrix'&&(item.content?.kind||'student')==='student'))try{await app.refreshWidgetView?.(widget.id)}catch(_error){}
+   app.toast(`${saved} elevbillede${saved===1?'':'r'} matchet automatisk via elev-ID`);
+  }
+  return saved;
+ }
  function draw(){
+  for(const draft of drafts){try{draft.previewObserver?.disconnect?.()}catch(_error){}draft.previewObserver=null;try{draft.binding?.release?.()}catch(_error){}draft.binding=null;}
   const q=lower(search.value),wanted=status.value,group=groups.find(item=>item.id===groupSelect.value),conflict=conflicts();grid.replaceChildren();
   let matched=0,unmatched=0,conflictCount=0;for(const draft of drafts){const st=stateOf(draft,conflict);if(st==='matched')matched++;else if(st==='conflict')conflictCount++;else unmatched++}count.textContent=`${drafts.length} billeder · ${matched} matchet · ${unmatched} uafklarede · ${conflictCount} konflikter`;
   const visible=drafts.filter(draft=>{const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),text=lower([draft.title,draft.media.name,draft.media.fileName,student?.title].filter(Boolean).join(' '));const statusOk=wanted==='all'||(wanted==='attention'&&(st==='unmatched'||st==='conflict'))||wanted===st;const groupOk=!group||(draft.rowKey&&group.rowKeys.has(draft.rowKey));return statusOk&&groupOk&&(!q||text.includes(q))});
-  for(const draft of visible){const st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),card=document.createElement('article'),sourceName=clean(draft.media.name||draft.media.fileName||draft.title||'Billede'),extensionMatch=sourceName.match(/(\.[^.\/]+)$/),extension=extensionMatch?extensionMatch[1]:'',currentTitle=clean(draft.title||sourceName),titleWithoutExtension=extension&&currentTitle.toLocaleLowerCase('da-DK').endsWith(extension.toLocaleLowerCase('da-DK'))?currentTitle.slice(0,-extension.length):currentTitle.replace(/\.[^.\/]+$/,''),displayTitle=student?.title||titleWithoutExtension||'Uden titel';card.className='plan2-pm-card';card.dataset.state=st;card.innerHTML=`<span class="plan2-pm-badge" data-kind="${st==='conflict'?'conflict':st==='matched'?'portrait':'media'}">${st==='conflict'?'Konflikt':st==='matched'?'Elevbillede':'Medie'}</span><div class="plan2-pm-image"><img alt="${TN.escapeHtml(displayTitle)}" title="${TN.escapeHtml(sourceName)}"><div class="plan2-pm-file" title="${TN.escapeHtml(sourceName)}">${TN.escapeHtml(sourceName)}</div></div><div class="plan2-pm-fields"><div class="plan2-pm-title" title="${TN.escapeHtml(displayTitle)}">${TN.escapeHtml(displayTitle)}</div><label class="plan2-pm-name-label">Billednavn<div class="plan2-pm-name-row"><input type="text" value="${TN.escapeHtml(titleWithoutExtension)}" aria-label="Billednavn uden filtype"><span class="plan2-pm-extension" aria-label="Låst filtype">${TN.escapeHtml(extension||'')}</span></div></label><label>Vælg elev<select data-student><option value="">Ikke knyttet</option>${students.map(item=>`<option value="${TN.escapeHtml(clean(item.rowKey))}" ${clean(item.rowKey)===draft.rowKey?'selected':''}>${TN.escapeHtml(item.title)}</option>`).join('')}</select></label>${st==='conflict'?'<div class="plan2-pm-state">Flere billeder er knyttet til samme elev</div>':''}<div class="plan2-pm-card-actions"><button type="button" class="plan2-pm-replace" data-replace aria-label="Udskift billedfilen og bevar koblingen">Udskift</button><button type="button" class="plan2-pm-unlink" data-unlink ${draft.rowKey?'':'disabled'}>Reset</button><button type="button" class="plan2-pm-delete" data-delete aria-label="Slet billedet permanent fra Plan">Slet</button></div></div>`;
-   const image=card.querySelector('img');
-   try{draft.binding?.release?.()}catch(_error){}draft.binding=null;
-   if(draft.url)image.src=draft.url;else if(TN.AssetResolver?.bindImage){TN.AssetResolver.bindImage(app,image,draft.assetRef||draft.media,{placeholder:false,defaultFolder:'demo-data/elevbilleder',onMissing:()=>{image.alt=`${displayTitle} · billedet kunne ikke åbnes`;}}).then(binding=>{if(image.isConnected)draft.binding=binding;else binding?.release?.()}).catch(error=>console.warn('Elevbilledet kunne ikke bindes i matcheren',error))}
+  for(let visibleIndex=0;visibleIndex<visible.length;visibleIndex++){const draft=visible[visibleIndex],st=stateOf(draft,conflict),student=studentByKey.get(draft.rowKey),card=document.createElement('article'),sourceName=clean(draft.media.name||draft.media.fileName||draft.title||'Billede'),extensionMatch=sourceName.match(/(\.[^.\/]+)$/),extension=extensionMatch?extensionMatch[1]:'',currentTitle=clean(draft.title||sourceName),titleWithoutExtension=extension&&currentTitle.toLocaleLowerCase('da-DK').endsWith(extension.toLocaleLowerCase('da-DK'))?currentTitle.slice(0,-extension.length):currentTitle.replace(/\.[^.\/]+$/,''),displayTitle=student?.title||titleWithoutExtension||'Uden titel';card.className='plan2-pm-card';card.dataset.state=st;card.innerHTML=`<span class="plan2-pm-badge" data-kind="${st==='conflict'?'conflict':st==='matched'?'portrait':'media'}">${st==='conflict'?'Konflikt':st==='matched'?'Elevbillede':'Medie'}</span><div class="plan2-pm-image"><img alt="${TN.escapeHtml(displayTitle)}" title="${TN.escapeHtml(sourceName)}"><div class="plan2-pm-file" title="${TN.escapeHtml(sourceName)}">${TN.escapeHtml(sourceName)}</div></div><div class="plan2-pm-fields"><div class="plan2-pm-title" title="${TN.escapeHtml(displayTitle)}">${TN.escapeHtml(displayTitle)}</div><label class="plan2-pm-name-label">Billednavn<div class="plan2-pm-name-row"><input type="text" value="${TN.escapeHtml(titleWithoutExtension)}" aria-label="Billednavn uden filtype"><span class="plan2-pm-extension" aria-label="Låst filtype">${TN.escapeHtml(extension||'')}</span></div></label><label>Vælg elev<select data-student data-options-ready="false"><option value="">Ikke knyttet</option>${student?`<option value="${TN.escapeHtml(clean(student.rowKey))}" selected>${TN.escapeHtml(student.title)}</option>`:''}</select></label>${st==='conflict'?'<div class="plan2-pm-state">Flere billeder er knyttet til samme elev</div>':''}<div class="plan2-pm-card-actions"><button type="button" class="plan2-pm-replace" data-replace aria-label="Udskift billedfilen og bevar koblingen">Udskift</button><button type="button" class="plan2-pm-unlink" data-unlink ${draft.rowKey?'':'disabled'}>Reset</button><button type="button" class="plan2-pm-delete" data-delete aria-label="Slet billedet permanent fra Plan">Slet</button></div></div>`;
+   const image=card.querySelector('img');image.loading='lazy';image.decoding='async';try{image.fetchPriority='low'}catch(_error){}
+   const bindPreview=()=>{if(!image.isConnected||image.dataset.previewBound==='true')return;image.dataset.previewBound='true';if(draft.url){image.src=draft.url;return;}if(TN.AssetResolver?.bindImage){TN.AssetResolver.bindImage(app,image,draft.assetRef||draft.media,{placeholder:false,defaultFolder:'demo-data/elevbilleder',onMissing:()=>{image.alt=`${displayTitle} · billedet kunne ikke åbnes`;}}).then(binding=>{if(image.isConnected)draft.binding=binding;else binding?.release?.()}).catch(error=>console.warn('Elevbilledet kunne ikke bindes i matcheren',error))}};
+   if(draft.url||visibleIndex<12||typeof IntersectionObserver!=='function')bindPreview();else{const observer=new IntersectionObserver(entries=>{if(!entries.some(entry=>entry.isIntersecting||entry.intersectionRatio>0))return;observer.disconnect();draft.previewObserver=null;bindPreview();},{root:grid,rootMargin:'480px 0px'});draft.previewObserver=observer;observer.observe(card);}
    const titleInput=card.querySelector('input'),studentSelect=card.querySelector('select'),replaceButton=card.querySelector('[data-replace]'),resetButton=card.querySelector('[data-unlink]'),deleteButton=card.querySelector('[data-delete]');
+   const ensureStudentOptions=()=>{if(studentSelect.dataset.optionsReady==='true')return;const current=clean(draft.rowKey);studentSelect.innerHTML=`<option value="">Ikke knyttet</option>${students.map(item=>`<option value="${TN.escapeHtml(clean(item.rowKey))}">${TN.escapeHtml(item.title)}</option>`).join('')}`;studentSelect.value=current;studentSelect.dataset.optionsReady='true';};
+   studentSelect.addEventListener('pointerdown',ensureStudentOptions,{once:true});studentSelect.addEventListener('focus',ensureStudentOptions,{once:true});studentSelect.addEventListener('keydown',ensureStudentOptions,{once:true});
    titleInput.oninput=event=>{draft.title=clean(event.target.value)+(extension||'')};
    titleInput.onblur=async()=>{if(!clean(titleInput.value)){titleInput.value=titleWithoutExtension;draft.title=titleWithoutExtension+(extension||'');return}await saveDraft(draft,draft.rowKey)};
    studentSelect.onchange=async event=>{const previous=draft.rowKey,next=event.target.value;studentSelect.disabled=true;resetButton.disabled=true;const ok=await saveDraft(draft,next);if(!ok)draft.rowKey=previous;draw()};
@@ -71151,8 +71206,9 @@ Elevkoblingen og ressourcens ID bevares. Det tidligere billedindhold fjernes fra
  }
  search.oninput=TN.debounce?TN.debounce(draw,80):draw;status.onchange=draw;groupSelect.onchange=draw;draw();
  const restore=hideOverviewForMatcher();
- const matcherModal=app.modalManager.open({title:`Match elevbilleder · ${drafts.length} billeder`,body,className:'tn-modal-wide plan2-pm-modal',onClose:()=>{for(const draft of drafts)try{draft.binding?.release?.()}catch(_error){}urls.forEach(URL.revokeObjectURL);restore()},actions:[]});
+ const matcherModal=app.modalManager.open({title:`Match elevbilleder · ${drafts.length} billeder`,body,className:'tn-modal-wide plan2-pm-modal',onClose:()=>{for(const draft of drafts){try{draft.previewObserver?.disconnect?.()}catch(_error){}try{draft.binding?.release?.()}catch(_error){}}urls.forEach(URL.revokeObjectURL);restore()},actions:[]});
  matcherModal.layer.classList.add('plan2-pm-layer');
+ requestAnimationFrame(()=>{void persistAutomaticIdMatches().then(saved=>{if(saved&&matcherModal.layer?.isConnected)draw()}).catch(error=>console.warn('Automatisk elev-ID-match kunne ikke gemmes',error));});
  setTimeout(()=>{try{search.focus({preventScroll:true})}catch(_error){search.focus()}},40);
 }
 async function importPortraits(app,ds,rerender){
