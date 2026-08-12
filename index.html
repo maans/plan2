@@ -54911,6 +54911,8 @@ function cardCandidates(card){
 }
 function findRowIndex(dataset,card,index){
   const rows=(dataset.rows||[]).map(row=>asObject(dataset,row));
+  const directIndex=Number(card?.rowIndex),linkedDatasetId=clean(card?.sourceDatasetId);
+  if(linkedDatasetId===clean(dataset?.id)&&Number.isInteger(directIndex)&&directIndex>=0&&directIndex<rows.length)return directIndex;
   const column=imageColumn(dataset);
   if(column){
     const wanted=new Set(cardCandidates(card));
@@ -76925,25 +76927,35 @@ function basename(value){return clean(value).split(/[\\/]/).pop();}
 async function ownerDataset(app,dataset){let owner=dataset,guard=0;while(owner&&!Array.isArray(owner.meta?.portraitRefs)&&owner.meta?.sourceDatasetId&&guard++<6)owner=await app.dataManager.get(owner.meta.sourceDatasetId).catch(()=>null);return owner||dataset;}
 async function studentPhotoSources(app){
  const all=await app.dataManager.listAvailable(TN.runtime?.activeSession?.id).catch(()=>[]),sources=[];
+ let activeStudentId='';
+ try{activeStudentId=clean((JSON.parse(localStorage.getItem('plan:elevadmin:active-models:v1')||'{}')||{}).students);}catch(_){}
  for(const dataset of all){
   const owner=await ownerDataset(app,dataset),refs=Array.isArray(owner?.meta?.portraitRefs)?owner.meta.portraitRefs:[];
   if(!refs.length)continue;
-  const byFile=new Map(),byName=new Map();
-  refs.forEach(ref=>{const file=basename(ref?.fileName),mediaId=clean(ref?.mediaId);if(file&&mediaId){byFile.set(norm(file),mediaId);byName.set(norm(file.replace(/\.[^.]+$/,'')),mediaId);}});
+  const byRowKey=new Map(),byFile=new Map(),byName=new Map();
+  refs.forEach(ref=>{
+   const mediaId=clean(ref?.mediaId);if(!mediaId)return;
+   const rowKey=clean(ref?.rowKey);if(rowKey&&!byRowKey.has(rowKey))byRowKey.set(rowKey,ref);
+   const file=basename(ref?.fileName);if(file){if(!byFile.has(norm(file)))byFile.set(norm(file),ref);const stem=norm(file.replace(/\.[^.]+$/,''));if(stem&&!byName.has(stem))byName.set(stem,ref);}
+   const refName=norm(ref?.studentName||ref?.name||ref?.title);if(refName&&!byName.has(refName))byName.set(refName,ref);
+  });
   const students=app.relationManager?.studentRows?.(dataset)||[],items=[];
   for(const student of students){
-   const file=basename(fileOf(student.object)||`${student.title}.png`),mediaId=byFile.get(norm(file))||byName.get(norm(student.title));
-   if(!mediaId)continue;
-   items.push({id:`${dataset.id}:${student.rowKey}`,title:student.title||file.replace(/\.[^.]+$/,''),detail:dataset.name||'Elevbilleder',item:{mediaId,name:student.title||file,alt:student.title||file,fit:'cover',studentId:String(student.rowKey),rowKey:String(student.rowKey),rowIndex:Number(student.index),sourceDatasetId:String(dataset.id),sourceDatasetName:dataset.name||'',fileName:file}});
+   const rowKey=clean(student?.rowKey),fallbackFile=basename(fileOf(student.object)||`${student.title}.png`);
+   const ref=byRowKey.get(rowKey)||byFile.get(norm(fallbackFile))||byName.get(norm(student.title))||byName.get(norm(fallbackFile.replace(/\.[^.]+$/,'')));
+   const mediaId=clean(ref?.mediaId);if(!mediaId)continue;
+   const file=basename(ref?.fileName)||fallbackFile;
+   items.push({id:`${dataset.id}:${rowKey||student.index}`,title:student.title||clean(ref?.studentName)||file.replace(/\.[^.]+$/,''),detail:dataset.name||'Elevbilleder',item:{mediaId,name:student.title||clean(ref?.studentName)||file,alt:student.title||clean(ref?.studentName)||file,fit:'cover',studentId:rowKey,rowKey,rowIndex:Number(student.index),sourceDatasetId:String(dataset.id),sourceDatasetName:dataset.name||'',fileName:file,studentPortrait:true}});
   }
   if(items.length)sources.push({dataset,items});
  }
  const seen=new Set(),deduped=[];
- for(const source of sources.sort((a,b)=>String(a.dataset.name||'').localeCompare(String(b.dataset.name||''),'da'))){
+ const ordered=sources.sort((a,b)=>Number(clean(b.dataset?.id)===activeStudentId)-Number(clean(a.dataset?.id)===activeStudentId)||String(a.dataset?.name||'').localeCompare(String(b.dataset?.name||''),'da'));
+ for(const source of ordered){
   const unique=[];
   for(const entry of source.items){
    const item=entry.item||{};
-   const key=clean(item.mediaId)||norm(item.studentName||entry.title)||clean(item.studentId||item.rowKey)||entry.id;
+   const key=clean(item.mediaId)||clean(item.studentId||item.rowKey)||norm(entry.title)||entry.id;
    if(!key||seen.has(key))continue;
    seen.add(key);unique.push(entry);
   }
@@ -76955,11 +76967,33 @@ async function mediaUrl(app,item,revokes){if(TN.AssetResolver?.resolve){const re
 async function createFamilyWidget(app,mode,items,title){
  if(!items.length)throw new Error('Vælg mindst ét billede');
  app.modalManager.closeAll?.();
- let widget=await app.addWidget('image-matrix',{title:title||`Billedmatrix · ${items.length} billeder`,content:{items:items.map(entry=>entry.item||entry),page:0,pageSize:12,fit:'cover'},geometry:{width:1050,height:640}});
+ const prepared=items.map(entry=>entry.item||entry);
+ let widget=await app.addWidget('image-matrix',{title:title||`Billedmatrix · ${prepared.length} billeder`,content:{items:prepared,page:0,pageSize:12,fit:'cover'},geometry:{width:1050,height:640}});
  widget=(TN.runtime?.activeWidgets||[]).find(w=>String(w.id)===String(widget?.id||widget))||widget;
- if(mode==='flip'&&widget?.type==='image-matrix'&&TN.PlanPictureFlipV6?.transformImageMatrix){await TN.PlanPictureFlipV6.transformImageMatrix(app,widget);widget=(TN.runtime?.activeWidgets||[]).find(w=>String(w.id)===String(widget.id))||widget;}
+ if(mode==='flip'&&widget?.type==='image-matrix'){
+  const sourceIds=[...new Set(prepared.map(item=>clean(item?.sourceDatasetId)).filter(Boolean))];
+  const studentLinked=sourceIds.length===1&&prepared.every(item=>clean(item?.rowKey||item?.studentId));
+  const source=studentLinked?await app.dataManager.get(sourceIds[0]).catch(()=>null):null;
+  if(source&&typeof window.Plan2?.bindPictureFlipDataset==='function'){
+   const cards=prepared.map((item,index)=>{const rowKey=clean(item?.rowKey||item?.studentId);return{...item,id:`student:${rowKey||index}`,mediaId:item?.mediaId||null,src:item?.src||'',fileName:item?.fileName||item?.name||item?.alt||`Billede ${index+1}`,studentId:rowKey,rowKey,rowIndex:Number(item?.rowIndex),sourceDatasetId:source.id,frontLabel:item?.name||item?.alt||'',frontValues:{},answers:{},category:'',note:''};});
+   widget.type='picture-flip-game';
+   widget.title=title||`Billedvendespil · ${cards.length} billeder`;
+   widget.content={cards,answerColumns:[],answerKey:'',frontColumns:[],frontLabelMode:'hidden',sourceDatasetId:source.id,sourceDatasetName:source.name||'',sourceImageWidgetId:widget.id,view:'matrix',flipped:{},order:cards.map(card=>card.id),activeIndex:0,singleFlipped:false,createdAt:TN.now?.()||Date.now()};
+   await app.widgetManager.update(widget,{immediate:true});
+   widget=(TN.runtime?.activeWidgets||[]).find(w=>String(w.id)===String(widget.id))||widget;
+   await window.Plan2.bindPictureFlipDataset(app,widget,source);
+   widget=(TN.runtime?.activeWidgets||[]).find(w=>String(w.id)===String(widget.id))||widget;
+   widget.content.frontLabelMode='hidden';
+   if(widget.content.pictureFlipBinding)widget.content.pictureFlipBinding.defaultFrontLabelMode='hidden';
+   await app.widgetManager.update(widget,{immediate:true});
+   await app.refreshWidgetView?.(widget.id);
+  }else if(TN.PlanPictureFlipV6?.transformImageMatrix){
+   await TN.PlanPictureFlipV6.transformImageMatrix(app,widget);
+   widget=(TN.runtime?.activeWidgets||[]).find(w=>String(w.id)===String(widget.id))||widget;
+  }
+ }
  if(widget&&TN.StudentWidgetScope){const sync=TN.StudentWidgetScope.syncImageFamily||TN.StudentWidgetScope.syncPictureFlip;if(typeof sync==='function')await sync(app,widget,{persist:true,refresh:true}).catch(()=>{});}
- app.selectWidget?.(widget?.id);app.toast?.(`${mode==='flip'?'Billedvendespil':'Billedmatrix'} oprettet med ${items.length} billeder`);return widget;
+ app.selectWidget?.(widget?.id);app.toast?.(`${mode==='flip'?'Billedvendespil':'Billedmatrix'} oprettet med ${prepared.length} billeder`);return widget;
 }
 function openMultiPicker(app,{title,entries,mode,back}){
  const revokes=[],selected=new Set(entries.map(x=>x.id));
