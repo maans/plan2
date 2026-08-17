@@ -81401,3 +81401,108 @@ try{TN.version='0.14.51-index34-student-scope-touch-default';document.title='PLA
 </script>
 
 <!-- Plan 2.0 · 2026-08-09 · index34: index33 + entydigt touch på tavlehold og stabil standardholdsnøgle for enkeltstående forløb. -->
+
+<!-- Plan 2.0 · 2026-08-17 · Niveudeling: touch-aktivering på iPad -->
+<style id="plan2-leveling-touch-ipad-fix-style">
+/* Niveudelingens handlinger skal være egentlige touch-mål uden at ændre desktop-adfærd. */
+.tn-leveling-matrix button,
+.tn-leveling-modal button{
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:rgba(59,130,246,.18);
+}
+.tn-leveling-card button,
+.tn-leveling-tools button,
+.tn-leveling-nav button,
+.tn-leveling-tabs button,
+.tn-leveling-close{
+  min-height:44px!important;
+}
+</style>
+<script id="plan2-leveling-touch-ipad-fix">
+(function(TN){
+  'use strict';
+  if(window.__plan2LevelingTouchIpadFix)return;
+  window.__plan2LevelingTouchIpadFix=true;
+
+  const selector='.tn-leveling-matrix button:not(:disabled),.tn-leveling-modal button:not(:disabled)';
+  const MOVE_LIMIT=16;
+  const TIME_LIMIT=1000;
+  let touchState=null;
+  const penStates=new Map();
+  let suppressTrustedUntil=0;
+
+  const buttonFrom=node=>node?.closest?.(selector)||null;
+  const sameReleasedButton=(button,x,y)=>{
+    const released=document.elementFromPoint(x,y);
+    return !!released && buttonFrom(released)===button;
+  };
+  const activate=(button,event)=>{
+    if(!button?.isConnected||button.disabled)return;
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    event?.stopImmediatePropagation?.();
+    suppressTrustedUntil=performance.now()+800;
+    button.click();
+  };
+
+  /* iPad/WebKit: aktivér på den afsluttede touchbevægelse. Det omgår at
+     tavlevinduets pointer-/fokuslogik kan opsluge Safaris efterfølgende click. */
+  document.addEventListener('touchstart',event=>{
+    if(event.touches.length!==1)return;
+    const point=event.changedTouches?.[0];
+    const button=buttonFrom(event.target);
+    if(!point||!button)return;
+    touchState={button,id:point.identifier,x:point.clientX,y:point.clientY,time:performance.now(),moved:false};
+    event.stopPropagation();
+  },{capture:true,passive:true});
+
+  document.addEventListener('touchmove',event=>{
+    if(!touchState)return;
+    const point=[...(event.changedTouches||[])].find(item=>item.identifier===touchState.id);
+    if(point&&Math.hypot(point.clientX-touchState.x,point.clientY-touchState.y)>MOVE_LIMIT)touchState.moved=true;
+  },{capture:true,passive:true});
+
+  document.addEventListener('touchcancel',()=>{touchState=null;},{capture:true,passive:true});
+
+  document.addEventListener('touchend',event=>{
+    if(!touchState)return;
+    const state=touchState;touchState=null;
+    const point=[...(event.changedTouches||[])].find(item=>item.identifier===state.id);
+    if(!point||state.moved||performance.now()-state.time>TIME_LIMIT)return;
+    if(!state.button.isConnected||!sameReleasedButton(state.button,point.clientX,point.clientY))return;
+    activate(state.button,event);
+  },{capture:true,passive:false});
+
+  /* Apple Pencil/andre pen-pointere får samme sikre aktivering uden at påvirke mus. */
+  document.addEventListener('pointerdown',event=>{
+    if(event.pointerType!=='pen'||!event.isPrimary)return;
+    const button=buttonFrom(event.target);if(!button)return;
+    penStates.set(event.pointerId,{button,x:event.clientX,y:event.clientY,time:performance.now(),moved:false});
+    event.stopPropagation();
+  },true);
+  document.addEventListener('pointermove',event=>{
+    const state=penStates.get(event.pointerId);if(!state)return;
+    if(Math.hypot(event.clientX-state.x,event.clientY-state.y)>MOVE_LIMIT)state.moved=true;
+  },true);
+  document.addEventListener('pointercancel',event=>penStates.delete(event.pointerId),true);
+  document.addEventListener('pointerup',event=>{
+    const state=penStates.get(event.pointerId);penStates.delete(event.pointerId);
+    if(!state||state.moved||performance.now()-state.time>TIME_LIMIT)return;
+    if(!state.button.isConnected||!sameReleasedButton(state.button,event.clientX,event.clientY))return;
+    activate(state.button,event);
+  },true);
+
+  /* Safari kan sende et forsinket trusted click efter touchend. Kun den mulige
+     dublet i Niveudeling undertrykkes; syntetisk button.click() passerer. */
+  document.addEventListener('click',event=>{
+    if(!event.isTrusted||performance.now()>suppressTrustedUntil)return;
+    if(!buttonFrom(event.target))return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation?.();
+    suppressTrustedUntil=0;
+  },true);
+
+  try{if(TN)TN.version='0.14.52-leveling-touch';}catch(_error){}
+})(window.TavleNext);
+</script>
